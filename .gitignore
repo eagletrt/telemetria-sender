@@ -1,0 +1,8 @@
+.vscode
+*.DS_store
+/build
+/xbuild
+/install/*
+!/install/.gitkeep
+/include/version.h
+/*.json
