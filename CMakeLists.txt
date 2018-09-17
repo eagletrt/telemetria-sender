@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.9.0)
+# set(CMAKE_BUILD_TYPE Release)
 set(CMAKE_BUILD_TYPE Debug)
 
 # PRELIMINARY AND COMMON SETUP
@@ -47,12 +48,16 @@ configure_file(
 # TARGETS
 #########
 
+# Target library
+# add_library(my_lib STATIC ${LIB_SOURCES})
+# target_include_directories(my_lib PRIVATE "${MONGOC_STATIC_INCLUDE_DIRS}")
+# target_link_libraries (cross-template libmosquitto.a "${MONGOC_STATIC_LIBRARIES}")
+
 # Target cross-template (simple example)
 add_executable(cross-template ${SOURCE_DIR}/app/main.c)
 target_include_directories (cross-template PRIVATE "${MONGOC_STATIC_INCLUDE_DIRS}")
 target_link_libraries (cross-template libmosquitto.a "${MONGOC_STATIC_LIBRARIES}")
 target_compile_definitions (cross-template PRIVATE "${MONGOC_STATIC_DEFINITIONS}")
-
 
 # Install setup (directly copy to CMAKE_INSTALL_PREFIX when make install)
 set(CMAKE_INSTALL_PREFIX ${CMAKE_HOME_DIRECTORY}/install)
@@ -66,5 +71,5 @@ install(TARGETS cross-template
 # Install package generator (creates an installer script)
 set(CPACK_GENERATOR "STGZ")
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
-set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
+set(CPACK_PROJECT_VERSION ${GIT_VERSION_TAG})
 include(CPack)

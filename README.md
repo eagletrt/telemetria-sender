@@ -4,7 +4,7 @@
 build a [Docker container](https://docker.com):
 
 ```bash
-$ docker build . -t eagle-rpi -v$(pwd):/root/devel
+$ docker build . -t eagle-rpi
 $ docker run -ti --rm -v$(pwd):/root/devel --name erpi eagle-rpi
 root@4fedfaf5b5c7:~/devel#
 ```
@@ -55,5 +55,8 @@ then you can build and install on the target system with one command from within
 
 ```bash
 $ make -Cxbuild install
+# or:
+$ cd xbuild
+$ make install
 ```
 
