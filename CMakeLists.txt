@@ -17,7 +17,7 @@ execute_process(
   OUTPUT_STRIP_TRAILING_WHITESPACE
 )
 
-project(cross-template VERSION ${GIT_VERSION_TAG} LANGUAGES C)
+project(pub VERSION ${GIT_VERSION_TAG} LANGUAGES C)
 
 option(CROSS "Do a cross-compile" off)
 if(CROSS)
@@ -66,15 +66,21 @@ configure_file(
 # target_link_libraries (my_lib libmosquitto.a ${MONGO_LIBS})
 # target_compile_definitions (my_lib PRIVATE ${MONGOC_STATIC_DEFINITIONS})
 
-# Target cross-template (simple example)
-add_executable(cross-template ${SOURCE_DIR}/app/main.c)
-target_include_directories (cross-template PRIVATE ${MONGOC_STATIC_INCLUDE_DIRS})
-target_link_libraries (cross-template ${BASE_LIBS} ${MONGO_LIBS})
-target_compile_definitions (cross-template PRIVATE ${MONGOC_STATIC_DEFINITIONS})
+# Target publisher (simple example)
+add_executable(pub ${SOURCE_DIR}/app/pub.c)
+target_include_directories (pub PRIVATE ${MONGOC_STATIC_INCLUDE_DIRS})
+target_link_libraries (pub ${BASE_LIBS} ${MONGO_LIBS})
+target_compile_definitions (pub PRIVATE ${MONGOC_STATIC_DEFINITIONS})
+
+# Target publisher (simple example)
+add_executable(sub ${SOURCE_DIR}/app/sub.c)
+target_include_directories (pub PRIVATE ${MONGOC_STATIC_INCLUDE_DIRS})
+target_link_libraries (sub ${BASE_LIBS} ${MONGO_LIBS})
+target_compile_definitions (sub PRIVATE ${MONGOC_STATIC_DEFINITIONS})
 
 # Install setup (directly copy to CMAKE_INSTALL_PREFIX when make install)
 set(CMAKE_INSTALL_PREFIX ${CMAKE_HOME_DIRECTORY}/install)
-install(TARGETS cross-template
+install(TARGETS pub sub
   RUNTIME DESTINATION bin
   LIBRARY DESTINATION lib
   ARCHIVE DESTINATION lib
