@@ -74,7 +74,7 @@ target_compile_definitions (pub PRIVATE ${MONGOC_STATIC_DEFINITIONS})
 
 # Target publisher (simple example)
 add_executable(sub ${SOURCE_DIR}/app/sub.c)
-target_include_directories (pub PRIVATE ${MONGOC_STATIC_INCLUDE_DIRS})
+target_include_directories (sub PRIVATE ${MONGOC_STATIC_INCLUDE_DIRS})
 target_link_libraries (sub ${BASE_LIBS} ${MONGO_LIBS})
 target_compile_definitions (sub PRIVATE ${MONGOC_STATIC_DEFINITIONS})
 
