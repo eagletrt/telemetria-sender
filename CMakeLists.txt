@@ -3,18 +3,6 @@ cmake_minimum_required(VERSION 3.9.0)
 set(CMAKE_BUILD_TYPE Debug)
 
 # PRELIMINARY AND COMMON SETUP
-# If using mongoc:
-find_package(libmongoc-static-1.0 1.7 REQUIRED)
-message("--   mongoc found version \"${MONGOC_STATIC_VERSION}\"")
-message("--   mongoc include path \"${MONGOC_STATIC_INCLUDE_DIRS}\"")
-message("--   mongoc libraries \"${MONGOC_STATIC_LIBRARIES}\"")
-
-option(CROSS "Do a cross-compile" off)
-if(CROSS)
-  message(STATUS "cross-compiling")
-  set(CMAKE_TOOLCHAIN_FILE /root/Toolchain-rpi.cmake)
-endif()
-
 # GIT versioning
 execute_process(
   COMMAND git describe --long --dirty=§
@@ -30,6 +18,26 @@ execute_process(
 )
 
 project(cross-template VERSION ${GIT_VERSION_TAG} LANGUAGES C)
+
+option(CROSS "Do a cross-compile" off)
+if(CROSS)
+  message(STATUS "cross-compiling")
+  set(CMAKE_TOOLCHAIN_FILE /root/Toolchain-rpi.cmake)
+  # If using mongoc:
+  set(CMAKE_PREFIX_PATH 
+    /usr/arm-linux-gnueabihf/lib/cmake/libmongoc-1.0
+    /usr/arm-linux-gnueabihf/lib/cmake/libmongoc-static-1.0
+    /usr/arm-linux-gnueabihf/lib/cmake/libbson-1.0
+    /usr/arm-linux-gnueabihf/lib/cmake/libbson-static-1.0
+  )
+  find_package(libmongoc-static-1.0 1.7 REQUIRED)
+  message("--   mongoc found version \"${MONGOC_STATIC_VERSION}\"")
+  message("--   mongoc include path \"${MONGOC_STATIC_INCLUDE_DIRS}\"")
+  message("--   mongoc libraries \"${MONGOC_STATIC_LIBRARIES}\"")
+  set(BASE_LIBS libmosquitto.a pthread dl m ssl crypto rt)
+else()
+  set(BASE_LIBS libmosquitto.a pthread dl m ssl crypto)
+endif()
 
 # Common setup for all targets:
 include_directories(include) #search for headers in that dir
@@ -56,7 +64,7 @@ configure_file(
 # Target cross-template (simple example)
 add_executable(cross-template ${SOURCE_DIR}/app/main.c)
 target_include_directories (cross-template PRIVATE "${MONGOC_STATIC_INCLUDE_DIRS}")
-target_link_libraries (cross-template libmosquitto.a "${MONGOC_STATIC_LIBRARIES}")
+target_link_libraries (cross-template ${BASE_LIBS})
 target_compile_definitions (cross-template PRIVATE "${MONGOC_STATIC_DEFINITIONS}")
 
 # Install setup (directly copy to CMAKE_INSTALL_PREFIX when make install)
