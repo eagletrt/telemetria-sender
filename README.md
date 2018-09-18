@@ -60,3 +60,36 @@ $ cd xbuild
 $ make install
 ```
 
+## SHORT version
+Cross compilation (run from **HOST** shell):
+
+```bash
+$ ./cross cmake -Bxbuild -H. -DCROSS=ON
+$ ./cross make -Cxbuild
+$ .cross xbuild/cross-template
+Version 0.0.1-3-gb0f4849§
+
+Testing Mosquitto
+MQTT: Cannot assign requested address
+
+Testing BSON
+Document:
+{ "idx" : 1, "name" : "test" }
+length: 30
+```
+
+Compilation for local host:
+
+```bash
+$ cmake -Bbuild -H.
+$ make -Cbuild
+$ build/cross-template
+Version 0.0.1-3-gb0f4849§
+
+Testing Mosquitto
+
+Testing BSON
+Document:
+{ "idx" : 1, "name" : "test" }
+length: 30
+```

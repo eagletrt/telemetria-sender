@@ -34,13 +34,17 @@ if(CROSS)
   message("--   mongoc found version \"${MONGOC_STATIC_VERSION}\"")
   message("--   mongoc include path \"${MONGOC_STATIC_INCLUDE_DIRS}\"")
   message("--   mongoc libraries \"${MONGOC_STATIC_LIBRARIES}\"")
+  set(MONGO_LIBS ${MONGOC_STATIC_LIBRARIES})
   set(BASE_LIBS libmosquitto.a pthread dl m ssl crypto rt)
 else()
+  set(MONGO_LIBS mongoc-1.0 bson-1.0)
   set(BASE_LIBS libmosquitto.a pthread dl m ssl crypto)
+  include_directories(include /usr/local/include/libbson-1.0)
+  include_directories(include /usr/local/include/libmongoc-1.0)
 endif()
 
 # Common setup for all targets:
-include_directories(include) #search for headers in that dir
+include_directories(include /usr/local/include) #search for headers in that dir
 set(SOURCE_DIR src)
 file(GLOB LIB_SOURCES "${SOURCE_DIR}/*.c") #put into LIB_SOURCES the globbed list
 
@@ -58,14 +62,15 @@ configure_file(
 
 # Target library
 # add_library(my_lib STATIC ${LIB_SOURCES})
-# target_include_directories(my_lib PRIVATE "${MONGOC_STATIC_INCLUDE_DIRS}")
-# target_link_libraries (cross-template libmosquitto.a "${MONGOC_STATIC_LIBRARIES}")
+# target_include_directories(my_lib PRIVATE ${MONGOC_STATIC_INCLUDE_DIRS})
+# target_link_libraries (my_lib libmosquitto.a ${MONGO_LIBS})
+# target_compile_definitions (my_lib PRIVATE ${MONGOC_STATIC_DEFINITIONS})
 
 # Target cross-template (simple example)
 add_executable(cross-template ${SOURCE_DIR}/app/main.c)
-target_include_directories (cross-template PRIVATE "${MONGOC_STATIC_INCLUDE_DIRS}")
-target_link_libraries (cross-template ${BASE_LIBS})
-target_compile_definitions (cross-template PRIVATE "${MONGOC_STATIC_DEFINITIONS}")
+target_include_directories (cross-template PRIVATE ${MONGOC_STATIC_INCLUDE_DIRS})
+target_link_libraries (cross-template ${BASE_LIBS} ${MONGO_LIBS})
+target_compile_definitions (cross-template PRIVATE ${MONGOC_STATIC_DEFINITIONS})
 
 # Install setup (directly copy to CMAKE_INSTALL_PREFIX when make install)
 set(CMAKE_INSTALL_PREFIX ${CMAKE_HOME_DIRECTORY}/install)
