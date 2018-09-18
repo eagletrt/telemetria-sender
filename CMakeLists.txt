@@ -61,21 +61,21 @@ configure_file(
 #########
 
 # Target library
-# add_library(my_lib STATIC ${LIB_SOURCES})
-# target_include_directories(my_lib PRIVATE ${MONGOC_STATIC_INCLUDE_DIRS})
-# target_link_libraries (my_lib libmosquitto.a ${MONGO_LIBS})
-# target_compile_definitions (my_lib PRIVATE ${MONGOC_STATIC_DEFINITIONS})
+add_library(erpi STATIC ${LIB_SOURCES})
+target_include_directories(erpi PUBLIC ${MONGOC_STATIC_INCLUDE_DIRS})
+target_link_libraries (erpi libmosquitto.a ${BASE_LIBS} ${MONGO_LIBS})
+target_compile_definitions (erpi PUBLIC ${MONGOC_STATIC_DEFINITIONS})
 
 # Target publisher (simple example)
 add_executable(pub ${SOURCE_DIR}/app/pub.c)
 target_include_directories (pub PRIVATE ${MONGOC_STATIC_INCLUDE_DIRS})
-target_link_libraries (pub ${BASE_LIBS} ${MONGO_LIBS})
+target_link_libraries (pub erpi)
 target_compile_definitions (pub PRIVATE ${MONGOC_STATIC_DEFINITIONS})
 
 # Target publisher (simple example)
 add_executable(sub ${SOURCE_DIR}/app/sub.c)
-target_include_directories (pub PRIVATE ${MONGOC_STATIC_INCLUDE_DIRS})
-target_link_libraries (sub ${BASE_LIBS} ${MONGO_LIBS})
+target_include_directories (sub PRIVATE ${MONGOC_STATIC_INCLUDE_DIRS})
+target_link_libraries (sub erpi)
 target_compile_definitions (sub PRIVATE ${MONGOC_STATIC_DEFINITIONS})
 
 # Install setup (directly copy to CMAKE_INSTALL_PREFIX when make install)

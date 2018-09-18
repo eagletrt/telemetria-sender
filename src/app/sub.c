@@ -44,34 +44,39 @@ void my_connect_callback(struct mosquitto *mosq, void *userdata, int result) {
 
 int main(int argc, char const *argv[]) {
   char *data;
+  struct mosquitto *m;
+  int status;
+
+  // Instal event handler
   signal(SIGINT, clean_exit);
 
   printf("%s Version %s\n", argv[0], GIT_COMMIT_HASH);
-
   printf("Testing Mosquitto sub\n\n");
 
-  struct mosquitto *m;
-  int status;
+  // Mosquitto setup
   mosquitto_lib_init();
   m = mosquitto_new(NULL, true, NULL);
   status = mosquitto_connect(m, "localhost", 1883, 60);
   if (status == MOSQ_ERR_SUCCESS) {
+    fprintf(stderr, "Connected to broker\n");
   } else if (status == MOSQ_ERR_INVAL) {
     fprintf(stderr, "Error connecting\n");
+    exit(EXIT_FAILURE);
   } else if (status == MOSQ_ERR_ERRNO) {
     perror("MQTT");
+    exit(EXIT_FAILURE);
   }
   mosquitto_connect_callback_set(m, my_connect_callback);
   mosquitto_message_callback_set(m, my_message_callback);
-  if (mosquitto_connect(m, "localhost", 1883, 60)) {
-    fprintf(stderr, "Unable to connect.\n");
-    return 1;
-  }
+
+  // Mosquitto event loop
   mosquitto_loop_start(m);
   while (_running) {
     sleep(1);
   }
   mosquitto_loop_stop(m, 1);
+
+  // Finalize
   mosquitto_destroy(m);
   mosquitto_lib_cleanup();
 

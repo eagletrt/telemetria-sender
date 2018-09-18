@@ -1,4 +1,5 @@
 #include "version.h"
+#include "utils.h"
 #include <bson.h>
 #include <mosquitto.h>
 #include <stdio.h>
@@ -21,11 +22,8 @@ int main(int argc, char const *argv[]) {
   // dump it to a data buffer
   data = bson_get_data(docin);
   printf("> Data: ");
-  for (i = 0; i < docin->len; i++) {
-    printf("%02x", data[i]);
-    if ((i + 5) % 4 == 0) printf(" ");
-  }
-  printf("\n");
+  print_buffer(data, docin->len);
+
   // check back conversion to JSON
   blen = docin->len;
   doc = bson_new_from_data(data, blen);
@@ -33,6 +31,7 @@ int main(int argc, char const *argv[]) {
 
   printf("\nTesting Mosquitto pub\n");
 
+  // Mosquitto initialize
   mosquitto_lib_init();
   m = mosquitto_new(NULL, true, NULL);
   status = mosquitto_connect(m, "localhost", 1883, 60);
@@ -45,14 +44,14 @@ int main(int argc, char const *argv[]) {
     perror("MQTT");
     exit(EXIT_FAILURE);
   }
+
+  // Send BSON data as a buffer via MQTT
   printf("> Sending %d bytes\n", blen);
   mosquitto_publish(m, NULL, "test/cross", blen, data, 0, false);
+
+  // Show raw buffer
   printf("> Data sent:\n");
-  for (i = 0; i < blen; i++) {
-    printf("%02x", data[i]);
-    if ((i + 5) % 4 == 0) printf(" ");
-  }
-  printf("\n");
+  print_buffer(data, blen);
 
   printf("> Clean exit\n");
   bson_destroy(docin);
