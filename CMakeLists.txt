@@ -78,6 +78,6 @@ install(TARGETS cross-template
 
 # Install package generator (creates an installer script)
 set(CPACK_GENERATOR "STGZ")
-set(CPACK_PROJECT_NAME ${PROJECT_NAME})
-set(CPACK_PROJECT_VERSION ${GIT_VERSION_TAG})
+set(CPACK_PACKAGE_VERSION ${GIT_COMMIT_HASH})
+set(CPACK_PACKAGE_NAME ${PROJECT_NAME}-${CMAKE_BUILD_TYPE})
 include(CPack)
