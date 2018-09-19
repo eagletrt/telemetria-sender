@@ -12,7 +12,7 @@ int main(int argc, char const *argv[]) {
   bson_t *docin, *doc;
   struct mosquitto *m;
   int status, i;
-  struct timespec time;
+  struct timespec time, wall;
 
   printf("%s Version %s\n", argv[0], GIT_COMMIT_HASH);
   printf("Testing BSON and Mosquitto pub\n\n");
@@ -24,9 +24,14 @@ int main(int argc, char const *argv[]) {
     perror("clock gettime");
     exit(EXIT_FAILURE);
   }
+  if( clock_gettime(CLOCK_REALTIME, &wall) == -1 ) {
+    perror("clock gettime");
+    exit(EXIT_FAILURE);
+  }
   // Timestamp in BSON is expressen in milliseconds after epoch:
   // time.tv_sec * 1000 + time.tv_nsec / 1E6
   docin = BCON_NEW(
+    "wallclock", BCON_DATE_TIME(wall.tv_sec * 1000 + wall.tv_nsec / 1E6),
     "date", BCON_DATE_TIME(time.tv_sec * 1000 + time.tv_nsec / 1E6),
     "time", "[",
       BCON_INT64(time.tv_sec),
