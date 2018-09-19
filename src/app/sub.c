@@ -23,9 +23,8 @@ void my_message_callback(struct mosquitto *mosq, void *userdata,
     printf("> Payload len: %d\n", message->payloadlen);
     printf("> Data:\n");
     print_buffer(stdout, buf, message->payloadlen);
-    printf("\n");
     doc = bson_new_from_data(buf, message->payloadlen);
-    printf("> Document:\n%s\n> Document size: %zu\n", bson_as_json(doc, &len), len);
+    printf("> Document:\n%s\n> Document size: %zu\n\n", bson_as_json(doc, &len), len);
     bson_destroy(doc);
   }
 }

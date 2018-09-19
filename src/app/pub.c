@@ -4,6 +4,7 @@
 #include <mosquitto.h>
 #include <stdio.h>
 #include <string.h>
+#include <time.h>
 
 int main(int argc, char const *argv[]) {
   const uint8_t *data;
@@ -11,12 +12,27 @@ int main(int argc, char const *argv[]) {
   bson_t *docin, *doc;
   struct mosquitto *m;
   int status, i;
+  struct timespec time;
+  struct tm date;
 
   printf("%s Version %s\n", argv[0], GIT_COMMIT_HASH);
   printf("Testing BSON and Mosquitto pub\n\n");
 
   // Create an example document (input doc, will come from CAN)
+  // Get current high resolution time
+  // CLOCK_MONOTONIC ensures no fluctuations due to NTP
+  if( clock_gettime(CLOCK_MONOTONIC, &time) == -1 ) {
+    perror("clock gettime");
+    exit(EXIT_FAILURE);
+  }
+  // Timestamp in BSON is expressen in milliseconds after epoch:
+  // time.tv_sec * 1000 + time.tv_nsec / 1E6
   docin = BCON_NEW(
+    "date", BCON_DATE_TIME(time.tv_sec * 1000 + time.tv_nsec / 1E6),
+    "time", "[",
+      BCON_INT64(time.tv_sec),
+      BCON_INT32(time.tv_nsec),
+    "]",
     "idx", BCON_INT32(1), 
     "name", BCON_UTF8("test"),
     "surname", BCON_UTF8("test2"),
@@ -29,8 +45,9 @@ int main(int argc, char const *argv[]) {
       BCON_DOUBLE(1.7E10),
     "]"
   );
+  // BSON_APPEND_DATE_TIME(docin, "date", time.tv_sec * 1000);
   printf("> Original doc:\n%s\nlength: %d\n",
-         bson_as_relaxed_extended_json(docin, &jlen), (int)jlen);
+         bson_as_json(docin, &jlen), (int)jlen);
   // dump it to a data buffer
   data = bson_get_data(docin);
   printf("> Data:\n");
