@@ -17,6 +17,10 @@ execute_process(
   OUTPUT_STRIP_TRAILING_WHITESPACE
 )
 
+if(APPLE)
+  message(STATUS "Building for Mac, no support for CANbus")
+endif()
+
 project(pub VERSION ${GIT_VERSION_TAG} LANGUAGES C)
 
 option(CROSS "Do a cross-compile" off)
@@ -47,6 +51,11 @@ endif()
 include_directories(include /usr/local/include) #search for headers in that dir
 set(SOURCE_DIR src)
 file(GLOB LIB_SOURCES "${SOURCE_DIR}/*.c") #put into LIB_SOURCES the globbed list
+if(UNIX AND NOT APPLE)
+  set(LINUX_SOURCE_DIR src/linux)
+  file(GLOB LINUX_LIB_SOURCES "${LINUX_SOURCE_DIR}/*.c")
+  message(STATUS "Linux specific sources added to static lib: ${LINUX_LIB_SOURCES}")
+endif()
 
 # Header file containing the version
 configure_file(
@@ -61,7 +70,7 @@ configure_file(
 #########
 
 # Target library
-add_library(erpi STATIC ${LIB_SOURCES})
+add_library(erpi STATIC ${LIB_SOURCES} ${LINUX_LIB_SOURCES})
 target_include_directories(erpi PUBLIC ${MONGOC_STATIC_INCLUDE_DIRS})
 target_link_libraries (erpi libmosquitto.a ${BASE_LIBS} ${MONGO_LIBS})
 target_compile_definitions (erpi PUBLIC ${MONGOC_STATIC_DEFINITIONS})

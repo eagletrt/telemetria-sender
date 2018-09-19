@@ -16,7 +16,7 @@ static void clean_exit() {
 void my_message_callback(struct mosquitto *mosq, void *userdata,
                          const struct mosquitto_message *message) {
   if (!message->payloadlen) {
-    fprintf(stderr, "Skipping emptyayload!\n");
+    fprintf(stderr, "Skipping empty payload!\n");
   } else {
     mongoc_collection_t *coll = (mongoc_collection_t *)userdata;
     uint8_t *buf = message->payload;
