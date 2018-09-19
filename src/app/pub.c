@@ -13,7 +13,6 @@ int main(int argc, char const *argv[]) {
   struct mosquitto *m;
   int status, i;
   struct timespec time;
-  struct tm date;
 
   printf("%s Version %s\n", argv[0], GIT_COMMIT_HASH);
   printf("Testing BSON and Mosquitto pub\n\n");
