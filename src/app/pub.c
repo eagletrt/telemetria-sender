@@ -44,7 +44,7 @@ int main(int argc, char const *argv[]) {
       BCON_DOUBLE(1.7E10),
     "]"
   );
-  // BSON_APPEND_DATE_TIME(docin, "date", time.tv_sec * 1000);
+
   printf("> Original doc:\n%s\nlength: %d\n",
          bson_as_json(docin, &jlen), (int)jlen);
   // dump it to a data buffer
