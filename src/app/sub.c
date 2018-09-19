@@ -21,11 +21,7 @@ void my_message_callback(struct mosquitto *mosq, void *userdata,
     size_t len, i;
     printf("> Payload len: %d\n", message->payloadlen);
     printf("> Data:\n");
-    for (i = 0; i < message->payloadlen; i++) {
-      printf("%02x", buf[i]);
-      if ((i + 5) % 4 == 0)
-        printf(" ");
-    }
+    print_buffer(stdout, buf, message->payloadlen);
     printf("\n");
     doc = bson_new_from_data(buf, message->payloadlen);
     printf("> Document:\n%s\n> Document size: %d\n", bson_as_json(doc, &len), len);

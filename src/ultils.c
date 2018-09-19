@@ -1,10 +1,14 @@
 #include "utils.h"
 
-void print_buffer(const uint8_t *buf, size_t buflen) {
-  size_t i;
+void print_buffer(FILE * restrict stream, const uint8_t *buf, size_t buflen) {
+  size_t i, c = 1;
+  fprintf(stream, "%04d: ", 0);
   for (i = 0; i < buflen; i++) {
-    printf("%02x", buf[i]);
-    if ((i + 5) % 4 == 0) printf(" ");
+    fprintf(stream, "%02x", buf[i]);
+    if ((i + 5) % 4 == 0) { 
+      fprintf(stream, " ");
+      if ((c++ % 8) == 0) fprintf(stream, "\n%04d: ", i+1); 
+    }
   }
-  printf("\n");
+  fprintf(stream, "\n");
 }

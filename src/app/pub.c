@@ -16,13 +16,25 @@ int main(int argc, char const *argv[]) {
   printf("Testing BSON and Mosquitto pub\n\n");
 
   // Create an example document (input doc, will come from CAN)
-  docin = BCON_NEW("idx", BCON_INT32(1), "name", BCON_UTF8("test"));
+  docin = BCON_NEW(
+    "idx", BCON_INT32(1), 
+    "name", BCON_UTF8("test"),
+    "surname", BCON_UTF8("test2"),
+    "ary", 
+    "[",
+      BCON_INT32(1),
+      BCON_INT32(2),
+      BCON_INT32(3),
+      BCON_DOUBLE(3.14),
+      BCON_DOUBLE(1.7E10),
+    "]"
+  );
   printf("> Original doc:\n%s\nlength: %d\n",
          bson_as_relaxed_extended_json(docin, &jlen), jlen);
   // dump it to a data buffer
   data = bson_get_data(docin);
   printf("> Data: ");
-  print_buffer(data, docin->len);
+  print_buffer(stdout, data, docin->len);
 
   // check back conversion to JSON
   blen = docin->len;
@@ -51,7 +63,7 @@ int main(int argc, char const *argv[]) {
 
   // Show raw buffer
   printf("> Data sent:\n");
-  print_buffer(data, blen);
+  print_buffer(stdout, data, blen);
 
   printf("> Clean exit\n");
   bson_destroy(docin);

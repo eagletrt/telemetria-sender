@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <string.h>
 
-void print_buffer(const uint8_t *buf, size_t buflen);
+void print_buffer(FILE * restrict stream, const uint8_t *buf, size_t buflen);
 
 
 #endif
