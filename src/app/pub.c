@@ -30,7 +30,7 @@ int main(int argc, char const *argv[]) {
     "]"
   );
   printf("> Original doc:\n%s\nlength: %d\n",
-         bson_as_relaxed_extended_json(docin, &jlen), jlen);
+         bson_as_relaxed_extended_json(docin, &jlen), (int)jlen);
   // dump it to a data buffer
   data = bson_get_data(docin);
   printf("> Data: ");
@@ -39,7 +39,7 @@ int main(int argc, char const *argv[]) {
   // check back conversion to JSON
   blen = docin->len;
   doc = bson_new_from_data(data, blen);
-  printf("> Doc from BSON from raw data:\n%s\nJSON length: %d, BSON data length: %d\n", bson_as_json(doc, &jlen), jlen, doc->len);
+  printf("> Doc from BSON from raw data:\n%s\nJSON length: %zu, BSON data length: %u\n", bson_as_json(doc, &jlen), jlen, doc->len);
 
   printf("\nTesting Mosquitto pub\n");
 
@@ -58,7 +58,7 @@ int main(int argc, char const *argv[]) {
   }
 
   // Send BSON data as a buffer via MQTT
-  printf("> Sending %d bytes\n", blen);
+  printf("> Sending %zu bytes\n", blen);
   mosquitto_publish(m, NULL, "test/cross", blen, data, 0, false);
 
   // Show raw buffer

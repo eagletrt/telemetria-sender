@@ -1,4 +1,5 @@
 #include "version.h"
+#include "utils.h"
 #include <bson.h>
 #include <mosquitto.h>
 #include <signal.h>
@@ -24,7 +25,7 @@ void my_message_callback(struct mosquitto *mosq, void *userdata,
     print_buffer(stdout, buf, message->payloadlen);
     printf("\n");
     doc = bson_new_from_data(buf, message->payloadlen);
-    printf("> Document:\n%s\n> Document size: %d\n", bson_as_json(doc, &len), len);
+    printf("> Document:\n%s\n> Document size: %zu\n", bson_as_json(doc, &len), len);
     bson_destroy(doc);
   }
 }
