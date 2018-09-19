@@ -33,7 +33,7 @@ int main(int argc, char const *argv[]) {
          bson_as_relaxed_extended_json(docin, &jlen), (int)jlen);
   // dump it to a data buffer
   data = bson_get_data(docin);
-  printf("> Data: ");
+  printf("> Data:\n");
   print_buffer(stdout, data, docin->len);
 
   // check back conversion to JSON
