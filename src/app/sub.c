@@ -81,10 +81,10 @@ int main(int argc, char const *argv[]) {
   }
 
   // Register the application name so we can track it in the profile logs
-  // on the server. This can also be done from the URI (see other examples).  
+  // on the server. This can also be done from the URI (see other examples).
   mongoc_client_set_appname(client, "ERPI-sub");
 
-  // Get a handle on the database "test" and collection "logging"  
+  // Get a handle on the database "test" and collection "logging"
   database = mongoc_client_get_database(client, "test");
   collection = mongoc_client_get_collection(client, "test", "logging");
 
@@ -121,11 +121,11 @@ int main(int argc, char const *argv[]) {
   mosquitto_loop_stop(m, 1);
 
   // Finalize
-  mongoc_collection_destroy (collection);
-  mongoc_database_destroy (database);
-  mongoc_uri_destroy (uri);
-  mongoc_client_destroy (client);
-  mongoc_cleanup ();
+  mongoc_collection_destroy(collection);
+  mongoc_database_destroy(database);
+  mongoc_uri_destroy(uri);
+  mongoc_client_destroy(client);
+  mongoc_cleanup();
 
   mosquitto_destroy(m);
   mosquitto_lib_cleanup();
