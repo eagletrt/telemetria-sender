@@ -121,6 +121,12 @@ int main(int argc, char const *argv[]) {
   mosquitto_loop_stop(m, 1);
 
   // Finalize
+  mongoc_collection_destroy (collection);
+  mongoc_database_destroy (database);
+  mongoc_uri_destroy (uri);
+  mongoc_client_destroy (client);
+  mongoc_cleanup ();
+
   mosquitto_destroy(m);
   mosquitto_lib_cleanup();
 
