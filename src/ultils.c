@@ -1,3 +1,6 @@
+/**********************************************************************
+ * utils.c - general pourpose utilities                               *
+ **********************************************************************/
 #include "utils.h"
 
 void print_buffer(FILE * stream, const uint8_t *buf, size_t buflen) {

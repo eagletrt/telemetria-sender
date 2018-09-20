@@ -1,3 +1,6 @@
+/**********************************************************************
+ * pub.c - collect data from a CAN plugin and send them via MQTT      *
+ **********************************************************************/
 #include "version.h"
 #include "plugin.h"
 #include "utils.h"
