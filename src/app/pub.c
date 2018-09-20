@@ -20,7 +20,13 @@ int main(int argc, char const *argv[]) {
   void *dlhandle = NULL;
   can_data_t can_data = {0};
 
+  printf("%s Version %s\n", argv[0], GIT_COMMIT_HASH);
+
   // Connect to data provider plugin
+  if (argc != 2) {
+    fprintf(stderr, "Exactly one argument needed (data plugin path)\n");
+    exit(EXIT_FAILURE);
+  }
   dlhandle = dlopen(argv[1], RTLD_LOCAL | RTLD_LAZY);
   if (!dlhandle) {
     perror("dlopen");
@@ -32,7 +38,6 @@ int main(int argc, char const *argv[]) {
   }
   get_data(&can_data);
 
-  printf("%s Version %s\n", argv[0], GIT_COMMIT_HASH);
   printf("Testing BSON and Mosquitto pub\n\n");
 
   // Create an example document (input doc, will come from CAN)
