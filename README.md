@@ -1,5 +1,18 @@
 # Cheat sheet
 
+## Install prerequisites (Ubuntu)
+
+```bash
+$ sudo apt install build-essential
+$ sudo apt install cmake
+$ sudo apt install libmongoc-dev 
+$ sudo apt install mosquitto-dev
+$ sudo apt install mosquitto
+$ sudo apt install mosquitto-clients 
+$ sudo apt install libmosquitto-dev
+$ sudo apt install libmosquitto1
+```
+
 ## Set-up
 build a [Docker container](https://docker.com):
 
