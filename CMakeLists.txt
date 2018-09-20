@@ -81,20 +81,34 @@ target_include_directories (pub PRIVATE ${MONGOC_STATIC_INCLUDE_DIRS})
 target_compile_definitions (pub PRIVATE ${MONGOC_STATIC_DEFINITIONS})
 target_link_libraries (pub erpi)
 
-# Target publisher (simple example)
+# Target subscriber (simple example)
 add_executable(sub ${SOURCE_DIR}/app/sub.c)
 target_include_directories (sub PRIVATE ${MONGOC_STATIC_INCLUDE_DIRS})
 target_compile_definitions (sub PRIVATE ${MONGOC_STATIC_DEFINITIONS})
 target_link_libraries (sub erpi)
 
+# Target plugin
+add_library(dummy SHARED ${SOURCE_DIR}/plugin/dummy.c)
+set_target_properties(dummy PROPERTIES PREFIX "" SUFFIX ".plugin")
+if (CROSS)
+  add_library(canbus SHARED ${SOURCE_DIR}/plugin/canbus.c)
+  set_target_properties(canbus PROPERTIES PREFIX "" SUFFIX ".plugin")
+endif()
+
+# Build list of targets to be installed according to platform
+set(TARGETS_LIST pub sub dummy)
+if (CROSS)
+  # Only build CAN-related stuff when cross compiling
+  list(APPEND TARGETS_LIST canbus)
+endif()
+
 # Install setup (directly copy to CMAKE_INSTALL_PREFIX when make install)
 set(CMAKE_INSTALL_PREFIX ${CMAKE_HOME_DIRECTORY}/install)
-install(TARGETS pub sub
+install(TARGETS ${TARGETS_LIST}
   RUNTIME DESTINATION bin
   LIBRARY DESTINATION lib
   ARCHIVE DESTINATION lib
 )
-
 
 # Install package generator (creates an installer script)
 set(CPACK_GENERATOR "STGZ")

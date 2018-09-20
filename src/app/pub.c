@@ -1,10 +1,14 @@
 #include "version.h"
+#include "plugin.h"
 #include "utils.h"
 #include <bson.h>
 #include <mosquitto.h>
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
+#include <dlfcn.h>
+
+int (*get_data)(can_data_t *data);
 
 int main(int argc, char const *argv[]) {
   const uint8_t *data;
@@ -13,6 +17,20 @@ int main(int argc, char const *argv[]) {
   struct mosquitto *m;
   int status, i;
   struct timespec time, wall;
+  void *dlhandle = NULL;
+  can_data_t can_data = {0};
+
+  // Connect to data provider plugin
+  dlhandle = dlopen(argv[1], RTLD_LOCAL | RTLD_LAZY);
+  if (!dlhandle) {
+    perror("dlopen");
+    exit(EXIT_FAILURE);
+  }
+  if ((get_data = dlsym(dlhandle, "get_data")) == NULL) {
+    perror("dlsym");
+    exit(EXIT_FAILURE);
+  }
+  get_data(&can_data);
 
   printf("%s Version %s\n", argv[0], GIT_COMMIT_HASH);
   printf("Testing BSON and Mosquitto pub\n\n");
@@ -37,9 +55,8 @@ int main(int argc, char const *argv[]) {
       BCON_INT64(time.tv_sec),
       BCON_INT32(time.tv_nsec),
     "]",
-    "idx", BCON_INT32(1), 
-    "name", BCON_UTF8("test"),
-    "surname", BCON_UTF8("test2"),
+    "idx", BCON_INT32(can_data.id), 
+    "plugin", BCON_UTF8(argv[1]),
     "ary", 
     "[",
       BCON_INT32(1),
