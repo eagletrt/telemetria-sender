@@ -2,7 +2,12 @@ cmake_minimum_required(VERSION 3.9.0)
 # set(CMAKE_BUILD_TYPE Release)
 set(CMAKE_BUILD_TYPE Debug)
 
-# PRELIMINARY AND COMMON SETUP
+                                                        
+#  _____                            _____     _           
+# |     |___ _____ _____ ___ ___   |   __|___| |_ _ _ ___ 
+# |   --| . |     |     | . |   |  |__   | -_|  _| | | . |
+# |_____|___|_|_|_|_|_|_|___|_|_|  |_____|___|_| |___|  _|
+#                                                    |_|  
 # GIT versioning
 execute_process(
   COMMAND git describe --long --dirty=§
@@ -17,15 +22,11 @@ execute_process(
   OUTPUT_STRIP_TRAILING_WHITESPACE
 )
 
-if(APPLE)
-  message(STATUS "Building for Mac, no support for CANbus")
-endif()
-
 project(pub VERSION ${GIT_VERSION_TAG} LANGUAGES C)
 
 option(CROSS "Do a cross-compile" off)
 if(CROSS)
-  message(STATUS "cross-compiling")
+  message(STATUS "Cross-compiling")
   set(CMAKE_TOOLCHAIN_FILE /root/Toolchain-rpi.cmake)
   # If using mongoc:
   set(CMAKE_PREFIX_PATH 
@@ -41,6 +42,7 @@ if(CROSS)
   set(MONGO_LIBS ${MONGOC_STATIC_LIBRARIES})
   set(BASE_LIBS libmosquitto.a pthread dl m ssl crypto rt)
 else()
+  message(STATUS "Host-only compilation, no support for CANbus")
   set(MONGO_LIBS mongoc-1.0 bson-1.0)
   set(BASE_LIBS libmosquitto.a pthread dl m ssl crypto)
   include_directories(include /usr/local/include/libbson-1.0)
@@ -66,26 +68,32 @@ configure_file(
 # If using Lua, uncomment the following:
 # include(Lua.cmake)
 
-# TARGETS
-#########
+                               
+#  _____                 _       
+# |_   _|___ ___ ___ ___| |_ ___ 
+#   | | | .'|  _| . | -_|  _|_ -|
+#   |_| |__,|_| |_  |___|_| |___|
+#               |___|            
+
+set(TARGETS_LIST pub sub dummy)
 
 # Target library
 add_library(erpi STATIC ${LIB_SOURCES} ${LINUX_LIB_SOURCES})
 target_include_directories(erpi PUBLIC ${MONGOC_STATIC_INCLUDE_DIRS})
-target_link_libraries (erpi libmosquitto.a ${BASE_LIBS} ${MONGO_LIBS})
-target_compile_definitions (erpi PUBLIC ${MONGOC_STATIC_DEFINITIONS})
+target_link_libraries(erpi libmosquitto.a ${BASE_LIBS} ${MONGO_LIBS})
+target_compile_definitions(erpi PUBLIC ${MONGOC_STATIC_DEFINITIONS})
 
 # Target publisher (simple example)
 add_executable(pub ${SOURCE_DIR}/app/pub.c)
-target_include_directories (pub PRIVATE ${MONGOC_STATIC_INCLUDE_DIRS})
-target_compile_definitions (pub PRIVATE ${MONGOC_STATIC_DEFINITIONS})
-target_link_libraries (pub erpi)
+target_include_directories(pub PRIVATE ${MONGOC_STATIC_INCLUDE_DIRS})
+target_compile_definitions(pub PRIVATE ${MONGOC_STATIC_DEFINITIONS})
+target_link_libraries(pub erpi)
 
 # Target subscriber (simple example)
 add_executable(sub ${SOURCE_DIR}/app/sub.c)
-target_include_directories (sub PRIVATE ${MONGOC_STATIC_INCLUDE_DIRS})
-target_compile_definitions (sub PRIVATE ${MONGOC_STATIC_DEFINITIONS})
-target_link_libraries (sub erpi)
+target_include_directories(sub PRIVATE ${MONGOC_STATIC_INCLUDE_DIRS})
+target_compile_definitions(sub PRIVATE ${MONGOC_STATIC_DEFINITIONS})
+target_link_libraries(sub erpi)
 
 # Target plugin
 add_library(dummy SHARED ${SOURCE_DIR}/plugin/dummy.c)
@@ -93,15 +101,15 @@ set_target_properties(dummy PROPERTIES PREFIX "" SUFFIX ".plugin")
 if (CROSS)
   add_library(canbus SHARED ${SOURCE_DIR}/plugin/canbus.c)
   set_target_properties(canbus PROPERTIES PREFIX "" SUFFIX ".plugin")
-endif()
-
-# Build list of targets to be installed according to platform
-set(TARGETS_LIST pub sub dummy)
-if (CROSS)
-  # Only build CAN-related stuff when cross compiling
   list(APPEND TARGETS_LIST canbus)
 endif()
 
+                           
+#  _____         _       _ _ 
+# |     |___ ___| |_ ___| | |
+# |-   -|   |_ -|  _| .'| | |
+# |_____|_|_|___|_| |__,|_|_|
+                           
 # Install setup (directly copy to CMAKE_INSTALL_PREFIX when make install)
 set(CMAKE_INSTALL_PREFIX ${CMAKE_HOME_DIRECTORY}/install)
 install(TARGETS ${TARGETS_LIST}
