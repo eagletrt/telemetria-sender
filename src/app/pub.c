@@ -18,8 +18,8 @@ int main(int argc, char const *argv[]) {
   size_t jlen, blen;
   bson_t *docin, *doc;
   struct mosquitto *m;
-  int status, i;
-  struct timespec time, wall;
+  int status, i, j;
+  struct timespec wall;
   void *dlhandle = NULL;
   can_data_t can_data = {0};
 
@@ -39,55 +39,6 @@ int main(int argc, char const *argv[]) {
     perror("dlsym");
     exit(EXIT_FAILURE);
   }
-  get_data(&can_data);
-
-  printf("Testing BSON and Mosquitto pub\n\n");
-
-  // Create an example document (input doc, will come from CAN)
-  // Get current high resolution time
-  // CLOCK_MONOTONIC ensures no fluctuations due to NTP
-  if( clock_gettime(CLOCK_MONOTONIC, &time) == -1 ) {
-    perror("clock gettime");
-    exit(EXIT_FAILURE);
-  }
-  if( clock_gettime(CLOCK_REALTIME, &wall) == -1 ) {
-    perror("clock gettime");
-    exit(EXIT_FAILURE);
-  }
-  // Timestamp in BSON is expressen in milliseconds after epoch:
-  // time.tv_sec * 1000 + time.tv_nsec / 1E6
-  docin = BCON_NEW(
-    "wallclock", BCON_DATE_TIME(wall.tv_sec * 1000 + wall.tv_nsec / 1E6),
-    "date", BCON_DATE_TIME(time.tv_sec * 1000 + time.tv_nsec / 1E6),
-    "time", "[",
-      BCON_INT64(time.tv_sec),
-      BCON_INT32(time.tv_nsec),
-    "]",
-    "idx", BCON_INT32(can_data.id), 
-    "plugin", BCON_UTF8(argv[1]),
-    "ary", 
-    "[",
-      BCON_INT32(1),
-      BCON_INT32(2),
-      BCON_INT32(3),
-      BCON_DOUBLE(3.14),
-      BCON_DOUBLE(1.7E10),
-    "]"
-  );
-
-  printf("> Original doc:\n%s\nlength: %d\n",
-         bson_as_json(docin, &jlen), (int)jlen);
-  // dump it to a data buffer
-  data = bson_get_data(docin);
-  printf("> Data:\n");
-  print_buffer(stdout, data, docin->len);
-
-  // check back conversion to JSON
-  blen = docin->len;
-  doc = bson_new_from_data(data, blen);
-  printf("> Doc from BSON from raw data:\n%s\nJSON length: %zu, BSON data length: %u\n", bson_as_json(doc, &jlen), jlen, doc->len);
-
-  printf("\nTesting Mosquitto pub\n");
 
   // Mosquitto initialize
   mosquitto_lib_init();
@@ -103,13 +54,80 @@ int main(int argc, char const *argv[]) {
     exit(EXIT_FAILURE);
   }
 
-  // Send BSON data as a buffer via MQTT
-  printf("> Sending %zu bytes\n", blen);
-  mosquitto_publish(m, NULL, "test/cross", blen, data, 0, false);
+  printf("Testing BSON and Mosquitto pub\n\n");
+  for (j = 0; j < 100; j++) {
+    // Create an example document (input doc, will come from CAN)
+    // Get current high resolution time
+    // CLOCK_MONOTONIC ensures no fluctuations due to NTP
+    if( clock_gettime(CLOCK_REALTIME, &wall) == -1 ) {
+      perror("clock gettime");
+      exit(EXIT_FAILURE);
+    }
+    get_data(&can_data);
+    // Timestamp in BSON is expressen in milliseconds after epoch:
+    // time.tv_sec * 1000 + time.tv_nsec / 1E6
+    docin = BCON_NEW(
+      "wallclock", BCON_DATE_TIME(wall.tv_sec * 1000 + wall.tv_nsec / 1E6),
+      "date", BCON_DATE_TIME(can_data.timestamp),
+      "time", "[",
+        BCON_INT64(wall.tv_sec),
+        BCON_INT32(wall.tv_nsec),
+      "]",
+      "idx", BCON_INT32(can_data.id), 
+      "plugin", BCON_UTF8(argv[1]),
+      "location", "{",
+        "latitude", BCON_INT32(can_data.location.latitude),
+        "longitude", BCON_INT32(can_data.location.longitude),
+        "elevation", BCON_DOUBLE(can_data.location.elevation),
+      "}",
+      "speed", BCON_DOUBLE(can_data.speed),
+      "odometry", BCON_DOUBLE(can_data.odometry),
+      "steering_angle", BCON_DOUBLE(can_data.steering_angle),
+      "throttle", BCON_DOUBLE(can_data.throttle),
+      "brake", BCON_DOUBLE(can_data.brake),
+      "acceleration", "{",
+        "x", BCON_DOUBLE(can_data.acceleration.x),
+        "y", BCON_DOUBLE(can_data.acceleration.y),
+        "z", BCON_DOUBLE(can_data.acceleration.z),
+      "}",
+      "accumulator", "{",
+        "voltage", BCON_DOUBLE(can_data.accumulator.voltage),
+        "current", "[",
+          BCON_DOUBLE(can_data.accumulator.current[0]),
+          BCON_DOUBLE(can_data.accumulator.current[1]),
+          BCON_DOUBLE(can_data.accumulator.current[2]),
+        "]",
+      "}",
+      "ary", 
+      "[",
+        BCON_INT32(1),
+        BCON_INT32(2),
+        BCON_INT32(3),
+        BCON_DOUBLE(3.14),
+        BCON_DOUBLE(1.7E10),
+      "]"
+    );
 
-  // Show raw buffer
-  printf("> Data sent:\n");
-  print_buffer(stdout, data, blen);
+    printf("> Original doc:\n%s\nlength: %d\n",
+          bson_as_json(docin, &jlen), (int)jlen);
+    // dump it to a data buffer
+    data = bson_get_data(docin);
+    printf("> Data:\n");
+    print_buffer(stdout, data, docin->len);
+
+    // check back conversion to JSON
+    blen = docin->len;
+    doc = bson_new_from_data(data, blen);
+    printf("> Doc from BSON from raw data:\n%s\nJSON length: %zu, BSON data length: %u\n", bson_as_json(doc, &jlen), jlen, doc->len);
+
+    // Send BSON data as a buffer via MQTT
+    printf("> Sending %zu bytes\n", blen);
+    mosquitto_publish(m, NULL, "test/cross", blen, data, 0, false);
+
+    // Show raw buffer
+    printf("> Data sent:\n");
+    print_buffer(stdout, data, blen);
+  }
 
   printf("> Clean exit\n");
   bson_destroy(docin);
