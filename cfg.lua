@@ -10,5 +10,5 @@ config_sub = {
 }
 
 -- Derived entries
-config.mongo_uri = "mongodb://"..config.mongo_host..":"..config.mongo_port
+config_sub.mongo_uri = "mongodb://"..config_sub.mongo_host..":"..config_sub.mongo_port
 
