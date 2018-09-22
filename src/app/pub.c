@@ -90,6 +90,16 @@ int main(int argc, char const *argv[]) {
         "y", BCON_DOUBLE(can_data.acceleration.y),
         "z", BCON_DOUBLE(can_data.acceleration.z),
       "}",
+      "gyro", "{",
+        "x", BCON_DOUBLE(can_data.gyro.x),
+        "y", BCON_DOUBLE(can_data.gyro.y),
+        "z", BCON_DOUBLE(can_data.gyro.z),
+      "}",
+      "magneto", "{",
+        "x", BCON_DOUBLE(can_data.magneto.x),
+        "y", BCON_DOUBLE(can_data.magneto.y),
+        "z", BCON_DOUBLE(can_data.magneto.z),
+      "}",
       "accumulator", "{",
         "voltage", BCON_DOUBLE(can_data.accumulator.voltage),
         "current", "[",
@@ -97,16 +107,9 @@ int main(int argc, char const *argv[]) {
           BCON_DOUBLE(can_data.accumulator.current[1]),
           BCON_DOUBLE(can_data.accumulator.current[2]),
         "]",
-      "}",
-      "ary", 
-      "[",
-        BCON_INT32(1),
-        BCON_INT32(2),
-        BCON_INT32(3),
-        BCON_DOUBLE(3.14),
-        BCON_DOUBLE(1.7E10),
-      "]"
+      "}"
     );
+    
 
     printf("> Original doc:\n%s\nlength: %d\n",
           bson_as_json(docin, &jlen), (int)jlen);

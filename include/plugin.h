@@ -19,6 +19,12 @@ typedef struct {
     double x, y, z;
   } acceleration;
   struct {
+    double x, y, z;
+  } gyro;
+  struct {
+    double x, y, z;
+  } magneto;
+  struct {
     double voltage;
     double current[3];
     double temperature[ACCUMULATOR_MODULES];
