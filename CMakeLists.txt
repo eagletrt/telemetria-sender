@@ -73,8 +73,8 @@ configure_file(
 )
 
 # If using Lua, uncomment the following:
-# include(Lua.cmake)
-
+include(Lua.cmake)
+list(APPEND BASE_LIBS lua)
                                
 #  _____                 _       
 # |_   _|___ ___ ___ ___| |_ ___ 

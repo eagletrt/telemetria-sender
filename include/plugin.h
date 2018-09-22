@@ -2,6 +2,7 @@
 #include <stdint.h>
 
 #define ACCUMULATOR_MODULES 12
+#define N_IMUS 1
 
 typedef struct {
   uint32_t id;
@@ -17,13 +18,13 @@ typedef struct {
   double throttle;
   struct {
     double x, y, z;
-  } acceleration;
+  } acceleration[N_IMUS];
   struct {
     double x, y, z;
-  } gyro;
+  } gyro[N_IMUS];
   struct {
     double x, y, z;
-  } magneto;
+  } magneto[N_IMUS];
   struct {
     double voltage;
     double current[3];

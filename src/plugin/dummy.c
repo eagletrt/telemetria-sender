@@ -20,7 +20,6 @@ int get_data(can_data_t *data) {
     perror("clock gettime");
     return EXIT_FAILURE;
   }
-  srand(time.tv_sec);
   timestamp = time.tv_sec * 1000 + time.tv_nsec / 1E6;
 
   data->id = id++;
@@ -35,15 +34,15 @@ int get_data(can_data_t *data) {
   data->steering_angle = 0.0 + rnd(-20, 20);
   data->throttle = 0.0 + rnd(0, 1);
   data->brake = 0.0 + rnd(0, 1);
-  data->acceleration.x = 0.0 + rnd(-0.5, 0.5);
-  data->acceleration.y = 0.0 + rnd(-0.5, 0.5);
-  data->acceleration.z = -1.0 + rnd(-0.1, 0.1);
-  data->gyro.x = 0.0 + rnd(-0.5, 0.5);
-  data->gyro.y = 0.0 + rnd(-0.5, 0.5);
-  data->gyro.z = 0.0 + rnd(-0.1, 0.1);
-  data->magneto.x = 0.0 + rnd(-3, 3);
-  data->magneto.y = 0.0 + rnd(-3, 3);
-  data->magneto.z = 0.0 + rnd(-3, 3);
+  data->acceleration[1].x = 0.0 + rnd(-0.5, 0.5);
+  data->acceleration[1].y = 0.0 + rnd(-0.5, 0.5);
+  data->acceleration[1].z = -1.0 + rnd(-0.1, 0.1);
+  data->gyro[1].x = 0.0 + rnd(-0.5, 0.5);
+  data->gyro[1].y = 0.0 + rnd(-0.5, 0.5);
+  data->gyro[1].z = 0.0 + rnd(-0.1, 0.1);
+  data->magneto[1].x = 0.0 + rnd(-3, 3);
+  data->magneto[1].y = 0.0 + rnd(-3, 3);
+  data->magneto[1].z = 0.0 + rnd(-3, 3);
 
   data->accumulator.voltage = 400 + rnd(-100, 0);
   data->accumulator.current[0] = 1.0 + rnd(-0.1, 0.1);

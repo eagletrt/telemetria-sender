@@ -86,19 +86,19 @@ int main(int argc, char const *argv[]) {
       "throttle", BCON_DOUBLE(can_data.throttle),
       "brake", BCON_DOUBLE(can_data.brake),
       "acceleration", "{",
-        "x", BCON_DOUBLE(can_data.acceleration.x),
-        "y", BCON_DOUBLE(can_data.acceleration.y),
-        "z", BCON_DOUBLE(can_data.acceleration.z),
+        "x", BCON_DOUBLE(can_data.acceleration[1].x),
+        "y", BCON_DOUBLE(can_data.acceleration[1].y),
+        "z", BCON_DOUBLE(can_data.acceleration[1].z),
       "}",
       "gyro", "{",
-        "x", BCON_DOUBLE(can_data.gyro.x),
-        "y", BCON_DOUBLE(can_data.gyro.y),
-        "z", BCON_DOUBLE(can_data.gyro.z),
+        "x", BCON_DOUBLE(can_data.gyro[1].x),
+        "y", BCON_DOUBLE(can_data.gyro[1].y),
+        "z", BCON_DOUBLE(can_data.gyro[1].z),
       "}",
       "magneto", "{",
-        "x", BCON_DOUBLE(can_data.magneto.x),
-        "y", BCON_DOUBLE(can_data.magneto.y),
-        "z", BCON_DOUBLE(can_data.magneto.z),
+        "x", BCON_DOUBLE(can_data.magneto[1].x),
+        "y", BCON_DOUBLE(can_data.magneto[1].y),
+        "z", BCON_DOUBLE(can_data.magneto[1].z),
       "}",
       "accumulator", "{",
         "voltage", BCON_DOUBLE(can_data.accumulator.voltage),
@@ -109,7 +109,7 @@ int main(int argc, char const *argv[]) {
         "]",
       "}"
     );
-    
+
 
     printf("> Original doc:\n%s\nlength: %d\n",
           bson_as_json(docin, &jlen), (int)jlen);
