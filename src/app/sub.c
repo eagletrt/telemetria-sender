@@ -16,12 +16,17 @@ static void clean_exit() {
   _running = 0;
 }
 
+typedef struct {
+  mongoc_collection_t *coll;
+  config_t *cfg;
+} userdata_t;
+
 void my_message_callback(struct mosquitto *mosq, void *userdata,
                          const struct mosquitto_message *message) {
   if (!message->payloadlen) {
     fprintf(stderr, "Skipping empty payload!\n");
   } else {
-    mongoc_collection_t *coll = (mongoc_collection_t *)userdata;
+    userdata_t *ud = (userdata_t *)userdata;
     uint8_t *buf = message->payload;
     bson_t *doc;
     size_t len, i;
@@ -29,51 +34,78 @@ void my_message_callback(struct mosquitto *mosq, void *userdata,
     printf("> Payload len: %d\n", message->payloadlen);
     printf("> Data:\n");
     print_buffer(stdout, buf, message->payloadlen);
-    doc = bson_new_from_data(buf, message->payloadlen);
-    printf("> Document:\n%s\n> Document size: %zu\n\n", bson_as_json(doc, &len),
+    if (strcmp(message->topic, "test/log") == 0) {
+      doc = bson_new_from_data(buf, message->payloadlen);
+      printf("> Document:\n%s\n> Document size: %zu\n\n", bson_as_json(doc, &len),
            len);
-    if (!mongoc_collection_insert_one(coll, doc, NULL, NULL, &error)) {
-      fprintf(stderr, "%s\n", error.message);
+      if (!mongoc_collection_insert_one(ud->coll, doc, NULL, NULL, &error)) {
+        fprintf(stderr, "%s\n", error.message);
+      }
+      bson_destroy(doc);
     }
-    bson_destroy(doc);
+    else {
+      fprintf(stderr, "Message on %s: %s\n", message->topic, message->payload);
+    }
   }
 }
 
 void my_connect_callback(struct mosquitto *mosq, void *userdata, int result) {
   if (!result) {
+    userdata_t *ud = (userdata_t *)userdata;
     /* Subscribe to broker information topics on successful connect. */
-    mosquitto_subscribe(mosq, NULL, "test/#", 2);
+    printf("Connected to %s.\n", ud->cfg->broker_host);
+    mosquitto_subscribe(mosq, NULL, ud->cfg->mqtt_topic, 2);
   } else {
     fprintf(stderr, "Connect failed\n");
   }
+}
+
+void my_subscribe_callback(struct mosquitto *mosq, void *userdata, int mid, int qos_count, const int *granted_qos) {
+  userdata_t *ud = (userdata_t *)userdata;
+  /* Subscribe to broker information topics on successful connect. */
+  printf("Subscribed to %s.\n", ud->cfg->mqtt_topic);
 }
 
 int main(int argc, char const *argv[]) {
   char *data;
   struct mosquitto *m;
   int status;
-  const char *uri_string = "mongodb://localhost:27017";
   mongoc_uri_t *uri;
   mongoc_client_t *client;
   mongoc_database_t *database;
   mongoc_collection_t *collection;
   bson_error_t error;
+  userdata_t ud = {NULL, NULL};
 
-  // Mongo setup
-  mongoc_init();
-
-  // Optionally get MongoDB URI from command line
-  if (argc > 1) {
-    uri_string = argv[1];
+  if (argc != 2) {
+    fprintf(stderr, "Need exactly one argument: the path to the configuration file\n");
+    return EXIT_FAILURE;
   }
+  if ((ud.cfg = new_config(argv[1])) == NULL) {
+    fprintf(stderr, "Could not load config file\n");
+    return EXIT_FAILURE;
+  }
+  
+  // Instal event handler
+  signal(SIGINT, clean_exit);
 
+  printf("%s Version %s\n", argv[0], GIT_COMMIT_HASH);
+
+  //  _____                 ____  _____ 
+  // |     |___ ___ ___ ___|    \| __  |
+  // | | | | . |   | . | . |  |  | __ -|
+  // |_|_|_|___|_|_|_  |___|____/|_____|
+  //               |___|                
+  mongoc_init();
+  printf("MongoDB: %s, %s.%s... ", ud.cfg->mongo_uri, ud.cfg->mongo_db, ud.cfg->mongo_collection);
+  fflush(stdout);
   // Safely create a MongoDB URI object from the given string
-  uri = mongoc_uri_new_with_error(uri_string, &error);
+  uri = mongoc_uri_new_with_error(ud.cfg->mongo_uri, &error);
   if (!uri) {
     fprintf(stderr,
             "failed to parse URI: %s\n"
             "error message:       %s\n",
-            uri_string, error.message);
+            ud.cfg->mongo_uri, error.message);
     return EXIT_FAILURE;
   }
 
@@ -82,27 +114,30 @@ int main(int argc, char const *argv[]) {
   if (!client) {
     return EXIT_FAILURE;
   }
+  printf("done\n");
 
   // Register the application name so we can track it in the profile logs
   // on the server. This can also be done from the URI (see other examples).
   mongoc_client_set_appname(client, "ERPI-sub");
 
   // Get a handle on the database "test" and collection "logging"
-  database = mongoc_client_get_database(client, "test");
-  collection = mongoc_client_get_collection(client, "test", "logging");
+  database = mongoc_client_get_database(client, ud.cfg->mongo_db);
+  collection = mongoc_client_get_collection(client, ud.cfg->mongo_db, ud.cfg->mongo_collection);
+  ud.coll = collection;
 
-  // Instal event handler
-  signal(SIGINT, clean_exit);
-
-  printf("%s Version %s\n", argv[0], GIT_COMMIT_HASH);
-  printf("Testing Mosquitto sub\n\n");
-
-  // Mosquitto setup
+  
+  //  _____                 _ _   _       
+  // |     |___ ___ ___ _ _|_| |_| |_ ___ 
+  // | | | | . |_ -| . | | | |  _|  _| . |
+  // |_|_|_|___|___|_  |___|_|_| |_| |___|
+  //                 |_|                  
+  printf("MQTT: %s:%d/%s... ", ud.cfg->broker_host, ud.cfg->broker_port, ud.cfg->mqtt_topic);
+  fflush(stdout);
   mosquitto_lib_init();
-  // create new instance and pass colloction as userdata, so that callbacks
-  // are able to access mongo
-  m = mosquitto_new(NULL, true, collection);
-  status = mosquitto_connect(m, "localhost", 1883, 60);
+  // create new instance and pass userdata, so that callbacks
+  // are able to access mongo collection and config struct
+  m = mosquitto_new(NULL, true, &ud);
+  status = mosquitto_connect(m, ud.cfg->broker_host, ud.cfg->broker_port, 5);
   if (status == MOSQ_ERR_SUCCESS) {
     fprintf(stderr, "Connected to broker\n");
   } else if (status == MOSQ_ERR_INVAL) {
@@ -112,15 +147,24 @@ int main(int argc, char const *argv[]) {
     perror("MQTT");
     exit(EXIT_FAILURE);
   }
+  printf("done.\n");
+
   // Set minimum callbacks
   mosquitto_connect_callback_set(m, my_connect_callback);
   mosquitto_message_callback_set(m, my_message_callback);
-
-  // Mosquitto event loop
+  mosquitto_subscribe_callback_set(m, my_subscribe_callback);
+                   
+  //  __                
+  // |  |   ___ ___ ___ 
+  // |  |__| . | . | . |
+  // |_____|___|___|  _|
+  //               |_|  
   mosquitto_loop_start(m);
+  fprintf(stderr, "Entering loop.\n");
   while (_running) {
     sleep(1);
   }
+  fprintf(stderr, "Clean exit\n");
   mosquitto_loop_stop(m, 1);
 
   // Finalize
@@ -132,6 +176,8 @@ int main(int argc, char const *argv[]) {
 
   mosquitto_destroy(m);
   mosquitto_lib_cleanup();
+
+  // free_config(ud.cfg);
 
   return 0;
 }

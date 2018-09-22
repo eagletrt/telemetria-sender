@@ -5,20 +5,25 @@
 #include <mosquitto.h>
 #include <stdio.h>
 #include <string.h>
+#include <lauxlib.h>
+#include <lua.h>
+#include <lualib.h>
 
 typedef struct {
+  lua_State *lua;
   // MongoDB
-  char *mongo_host;
-  int mongo_port;
-  char *mongo_collection;
+  const char *mongo_uri;
+  const char *mongo_db;
+  const char *mongo_collection;
   // MQTT
-  char *broker_host;
+  const char *broker_host;
   int broker_port;
-  char *mqtt_topic;
+  const char *mqtt_topic;
 } config_t;
 
 void print_buffer(FILE * stream, const uint8_t *buf, size_t buflen);
-int load_config(config_t *cfg, char const *config_file);
 
+config_t *new_config(char const *config_file);
+int load_config(config_t *cfg, char const *config_file);
 
 #endif

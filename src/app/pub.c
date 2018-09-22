@@ -125,7 +125,7 @@ int main(int argc, char const *argv[]) {
 
     // Send BSON data as a buffer via MQTT
     printf("> Sending %zu bytes\n", blen);
-    mosquitto_publish(m, NULL, "test/cross", blen, data, 0, false);
+    mosquitto_publish(m, NULL, "test/log", blen, data, 0, false);
 
     // Show raw buffer
     printf("> Data sent:\n");
