@@ -55,7 +55,7 @@ int main(int argc, char const *argv[]) {
   }
 
   printf("Testing BSON and Mosquitto pub\n\n");
-  for (j = 0; j < 100; j++) {
+  for (j = 0; j < 1000; j++) {
     // Create an example document (input doc, will come from CAN)
     // Get current high resolution time
     // CLOCK_MONOTONIC ensures no fluctuations due to NTP

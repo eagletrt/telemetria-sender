@@ -73,7 +73,9 @@ configure_file(
 )
 
 # If using Lua, uncomment the following:
-include(Lua.cmake)
+if(NOT CROSS)
+  include(Lua.cmake)
+endif()
 list(APPEND BASE_LIBS lua)
                                
 #  _____                 _       
