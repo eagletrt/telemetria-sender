@@ -19,11 +19,16 @@ typedef struct {
   const char *broker_host;
   int broker_port;
   const char *mqtt_topic;
+  // CAN
+  const char *plugin_path;
 } config_t;
+
+typedef enum {
+  CFG_PUB, CFG_SUB
+} pubsub_t;
 
 void print_buffer(FILE * stream, const uint8_t *buf, size_t buflen);
 
-config_t *new_config(char const *config_file);
-int load_config(config_t *cfg, char const *config_file);
+config_t *new_config(char const *config_file, pubsub_t type);
 
 #endif

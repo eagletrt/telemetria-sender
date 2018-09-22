@@ -81,7 +81,7 @@ int main(int argc, char const *argv[]) {
     fprintf(stderr, "Need exactly one argument: the path to the configuration file\n");
     return EXIT_FAILURE;
   }
-  if ((ud.cfg = new_config(argv[1])) == NULL) {
+  if ((ud.cfg = new_config(argv[1], CFG_SUB)) == NULL) {
     fprintf(stderr, "Could not load config file\n");
     return EXIT_FAILURE;
   }

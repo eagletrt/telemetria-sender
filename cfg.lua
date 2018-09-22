@@ -9,6 +9,13 @@ config_sub = {
   mqtt_topic = "test/+"
 }
 
+config_pub = {
+  broker_host = "localhost",
+  broker_port = 1883,
+  mqtt_topic = "test/log",
+  plugin_path = "build/dummy.plugin"
+}
+
 -- Derived entries
 config_sub.mongo_uri = "mongodb://"..config_sub.mongo_host..":"..config_sub.mongo_port
 
