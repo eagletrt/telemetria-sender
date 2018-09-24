@@ -60,12 +60,6 @@ RUN cd ${WORKDIR} && wget https://github.com/eclipse/mosquitto/archive/v${MQTT_V
     cmake -DCMAKE_TOOLCHAIN_FILE=/root/Toolchain-rpi.cmake -DDOCUMENTATION=OFF -DWITH_STATIC_LIBRARIES=ON -DWITH_PIC=ON -DCMAKE_INSTALL_PREFIX=${CROSS_ROOT} -Bxbuild -H. && \
     make -Cxbuild CFLAGS=-D_POSIX_C_SOURCE=1 install
 
-RUN cd ${WORKDIR} && wget ftp://ftp.gnu.org/gnu/readline/readline-6.3.tar.gz &&\
-    tar xf readline-6.3.tar.gz && cd readline-6.3 && \
-    ./configure --prefix=/usr/arm-linux-gnueabihf/ && \
-    make install && \
-    apt-get install -y libreadline-dev
-
 RUN cd ${WORKDIR} && wget https://www.lua.org/ftp/lua-5.3.5.tar.gz && \
     tar xf lua-5.3.5.tar.gz && cd lua-5.3.5  && \ 
     MYCFLAGS=-I${CROSS_ROOT}/include make -Csrc liblua.a CC=$CC AR="${AR} rcu" && \
