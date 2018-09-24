@@ -44,7 +44,7 @@ void my_message_callback(struct mosquitto *mosq, void *userdata,
       bson_destroy(doc);
     }
     else {
-      fprintf(stderr, "Message on %s: %s\n", message->topic, message->payload);
+      fprintf(stderr, "Message on %s: %s\n", message->topic, (char *)message->payload);
     }
   }
 }
