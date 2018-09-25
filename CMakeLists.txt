@@ -76,8 +76,8 @@ configure_file(
 if(NOT CROSS)
   include(Lua.cmake)
 endif()
-list(APPEND BASE_LIBS lua)
-                               
+set(BASE_LIBS lua;${BASE_LIBS})
+
 #  _____                 _       
 # |_   _|___ ___ ___ ___| |_ ___ 
 #   | | | .'|  _| . | -_|  _|_ -|
@@ -90,9 +90,9 @@ set(TARGETS_LIST pub sub dummy)
 add_library(erpi STATIC ${LIB_SOURCES} ${LINUX_LIB_SOURCES})
 target_include_directories(erpi PUBLIC ${MONGOC_STATIC_INCLUDE_DIRS})
 if(CROSS)
-  target_link_libraries(erpi ${BASE_LIBS} ${MONGO_LIBS})
+  target_link_libraries(erpi m ${BASE_LIBS} ${MONGO_LIBS})
 else()
-  target_link_libraries(erpi ${BASE_LIBS} ${MONGO_LIBS})	
+  target_link_libraries(erpi m ${BASE_LIBS} ${MONGO_LIBS})	
 endif()
 target_compile_definitions(erpi PUBLIC ${MONGOC_STATIC_DEFINITIONS})
 
