@@ -1,6 +1,7 @@
 
 #ifndef UTILS_H
 #define UTILS_H
+#include "plugin.h"
 #include <bson.h>
 #include <mosquitto.h>
 #include <stdio.h>
@@ -30,5 +31,7 @@ typedef enum {
 void print_buffer(FILE * stream, const uint8_t *buf, size_t buflen);
 
 config_t *new_config(char const *config_file, pubsub_t type);
+
+int can_data_to_bson(can_data_t *can_data, bson_t **bson, char const *plugin_path);
 
 #endif

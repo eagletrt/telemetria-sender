@@ -1,3 +1,5 @@
+#ifndef PLUGIN_H
+#define PLUGIN_H
 #include <stdlib.h>
 #include <stdint.h>
 
@@ -31,3 +33,5 @@ typedef struct {
     double temperature[ACCUMULATOR_MODULES];
   } accumulator;
 } can_data_t;
+
+#endif
