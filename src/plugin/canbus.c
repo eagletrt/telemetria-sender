@@ -1,16 +1,15 @@
 /**********************************************************************
  * canbus.c - acquire CANBus data and fill a can_data_t structure     *
  **********************************************************************/
-#include "plugin.h"
 #include "libsocketcan.h"
+#include "plugin.h"
 
 int get_data(can_data_t *data) {
   // TO BE IMPLEMENTED
   return EXIT_SUCCESS;
 }
 
-int main(int argc, char const *argv[])
-{
+int main(int argc, char const *argv[]) {
   bson_t *doc;
   can_data_t can_data = {0};
   printf("Plugin %s version %s\n", argv[0], GIT_COMMIT_HASH);
