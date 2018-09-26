@@ -46,8 +46,13 @@ else()
   set(MONGO_LIBS mongoc-1.0 bson-1.0)
   if(APPLE)
     set(BASE_LIBS libmosquitto.a pthread dl m ssl crypto)
-    include_directories(include /usr/local/include/libbson-1.0)
-    include_directories(include /usr/local/include/libmongoc-1.0)
+    include_directories(
+      include 
+      /usr/local/include/libbson-1.0
+      /usr/local/include/libmongoc-1.0
+      /usr/local/opt/openssl/include
+    )
+    link_directories(/usr/local/opt/openssl/lib)
   else()
     set(BASE_LIBS mosquitto pthread dl m ssl crypto)
     include_directories(include /usr/include/libbson-1.0)
