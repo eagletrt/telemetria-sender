@@ -34,4 +34,7 @@ config_t *new_config(char const *config_file, pubsub_t type);
 
 int can_data_to_bson(can_data_t *can_data, bson_t **bson, char const *plugin_path);
 
+uint64_t now_ns();
+uint64_t wait_next(uint64_t interval);
+
 #endif
