@@ -28,9 +28,6 @@ void mq_disconnect(struct mosquitto *m, void *userdata, int rc) {
   userdata_t *ud = (userdata_t *)userdata;
   ud->mqtt_connected = false;
   fprintf(stderr, "Disconnected from broker (%d)\n", rc);
-  while (mosquitto_reconnect(m) != MOSQ_ERR_SUCCESS) {
-    usleep(10E3);
-  }
 }
 
 int main(int argc, char const *argv[]) {
@@ -43,6 +40,7 @@ int main(int argc, char const *argv[]) {
   void *dlhandle = NULL;
   can_data_t can_data = {0};
   userdata_t ud = {NULL, false};
+  FILE *cache;
   
   printf("%s Version %s\n", argv[0], GIT_COMMIT_HASH);
 
@@ -51,7 +49,9 @@ int main(int argc, char const *argv[]) {
     fprintf(stderr, "Exactly one argument needed (config file path)\n");
     exit(EXIT_FAILURE);
   }
-  ud.cfg = new_config(argv[1], CFG_PUB);
+  if ((ud.cfg = new_config(argv[1], CFG_PUB)) == NULL) {
+    exit(EXIT_FAILURE);
+  }
   dlhandle = dlopen(ud.cfg->plugin_path, RTLD_LOCAL | RTLD_LAZY);
   if (!dlhandle) {
     perror("dlopen");
@@ -68,7 +68,7 @@ int main(int argc, char const *argv[]) {
   mosquitto_connect_callback_set(m, mq_connect);
   mosquitto_disconnect_callback_set(m, mq_disconnect);
 
-  status = mosquitto_connect(m, ud.cfg->broker_host, ud.cfg->broker_port, 60);
+  status = mosquitto_connect(m, ud.cfg->broker_host, ud.cfg->broker_port, 10);
   if (status == MOSQ_ERR_INVAL) {
     fprintf(stderr, "Error connecting\n");
     exit(EXIT_FAILURE);
@@ -77,14 +77,19 @@ int main(int argc, char const *argv[]) {
     exit(EXIT_FAILURE);
   }
 
+  cache = fopen(ud.cfg->cache_path, "a");
+
+  // Wait for connection
+  while(ud.mqtt_connected == false) {
+    mosquitto_loop(m, 10, 1);
+    usleep(1E3);
+  }
+
   printf("Testing BSON and Mosquitto pub\n\n");
   for (j = 0; j < 1000; j++) {
-    mosquitto_loop(m, 10, 1);
-    wait_next(10E6);
-    if (!ud.mqtt_connected) {
-      // cache data locally, since the MQTT link is not available
-      continue;
-    }
+    mosquitto_loop(m, 1, 1);
+    wait_next(100E6);
+ 
     // Create an example document (input doc, will come from CAN)
     // Get current high resolution time
     // CLOCK_MONOTONIC ensures no fluctuations due to NTP
@@ -95,32 +100,43 @@ int main(int argc, char const *argv[]) {
     get_data(&can_data);
     can_data_to_bson(&can_data, &docin, ud.cfg->plugin_path);
 
-    printf("> Original doc:\n%s\nlength: %d\n",
-          bson_as_json(docin, &jlen), (int)jlen);
-    // dump it to a data buffer
-    data = bson_get_data(docin);
-    printf("> Data:\n");
-    print_buffer(stdout, data, docin->len);
+    if (ud.mqtt_connected) {
+      printf("> Original doc:\n%s\nlength: %d\n",
+            bson_as_json(docin, &jlen), (int)jlen);
+      // dump it to a data buffer
+      data = bson_get_data(docin);
+      printf("> Data:\n");
+      print_buffer(stdout, data, docin->len);
 
-    // check back conversion to JSON
-    blen = docin->len;
-    doc = bson_new_from_data(data, blen);
-    printf("> Doc from BSON from raw data:\n%s\nJSON length: %zu, BSON data length: %u\n", bson_as_json(doc, &jlen), jlen, doc->len);
+      // check back conversion to JSON
+      blen = docin->len;
+      doc = bson_new_from_data(data, blen);
+      printf("> Doc from BSON from raw data:\n%s\nJSON length: %zu, BSON data length: %u\n", bson_as_json(doc, &jlen), jlen, doc->len);
 
-    // Send BSON data as a buffer via MQTT
-    printf("> Sending %zu bytes\n", blen);
-    mosquitto_publish(m, NULL, ud.cfg->mqtt_topic, blen, data, 0, false);
-
-    // Show raw buffer
-    printf("> Data sent:\n");
-    print_buffer(stdout, data, blen);
+      // Send BSON data as a buffer via MQTT
+      printf("> Sending %zu bytes\n", blen);
+      mosquitto_publish(m, NULL, ud.cfg->mqtt_topic, blen, data, 0, false);
+      // Show raw buffer
+      printf("> Data sent:\n");
+      print_buffer(stdout, data, blen);
+      bson_destroy(doc);
+    } else {
+      // cache data locally, since the MQTT link is not available
+      fprintf(cache, "$%05u", docin->len);
+      fwrite(data, docin->len, 1, cache);
+      fflush(cache);
+      printf(".");
+      fflush(stdout);
+      // try to reconnect
+      mosquitto_reconnect(m);
+      mosquitto_loop(m, 1, 1);
+    }
     bson_destroy(docin);
-    bson_destroy(doc);
   }
 
   printf("> Clean exit\n");
 
-
+  fclose(cache);
   mosquitto_destroy(m);
   mosquitto_lib_cleanup();
 

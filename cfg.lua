@@ -13,7 +13,8 @@ config_pub = {
   broker_host = "localhost",
   broker_port = 1883,
   mqtt_topic = "test/log",
-  plugin_path = "install/bin/dummy.plugin"
+  plugin_path = "install/bin/dummy.plugin",
+  cache_path = "cache.dat"
 }
 
 -- Derived entries

@@ -24,42 +24,42 @@ static int load_config_sub(lua_State *lua, config_t *cfg, char const *config_fil
   }
 
   if (lua_getfield(lua, -1, "mongo_uri") != LUA_TSTRING) {
-    fprintf(stderr, "LUA: missing config.mongo_uri\n");
+    fprintf(stderr, "LUA: missing config_sub.mongo_uri\n");
     return EXIT_FAILURE;
   }
   cfg->mongo_uri = luaL_checkstring(lua, -1);
   lua_pop(lua, 1);
 
   if (lua_getfield(lua, -1, "mongo_db") != LUA_TSTRING) {
-    fprintf(stderr, "LUA: missing config.mongo_db\n");
+    fprintf(stderr, "LUA: missing config_sub.mongo_db\n");
     return EXIT_FAILURE;
   }
   cfg->mongo_db = luaL_checkstring(lua, -1);
   lua_pop(lua, 1);
   
   if (lua_getfield(lua, -1, "mongo_collection") != LUA_TSTRING) {
-    fprintf(stderr, "LUA: missing config.mongo_collection\n");
+    fprintf(stderr, "LUA: missing config_sub.mongo_collection\n");
     return EXIT_FAILURE;
   }
   cfg->mongo_collection = luaL_checkstring(lua, -1);
   lua_pop(lua, 1);
 
   if (lua_getfield(lua, -1, "broker_host") != LUA_TSTRING) {
-    fprintf(stderr, "LUA: missing config.broker_host\n");
+    fprintf(stderr, "LUA: missing config_sub.broker_host\n");
     return EXIT_FAILURE;
   }
   cfg->broker_host = luaL_checkstring(lua, -1);
   lua_pop(lua, 1);
 
   if (lua_getfield(lua, -1, "broker_port") != LUA_TNUMBER) {
-    fprintf(stderr, "LUA: missing config.broker_port\n");
+    fprintf(stderr, "LUA: missing config_sub.broker_port\n");
     return EXIT_FAILURE;
   }
   cfg->broker_port = luaL_checkinteger(lua, -1);
   lua_pop(lua, 1);
 
   if (lua_getfield(lua, -1, "mqtt_topic") != LUA_TSTRING) {
-    fprintf(stderr, "LUA: missing config.mqtt_topic\n");
+    fprintf(stderr, "LUA: missing config_sub.mqtt_topic\n");
     return EXIT_FAILURE;
   }
   cfg->mqtt_topic = luaL_checkstring(lua, -1);
@@ -78,33 +78,40 @@ static int load_config_pub(lua_State *lua, config_t *cfg, char const *config_fil
   }
 
   if (lua_getfield(lua, -1, "broker_host") != LUA_TSTRING) {
-    fprintf(stderr, "LUA: missing config.broker_host\n");
+    fprintf(stderr, "LUA: missing config_pub.broker_host\n");
     return EXIT_FAILURE;
   }
   cfg->broker_host = luaL_checkstring(lua, -1);
   lua_pop(lua, 1);
 
   if (lua_getfield(lua, -1, "broker_port") != LUA_TNUMBER) {
-    fprintf(stderr, "LUA: missing config.broker_port\n");
+    fprintf(stderr, "LUA: missing config_pub.broker_port\n");
     return EXIT_FAILURE;
   }
   cfg->broker_port = luaL_checkinteger(lua, -1);
   lua_pop(lua, 1);
 
   if (lua_getfield(lua, -1, "mqtt_topic") != LUA_TSTRING) {
-    fprintf(stderr, "LUA: missing config.mqtt_topic\n");
+    fprintf(stderr, "LUA: missing config_pub.mqtt_topic\n");
     return EXIT_FAILURE;
   }
   cfg->mqtt_topic = luaL_checkstring(lua, -1);
   lua_pop(lua, 1);
 
   if (lua_getfield(lua, -1, "plugin_path") != LUA_TSTRING) {
-    fprintf(stderr, "LUA: missing config.plugin_path\n");
+    fprintf(stderr, "LUA: missing config_pub.plugin_path\n");
     return EXIT_FAILURE;
   }
   cfg->plugin_path = luaL_checkstring(lua, -1);
   lua_pop(lua, 1);
 
+  if (lua_getfield(lua, -1, "cache_path") != LUA_TSTRING) {
+    fprintf(stderr, "LUA: missing config_pub.cache_path\n");
+    return EXIT_FAILURE;
+  }
+  cfg->cache_path = luaL_checkstring(lua, -1);
+  lua_pop(lua, 1);
+  
   lua_pop(lua, 1); // config_table
 
   // lua_close(lua);

@@ -22,6 +22,8 @@ typedef struct {
   const char *mqtt_topic;
   // CAN
   const char *plugin_path;
+  // Cache
+  const char *cache_path;
 } config_t;
 
 typedef enum {

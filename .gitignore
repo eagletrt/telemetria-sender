@@ -6,3 +6,4 @@
 !/install/.gitkeep
 /include/version.h
 /*.json
+*.dat
