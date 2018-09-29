@@ -64,6 +64,7 @@ endif()
 include_directories(/usr/local/include) #search for headers in that dir
 set(SOURCE_DIR src)
 file(GLOB LIB_SOURCES "${SOURCE_DIR}/*.c") #put into LIB_SOURCES the globbed list
+file(GLOB LIB_HEADERS "${SOURCE_DIR}/*.h") # headers
 if(UNIX AND NOT APPLE)
   set(LINUX_SOURCE_DIR src/linux)
   file(GLOB LINUX_LIB_SOURCES "${LINUX_SOURCE_DIR}/*.c")
@@ -136,6 +137,7 @@ install(TARGETS ${TARGETS_LIST}
   LIBRARY DESTINATION lib
   ARCHIVE DESTINATION lib
 )
+install(FILES ${LIB_HEADERS} DESTINATION include)
 
 # Install package generator (creates an installer script)
 set(CPACK_GENERATOR "STGZ")
