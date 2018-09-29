@@ -22,6 +22,10 @@
  * @brief library code
  */
 
+#ifdef __APPLE__
+#warning "Unsupported platform for libsocketcan"
+#else
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -1132,3 +1136,6 @@ int can_get_device_stats(const char *name, struct can_device_stats *cds)
 {
 	return get_link(name, GET_XSTATS, cds);
 }
+
+
+#endif
