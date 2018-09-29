@@ -47,7 +47,6 @@ else()
   if(APPLE)
     set(BASE_LIBS libmosquitto.a pthread dl m ssl crypto)
     include_directories(
-      include 
       /usr/local/include/libbson-1.0
       /usr/local/include/libmongoc-1.0
       /usr/local/opt/openssl/include
@@ -55,14 +54,14 @@ else()
     link_directories(/usr/local/opt/openssl/lib)
   else()
     set(BASE_LIBS mosquitto pthread dl m ssl crypto)
-    include_directories(include /usr/include/libbson-1.0)
-    include_directories(include /usr/include/libmongoc-1.0)
+    include_directories(/usr/include/libbson-1.0)
+    include_directories(/usr/include/libmongoc-1.0)
     link_directories(/usr/lib/x86_64-linux-gnu)
   endif()
 endif()
 
 # Common setup for all targets:
-include_directories(include /usr/local/include) #search for headers in that dir
+include_directories(/usr/local/include) #search for headers in that dir
 set(SOURCE_DIR src)
 file(GLOB LIB_SOURCES "${SOURCE_DIR}/*.c") #put into LIB_SOURCES the globbed list
 if(UNIX AND NOT APPLE)
@@ -73,8 +72,8 @@ endif()
 
 # Header file containing the version
 configure_file(
-  ${CMAKE_HOME_DIRECTORY}/include.in/version.h.in
-  ${CMAKE_HOME_DIRECTORY}/include/version.h
+  ${CMAKE_HOME_DIRECTORY}/src/version.h.in
+  ${CMAKE_HOME_DIRECTORY}/src/version.h
 )
 
 # If using Lua, uncomment the following:

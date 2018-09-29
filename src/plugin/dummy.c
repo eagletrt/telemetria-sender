@@ -2,9 +2,9 @@
 /**********************************************************************
  * dummy.c - generate data as if coming from a dummy CANbus interface *
  **********************************************************************/
-#include "plugin.h"
-#include "utils.h"
-#include "version.h"
+#include "../plugin.h"
+#include "../utils.h"
+#include "../version.h"
 #include <time.h>
 #include <stdlib.h>
 #include <stdio.h>

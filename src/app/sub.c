@@ -1,8 +1,8 @@
 /**********************************************************************
  * sub.c - MQTT subsctriber and MongoDB client                        *
  **********************************************************************/
-#include "utils.h"
-#include "version.h"
+#include "../utils.h"
+#include "../version.h"
 #include <bson.h>
 #include <mongoc.h>
 #include <mosquitto.h>

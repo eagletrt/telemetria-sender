@@ -4,6 +4,6 @@
 /xbuild
 /install/*
 !/install/.gitkeep
-/include/version.h
+/src/version.h
 /*.json
 *.dat
