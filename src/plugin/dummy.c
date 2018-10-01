@@ -57,8 +57,8 @@ int get_data(can_data_t *data) {
 }
 
 
-int main(int argc, char const *argv[])
-{
+#ifdef __APPLE__
+int main(int argc, char const *argv[]) {
   bson_t *doc;
   can_data_t can_data = {0};
   printf("Plugin %s version %s\n", argv[0], GIT_COMMIT_HASH);
@@ -69,3 +69,4 @@ int main(int argc, char const *argv[])
   print_buffer(stdout, bson_get_data(doc), doc->len);
   return 0;
 }
+#endif
