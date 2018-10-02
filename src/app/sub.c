@@ -27,7 +27,7 @@ void my_message_callback(struct mosquitto *mosq, void *userdata,
     fprintf(stderr, "Skipping empty payload!\n");
   } else {
     userdata_t *ud = (userdata_t *)userdata;
-    uint8_t *buf = message->payload;
+    uint8_t *buf = (uint8_t *)message->payload;
     bson_t *doc;
     size_t len, i;
     bson_error_t error;
@@ -87,7 +87,7 @@ int main(int argc, char const *argv[]) {
   }
   
   // Instal event handler
-  signal(SIGINT, clean_exit);
+  signal(SIGINT, (__sighandler_t)clean_exit);
 
   printf("%s Version %s\n", argv[0], GIT_COMMIT_HASH);
 
