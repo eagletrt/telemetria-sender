@@ -54,11 +54,19 @@ int main(int argc, char const *argv[]) {
   }
   dlhandle = dlopen(ud.cfg->plugin_path, RTLD_LOCAL | RTLD_LAZY);
   if (!dlhandle) {
+    #ifdef __APPLE__
     perror("dlopen");
+    #else
+    fprintf(stderr, "dlopen error: %s\n", dlerror());
+    #endif
     exit(EXIT_FAILURE);
   }
   if ((get_data = dlsym(dlhandle, "get_data")) == NULL) {
+    #ifdef __APPLE__
     perror("dlsym");
+    #else
+    fprintf(stderr, "dlsym error: %s\n", dlerror());
+    #endif
     exit(EXIT_FAILURE);
   }
 

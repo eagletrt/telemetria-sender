@@ -114,14 +114,20 @@ target_compile_definitions(sub PRIVATE ${MONGOC_STATIC_DEFINITIONS})
 target_link_libraries(sub erpi)
 
 # Target plugin
-add_executable(dummy ${SOURCE_DIR}/plugin/dummy.c)
-target_link_libraries(dummy erpi)
-set_target_properties(dummy PROPERTIES PREFIX "" SUFFIX ".plugin")
-if (CROSS)
-  add_executable(canbus ${SOURCE_DIR}/plugin/canbus.c)
-  target_link_libraries(canbus erpi)
-  set_target_properties(canbus PROPERTIES PREFIX "" SUFFIX ".plugin")
-  list(APPEND TARGETS_LIST canbus)
+if(APPLE)
+  add_executable(dummy ${SOURCE_DIR}/plugin/dummy.c)
+  target_link_libraries(dummy erpi)
+  set_target_properties(dummy PROPERTIES PREFIX "" SUFFIX ".plugin")
+else()
+  add_library(dummy SHARED ${SOURCE_DIR}/plugin/dummy.c)
+  target_link_libraries(dummy erpi)
+  set_target_properties(dummy PROPERTIES PREFIX "" SUFFIX ".plugin")
+  if (CROSS)
+    add_executable(canbus ${SOURCE_DIR}/plugin/canbus.c)
+    target_link_libraries(canbus erpi)
+    set_target_properties(canbus PROPERTIES PREFIX "" SUFFIX ".plugin")
+    list(APPEND TARGETS_LIST canbus)
+  endif()
 endif()
 
                            
@@ -134,7 +140,7 @@ endif()
 set(CMAKE_INSTALL_PREFIX ${CMAKE_HOME_DIRECTORY}/install)
 install(TARGETS ${TARGETS_LIST}
   RUNTIME DESTINATION bin
-  LIBRARY DESTINATION lib
+  LIBRARY DESTINATION bin
   ARCHIVE DESTINATION lib
 )
 install(FILES ${LIB_HEADERS} DESTINATION include)
