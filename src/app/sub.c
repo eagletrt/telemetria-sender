@@ -137,7 +137,11 @@ int main(int argc, char const *argv[]) {
   mosquitto_lib_init();
   // create new instance and pass userdata, so that callbacks
   // are able to access mongo collection and config struct
-  m = mosquitto_new(argv[0], true, &ud);
+  m = mosquitto_new(argv[0], false, &ud);
+  if (!m) {
+    perror("mosquitto_new()");
+    exit(EXIT_FAILURE);
+  }
   assert(m != NULL);
   // Set minimum callbacks
   mosquitto_connect_callback_set(m, my_connect_callback);
