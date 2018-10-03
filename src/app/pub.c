@@ -64,7 +64,7 @@ int main(int argc, char const *argv[]) {
 
   // Mosquitto initialize
   mosquitto_lib_init();
-  m = mosquitto_new(NULL, true, &ud);
+  m = mosquitto_new(argv[0], true, &ud);
   mosquitto_connect_callback_set(m, mq_connect);
   mosquitto_disconnect_callback_set(m, mq_disconnect);
 

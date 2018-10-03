@@ -9,6 +9,7 @@
 #include <signal.h>
 #include <stdio.h>
 #include <string.h>
+#include <assert.h>
 
 int _running = 1;
 static void clean_exit() {
@@ -54,7 +55,7 @@ void my_connect_callback(struct mosquitto *mosq, void *userdata, int result) {
     userdata_t *ud = (userdata_t *)userdata;
     /* Subscribe to broker information topics on successful connect. */
     printf("Connected to %s.\n", ud->cfg->broker_host);
-    mosquitto_subscribe(mosq, NULL, ud->cfg->mqtt_topic, 2);
+    mosquitto_subscribe(mosq, NULL, ud->cfg->mqtt_topic, 0);
   } else {
     fprintf(stderr, "Connect failed\n");
   }
@@ -136,23 +137,15 @@ int main(int argc, char const *argv[]) {
   mosquitto_lib_init();
   // create new instance and pass userdata, so that callbacks
   // are able to access mongo collection and config struct
-  m = mosquitto_new(NULL, true, &ud);
-  status = mosquitto_connect(m, ud.cfg->broker_host, ud.cfg->broker_port, 5);
-  if (status == MOSQ_ERR_SUCCESS) {
-    fprintf(stderr, "Connected to broker\n");
-  } else if (status == MOSQ_ERR_INVAL) {
-    fprintf(stderr, "Error connecting\n");
-    exit(EXIT_FAILURE);
-  } else if (status == MOSQ_ERR_ERRNO) {
-    perror("MQTT");
-    exit(EXIT_FAILURE);
-  }
-  printf("done.\n");
-
+  m = mosquitto_new(argv[0], true, &ud);
+  assert(m != NULL);
   // Set minimum callbacks
   mosquitto_connect_callback_set(m, my_connect_callback);
   mosquitto_message_callback_set(m, my_message_callback);
   mosquitto_subscribe_callback_set(m, my_subscribe_callback);
+  // connect async, since we are using the threaded API (mosquitto_loop_start())
+  status = mosquitto_connect_async(m, ud.cfg->broker_host, ud.cfg->broker_port, 5);
+
                    
   //  __                
   // |  |   ___ ___ ___ 
