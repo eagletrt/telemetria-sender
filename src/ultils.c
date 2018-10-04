@@ -3,6 +3,7 @@
  **********************************************************************/
 #include "utils.h"
 #include <string.h>
+#include <libgen.h>
 
 void print_buffer(FILE * stream, const uint8_t *buf, size_t buflen) {
   size_t i, c = 1;
@@ -162,7 +163,7 @@ int can_data_to_bson(can_data_t *can_data, bson_t **bson, char const *plugin_pat
       BCON_INT32(wall.tv_nsec),
     "]",
     "idx", BCON_INT32(can_data->id), 
-    "plugin", BCON_UTF8(plugin_path),
+    "plugin", BCON_UTF8(basename((char *)plugin_path)),
     "location", "{",
       "latitude", BCON_INT32(can_data->location.latitude),
       "longitude", BCON_INT32(can_data->location.longitude),
