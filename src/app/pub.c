@@ -107,12 +107,12 @@ int main(int argc, char const *argv[]) {
     }
     get_data(&can_data);
     can_data_to_bson(&can_data, &docin, ud.cfg->plugin_path);
+    data = bson_get_data(docin);
 
     if (ud.mqtt_connected) {
       printf("> Original doc:\n%s\nlength: %d\n",
             bson_as_json(docin, &jlen), (int)jlen);
       // dump it to a data buffer
-      data = bson_get_data(docin);
       printf("> Data:\n");
       print_buffer(stdout, data, docin->len);
 
