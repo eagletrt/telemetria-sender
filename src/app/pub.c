@@ -106,8 +106,8 @@ int main(int argc, char const *argv[]) {
 
   printf("Testing BSON and Mosquitto pub\n\n");
   for (j = 0; j < 1000; j++) {
+    // trigger mosquitto callbacks
     mosquitto_loop(m, 1, 1);
-    wait_next(100E6);
 
     // Create an example document (input doc, will come from CAN)
     get_data(&can_data);
@@ -132,9 +132,11 @@ int main(int argc, char const *argv[]) {
       fflush(stdout);
       // try to reconnect
       mosquitto_reconnect(m);
-      mosquitto_loop(m, 1, 1);
     }
     bson_destroy(bdoc);
+
+    // throttle this loop
+    wait_next(100E6);
   }
 
   printf("> Clean exit\n");
