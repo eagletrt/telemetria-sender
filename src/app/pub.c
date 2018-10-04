@@ -36,7 +36,6 @@ int main(int argc, char const *argv[]) {
   bson_t *docin, *doc;
   struct mosquitto *m;
   int status, i, j;
-  struct timespec wall;
   void *dlhandle = NULL;
   can_data_t can_data = {0};
   userdata_t ud = {NULL, false};
@@ -85,7 +84,19 @@ int main(int argc, char const *argv[]) {
     exit(EXIT_FAILURE);
   }
 
-  cache = fopen(ud.cfg->cache_path, "a");
+  // cache file
+  // reserve first 4 bytes in file for a persistent seek address
+  cache = fopen(ud.cfg->cache_path, "a+");
+  if (ftell(cache) == 0) {
+    uint32_t zero = sizeof(uint32_t)+1;
+    fwrite(&zero, sizeof(uint32_t), 1, cache);
+    fflush(cache);
+  }
+  // then, when flushing the cache, the seek address has to be updated 
+  // after every read: read seek address from first 4 bytes; move to that address;
+  // chek if the next char is "$"; do n=atoi() of the next 5 chars as string;
+  // read the buffer of the next n bytes, and call bson_new_from_data();
+  // update the seek address with ftell() and loop again.
 
   // Wait for connection
   while(ud.mqtt_connected == false) {
@@ -99,12 +110,6 @@ int main(int argc, char const *argv[]) {
     wait_next(100E6);
  
     // Create an example document (input doc, will come from CAN)
-    // Get current high resolution time
-    // CLOCK_MONOTONIC ensures no fluctuations due to NTP
-    if( clock_gettime(CLOCK_REALTIME, &wall) == -1 ) {
-      perror("clock gettime");
-      exit(EXIT_FAILURE);
-    }
     get_data(&can_data);
     can_data_to_bson(&can_data, &docin, ud.cfg->plugin_path);
     data = bson_get_data(docin);

@@ -57,7 +57,7 @@ int get_data(can_data_t *data) {
 }
 
 
-#ifdef __APPLE__
+#if 0
 int main(int argc, char const *argv[]) {
   bson_t *doc;
   can_data_t can_data = {0};
