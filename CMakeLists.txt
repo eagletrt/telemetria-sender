@@ -115,7 +115,7 @@ target_link_libraries(sub erpi)
 
 # Target plugin
 add_library(dummy SHARED ${SOURCE_DIR}/plugin/dummy.c)
-target_link_libraries(dummy erpi)
+# target_link_libraries(dummy erpi)
 set_target_properties(dummy PROPERTIES PREFIX "" SUFFIX ".plugin")
 if (CROSS)
   add_executable(canbus ${SOURCE_DIR}/plugin/canbus.c)

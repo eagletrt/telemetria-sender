@@ -149,6 +149,8 @@ config_t *new_config(char const *config_file, pubsub_t type)  {
 
 int can_data_to_bson(can_data_t *can_data, bson_t **bson, char const *plugin_path) {
   struct timespec wall;
+  bson_t *accu, temp;
+  int i;
   if( clock_gettime(CLOCK_REALTIME, &wall) == -1 ) {
     perror("clock gettime");
     exit(EXIT_FAILURE);
@@ -188,16 +190,26 @@ int can_data_to_bson(can_data_t *can_data, bson_t **bson, char const *plugin_pat
       "x", BCON_DOUBLE(can_data->magneto[1].x),
       "y", BCON_DOUBLE(can_data->magneto[1].y),
       "z", BCON_DOUBLE(can_data->magneto[1].z),
-    "}",
-    "accumulator", "{",
-      "voltage", BCON_DOUBLE(can_data->accumulator.voltage),
-      "current", "[",
-        BCON_DOUBLE(can_data->accumulator.current[0]),
-        BCON_DOUBLE(can_data->accumulator.current[1]),
-        BCON_DOUBLE(can_data->accumulator.current[2]),
-      "]",
     "}"
   );
+  accu = BCON_NEW(
+    "voltage", BCON_DOUBLE(can_data->accumulator.voltage),
+    "current", "[",
+      BCON_DOUBLE(can_data->accumulator.current[0]),
+      BCON_DOUBLE(can_data->accumulator.current[1]),
+      BCON_DOUBLE(can_data->accumulator.current[2]),
+    "]"
+  );
+  bson_append_array_begin(accu, "temperature", 11, &temp);
+  for(i = 0; i < ACCUMULATOR_MODULES; i++) {
+    BSON_APPEND_DOUBLE(&temp, "", can_data->accumulator.temperature[i]);
+  }
+  bson_append_array_end(accu, &temp);
+  BCON_APPEND(*bson, 
+    "accumulator", BCON_DOCUMENT(accu)
+  );
+  bson_destroy(accu);
+  bson_destroy(&temp);
   // TODO: dynamically add a subdocument made of an array of temps
   return EXIT_SUCCESS;
 }
