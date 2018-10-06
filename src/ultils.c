@@ -200,7 +200,7 @@ int can_data_to_bson(can_data_t *can_data, bson_t **bson, char const *plugin_pat
       BCON_DOUBLE(can_data->accumulator.current[2]),
     "]"
   );
-  bson_append_array_begin(accu, "temperature", 11, &temp);
+  BSON_APPEND_ARRAY_BEGIN(accu, "temperature", &temp);
   for(i = 0; i < ACCUMULATOR_MODULES; i++) {
     BSON_APPEND_DOUBLE(&temp, "", can_data->accumulator.temperature[i]);
   }

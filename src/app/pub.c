@@ -116,14 +116,17 @@ int main(int argc, char const *argv[]) {
     blen = bdoc->len;
 
     if (ud.mqtt_connected) {
-      printf("> Original doc as JSON (%zu bytes):\n%s\n", jlen, bson_as_json(bdoc, &jlen));
+      char *json = bson_as_json(bdoc, &jlen);
+      printf("> Original doc as JSON (%zu bytes):\n%s\n", jlen, json);
+      free(json);
       // dump it to a data buffer
       printf("> Raw data buffer:\n");
       print_buffer(stdout, data, blen);
       // Send BSON data as a buffer via MQTT
       mosquitto_publish(m, NULL, ud.cfg->mqtt_topic, blen, data, 0, false);
       printf("> Sent %zu bytes.\n\n", blen);
-    } else {
+    } 
+    else {
       // cache data locally, since the MQTT link is not available
       fprintf(cache, "$%05zu", blen);
       fwrite(data, blen, 1, cache);
