@@ -150,3 +150,66 @@ int main(int argc, char const *argv[]) {
 
   return 0;
 }
+
+
+
+                                                    
+//  _____ _____ _____    _____               _____     
+// |   __|   __|     |  |  |  |___ _ _ _ ___|_   _|___ 
+// |   __|__   | | | |  |     | . | | | |___| | | | . |
+// |__|  |_____|_|_|_|  |__|__|___|_____|     |_| |___|
+                                                    
+#if 0
+// all ego-state vars go in here:
+typedef struct {
+  bool running;
+} state_data_t;
+
+// list of valid states, plus end_index. Enforce first index to 0 for 
+// portability
+typedef enum {
+  INIT = 0,
+  EVAL_STATUS,
+  RUNNING,
+  IDLE,
+  STOP,
+  FLUSH_CACHE,
+  CACHE,
+  PUBLISH,
+  NUM_STATES
+} state_t;
+
+// state function template signature
+typedef state_t state_func_t(state_data_t *);
+
+// declaration of state functions
+static state_t do_state_init(state_data_t *data);
+static state_t do_state_eval_status(state_data_t *data);
+
+// state table
+state_func_t * const state_table[NUM_STATES] = {
+  do_state_init,
+  do_state_eval_status
+};
+
+// FSM entry function, to be caled in loop
+static state_t run_state(state_t current_state, state_data_t *data) {
+  state_t new_state = state_table[current_state](data);
+  return new_state;
+}
+
+state_t do_state_init(state_data_t *state) {
+  state->running = true;
+  return EVAL_STATUS;
+}
+
+
+
+// Then, in main, do the following
+// state_data_t data = {false};
+// state_t cur_state = INIT
+// do {
+//   cur_state = run_state(cur_state, &data);
+// } while (state.running)
+
+#endif
