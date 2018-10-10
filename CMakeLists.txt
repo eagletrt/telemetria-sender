@@ -51,7 +51,7 @@ else()
       /usr/local/include/libmongoc-1.0
       /usr/local/opt/openssl/include
     )
-    link_directories(/usr/local/opt/openssl/lib)
+    link_directories(/usr/local/opt/openssl/lib /usr/local/lib)
   else()
     set(BASE_LIBS mosquitto pthread dl m ssl crypto)
     include_directories(/usr/include/libbson-1.0 /usr/local/include/libbson-1.0)
