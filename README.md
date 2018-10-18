@@ -1,4 +1,45 @@
-# Cheat sheet
+# Fenice Telemetry
+
+I contenuti di questa repository sono provvisori, ma ti serviranno per interagire
+con le tecnologie che stiamo utilizzando.
+
+## docs
+
+Un paio di Documenti con materiale relativo a MQTT, sei libero di caricare cose che possano servire.
+In più nella cartella config i procedimenti base per configurare il nostro raspberry. NodeJS e Mongo non sono ancora definitivi, bisogna trovare la versione adatta
+
+## linux-can utils
+
+https://github.com/linux-can/can-utils
+
+Questa cartella contiene le risorse per .c di can-utils, usata da linux per comunicare in can-bus
+
+## mqtt-mongo-recorder 
+
+https://www.thethingsnetwork.org/labs/story/save-your-data-using-nodejs-mqtt-mongodb
+
+https://github.com/dennisdegreef/mqtt-mongo-recorder
+
+Questa è la repository più vicina a quello che stiamo cercando di sviluppare penso possa essere un buon aiuto all'inizio. 
+
+## iot-dashboard
+
+https://www.npmjs.com/package/iot-dashboard
+
+Questo è un esempio di come si può lavorare con JS per fare il frontend del nostro sito
+
+## rpi-telemetry
+
+Contiene il progetto diviso come segue:
+
+```bash
+
+TREE of Contents
+
+```
+
+Nei prossimi punti si può vedere come configurare l'ambiente per poter testare la piattaforma
+sia su Docker che in locale. 
 
 ## Install prerequisites (Ubuntu)
 
@@ -11,6 +52,7 @@ $ sudo apt install mosquitto
 $ sudo apt install mosquitto-clients 
 $ sudo apt install libmosquitto-dev
 $ sudo apt install libmosquitto1
+$ sudo apt-get install libreadline-dev
 ```
 
 ## Set-up
@@ -106,3 +148,15 @@ Document:
 { "idx" : 1, "name" : "test" }
 length: 30
 ```
+
+Compilation for Dummies:
+
+```bash
+$ cmake -Bbuild -H.
+$ make -Cbuild
+$ build/cross-template
+$ build/sub cfg.lua
+$ build/pub cfg.lua
+```
+
+
