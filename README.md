@@ -1,4 +1,4 @@
-# Fenice Telemetry
+# Fenice Telemetria
 
 I contenuti di questa repository sono provvisori, ma ti serviranno per interagire
 con le tecnologie che stiamo utilizzando.
