@@ -33,9 +33,32 @@ Questo è un esempio di come si può lavorare con JS per fare il frontend del no
 Contiene il progetto diviso come segue:
 
 ```bash
-
-TREE of Contents
-
+├── architecture.txt
+├── cfg.lua
+├── CMakeLists.txt
+├── cross
+├── Dockerfile
+├── fsm.dot
+├── fsm.pdf
+├── install
+├── Lua.cmake
+├── src
+│   ├── app
+│   │   ├── pub.c
+│   │   └── sub.c
+│   ├── linux
+│   │   ├── can_netlink.h
+│   │   ├── libsocketcan.c
+│   │   └── libsocketcan.h
+│   ├── plugin
+│   │   ├── canbus.c
+│   │   └── dummy.c
+│   ├── plugin.h
+│   ├── timer.c
+│   ├── ultils.c
+│   ├── utils.h
+│   └── version.h.in
+└── Toolchain-rpi.cmake
 ```
 
 Nei prossimi punti si può vedere come configurare l'ambiente per poter testare la piattaforma
