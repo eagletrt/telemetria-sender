@@ -11,7 +11,26 @@
 #include <string.h>
 #include <time.h>
 
-// all ego-state vars go in here:
+int (*get_data)(can_data_t *data);
+
+typedef struct {
+  config_t *cfg; //pub and sub configuration file
+  bool mqtt_connected;
+} userdata_t;
+
+void mq_connect(struct mosquitto *m, void *userdata, int rc) {
+  userdata_t *ud = (userdata_t *)userdata;
+  ud->mqtt_connected = true;
+  fprintf(stderr, "Connected to broker\n");
+}
+
+void mq_disconnect(struct mosquitto *m, void *userdata, int rc) {
+  userdata_t *ud = (userdata_t *)userdata;
+  ud->mqtt_connected = false;
+  fprintf(stderr, "Disconnected from broker (%d)\n", rc);
+}
+
+//all ego-state vars go in here: data used by the FSM to run and evaluate each state
 typedef struct {
   bool running;
   bool carIsConnected;
@@ -26,8 +45,7 @@ typedef struct {
   FILE *cache;
 } state_data_t;
 
-// list of valid states, plus end_index. Enforce first index to 0 for 
-// portability
+// list of valid states, plus end_index. Enforce first index to 0 for portability
 typedef enum {
   INIT = 0,
   EVAL_STATUS,
@@ -43,7 +61,7 @@ typedef enum {
 // state function template signature
 typedef state_t state_func_t(state_data_t *);
 
-// declaration of state functions
+// declaration of state functions necessary to switch state 
 static state_t do_state_init(state_data_t *state_data);
 static state_t do_state_eval_status(state_data_t *state_data);
 static state_t do_state_running(state_data_t *state_data);
@@ -53,7 +71,7 @@ static state_t do_state_flush_cache(state_data_t *state_data);
 static state_t do_state_cache(state_data_t *state_data);
 static state_t do_state_publish(state_data_t *state_data);
 
-// state table
+// state table 
 state_func_t * const state_table[NUM_STATES] = {
   do_state_init,
   do_state_eval_status,
@@ -65,15 +83,25 @@ state_func_t * const state_table[NUM_STATES] = {
   do_state_publish
 };
 
-typedef struct {
-  config_t *cfg;
-  bool mqtt_connected;
-} userdata_t;
+//                .__        
+//   _____ _____  |__| ____  
+//  /     \\__  \ |  |/    \ 
+// |  Y Y  \/ __ \|  |   |  \
+// |__|_|  (____  /__|___|  /
+//       \/     \/        \/ 
 
+int main(int argc, char const *argv[]) {
+  void *dlhandle = NULL;
 
-int (*get_data)(can_data_t *data);
+  state_data_t state_data = {
+    false,
+    true,
+    true,
+  };
+  state_t cur_state = INIT;
 
-void initCheck(int argc, char const *argv[]){
+  printf("%s Version %s\n", argv[0], GIT_COMMIT_HASH);
+
   // Connect to data provider plugin
   if (argc != 2) {
     fprintf(stderr, "Exactly one argument needed (config file path)\n");
@@ -99,42 +127,36 @@ void initCheck(int argc, char const *argv[]){
     #endif
     exit(EXIT_FAILURE);
   }
-}
 
-void mq_connect(struct mosquitto *m, void *userdata, int rc) {
-  userdata_t *ud = (userdata_t *)userdata;
-  ud->mqtt_connected = true;
-  fprintf(stderr, "Connected to broker\n");
-}
+  // Mosquitto initialize or to be moved inside init?
+  // mosquitto_lib_init();
+  // m = mosquitto_new(argv[0], false, &ud);
+  // mosquitto_connect_callback_set(m, mq_connect);
+  // mosquitto_disconnect_callback_set(m, mq_disconnect);
 
-void mq_disconnect(struct mosquitto *m, void *userdata, int rc) {
-  userdata_t *ud = (userdata_t *)userdata;
-  ud->mqtt_connected = false;
-  fprintf(stderr, "Disconnected from broker (%d)\n", rc);
-}
+  // status = mosquitto_connect(m, ud.cfg->broker_host, ud.cfg->broker_port, 10);
+  // if (status == MOSQ_ERR_INVAL) {
+  //   fprintf(stderr, "Error connecting\n");
+  //   exit(EXIT_FAILURE);
+  // } else if (status == MOSQ_ERR_ERRNO) {
+  //   perror("MQTT");
+  //   exit(EXIT_FAILURE);
+  // }
 
-//                .__        
-//   _____ _____  |__| ____  
-//  /     \\__  \ |  |/    \ 
-// |  Y Y  \/ __ \|  |   |  \
-// |__|_|  (____  /__|___|  /
-//       \/     \/        \/ 
+  // cache file or to be moved inside init?
+  // reserve first 4 bytes in file for a persistent seek address
+  // cache = fopen(ud.cfg->cache_path, "a+");
+  // if (ftell(cache) == 0) {
+  //   uint32_t zero = sizeof(uint32_t) + 1;
+  //   fwrite(&zero, sizeof(uint32_t), 1, cache);
+  //   fflush(cache);
+  // }
+  // then, when flushing the cache, the seek address has to be updated
+  // after every read: read seek address from first 4 bytes; move to that
+  // address; chek if the next char is "$"; do n=atoi() of the next 5 chars as
+  // string; read the buffer of the next n bytes, and call bson_new_from_data();
+  // update the seek address with ftell() and loop again.
 
-int main(int argc, char const *argv[]) {
-
-
-  void *dlhandle = NULL;
-
-  state_data_t state_data = {
-    false,
-    true,
-    true,
-  };
-  state_t cur_state = INIT;
-
-  printf("%s Version %s\n", argv[0], GIT_COMMIT_HASH);
-
-  initCheck(argc,argv);
 
   do {
     mosquitto_loop(state_data.m, 1, 1);
@@ -144,6 +166,8 @@ int main(int argc, char const *argv[]) {
   return 0;
 }
 
+
+
 // ____________________   _____   
 // \_   _____/   _____/  /     \  
 //  |    __) \_____  \  /  \ /  \ 
@@ -152,7 +176,7 @@ int main(int argc, char const *argv[]) {
 //      \/          \/         \/ 
                                               
 
-// FSM entry function, to be caled in loop
+// FSM entry function, to be called in loop
 static state_t run_state(state_t current_state, state_data_t *state_data) {
   state_t new_state = state_table[current_state](state_data);
   return new_state;
@@ -271,6 +295,34 @@ state_t do_state_eval_cache(state_data_t *state_data) {
 // |__|             \/    \/             \/     \/ 
 
 state_t do_state_publish(state_data_t *state_data) {
+
+  //PLACEHOLDER
+  printf("Testing BSON and Mosquitto pub\n\n");
+  for (j = 0; j < 1000; j++) {
+    // trigger mosquitto callbacks
+    mosquitto_loop(m, 1, 1);
+
+    // Create an example document (input doc, will come from CAN)
+    get_data(&can_data);
+    can_data_to_bson(&can_data, &bdoc, ud.cfg->plugin_path);
+    data = bson_get_data(bdoc); //this step will not be necessary (testing only)
+    blen = bdoc->len;
+
+    if (ud.mqtt_connected) {
+      char *json = bson_as_json(bdoc, &jlen);
+      printf("> Original doc as JSON (%zu bytes):\n%s\n", jlen, json);
+      free(json);
+      // dump it to a data buffer
+      printf("> Raw data buffer:\n");
+      print_buffer(stdout, data, blen);
+      // Send BSON data as a buffer via MQTT
+      mosquitto_publish(m, NULL, ud.cfg->mqtt_topic, blen, data, 0, false); //NOTE: retain flag could be usefull for data log on DB as its similar to TCP 
+      printf("> Sent %zu bytes.\n\n", blen);
+    } 
+    bson_destroy(bdoc);
+    // throttle this loop
+    wait_next(100E6);
+  }
 
   return EVAL_STATUS;
 }
