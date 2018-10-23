@@ -78,6 +78,38 @@ $ sudo apt install libmosquitto1
 $ sudo apt-get install libreadline-dev
 ```
 
+## Install prerequisites (Arch/Manjaro)
+install the following from the package manager (or with pacman -S packagename):
+- cmake
+- mongo-c-driver
+- mosquitto
+- can-utils
+
+for docker setup follow this [guide](https://linuxhint.com/arch-linux-docker-tutorial/)
+
+##Compilation for local testing between local consoles:
+Nella directory rpi-cross-template lanciare
+
+```sh
+cmake -Bbuild -H.
+make -Cbuild
+make build/install
+```
+Se tutto è andato per il verso giusto con il make genererai gli esegubili. Ora basterà lanciare il publisher e subscriber con argomento il file config .lua che è nella directory principale:
+
+```sh
+build/sub cfg.lua
+```
+> in alternativa all ultimo comando si puó usare: install/bin/sub cfg.lua
+
+Da un altro terminale sempre da rpi-telemetri:
+
+```sh
+build/pub cfg.lua oppure install/bin/pub cfg.lua
+```
+
+Per terminare ovviamente basta un Ctrl+C sul terminale del pub in questo modo il subscriber resta in ascolto
+
 ## Set-up
 build a [Docker container](https://docker.com):
 
