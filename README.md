@@ -87,8 +87,8 @@ install the following from the package manager (or with pacman -S packagename):
 
 for docker setup follow this [guide](https://linuxhint.com/arch-linux-docker-tutorial/)
 
-##Compilation for local testing between local consoles:
-Nella directory rpi-cross-template lanciare
+## Compilation for local testing between local consoles:
+Nella directory rpi-telemetry lanciare
 
 ```sh
 cmake -Bbuild -H.

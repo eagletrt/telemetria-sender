@@ -40,8 +40,8 @@ typedef struct {
   size_t jlen, blen;
   bson_t *bdoc;
   int status, i, j;
-  can_data_t can_data = {0};
-  userdata_t ud = {NULL, false};
+  can_data_t can_data;
+  userdata_t ud;
   FILE *cache;
 } state_data_t;
 
@@ -58,6 +58,24 @@ typedef enum {
   NUM_STATES
 } state_t;
 
+// state events lookup table used by run_state to launch the appropriate state from an input state_t
+state_func_t * const state_table[NUM_STATES] = {
+  do_state_init,
+  do_state_eval_status,
+  do_state_running,
+  do_state_idle,
+  do_state_stop,
+  do_state_flush_cache,
+  do_state_cache,
+  do_state_publish
+};
+
+// FSM entry function, to be called in loop
+static state_t run_state(state_t current_state, state_data_t *state_data) {
+  state_t new_state = state_table[current_state](state_data); //TODO expression preceding parentheses of apparent call must have (pointer-to-) function type
+  return new_state;
+}
+
 // state function template signature
 typedef state_t state_func_t(state_data_t *);
 
@@ -71,18 +89,6 @@ static state_t do_state_flush_cache(state_data_t *state_data);
 static state_t do_state_cache(state_data_t *state_data);
 static state_t do_state_publish(state_data_t *state_data);
 
-// state table 
-state_func_t * const state_table[NUM_STATES] = {
-  do_state_init,
-  do_state_eval_status,
-  do_state_running,
-  do_state_idle,
-  do_state_stop,
-  do_state_flush_cache,
-  do_state_cache,
-  do_state_publish
-};
-
 //                .__        
 //   _____ _____  |__| ____  
 //  /     \\__  \ |  |/    \ 
@@ -92,14 +98,17 @@ state_func_t * const state_table[NUM_STATES] = {
 
 int main(int argc, char const *argv[]) {
   void *dlhandle = NULL;
-
+  
+  //init state_data
   state_data_t state_data = {
-    false,
-    true,
-    true,
+    .running = false,
+    .carIsConnected = true,
+    .carIsMoving = true,
+    .can_data = {0},
+    .ud = {NULL, false}
   };
-  state_t cur_state = INIT;
 
+  //print current git commint id
   printf("%s Version %s\n", argv[0], GIT_COMMIT_HASH);
 
   // Connect to data provider plugin
@@ -107,10 +116,10 @@ int main(int argc, char const *argv[]) {
     fprintf(stderr, "Exactly one argument needed (config file path)\n");
     exit(EXIT_FAILURE);
   }
-  if ((ud.cfg = new_config(argv[1], CFG_PUB)) == NULL) {
+  if ((state_data.ud.cfg = new_config(argv[1], CFG_PUB)) == NULL) {
     exit(EXIT_FAILURE);
   }
-  dlhandle = dlopen(ud.cfg->plugin_path, RTLD_LOCAL | RTLD_LAZY);
+  dlhandle = dlopen(state_data.ud.cfg->plugin_path, RTLD_LOCAL | RTLD_LAZY);
   if (!dlhandle) {
     #ifdef __APPLE__
       perror("dlopen");
@@ -128,36 +137,12 @@ int main(int argc, char const *argv[]) {
     exit(EXIT_FAILURE);
   }
 
-  // Mosquitto initialize or to be moved inside init?
-  // mosquitto_lib_init();
-  // m = mosquitto_new(argv[0], false, &ud);
-  // mosquitto_connect_callback_set(m, mq_connect);
-  // mosquitto_disconnect_callback_set(m, mq_disconnect);
+  //launch init FSM state
+  mosquitto_lib_init();
+  state_data.m = mosquitto_new(argv[0], false, &state_data.ud);
+  state_t cur_state = run_state(INIT, &state_data.data);
 
-  // status = mosquitto_connect(m, ud.cfg->broker_host, ud.cfg->broker_port, 10);
-  // if (status == MOSQ_ERR_INVAL) {
-  //   fprintf(stderr, "Error connecting\n");
-  //   exit(EXIT_FAILURE);
-  // } else if (status == MOSQ_ERR_ERRNO) {
-  //   perror("MQTT");
-  //   exit(EXIT_FAILURE);
-  // }
-
-  // cache file or to be moved inside init?
-  // reserve first 4 bytes in file for a persistent seek address
-  // cache = fopen(ud.cfg->cache_path, "a+");
-  // if (ftell(cache) == 0) {
-  //   uint32_t zero = sizeof(uint32_t) + 1;
-  //   fwrite(&zero, sizeof(uint32_t), 1, cache);
-  //   fflush(cache);
-  // }
-  // then, when flushing the cache, the seek address has to be updated
-  // after every read: read seek address from first 4 bytes; move to that
-  // address; chek if the next char is "$"; do n=atoi() of the next 5 chars as
-  // string; read the buffer of the next n bytes, and call bson_new_from_data();
-  // update the seek address with ftell() and loop again.
-
-
+  //loop for the FSM
   do {
     mosquitto_loop(state_data.m, 1, 1);
     cur_state = run_state(cur_state, &state_data.data);
@@ -166,21 +151,12 @@ int main(int argc, char const *argv[]) {
   return 0;
 }
 
-
-
 // ____________________   _____   
 // \_   _____/   _____/  /     \  
 //  |    __) \_____  \  /  \ /  \ 
 //  |     \  /        \/    Y    \
 //  \___  / /_______  /\____|__  /
 //      \/          \/         \/ 
-                                              
-
-// FSM entry function, to be called in loop
-static state_t run_state(state_t current_state, state_data_t *state_data) {
-  state_t new_state = state_table[current_state](state_data);
-  return new_state;
-}
 
 // .__       .__  __   
 // |__| ____ |__|/  |_ 
@@ -190,7 +166,34 @@ static state_t run_state(state_t current_state, state_data_t *state_data) {
 //         \/          
 
 state_t do_state_init(state_data_t *state_data) {
-  state_data.running -> true;
+  state_data->running = true;
+
+  //Mosquitto initialize
+  mosquitto_connect_callback_set(state_data->m, mq_connect);
+  mosquitto_disconnect_callback_set(state_data->m, mq_disconnect);
+
+  state_data->status = mosquitto_connect(state_data->m, state_data->ud.cfg->broker_host, state_data->ud.cfg->broker_port, 10);
+  if (state_data->status == MOSQ_ERR_INVAL) {
+    fprintf(stderr, "Error connecting\n");
+    exit(EXIT_FAILURE);
+  } else if (state_data->status == MOSQ_ERR_ERRNO) {
+    perror("MQTT");
+    exit(EXIT_FAILURE);
+  }
+
+  // cache file initialize
+  //reserve first 4 bytes in file for a persistent seek address
+  // state_data->cache = fopen(ud.cfg->cache_path, "a+");
+  // if (ftell(state_data->cache) == 0) {
+  //   uint32_t zero = sizeof(uint32_t) + 1;
+  //   fwrite(&zero, sizeof(uint32_t), 1, state_data->cache);
+  //   fflush(state_data->cache);
+  // }
+  // then, when flushing the cache, the seek address has to be updated
+  // after every read: read seek address from first 4 bytes; move to that
+  // address; chek if the next char is "$"; do n=atoi() of the next 5 chars as
+  // string; read the buffer of the next n bytes, and call bson_new_from_data();
+  // update the seek address with ftell() and loop again.
 
   return EVAL_STATUS;
 }
@@ -204,7 +207,7 @@ state_t do_state_init(state_data_t *state_data) {
 
 state_t do_state_eval_status(state_data_t *state_data) {
 
-  if(state_data.carIsMoving){
+  if(state_data->carIsMoving){
     return RUNNING;
   }else{
     return IDLE;
@@ -220,7 +223,7 @@ state_t do_state_eval_status(state_data_t *state_data) {
 
 state_t do_state_running(state_data_t *state_data) {
 
-  if(state_data.carIsConnected){
+  if(state_data->carIsConnected){
     return PUBLISH;
   }else{
     return CACHE;
@@ -236,7 +239,7 @@ state_t do_state_running(state_data_t *state_data) {
 
 state_t do_state_idle(state_data_t *state_data) {
 
-  if(state_data.carIsConnected){
+  if(state_data->carIsConnected){
     return FLUSH_CACHE;
   }else{
     return CACHE;
@@ -254,11 +257,11 @@ state_t do_state_stop(state_data_t *state_data) {
 
   printf("> Clean exit\n");
 
-  fclose(state_data.cache);
-  mosquitto_destroy(state_data.m);
+  fclose(state_data->cache);
+  mosquitto_destroy(state_data->m);
   mosquitto_lib_cleanup();
 
-  state_data.running -> false;//nello struct metto false/true per poter uscire dall loop
+  state_data->running = false;//nello struct metto false/true per poter uscire dall loop
 
   return STOP; 
 }
@@ -283,7 +286,7 @@ state_t do_state_flush_cache(state_data_t *state_data) {
 //      \/     \/     \/     \/     \/ 
 
 state_t do_state_eval_cache(state_data_t *state_data) {
-
+  //store cache
   return EVAL_STATUS;
 }
 
@@ -296,33 +299,23 @@ state_t do_state_eval_cache(state_data_t *state_data) {
 
 state_t do_state_publish(state_data_t *state_data) {
 
-  //PLACEHOLDER
-  printf("Testing BSON and Mosquitto pub\n\n");
-  for (j = 0; j < 1000; j++) {
-    // trigger mosquitto callbacks
-    mosquitto_loop(m, 1, 1);
+  get_data(&state_data->can_data);
+  can_data_to_bson(&state_data->can_data, &state_data->bdoc, state_data->ud.cfg->plugin_path);
+  state_data->blen = state_data->bdoc->len;
+  state_data->data = bson_get_data(state_data->bdoc); 
 
-    // Create an example document (input doc, will come from CAN)
-    get_data(&can_data);
-    can_data_to_bson(&can_data, &bdoc, ud.cfg->plugin_path);
-    data = bson_get_data(bdoc); //this step will not be necessary (testing only)
-    blen = bdoc->len;
+  //this step will not be necessary (testing only)
+  char *json = bson_as_json(state_data->bdoc, &state_data->jlen);
+  printf("> Original doc as JSON (%zu bytes):\n%s\n", state_data->jlen, json);
+  free(json);
+  // dump it to a data buffer
 
-    if (ud.mqtt_connected) {
-      char *json = bson_as_json(bdoc, &jlen);
-      printf("> Original doc as JSON (%zu bytes):\n%s\n", jlen, json);
-      free(json);
-      // dump it to a data buffer
-      printf("> Raw data buffer:\n");
-      print_buffer(stdout, data, blen);
-      // Send BSON data as a buffer via MQTT
-      mosquitto_publish(m, NULL, ud.cfg->mqtt_topic, blen, data, 0, false); //NOTE: retain flag could be usefull for data log on DB as its similar to TCP 
-      printf("> Sent %zu bytes.\n\n", blen);
-    } 
-    bson_destroy(bdoc);
-    // throttle this loop
-    wait_next(100E6);
-  }
+  printf("> Raw data buffer:\n");
+  print_buffer(stdout, state_data->data, state_data->blen);
+  // Send BSON data as a buffer via MQTT
+  mosquitto_publish(state_data->m, NULL, state_data->ud.cfg->mqtt_topic, state_data->blen, state_data->data, 0, false); //NOTE: retain flag could be usefull for data log on DB as its similar to TCP 
+  printf("> Sent %zu bytes.\n\n", state_data->blen);
+  bson_destroy(state_data->bdoc);
 
   return EVAL_STATUS;
 }

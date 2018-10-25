@@ -7,3 +7,5 @@
 /src/version.h
 /*.json
 *.dat
+
+rpi-telemetry/build/
