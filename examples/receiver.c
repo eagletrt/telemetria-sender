@@ -82,7 +82,7 @@ void printFrame(struct can_frame* frame) {
 	// 16 spaces for data (2 each byte) + 7 for the points.	
 	// 1 for the terminator	
 	
-	printf("%03X \t[\%u]  ",(*frame).can_id, (*frame).can_dlc);
+	printf("%03X \t[%u]  ",(*frame).can_id, (*frame).can_dlc);
 	for (int i = 0; i<(*frame).can_dlc; i++) {
 		printf("%02X ",(*frame).data[i]);
 	}
