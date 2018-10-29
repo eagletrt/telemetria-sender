@@ -1,9 +1,12 @@
 .vscode
 *.DS_store
-/build
-/xbuild
-/install/*
+/examples/receiver
+/examples/sender
+/rpi-telemetry/build
+/rpi-telemetry/xbuild
+/rpi-telemetry/install/*
 !/install/.gitkeep
-/src/version.h
-/*.json
+/rpi-telemetry/src/version.h
+/docs
+/rpi-telemetry/*.json
 *.dat
