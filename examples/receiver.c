@@ -24,7 +24,6 @@ int main(int argc, char *argv[]) {
 	int nbytes;
 	
 	struct sockaddr_can addr;
-	struct can_frame frame;
 	struct ifreq ifr;
 
 	//nome del can su quale mandare i dati
@@ -49,21 +48,6 @@ int main(int argc, char *argv[]) {
 		perror("Error in socket bind");
 		return -2;
 	}
-
-	//setup del frame da mandare
-	frame.can_id = 0x123;
-	frame.can_dlc = 8;
-	frame.data[0] = 0x12;
-	frame.data[1] = 0x11;
-
-	frame.data[2] = 0x13;
-	frame.data[3] = 0xAF;
-
-	frame.data[4] = 0xD3;
-	frame.data[5] = 0x3E;
-
-	frame.data[6] = 0x12;
-	frame.data[7] = 0x11;
 
 	//ricezione e stampa
 	struct can_frame frame_read;
