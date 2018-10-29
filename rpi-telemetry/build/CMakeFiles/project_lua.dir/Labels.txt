@@ -1,0 +1,13 @@
+# Target labels
+ project_lua
+# Source files and their labels
+/home/lucamartinelli/Documenti/Project/fenice-telemetria/rpi-telemetry/build/CMakeFiles/project_lua
+/home/lucamartinelli/Documenti/Project/fenice-telemetria/rpi-telemetry/build/CMakeFiles/project_lua.rule
+/home/lucamartinelli/Documenti/Project/fenice-telemetria/rpi-telemetry/build/CMakeFiles/project_lua-complete.rule
+/home/lucamartinelli/Documenti/Project/fenice-telemetria/rpi-telemetry/build/lua-5.3.5/src/project_lua-stamp/project_lua-install.rule
+/home/lucamartinelli/Documenti/Project/fenice-telemetria/rpi-telemetry/build/lua-5.3.5/src/project_lua-stamp/project_lua-mkdir.rule
+/home/lucamartinelli/Documenti/Project/fenice-telemetria/rpi-telemetry/build/lua-5.3.5/src/project_lua-stamp/project_lua-download.rule
+/home/lucamartinelli/Documenti/Project/fenice-telemetria/rpi-telemetry/build/lua-5.3.5/src/project_lua-stamp/project_lua-update.rule
+/home/lucamartinelli/Documenti/Project/fenice-telemetria/rpi-telemetry/build/lua-5.3.5/src/project_lua-stamp/project_lua-patch.rule
+/home/lucamartinelli/Documenti/Project/fenice-telemetria/rpi-telemetry/build/lua-5.3.5/src/project_lua-stamp/project_lua-configure.rule
+/home/lucamartinelli/Documenti/Project/fenice-telemetria/rpi-telemetry/build/lua-5.3.5/src/project_lua-stamp/project_lua-build.rule

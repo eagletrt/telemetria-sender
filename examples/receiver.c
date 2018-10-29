@@ -57,8 +57,23 @@ int main(int argc, char *argv[]) {
 	return 0;
 }
 
+/*
+	Molto bene, l'idea mi è piaciuta.
+	Ti ho modificato can_manual.sh perchè alcuni comandi non erano essenziali.
+	Come prossime modifiche penso sia il caso di lasciare il receiver aperto
+	in modo tale da poter continuare ad inviare sia con sendere che con cansend vcan0 
+	e chiudere il programma con un Ctrl+C.
+	Per quanto riguarda invece il formato  servirebbe una funzione d'appogio per
+	poter utilizzare integer al posto di valori esadecimanli.
+	Non penso sia un problema per frame.data passargli integere ma va provato
 
-
+	Per riassumere:
+	1) Receiver sempre aperto
+	2) Sender: controllare che supporti integer o nel caso scrivere una funzione d'appogio
+	3) Receiver: salvare tutti i frame in un file .csv
+	4) Creare una libreria (05/11/2018)
+	5) Integrare il codice al nostro progetto con il plugin (07/11/2018) 
+*/
 
 void printFrame(struct can_frame* frame) {
 	// MAX string lenght	

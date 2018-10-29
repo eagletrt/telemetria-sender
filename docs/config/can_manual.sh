@@ -5,10 +5,9 @@
 	$ sudo apt-get update
 	$ sudo apt-get can-utils
 
-	$ modprobe can_dev
-	$ modprobe can
-	$ modprobe can_raw
-	$ sudo ip link set can0 type can
+	$ modprobe vcan
+	$ sudo ip link add dev vcan0 type vcan
+	$ sudo ip link set up vcan0
 
 *********************************************
 * Utilizzo dei programmini base per CAN BUS *
