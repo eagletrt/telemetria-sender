@@ -58,6 +58,19 @@ typedef enum {
   NUM_STATES
 } state_t;
 
+// state function template signature
+typedef state_t state_func_t(state_data_t *);
+
+// declaration of state functions necessary to switch state 
+static state_t do_state_init(state_data_t *state_data);
+static state_t do_state_eval_status(state_data_t *state_data);
+static state_t do_state_running(state_data_t *state_data);
+static state_t do_state_idle(state_data_t *state_data);
+static state_t do_state_stop(state_data_t *state_data);
+static state_t do_state_flush_cache(state_data_t *state_data);
+static state_t do_state_cache(state_data_t *state_data);
+static state_t do_state_publish(state_data_t *state_data);
+
 // state events lookup table used by run_state to launch the appropriate state from an input state_t
 state_func_t * const state_table[NUM_STATES] = {
   do_state_init,
@@ -72,22 +85,9 @@ state_func_t * const state_table[NUM_STATES] = {
 
 // FSM entry function, to be called in loop
 static state_t run_state(state_t current_state, state_data_t *state_data) {
-  state_t new_state = state_table[current_state](state_data); //TODO expression preceding parentheses of apparent call must have (pointer-to-) function type
+  state_t new_state = state_table[current_state](state_data);
   return new_state;
 }
-
-// state function template signature
-typedef state_t state_func_t(state_data_t *);
-
-// declaration of state functions necessary to switch state 
-static state_t do_state_init(state_data_t *state_data);
-static state_t do_state_eval_status(state_data_t *state_data);
-static state_t do_state_running(state_data_t *state_data);
-static state_t do_state_idle(state_data_t *state_data);
-static state_t do_state_stop(state_data_t *state_data);
-static state_t do_state_flush_cache(state_data_t *state_data);
-static state_t do_state_cache(state_data_t *state_data);
-static state_t do_state_publish(state_data_t *state_data);
 
 //                .__        
 //   _____ _____  |__| ____  
@@ -290,13 +290,16 @@ state_t do_state_eval_cache(state_data_t *state_data) {
   return EVAL_STATUS;
 }
 
-//             ___.  ___.   .__  .__       .__     
-// ______  __ _\_ |__\_ |__ |  | |__| _____|  |__  
-// \____ \|  |  \ __ \| __ \|  | |  |/  ___/  |  \ 
-// |  |_> >  |  / \_\ \ \_\ \  |_|  |\___ \|   Y  \
-// |   __/|____/|___  /___  /____/__/____  >___|  /
-// |__|             \/    \/             \/     \/ 
-
+//             ___.   .__  .__       .__     
+// ______  __ _\_ |__ |  | |__| _____|  |__  
+// \____ \|  |  \ __ \|  | |  |/  ___/  |  \ 
+// |  |_> >  |  / \_\ \  |_|  |\___ \|   Y  \
+// |   __/|____/|___  /____/__/____  >___|  /
+// |__|             \/            \/     \/ 
+/* TODO
+* separare i dati in arrivo e pubblicare su topic differenti
+* inviare il blocco dati senza separazione al topic del DB in modalitá "TCP" QoS = 2
+*/
 state_t do_state_publish(state_data_t *state_data) {
 
   get_data(&state_data->can_data);
