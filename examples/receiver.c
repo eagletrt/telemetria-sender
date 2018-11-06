@@ -1,75 +1,45 @@
-	
 //basic io function
 #include <stdio.h>
-#include <unistd.h>
-#include <string.h>
-#include <stdlib.h>
+#include "plugin/can_custom_lib.h"
 
-//sockets import
-#include <net/if.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <sys/ioctl.h>
-
-//can utils import
-#include <linux/can.h>
-#include <linux/can/raw.h>
-
-void printFrame(struct can_frame* frame);
+void printData(int id, char* data);
 
 int main(int argc, char *argv[]) {
 	//socket
 	int s;
-	//bytes inviati
+	//bytes ricevuti
 	int nbytes;
-	
+	//info per legare il socket al can
 	struct sockaddr_can addr;
-	struct ifreq ifr;
 
 	//nome del can su quale mandare i dati
-	const char* ifname = "vcan0";
+	char* name = (char*) malloc(sizeof(char)*5);
+	strcpy(name,"vcan0");
 
-	//tentativo di apertura socket can
-	if ((s = socket(PF_CAN, SOCK_RAW, CAN_RAW)) < 0 ) {
-		perror("Error while opening socket");
-		return -1;
-	}
-
-	strcpy(ifr.ifr_name, ifname);
-	ioctl(s, SIOCGIFINDEX, &ifr);
-
-	addr.can_family = AF_CAN;
-	addr.can_ifindex = ifr.ifr_ifindex;
-
-	printf("%s at index %d\n", ifname, ifr.ifr_ifindex);
-
-	//binding del socket can sul socket
-	if (bind(s, (struct sockaddr *)&addr, sizeof(addr)) < 0) {
-		perror("Error in socket bind");
-		return -2;
-	}
+	s = open_can_socket(name,&addr);
 
 	//ricezione e stampa
-	struct can_frame frame_read;
-	read(s, &frame_read,16);
-	printFrame(&frame_read);
-	
+	int id;
+	char* data;
+	nbytes = receive_can(s,&id,&data);
+
+	printData(id,data);	
 	return 0;
 }
 
 
 
 
-void printFrame(struct can_frame* frame) {
+void printData(int id, char* data) {
 	// MAX string lenght	
 	// 3 spaces for id
 	// 1 white, 1 for "|", 1 white
 	// 16 spaces for data (2 each byte) + 7 for the points.	
 	// 1 for the terminator	
 	
-	printf("%03X \t[%u]  ",(*frame).can_id, (*frame).can_dlc);
-	for (int i = 0; i<(*frame).can_dlc; i++) {
-		printf("%02X ",(*frame).data[i]);
+	printf("%03X \t[%li]  ",id, strlen(data));
+	for (int i = 0;i<strlen(data); i++) {
+		printf("%02X ", (data[i] & 0xFF));
 	}
 	printf("\n");
 }

@@ -1,71 +1,39 @@
 //basic io function
 #include <stdio.h>
-#include <unistd.h>
-#include <string.h>
-#include <stdlib.h>
-
-//sockets import
-#include <net/if.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <sys/ioctl.h>
-
-//can utils import
-#include <linux/can.h>
-#include <linux/can/raw.h>
+#include "plugin/can_custom_lib.h"
 
 int main(int argc, char *argv[]) {
 	//socket
 	int s;
 	//bytes inviati
 	int nbytes;
-	
+	//info per legare il socket al can
 	struct sockaddr_can addr;
-	struct can_frame frame;
-	struct ifreq ifr;
 
 	//nome del can su quale mandare i dati
-	const char* ifname = "vcan0";
+	char* name = (char*) malloc(sizeof(char)*5);
+	strcpy(name,"vcan0");
 
-	//tentativo di apertura socket can
-	if ((s = socket(PF_CAN, SOCK_RAW, CAN_RAW)) < 0 ) {
-		perror("Error while opening socket");
-		return -1;
-	}
+	s = open_can_socket(name,&addr);
 
-	strcpy(ifr.ifr_name, ifname);
-	ioctl(s, SIOCGIFINDEX, &ifr);
+	int id = 0x123;
+	char* data = (char*) malloc(8*sizeof(char));
 
-	addr.can_family = AF_CAN;
-	addr.can_ifindex = ifr.ifr_ifindex;
+	data[0] = 0x01;
+	data[1] = 0x23;
 
-	printf("%s at index %d\n", ifname, ifr.ifr_ifindex);
+	data[2] = 0x45;
+	data[3] = 0x67;
 
-	//binding del socket can sul socket
-	if (bind(s, (struct sockaddr *)&addr, sizeof(addr)) < 0) {
-		perror("Error in socket bind");
-		return -2;
-	}
+	data[4] = 0x89;
+	data[5] = 0xAB;
 
-	//setup del frame da mandare
-	frame.can_id = 0x123;
-	frame.can_dlc = 8;
-	frame.data[0] = 0x12;
-	frame.data[1] = 0x11;
+	data[6] = 0xCD;
+	data[7] = 0xEF;
 
-	frame.data[2] = 0x13;
-	frame.data[3] = 0xAF;
+	nbytes = send_can(s,id,data);
 
-	frame.data[4] = 0xD3;
-	frame.data[5] = 0x3E;
-
-	frame.data[6] = 0x12;
-	frame.data[7] = 0x11;
-
-	//invio del frame + salvataggio dei byte inviati
-	nbytes = write(s, &frame, sizeof(struct can_frame));
 	printf("Wrote %d bytes\n", nbytes);
-	
 	return 0;
 }
 
