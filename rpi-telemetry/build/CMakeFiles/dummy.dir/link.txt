@@ -1,0 +1,1 @@
+/usr/bin/cc -fPIC   -shared -Wl,-soname,dummy.plugin -o dummy.plugin CMakeFiles/dummy.dir/src/plugin/dummy.c.o  -L/usr/local/lib 
