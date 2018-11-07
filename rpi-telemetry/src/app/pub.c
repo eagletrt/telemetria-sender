@@ -183,17 +183,12 @@ state_t do_state_init(state_data_t *state_data) {
 
   // cache file initialize
   //reserve first 4 bytes in file for a persistent seek address
-  // state_data->cache = fopen(ud.cfg->cache_path, "a+");
-  // if (ftell(state_data->cache) == 0) {
-  //   uint32_t zero = sizeof(uint32_t) + 1;
-  //   fwrite(&zero, sizeof(uint32_t), 1, state_data->cache);
-  //   fflush(state_data->cache);
-  // }
-  // then, when flushing the cache, the seek address has to be updated
-  // after every read: read seek address from first 4 bytes; move to that
-  // address; chek if the next char is "$"; do n=atoi() of the next 5 chars as
-  // string; read the buffer of the next n bytes, and call bson_new_from_data();
-  // update the seek address with ftell() and loop again.
+  state_data->cache = fopen(state_data->ud.cfg->cache_path, "a+");
+  if (ftell(state_data->cache) == 0) { //if the current file is empty
+    uint32_t zero = sizeof(uint32_t) + 1;
+    fwrite(&zero, sizeof(uint32_t), 1, state_data->cache); //write to file in binary mode
+    fflush(state_data->cache); //flushes the output buffer of a stream
+  }
 
   return EVAL_STATUS;
 }
@@ -221,8 +216,10 @@ state_t do_state_eval_status(state_data_t *state_data) {
 //  |__|  |____/|___|  /___|  /__|___|  /\___  / 
 //                   \/     \/        \//_____/  
 
-state_t do_state_running(state_data_t *state_data) {
-
+state_t do_state_running(state_data_t *state_data){
+  //in either case i need the data from can
+  get_data(&state_data->can_data);
+  can_data_to_bson(&state_data->can_data, &state_data->bdoc, state_data->ud.cfg->plugin_path);
   if(state_data->carIsConnected){
     return PUBLISH;
   }else{
@@ -274,7 +271,27 @@ state_t do_state_stop(state_data_t *state_data) {
 //                        \/     \/       \/     \/     \/     \/     \/ 
 
 state_t do_state_flush_cache(state_data_t *state_data) {
-  //sendData with cache
+  // retreive data from cache
+  // seek address has to be updated after every read: read seek address from first 4 bytes; 
+  // move to that address; chek if the next char is "$"; do n=atoi() of the next 5 chars as
+  // string; read the buffer of the next n bytes, and call bson_new_from_data();
+  // update the seek address with ftell() and loop again.
+  int seekAddress;
+  fread(&seekAddress, sizeof(uint32_t), 1, state_data->cache); //read seek address
+  fseek(state_data->cache, seekAddress, SEEK_SET); //sets the file position of the stream to seekAddress
+  int temp;
+  fread(&temp, sizeof(char), 1, state_data->cache); //read the next char to check if its $
+  if (temp == "$") {
+    fread(&temp, sizeof(char), 5, state_data->cache);
+    int blen = atoi(temp); //size of the buffer to read
+    int data; //TODO is this long enough?
+    fread(&data, blen, 1, state_data->cache); //read data
+    state_data->bdoc = bson_new_from_data(data, blen); //store data into bson
+    seekAddress = ftell(state_data->cache); 
+    fseek(state_data->cache, 0, SEEK_SET); //sets the file position of the stream to start of file
+    fwrite(&seekAddress, sizeof(uint32_t), 1, state_data->cache);
+  }
+
   return PUBLISH;
 }
 
@@ -285,8 +302,22 @@ state_t do_state_flush_cache(state_data_t *state_data) {
 //  \___  >____  /\___  >___|  /\___  >
 //      \/     \/     \/     \/     \/ 
 
-state_t do_state_eval_cache(state_data_t *state_data) {
-  //store cache
+state_t do_state_cache(state_data_t *state_data) {
+
+  state_data->blen = state_data->bdoc->len;
+  state_data->data = bson_get_data(state_data->bdoc); 
+
+  //cache data locally, since the MQTT link is not available
+  fprintf(state_data->cache, "$%05zu", state_data->blen);
+  //TODO set the file position of the stream to tail?
+  fwrite(state_data->data, state_data->blen, 1, state_data->cache);
+  fflush(state_data->cache);
+  printf(".");
+  fflush(stdout);
+
+  //since i'm not connected try to reconnect
+  mosquitto_reconnect(state_data->m);
+
   return EVAL_STATUS;
 }
 
@@ -298,12 +329,16 @@ state_t do_state_eval_cache(state_data_t *state_data) {
 // |__|             \/            \/     \/ 
 /* TODO
 * separare i dati in arrivo e pubblicare su topic differenti
-* inviare il blocco dati senza separazione al topic del DB in modalitá "TCP" QoS = 2
+* controllare che l invio sia avvenuto se no scrivo in cache?
+* testare throughput con QoS = 2 per invio simil TCP
 */
 state_t do_state_publish(state_data_t *state_data) {
 
-  get_data(&state_data->can_data);
-  can_data_to_bson(&state_data->can_data, &state_data->bdoc, state_data->ud.cfg->plugin_path);
+  /*se i dati vengono da cache non posso richiedere dati dal can => sposto prima di entrare in publish da running
+  //get_data(&state_data->can_data);
+  //can_data_to_bson(&state_data->can_data, &state_data->bdoc, state_data->ud.cfg->plugin_path);
+  */
+
   state_data->blen = state_data->bdoc->len;
   state_data->data = bson_get_data(state_data->bdoc); 
 
@@ -316,7 +351,7 @@ state_t do_state_publish(state_data_t *state_data) {
   printf("> Raw data buffer:\n");
   print_buffer(stdout, state_data->data, state_data->blen);
   // Send BSON data as a buffer via MQTT
-  mosquitto_publish(state_data->m, NULL, state_data->ud.cfg->mqtt_topic, state_data->blen, state_data->data, 0, false); //NOTE: retain flag could be usefull for data log on DB as its similar to TCP 
+  mosquitto_publish(state_data->m, NULL, state_data->ud.cfg->mqtt_topic, state_data->blen, state_data->data, 0, false);
   printf("> Sent %zu bytes.\n\n", state_data->blen);
   bson_destroy(state_data->bdoc);
 
