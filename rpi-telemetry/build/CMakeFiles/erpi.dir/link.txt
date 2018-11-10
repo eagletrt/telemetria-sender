@@ -1,2 +1,0 @@
-/usr/bin/ar qc liberpi.a  CMakeFiles/erpi.dir/src/timer.c.o CMakeFiles/erpi.dir/src/ultils.c.o CMakeFiles/erpi.dir/src/linux/libsocketcan.c.o
-/usr/bin/ranlib liberpi.a

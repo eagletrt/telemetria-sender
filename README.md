@@ -12,11 +12,11 @@ In più nella cartella config i procedimenti base per configurare il nostro rasp
 
 https://github.com/linux-can/can-utils
 
-Questa cartella contiene le risorse per .c di can-utils, usata da linux per comunicare in can-bus
+## Server Node and Dashboard 
 
-## mqtt-mongo-recorder 
+https://www.npmjs.com/package/iot-dashboard
 
-https://www.thethingsnetwork.org/labs/story/save-your-data-using-nodejs-mqtt-mongodb
+Questo è un esempio di come si può lavorare con JS per fare il frontend del nostro sito
 
 https://github.com/dennisdegreef/mqtt-mongo-recorder
 
@@ -27,6 +27,42 @@ Questa è la repository più vicina a quello che stiamo cercando di sviluppare p
 https://www.npmjs.com/package/iot-dashboard
 
 Questo è un esempio di come si può lavorare con JS per fare il frontend del nostro sito
+
+## Setup Can on Linux
+
+```bash
+$ sudo apt-get update
+$ sudo apt-get can-utils
+```
+
+```bash
+$ modprobe vcan
+$ sudo ip link add dev vcan0 type vcan
+$ sudo ip link set up vcan0 
+```
+
+## Setup mqtt-mongo-server
+
+```bash
+$ npm install
+$ npm install bson
+$ node server.js
+```
+
+http://localhost:8080/
+
+## Publish and Subscribe MQTT
+
+```bash
+$ sudo apt-get update
+$ sudo apt-get upgrade
+$ sudo apt-get install mosquitto mosquitto-clients
+```
+
+```bash
+$ mosquitto_sub -h localhost -t dev/test
+$ mosquitto_pub -t dev/test -m "provare per credere"
+```
 
 ## rpi-telemetry
 

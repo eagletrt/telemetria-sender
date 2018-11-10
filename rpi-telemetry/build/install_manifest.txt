@@ -1,5 +1,0 @@
-/home/lucamartinelli/Documenti/Project/fenice-telemetria/rpi-telemetry/install/bin/pub
-/home/lucamartinelli/Documenti/Project/fenice-telemetria/rpi-telemetry/install/bin/sub
-/home/lucamartinelli/Documenti/Project/fenice-telemetria/rpi-telemetry/install/bin/dummy.plugin
-/home/lucamartinelli/Documenti/Project/fenice-telemetria/rpi-telemetry/install/include/plugin.h
-/home/lucamartinelli/Documenti/Project/fenice-telemetria/rpi-telemetry/install/include/utils.h

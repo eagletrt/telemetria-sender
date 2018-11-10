@@ -1,1 +1,0 @@
-/usr/bin/cc    CMakeFiles/pub.dir/src/app/pub.c.o  -o pub  -L/usr/local/lib -Wl,-rpath,/usr/local/lib: liberpi.a lua-5.3.5/lib/liblua.a -lm -lmosquitto -lpthread -ldl -lm -lmosquitto -lpthread -ldl -lssl -lcrypto -lmongoc-1.0 -lbson-1.0 
