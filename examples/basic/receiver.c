@@ -39,7 +39,14 @@ int main(int argc, char *argv[]) {
 
 	Per riassumere:
 	1) Receiver sempre aperto
+		- si può inserire tutto in un semplice while. 
+		- il codice contenuto in token di ha un receiver sempre aperto. 
+		  quanto il processo riceve il token cambia e entra in modalità scrittura.
+	
 	2) Sender: controllare che supporti integer o nel caso scrivere una funzione d'appogio
+		- Viene inviato semplicement un byte. Per ovvi motivi, stampando è più comodo usare l'esadecimale (sempre due cifre).
+		  ma sta a noi come interpretarlo. il formato perfetto sarebbe unsigned char. (un byte in plain base2)
+
 	3) Receiver: salvare tutti i frame in un file .csv
 	4) Creare una libreria (05/11/2018)
 	5) Integrare il codice al nostro progetto con il plugin (07/11/2018) 
