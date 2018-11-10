@@ -271,9 +271,9 @@ state_t do_state_stop(state_data_t *state_data) {
 //                        \/     \/       \/     \/     \/     \/     \/ 
 
 state_t do_state_flush_cache(state_data_t *state_data) {
-  // retreive data from cache
+  // retrieve data from cache
   // seek address has to be updated after every read: read seek address from first 4 bytes; 
-  // move to that address; chek if the next char is "$"; do n=atoi() of the next 5 chars as
+  // move to that address; check if the next char is "$"; do n=atoi() of the next 5 chars as
   // string; read the buffer of the next n bytes, and call bson_new_from_data();
   // update the seek address with ftell() and loop again.
   int seekAddress;
@@ -284,12 +284,13 @@ state_t do_state_flush_cache(state_data_t *state_data) {
   if (temp == "$") {
     fread(&temp, sizeof(char), 5, state_data->cache);
     int blen = atoi(temp); //size of the buffer to read
-    int data; //TODO is this long enough?
-    fread(&data, blen, 1, state_data->cache); //read data
-    state_data->bdoc = bson_new_from_data(data, blen); //store data into bson
+    buffer = malloc(blen); //allocate temporary buffer to contain the read data
+    fread(buffer, blen, 1, state_data->cache); //read data
+    state_data->bdoc = bson_new_from_data(*buffer, blen); //store data into bson
+    free(buffer); //deallocate the buffer as we are done with it
     seekAddress = ftell(state_data->cache); 
     fseek(state_data->cache, 0, SEEK_SET); //sets the file position of the stream to start of file
-    fwrite(&seekAddress, sizeof(uint32_t), 1, state_data->cache);
+    fwrite(&seekAddress, sizeof(uint32_t), 1, state_data->cache); //write the new seek address
   }
 
   return PUBLISH;
@@ -309,7 +310,7 @@ state_t do_state_cache(state_data_t *state_data) {
 
   //cache data locally, since the MQTT link is not available
   fprintf(state_data->cache, "$%05zu", state_data->blen);
-  //TODO set the file position of the stream to tail?
+  fseek(state_data->cache, 0, SEEK_END);//set the file position of the stream to tail
   fwrite(state_data->data, state_data->blen, 1, state_data->cache);
   fflush(state_data->cache);
   printf(".");
