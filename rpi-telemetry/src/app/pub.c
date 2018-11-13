@@ -284,7 +284,7 @@ state_t do_state_flush_cache(state_data_t *state_data) {
   if (temp == "$") {
     fread(&temp, sizeof(char), 5, state_data->cache);
     int blen = atoi(temp); //size of the buffer to read
-    buffer = malloc(blen); //allocate temporary buffer to contain the read data
+    int *buffer = malloc(blen); //allocate temporary buffer to contain the read data
     fread(buffer, blen, 1, state_data->cache); //read data
     state_data->bdoc = bson_new_from_data(*buffer, blen); //store data into bson
     free(buffer); //deallocate the buffer as we are done with it
@@ -315,6 +315,8 @@ state_t do_state_cache(state_data_t *state_data) {
   fflush(state_data->cache);
   printf(".");
   fflush(stdout);
+
+	bson_destroy(state_data->bdoc);
 
   //since i'm not connected try to reconnect
   mosquitto_reconnect(state_data->m);
