@@ -20,10 +20,28 @@ int main(int argc, char *argv[]) {
 
 	//ricezione e stampa
 	int id;
+	
 	char* data;
-	nbytes = receive_can(s,&id,&data);
+	//nbytes = receive_can(s,&id,&data);
+	//printData(id,data);	
+	
+	int data1;
+	int data2;
+	receive_can_compact(s,&id,&data1,&data2);
 
-	printData(id,data);	
+	data = (char*) malloc(8*sizeof(char));
+	data[0] = (char) (data1 >> 24) & 255;
+	data[1] = (char) (data1 >> 16) & 255;
+	data[2] = (char) (data1 >> 8) & 255;
+	data[3] = (char) data1 & 255;
+	
+	data[4] = (char) (data2 >> 24) & 255;
+	data[5] = (char) (data2 >> 16) & 255;
+	data[6] = (char) (data2 >> 8) & 255;
+	data[7] = (char) data2 & 255;
+
+
+	printData(id,data);
 	return 0;
 }
 

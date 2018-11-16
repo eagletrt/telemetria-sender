@@ -40,5 +40,5 @@ int send_can(int socket, int id, char* data);
 
 int simple_receive_can(int socket, char** data);
 int receive_can(int socket, int* id,char** data);
-
+int receive_can_compact(int socket, int* id,int* data1, int* data2);
 #endif

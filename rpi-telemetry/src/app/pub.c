@@ -104,10 +104,37 @@ int main(int argc, char const *argv[]) {
     usleep(1E3);
   }
 
+  //open the socket
+  int socket;
+  struct sockaddr_can addr1;
+
+  char* name = (char*) malloc(sizeof(char)*5);
+  strcpy(name,"vcan0");
+
+  socket open_can_socket(name,&addr1);
+  //socket opened
+
   printf("Testing BSON and Mosquitto pub\n\n");
   for (j = 0; j < 1000; j++) {
     // trigger mosquitto callbacks
     mosquitto_loop(m, 1, 1);
+
+    // Data Gathering
+    // Timer setting
+
+    // trigger must be setted in ms, data are sent every end of timer
+    int msec = 0, trigger = 500;
+    clock_t before = clock();
+
+    do {
+      int id = 0; 
+      int data1 = 0;
+      int data2 = 0;
+
+      receive_can_compact(socket,&id,&data1,&data2);
+
+      msec = (clock() - before) * 1000 / CLOCKS_PER_SEC;
+    } while ( msec < trigger );
 
     // Create an example document (input doc, will come from CAN)
     get_data(&can_data);

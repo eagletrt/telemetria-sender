@@ -4,6 +4,7 @@
 #include "../linux/libsocketcan.h"
 #include "../plugin.h"
 #include "../utils.h"
+#include "../can_custom_lib.h"
 #include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -84,7 +85,6 @@ void setThrottleBrake(){
 
 
 #if 0
-
   data->id = id++;
   data->timestamp = timestamp;
   
@@ -115,5 +115,4 @@ void setThrottleBrake(){
     data->accumulator.temperature[i] = 37 + rnd(0, 10);
   }
   return EXIT_SUCCESS;
-
 #endif
