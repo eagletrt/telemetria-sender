@@ -93,9 +93,10 @@ Nella directory rpi-telemetry lanciare
 ```sh
 cmake -Bbuild -H.
 make -Cbuild
-make build/install
+cd build
+make install
 ```
-Se tutto è andato per il verso giusto con il make genererai gli esegubili. Ora basterà lanciare il publisher e subscriber con argomento il file config .lua che è nella directory principale:
+Se tutto è andato per il verso giusto con il make genererai gli esegubili. Ora basterà lanciare il publisher e subscriber con argomento il file config .lua che è nella directory principale. Dalla directory rpi-telemetry lanciare:
 
 ```sh
 build/sub cfg.lua
@@ -105,8 +106,9 @@ build/sub cfg.lua
 Da un altro terminale sempre da rpi-telemetri:
 
 ```sh
-build/pub cfg.lua oppure install/bin/pub cfg.lua
+build/pub cfg.lua
 ```
+> in alternativa all ultimo comando si puó usare: install/bin/pub cfg.lua
 
 Per terminare ovviamente basta un Ctrl+C sul terminale del pub in questo modo il subscriber resta in ascolto
 

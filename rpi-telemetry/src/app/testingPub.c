@@ -89,12 +89,13 @@ int main(int argc, char const *argv[]) {
   cache = fopen(ud.cfg->cache_path, "a+");
   if (ftell(cache) == 0) {
     uint32_t zero = sizeof(uint32_t) + 1;
+    printf("first seek address should be: %zu\n", zero); 
     fwrite(&zero, sizeof(uint32_t), 1, cache);
     fflush(cache);
   }
   // then, when flushing the cache, the seek address has to be updated
   // after every read: read seek address from first 4 bytes; move to that
-  // address; chek if the next char is "$"; do n=atoi() of the next 5 chars as
+  // address; check if the next char is "$"; do n=atoi() of the next 5 chars as
   // string; read the buffer of the next n bytes, and call bson_new_from_data();
   // update the seek address with ftell() and loop again.
 
@@ -104,38 +105,9 @@ int main(int argc, char const *argv[]) {
     usleep(1E3);
   }
 
-  ///////////Testing publish///////////
-  printf("Testing BSON and Mosquitto pub\n\n");
-  for (j = 0; j < 1000; j++) {
-    // trigger mosquitto callbacks
-    mosquitto_loop(m, 1, 1);
-
-    // Create an example document (input doc, will come from CAN)
-    get_data(&can_data);
-    can_data_to_bson(&can_data, &bdoc, ud.cfg->plugin_path);
-    data = bson_get_data(bdoc);
-    blen = bdoc->len;
-
-    //this step will not be necessary (testing only)
-    char *json = bson_as_json(bdoc, &jlen);
-    printf("> Original doc as JSON (%zu bytes):\n%s\n", jlen, json);
-    free(json);
-    // dump it to a data buffer
-
-    printf("> Raw data buffer:\n");
-    print_buffer(stdout, data, blen);
-    // Send BSON data as a buffer via MQTT
-    mosquitto_publish(m, NULL, ud.cfg->mqtt_topic, blen, data, 0, false);
-    printf("> Sent %zu bytes.\n\n", blen);
-    bson_destroy(bdoc);
-
-    // throttle this loop
-    wait_next(100E6);
-  }
-
   ///////////Testing cache///////////
   printf("Testing cache\n\n");
-  for (j = 0; j < 1000; j++) {
+  for (j = 0; j < 2; j++) {
     // Create an example document (input doc, will come from CAN)
     get_data(&can_data);
     can_data_to_bson(&can_data, &bdoc, ud.cfg->plugin_path);
@@ -143,11 +115,12 @@ int main(int argc, char const *argv[]) {
     blen = bdoc->len;
 
     //cache data locally, since the MQTT link is not available
-    fprintf(cache, "$%05zu", blen);
     fseek(cache, 0, SEEK_END);//set the file position of the stream to tail
-    fwrite(data, blen, 1, cache);
+    fprintf(cache, "$%05zu", blen); //add length to header
+    fwrite(data, blen, 1, cache); //write data
     fflush(cache);
-    printf(".");
+    printf("> cached data:\n");
+    print_buffer(stdout, data, blen);
     fflush(stdout);
 
     bson_destroy(bdoc);
@@ -155,14 +128,22 @@ int main(int argc, char const *argv[]) {
     wait_next(100E6);
   }
 
-  ///////////Testing flush cache///////////
+  ///////////Testing flush cache + publish to check if it works///////////
   printf("Testing flush cache\n\n");
-  for (j = 0; j < 1000; j++) {
+  for (j = 0; j < 2; j++) {
+    // trigger mosquitto callbacks
+    mosquitto_loop(m, 1, 1);
+
+    printf("start flush section\n");
+    //flush section//
+    fseek(cache, 0, SEEK_SET); //set the file position of the stream to head
     int seekAddress;
     fread(&seekAddress, sizeof(uint32_t), 1, cache); //read seek address
+    printf("read seek address: %i\n",seekAddress);
     fseek(cache, seekAddress, SEEK_SET); //sets the file position of the stream to seekAddress
     int temp;
     fread(&temp, sizeof(char), 1, cache); //read the next char to check if its $
+    printf("next char is: %c\n",temp);
     if (temp == "$") {
       fread(&temp, sizeof(char), 5, cache);
       int blen = atoi(temp); //size of the buffer to read
@@ -174,6 +155,19 @@ int main(int argc, char const *argv[]) {
       fseek(cache, 0, SEEK_SET); //sets the file position of the stream to start of file
       fwrite(&seekAddress, sizeof(uint32_t), 1, cache); //write the new seek address
     }
+    //end flush section//
+    printf("end flush section\n");
+
+    data = bson_get_data(bdoc);
+    printf("after bson_get_data\n");
+    // dump it to a data buffer
+    printf("> Raw data buffer:\n");
+    print_buffer(stdout, data, blen);
+    // Send BSON data as a buffer via MQTT
+    mosquitto_publish(m, NULL, ud.cfg->mqtt_topic, blen, data, 0, false);
+    printf("> Sent %zu bytes.\n\n", blen);
+    bson_destroy(bdoc);
+
     wait_next(100E6);
   }
 
