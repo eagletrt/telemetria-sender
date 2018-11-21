@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
+#include <stdlib.h>
 
 int (*get_data)(can_data_t *data);
 
@@ -85,10 +86,14 @@ int main(int argc, char const *argv[]) {
   }
 
   // cache file
-  // reserve first 4 bytes in file for a persistent seek address
+  // create the file if not exist
   cache = fopen(ud.cfg->cache_path, "a+");
+  fclose(cache);
+  // open the file in update mode
+  cache = fopen(ud.cfg->cache_path, "rb+");
+  // if the file is empty reserve first 4 bytes in file for a persistent seek address
   if (ftell(cache) == 0) {
-    uint32_t zero = sizeof(uint32_t) + 1;
+    uint32_t zero = sizeof(uint32_t);
     printf("first seek address should be: %zu\n", zero); 
     fwrite(&zero, sizeof(uint32_t), 1, cache);
     fflush(cache);
@@ -106,7 +111,7 @@ int main(int argc, char const *argv[]) {
   }
 
   ///////////Testing cache///////////
-  printf("Testing cache\n\n");
+  printf("\n\nTesting cache\n");
   for (j = 0; j < 2; j++) {
     // Create an example document (input doc, will come from CAN)
     get_data(&can_data);
@@ -115,9 +120,16 @@ int main(int argc, char const *argv[]) {
     blen = bdoc->len;
 
     //cache data locally, since the MQTT link is not available
+    printf("LOOP:%i\n",j+1);
+    printf("sono a:%i\n",ftell(cache));
     fseek(cache, 0, SEEK_END);//set the file position of the stream to tail
+    printf("mi sposto a tail:%i\n",ftell(cache));
     fprintf(cache, "$%05zu", blen); //add length to header
+    printf("dopo aver scritto length sono a:%i\n",ftell(cache));
+    printf("ho scritto length:$%05zu\n",blen);
+
     fwrite(data, blen, 1, cache); //write data
+    printf("dopo aver scritto data sono a:%i\n",ftell(cache));
     fflush(cache);
     printf("> cached data:\n");
     print_buffer(stdout, data, blen);
@@ -129,37 +141,55 @@ int main(int argc, char const *argv[]) {
   }
 
   ///////////Testing flush cache + publish to check if it works///////////
-  printf("Testing flush cache\n\n");
+  printf("\n\nTesting flush cache\n");
   for (j = 0; j < 2; j++) {
     // trigger mosquitto callbacks
     mosquitto_loop(m, 1, 1);
 
     printf("start flush section\n");
     //flush section//
+    printf("sono a:%i\n",ftell(cache));
     fseek(cache, 0, SEEK_SET); //set the file position of the stream to head
-    int seekAddress;
+    printf("mi sposto a head:%i\n",ftell(cache));
+    uint32_t seekAddress;
     fread(&seekAddress, sizeof(uint32_t), 1, cache); //read seek address
-    printf("read seek address: %i\n",seekAddress);
+    printf("dopo aver letto seek sono a:%i\n",ftell(cache));
+    printf("seek address: %i\n",seekAddress);
     fseek(cache, seekAddress, SEEK_SET); //sets the file position of the stream to seekAddress
-    int temp;
-    fread(&temp, sizeof(char), 1, cache); //read the next char to check if its $
-    printf("next char is: %c\n",temp);
-    if (temp == "$") {
-      fread(&temp, sizeof(char), 5, cache);
-      int blen = atoi(temp); //size of the buffer to read
-      int *buffer = malloc(blen); //allocate temporary buffer to contain the read data
+    printf("mi sposto a seek e sono a:%i\n",ftell(cache));
+    char c[5] = {0};
+    fread(&c, sizeof(char), 1, cache); //read the next char to check if its $
+    printf("leggo 1 char e sono a:%i\n",ftell(cache));
+    printf("char che ho letto:%s\n",c);
+    if (c[0] == '$') {
+      fread(&c, sizeof(char), 5, cache);
+      int blen = atoi(c); //size of the buffer to read
+      printf("leggo blen e sono a:%i\n",ftell(cache));
+      printf("blen letta:%i\n",blen);
+      uint8_t *buffer = (uint8_t *)malloc(blen); //allocate temporary buffer to contain the read data
+      printf("done malloc with len:%i\n",blen);
       fread(buffer, blen, 1, cache); //read data
-      bdoc = bson_new_from_data(*buffer, blen); //store data into bson
+      printf("leggo data e sono a:%i\n",ftell(cache));
+      bdoc = bson_new_from_data(buffer, blen); //store data into bson
       free(buffer); //deallocate the buffer as we are done with it
       seekAddress = ftell(cache); 
+      printf("il nuovo seek é:%i\n",seekAddress);
       fseek(cache, 0, SEEK_SET); //sets the file position of the stream to start of file
+      printf("mi sposto alla testa del file e sono a:%i\n",ftell(cache));
+      printf("size of seekAddress:%i\n",sizeof(seekAddress));
       fwrite(&seekAddress, sizeof(uint32_t), 1, cache); //write the new seek address
+      printf("scrivo nuovo seekAddress e sono a:%i\n",ftell(cache));
+      //test what i have written
+      fseek(cache,-sizeof(seekAddress), SEEK_CUR);
+      printf("torno indietro di 4 per vedere cosa ho scritto e sono a:%i\n",ftell(cache));
+      fread(&seekAddress, sizeof(uint32_t), 1, cache); //read seek address //TODO ho bisogno di aprire il file in mod read/write e non in mod append
+      printf("ho letto seek address: %i\n",seekAddress);
+      printf("dopo aver letto seek sono a:%i\n",ftell(cache));
     }
     //end flush section//
     printf("end flush section\n");
 
     data = bson_get_data(bdoc);
-    printf("after bson_get_data\n");
     // dump it to a data buffer
     printf("> Raw data buffer:\n");
     print_buffer(stdout, data, blen);
