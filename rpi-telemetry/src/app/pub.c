@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
+#include <stdlib.h>
 
 int (*get_data)(can_data_t *data);
 
@@ -140,12 +141,12 @@ int main(int argc, char const *argv[]) {
   //launch init FSM state
   mosquitto_lib_init();
   state_data.m = mosquitto_new(argv[0], false, &state_data.ud);
-  state_t cur_state = run_state(INIT, &state_data.data);
+  state_t cur_state = run_state(INIT, &state_data);
 
   //loop for the FSM
   do {
     mosquitto_loop(state_data.m, 1, 1);
-    cur_state = run_state(cur_state, &state_data.data);
+    cur_state = run_state(cur_state, &state_data);
   } while (state_data.running);
 
   return 0;
@@ -188,6 +189,19 @@ state_t do_state_init(state_data_t *state_data) {
     uint32_t zero = sizeof(uint32_t) + 1;
     fwrite(&zero, sizeof(uint32_t), 1, state_data->cache); //write to file in binary mode
     fflush(state_data->cache); //flushes the output buffer of a stream
+  }
+
+  // create the file if not exist
+  state_data->cache = fopen(state_data->ud.cfg->cache_path, "a+");
+  fclose(state_data->cache);
+  // open the file in update mode
+  state_data->cache = fopen(state_data->ud.cfg->cache_path, "rb+");
+  // if the file is empty reserve first 4 bytes in file for a persistent seek address
+  if (ftell(state_data->cache) == 0) {
+    uint32_t zero = sizeof(uint32_t);
+    printf("first seek address should be: %zu\n", zero); 
+    fwrite(&zero, sizeof(uint32_t), 1, state_data->cache);
+    fflush(state_data->cache);
   }
 
   return EVAL_STATUS;
@@ -276,17 +290,18 @@ state_t do_state_flush_cache(state_data_t *state_data) {
   // move to that address; check if the next char is "$"; do n=atoi() of the next 5 chars as
   // string; read the buffer of the next n bytes, and call bson_new_from_data();
   // update the seek address with ftell() and loop again.
-  int seekAddress;
+  fseek(state_data->cache, 0, SEEK_SET); //set the file position of the stream to head
+  uint32_t seekAddress;
   fread(&seekAddress, sizeof(uint32_t), 1, state_data->cache); //read seek address
   fseek(state_data->cache, seekAddress, SEEK_SET); //sets the file position of the stream to seekAddress
-  int temp;
-  fread(&temp, sizeof(char), 1, state_data->cache); //read the next char to check if its $
-  if (temp == "$") {
-    fread(&temp, sizeof(char), 5, state_data->cache);
-    int blen = atoi(temp); //size of the buffer to read
-    int *buffer = malloc(blen); //allocate temporary buffer to contain the read data
-    fread(buffer, blen, 1, state_data->cache); //read data
-    state_data->bdoc = bson_new_from_data(*buffer, blen); //store data into bson
+  char c[5] = {0};
+  fread(&c, sizeof(char), 1, state_data->cache); //read the next char to check if its $
+  if (c[0] == '$') {
+    fread(&c, sizeof(char), 5, state_data->cache);
+    state_data->blen = atoi(c); //size of the buffer to read
+    uint8_t *buffer = (uint8_t *)malloc(state_data->blen); //allocate temporary buffer to contain the read data  
+    fread(buffer, state_data->blen, 1, state_data->cache); //read data
+    state_data->bdoc = bson_new_from_data(buffer, state_data->blen); //store data into bson
     free(buffer); //deallocate the buffer as we are done with it
     seekAddress = ftell(state_data->cache); 
     fseek(state_data->cache, 0, SEEK_SET); //sets the file position of the stream to start of file
@@ -309,11 +324,11 @@ state_t do_state_cache(state_data_t *state_data) {
   state_data->data = bson_get_data(state_data->bdoc); 
 
   //cache data locally, since the MQTT link is not available
-  fprintf(state_data->cache, "$%05zu", state_data->blen);
   fseek(state_data->cache, 0, SEEK_END);//set the file position of the stream to tail
-  fwrite(state_data->data, state_data->blen, 1, state_data->cache);
+  fprintf(state_data->cache, "$%05zu", state_data->blen); //write length of data
+  fwrite(state_data->data, state_data->blen, 1, state_data->cache); //write data
   fflush(state_data->cache);
-  printf(".");
+  printf("cached %i bytes of data", state_data->blen);
   fflush(stdout);
 
 	bson_destroy(state_data->bdoc);
