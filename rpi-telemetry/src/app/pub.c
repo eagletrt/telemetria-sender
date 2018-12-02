@@ -12,6 +12,14 @@
 #include <time.h>
 #include <stdlib.h>
 
+//TEST MODE
+//the 3rd arg contains a sequence of ints from 0 to testModeLastCommand indicating the states to execute
+int testModeIndex = 0;
+int testModeLength = 0;
+int *testModeCommands; //array that indicate the fsm state to play/test during execution (0 = publish, 1 = cache, 2 = flush)
+bool testMode = false; //indicate weather the pub is in test mode or not
+int testModeLastCommand = 2;
+
 int (*get_data)(can_data_t *data);
 
 typedef struct {
@@ -112,11 +120,37 @@ int main(int argc, char const *argv[]) {
   //print current git commint id
   printf("%s Version %s\n", argv[0], GIT_COMMIT_HASH);
 
-  // Connect to data provider plugin
-  if (argc != 2) {
-    fprintf(stderr, "Exactly one argument needed (config file path)\n");
+  //check args
+  if (argc != 2 && argc != 3) {
+    fprintf(stderr, "Exactly one argument needed (config file path) to launch normal pub. (for test mode add a sequence of ints from 0 to %i indicating the states to execute in test mode)\n", testModeLastCommand);
     exit(EXIT_FAILURE);
   }
+
+  //test mode input
+  if (argc == 3) {
+    testMode = true;
+    testModeCommands = (int*)malloc(strlen(argv[2]));
+    if (testModeCommands != NULL) {        
+        for(int i = 0; i < strlen(argv[2]); i++){ 
+          int command = argv[2][i] - '0'; //convert char to int remove the offset '0' to realign to count from 0-9
+          //check if command is valid
+          if(command > testModeLastCommand || command < 0){
+            fprintf(stderr, "At least one command in test mode was not recognized (for test mode add a sequence of ints from 0 to %i indicating the states to execute in test mode)\n", testModeLastCommand);
+            free(testModeCommands); //free test string 
+            exit(EXIT_FAILURE);
+          } else {
+            testModeCommands[i] = command;
+            testModeLength++;
+          }
+        }
+    } else {
+      fprintf(stderr, "No commands (for test mode add a sequence of ints from 0 to %i indicating the states to execute in test mode)\n", testModeLastCommand);
+      free(testModeCommands); //free test string 
+      exit(EXIT_FAILURE);
+    }
+  }
+
+  // Connect to data provider plugin
   if ((state_data.ud.cfg = new_config(argv[1], CFG_PUB)) == NULL) {
     exit(EXIT_FAILURE);
   }
@@ -182,15 +216,6 @@ state_t do_state_init(state_data_t *state_data) {
     exit(EXIT_FAILURE);
   }
 
-  // cache file initialize
-  //reserve first 4 bytes in file for a persistent seek address
-  state_data->cache = fopen(state_data->ud.cfg->cache_path, "a+");
-  if (ftell(state_data->cache) == 0) { //if the current file is empty
-    uint32_t zero = sizeof(uint32_t) + 1;
-    fwrite(&zero, sizeof(uint32_t), 1, state_data->cache); //write to file in binary mode
-    fflush(state_data->cache); //flushes the output buffer of a stream
-  }
-
   // create the file if not exist
   state_data->cache = fopen(state_data->ud.cfg->cache_path, "a+");
   fclose(state_data->cache);
@@ -216,10 +241,23 @@ state_t do_state_init(state_data_t *state_data) {
 
 state_t do_state_eval_status(state_data_t *state_data) {
 
-  if(state_data->carIsMoving){
-    return RUNNING;
-  }else{
-    return IDLE;
+  if(testMode){
+    if(testModeIndex == testModeLength){ //stop when there are no more commands
+      return STOP;
+    }
+    else{
+      printf("test command: %i\n", testModeCommands[testModeIndex]); 
+      if(testModeCommands[testModeIndex] == 0 || testModeCommands[testModeIndex] == 1)
+        return RUNNING;
+      if(testModeCommands[testModeIndex] == 2)
+        return IDLE;
+    }
+  }  
+  else{
+    if(state_data->carIsMoving)
+      return RUNNING;
+    else
+      return IDLE;
   }
 }
 
@@ -231,13 +269,25 @@ state_t do_state_eval_status(state_data_t *state_data) {
 //                   \/     \/        \//_____/  
 
 state_t do_state_running(state_data_t *state_data){
+
   //in either case i need the data from can
   get_data(&state_data->can_data);
   can_data_to_bson(&state_data->can_data, &state_data->bdoc, state_data->ud.cfg->plugin_path);
-  if(state_data->carIsConnected){
-    return PUBLISH;
-  }else{
-    return CACHE;
+  if(testMode){
+    if(testModeCommands[testModeIndex] == 0){
+      testModeIndex++; //we are done with this command
+      return PUBLISH;
+    }
+    if(testModeCommands[testModeIndex] == 1){
+      testModeIndex++; //we are done with this command
+      return CACHE;
+    }
+  }  
+  else{
+    if(state_data->carIsConnected)
+      return PUBLISH;
+    else
+      return CACHE;
   }
 }
 
@@ -250,10 +300,21 @@ state_t do_state_running(state_data_t *state_data){
 
 state_t do_state_idle(state_data_t *state_data) {
 
-  if(state_data->carIsConnected){
-    return FLUSH_CACHE;
-  }else{
-    return CACHE;
+  if(testMode){
+    if(testModeCommands[testModeIndex] == 2){
+      testModeIndex++; //we are done with this command
+      return FLUSH_CACHE;
+    }
+  }  
+  else{
+    if(state_data->carIsConnected)
+      return FLUSH_CACHE;
+    else{
+      //get data from can
+      get_data(&state_data->can_data);
+      can_data_to_bson(&state_data->can_data, &state_data->bdoc, state_data->ud.cfg->plugin_path);
+      return CACHE;
+    }
   }
 }
 
@@ -273,6 +334,9 @@ state_t do_state_stop(state_data_t *state_data) {
   mosquitto_lib_cleanup();
 
   state_data->running = false;//nello struct metto false/true per poter uscire dall loop
+
+  if(testMode)
+    free(testModeCommands); //free test string 
 
   return STOP; 
 }
@@ -297,6 +361,7 @@ state_t do_state_flush_cache(state_data_t *state_data) {
   char c[5] = {0};
   fread(&c, sizeof(char), 1, state_data->cache); //read the next char to check if its $
   if (c[0] == '$') {
+    printf("flushing cache in position: %i\n\n", seekAddress);
     fread(&c, sizeof(char), 5, state_data->cache);
     state_data->blen = atoi(c); //size of the buffer to read
     uint8_t *buffer = (uint8_t *)malloc(state_data->blen); //allocate temporary buffer to contain the read data  
@@ -307,6 +372,8 @@ state_t do_state_flush_cache(state_data_t *state_data) {
     fseek(state_data->cache, 0, SEEK_SET); //sets the file position of the stream to start of file
     fwrite(&seekAddress, sizeof(uint32_t), 1, state_data->cache); //write the new seek address
   }
+  else
+    printf("ERROR flushing cache in position: %i\n\n", seekAddress);
 
   return PUBLISH;
 }
@@ -328,13 +395,15 @@ state_t do_state_cache(state_data_t *state_data) {
   fprintf(state_data->cache, "$%05zu", state_data->blen); //write length of data
   fwrite(state_data->data, state_data->blen, 1, state_data->cache); //write data
   fflush(state_data->cache);
-  printf("cached %i bytes of data", state_data->blen);
+  printf("cached %i bytes of data\n\n", state_data->blen);
   fflush(stdout);
 
 	bson_destroy(state_data->bdoc);
 
-  //since i'm not connected try to reconnect
-  mosquitto_reconnect(state_data->m);
+  if(!testMode){
+    //since i'm not connected try to reconnect
+    mosquitto_reconnect(state_data->m);
+  }
 
   return EVAL_STATUS;
 }
