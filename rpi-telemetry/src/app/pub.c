@@ -4,6 +4,7 @@
 #include "../plugin.h"
 #include "../utils.h"
 #include "../version.h"
+#include "../can_custom_lib.h"
 #include <bson.h>
 #include <dlfcn.h>
 #include <mosquitto.h>
@@ -11,7 +12,7 @@
 #include <string.h>
 #include <time.h>
 
-int (*get_data)(can_data_t *data);
+int (*get_data)(int* data_gathered, int data_lenght,can_data_t *data);
 
 typedef struct {
   config_t *cfg;
@@ -109,9 +110,9 @@ int main(int argc, char const *argv[]) {
   struct sockaddr_can addr1;
 
   char* name = (char*) malloc(sizeof(char)*5);
-  strcpy(name,"vcan0");
+  strcpy(name,"can0");
 
-  socket open_can_socket(name,&addr1);
+  socket = open_can_socket(name,&addr1);
   //socket opened
 
   printf("Testing BSON and Mosquitto pub\n\n");
@@ -123,21 +124,41 @@ int main(int argc, char const *argv[]) {
     // Timer setting
 
     // trigger must be setted in ms, data are sent every end of timer
-    int msec = 0, trigger = 500;
-    clock_t before = clock();
+
+    double msec = 0, trigger = 100, end = 0;
+    struct timespec tstart={0,0}, tend={0,0};
+    clock_gettime(CLOCK_MONOTONIC, &tstart);
+    end = ((double)tstart.tv_sec*1000 + 1.0e-6*tstart.tv_nsec);
+
+    int size = 90;
+    int index = 0;
+    int* to_send = (int *) malloc(size*sizeof(int));
 
     do {
       int id = 0; 
       int data1 = 0;
       int data2 = 0;
 
-      receive_can_compact(socket,&id,&data1,&data2);
+      receive_can_compact(socket,&id,&data1,&data2); 
+      printf("X: %d  %lf\n", index, msec);
 
-      msec = (clock() - before) * 1000 / CLOCKS_PER_SEC;
+      //realloc
+      if (size - 5 < index) {
+        //realloc
+        size *= 2;
+        to_send = (int *) realloc(to_send, size*sizeof(int));
+      } 
+    
+      to_send[index++] = id;
+      to_send[index++] = data1;
+      to_send[index++] = data2; 
+
+      clock_gettime(CLOCK_MONOTONIC, &tend);
+      msec = (((double)tend.tv_sec*1000 + 1.0e-6*tend.tv_nsec) - end);
     } while ( msec < trigger );
 
     // Create an example document (input doc, will come from CAN)
-    get_data(&can_data);
+    get_data(to_send, index, &can_data);
     can_data_to_bson(&can_data, &bdoc, ud.cfg->plugin_path);
     data = bson_get_data(bdoc);
     blen = bdoc->len;
@@ -185,6 +206,7 @@ int main(int argc, char const *argv[]) {
 // |   __|   __|     |  |  |  |___ _ _ _ ___|_   _|___ 
 // |   __|__   | | | |  |     | . | | | |___| | | | . |
 // |__|  |_____|_|_|_|  |__|__|___|_____|     |_| |___|
+//
                                                     
 #if 0
 // all ego-state vars go in here:
