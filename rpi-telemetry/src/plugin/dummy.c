@@ -13,7 +13,7 @@ static double rnd(double min, double max) {
   return (max - min) * (RAND_MAX - rand()) / (double)RAND_MAX + min;
 }
 
-int get_data(can_data_t *data) {
+int get_data(int* data_gathered, int data_lenght,can_data_t *data) {
   struct timespec time;
   static uint32_t id = 0;
   int i = 0;
