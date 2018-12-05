@@ -221,6 +221,7 @@ state_t do_state_init(state_data_t *state_data) {
   fclose(state_data->cache);
   // open the file in update mode
   state_data->cache = fopen(state_data->ud.cfg->cache_path, "rb+");
+  fseek(state_data->cache, 0, SEEK_END);//set the file position of the stream to tail
   // if the file is empty reserve first 4 bytes in file for a persistent seek address
   if (ftell(state_data->cache) == 0) {
     uint32_t zero = sizeof(uint32_t);
