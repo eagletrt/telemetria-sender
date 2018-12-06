@@ -7,6 +7,5 @@
 /rpi-telemetry/install/*
 !/install/.gitkeep
 /rpi-telemetry/src/version.h
-/docs
 /rpi-telemetry/*.json
 *.dat
