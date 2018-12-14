@@ -21,6 +21,8 @@ int *testModeCommands; //array that indicate the fsm state to play/test during e
 bool testMode = false; //indicate weather the pub is in test mode or not
 int testModeLastCommand = 2;
 
+int flushCacheCounter = 1; //we use this counter to regulate the number of flush_cache with the live data from CAN when idle
+
 int (*get_data)(int* data_gathered, int data_lenght,can_data_t *data);
 void dataGathering(int* to_send, int* index, int socket);
 
@@ -100,8 +102,6 @@ static state_t run_state(state_t current_state, state_data_t *state_data) {
   state_t new_state = state_table[current_state](state_data);
   return new_state;
 }
-
-
 
 //                .__        
 //   _____ _____  |__| ____  
@@ -269,8 +269,10 @@ state_t do_state_eval_status(state_data_t *state_data) {
     }
   }  
   else{
-    if(state_data->carIsMoving)
+    if(state_data->carIsMoving){
+      flushCacheCounter = 1; //reset the counter for number of flush_cache done
       return RUNNING;
+    }
     else
       return IDLE;
   }
@@ -321,20 +323,53 @@ state_t do_state_idle(state_data_t *state_data) {
   if(testMode){
     if(testModeCommands[testModeIndex] == 2){
       testModeIndex++; //we are done with this command
-      return FLUSH_CACHE;
+      if (flushCacheCounter % 10 == 0) { //every 9 flush we send the current data coming from CAN
+        printf("send idle data\n");
+        //get data from CAN
+        int* to_send;
+        int index = 0;
+        dataGathering(to_send, &index, state_data->socket);
+        get_data(to_send, index ,&state_data->can_data);    
+        can_data_to_bson(&state_data->can_data, &state_data->bdoc, state_data->ud.cfg->plugin_path);
+        return PUBLISH;
+      }
+      else{
+        flushCacheCounter++;
+        return FLUSH_CACHE;
+      }
     }
   }  
   else{
-    if(state_data->carIsConnected)
-      return FLUSH_CACHE;   
+    if(state_data->carIsConnected){
+      if (flushCacheCounter % 10 == 0) { //every 9 flush we send the current data coming from CAN
+        printf("send idle data\n");
+        //get data from CAN
+        int* to_send;
+        int index = 0;
+        dataGathering(to_send, &index, state_data->socket);
+        get_data(to_send, index ,&state_data->can_data);    
+        can_data_to_bson(&state_data->can_data, &state_data->bdoc, state_data->ud.cfg->plugin_path);
+        return PUBLISH;
+      }
+      else{
+        flushCacheCounter++;
+        return FLUSH_CACHE;
+      }
+    }
     else{
-      //get data from can
-      int* to_send;
-      int index = 0;
-      dataGathering(to_send, &index, state_data->socket);
+      if (flushCacheCounter % 10 == 0) { //we send the current data coming from CAN less often as we are in idle
+        //get data from CAN
+        int* to_send;
+        int index = 0;
+        dataGathering(to_send, &index, state_data->socket);
+        get_data(to_send, index ,&state_data->can_data);    
       get_data(to_send, index ,&state_data->can_data);    
-      can_data_to_bson(&state_data->can_data, &state_data->bdoc, state_data->ud.cfg->plugin_path);
-      return CACHE;
+        get_data(to_send, index ,&state_data->can_data);    
+        can_data_to_bson(&state_data->can_data, &state_data->bdoc, state_data->ud.cfg->plugin_path);
+        return CACHE;
+      }
+      else
+        flushCacheCounter++;
     }
   }
 }
@@ -354,7 +389,7 @@ state_t do_state_stop(state_data_t *state_data) {
   mosquitto_destroy(state_data->m);
   mosquitto_lib_cleanup();
 
-  state_data->running = false;//nello struct metto false/true per poter uscire dall loop
+  state_data->running = false;//we set false so that we exit the loop
 
   if(testMode)
     free(testModeCommands); //free test string 
@@ -367,7 +402,7 @@ state_t do_state_stop(state_data_t *state_data) {
 // \   __\|  | |  |  \/  ___/  |  \  _/ ___\\__  \ _/ ___\|  |  \_/ __ \ 
 //  |  |  |  |_|  |  /\___ \|   Y  \ \  \___ / __ \\  \___|   Y  \  ___/ 
 //  |__|  |____/____//____  >___|  /  \___  >____  /\___  >___|  /\___  >
-//                        \/     \/       \/     \/     \/     \/     \/ 
+//                        \/     \/       \/     \/     \/     \/     \/
 
 state_t do_state_flush_cache(state_data_t *state_data) {
   // retrieve data from cache
@@ -380,8 +415,8 @@ state_t do_state_flush_cache(state_data_t *state_data) {
   fread(&seekAddress, sizeof(uint32_t), 1, state_data->cache); //read seek address
   fseek(state_data->cache, seekAddress, SEEK_SET); //sets the file position of the stream to seekAddress
   char c[5] = {0};
-  fread(&c, sizeof(char), 1, state_data->cache); //read the next char to check if its $
-  if (c[0] == '$') {
+  fread(&c, sizeof(char), 1, state_data->cache);
+  if (c[0] == '$') { //if the first char is not $ then there is a problem
     printf("flushing cache in position: %i\n\n", seekAddress);
     fread(&c, sizeof(char), 5, state_data->cache);
     state_data->blen = atoi(c); //size of the buffer to read
@@ -392,11 +427,12 @@ state_t do_state_flush_cache(state_data_t *state_data) {
     seekAddress = ftell(state_data->cache); 
     fseek(state_data->cache, 0, SEEK_SET); //sets the file position of the stream to start of file
     fwrite(&seekAddress, sizeof(uint32_t), 1, state_data->cache); //write the new seek address
+    return PUBLISH;
   }
-  else
+  else{
     printf("ERROR flushing cache in position: %i\n\n", seekAddress);
-
-  return PUBLISH;
+    return EVAL_STATUS;
+  } 
 }
 
 //                      .__            
@@ -435,17 +471,9 @@ state_t do_state_cache(state_data_t *state_data) {
 // |  |_> >  |  / \_\ \  |_|  |\___ \|   Y  \
 // |   __/|____/|___  /____/__/____  >___|  /
 // |__|             \/            \/     \/ 
-/* TODO
-* separare i dati in arrivo e pubblicare su topic differenti
-* controllare che l invio sia avvenuto se no scrivo in cache?
-* testare throughput con QoS = 2 per invio simil TCP
-*/
-state_t do_state_publish(state_data_t *state_data) {
+// TODO: separare i dati in arrivo e pubblicare su topic differenti
 
-  /*se i dati vengono da cache non posso richiedere dati dal can => sposto prima di entrare in publish da running
-  //get_data(&state_data->can_data);
-  //can_data_to_bson(&state_data->can_data, &state_data->bdoc, state_data->ud.cfg->plugin_path);
-  */
+state_t do_state_publish(state_data_t *state_data) {
 
   state_data->blen = state_data->bdoc->len;
   state_data->data = bson_get_data(state_data->bdoc); 
