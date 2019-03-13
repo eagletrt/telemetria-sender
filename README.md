@@ -123,6 +123,7 @@ $ docker build . -t eagle-rpi
 $ docker run -ti --rm -v$(pwd):/root/devel --name erpi eagle-rpi
 root@4fedfaf5b5c7:~/devel#
 ```
+> se da VM: docker build . -t eagle-rpi --network=host 
 
 The first command builds the container image. It takes time but you only have to do it once. It downloads about 500 Mb from the Internet, so you need a good downlink.
 

@@ -11,6 +11,9 @@ sudo nano /etc/mosquitto/mosquitto.conf
 allow_anonymous false
 password_file /etc/mosquitto/pwfile
 listener 1883
+#config for mqtt over websocket
+listener 9001
+protocol websockets
 
 sudo mosquitto_passwd -c /etc/mosquitto/pwfile pi
 "telemetrypy"

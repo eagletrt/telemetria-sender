@@ -8,6 +8,8 @@ RUN dpkg --add-architecture i386 && \
     apt-get install -y libstdc++6:i386 libgcc1:i386 zlib1g:i386 \
                        build-essential cmake git rsync wget file \
                        libreadline-dev libmongoc-dev
+RUN cp /usr/arm-linux-gnueabihf/include/libbson-1.0/* /usr/arm-linux-gnueabihf/include
+RUN cd cd ~/devel
 
 ENV CROSS_TRIPLE arm-linux-gnueabihf
 ENV CROSS_ROOT /usr/${CROSS_TRIPLE}

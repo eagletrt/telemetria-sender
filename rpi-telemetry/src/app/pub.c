@@ -256,6 +256,7 @@ state_t do_state_init(state_data_t *state_data) {
 
 state_t do_state_eval_status(state_data_t *state_data) {
 
+  //TODO: read car status from can and update carIsMoving
   if(testMode){
     if(testModeIndex == testModeLength){ //stop when there are no more commands
       return STOP;
