@@ -141,8 +141,9 @@ root@4fedfaf5b5c7:~/devel#
 Work in a terminal on the project root within CCE:
 
 ```bash
-$ cmake -Bxbuild -H. -DCMAKE_TOOLCHAIN_FILE=/root/Toolchain-rpi.cmake
+$ cmake -Bxbuild -H. -DCMAKE_TOOLCHAIN_FILE=/root/Toolchain-rpi.cmake -DCROSS=ON
 ```
+> we are cross compiling therefore we need to set the cmake to CROSS mode
 
 This will prepare an out-of-source build with cmake in the `xbuild` folder using the `CMakeLists.txt` found in the `.` directory.
 

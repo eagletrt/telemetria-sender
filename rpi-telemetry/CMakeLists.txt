@@ -24,12 +24,18 @@ execute_process(
 
 project(pub VERSION ${GIT_VERSION_TAG} LANGUAGES C)
 
-option(CROSS "Do a cross-compile" off)
+option(CROSS "Do a cross-compile" off) 
+#set CROSS to ON from the terminal when you call cmake adding -DCROSS=ON
+
 if(CROSS)
   message(STATUS "Cross-compiling")
   set(CMAKE_TOOLCHAIN_FILE /root/Toolchain-rpi.cmake)
   # If using mongoc:
-  set(CMAKE_PREFIX_PATH 
+
+  #NOTA 20/03/2019: mi da errore di compilazione: /usr/bin/../arm-linux-gnueabihf/libc/usr/lib/arm-linux-gnueabihf/crt1.o: In function `_start':
+  #(.text+0x34): undefined reference to `main'
+
+  set(CMAKE_PREFIX_PATH  
     /usr/arm-linux-gnueabihf/lib/cmake/libmongoc-1.0
     /usr/arm-linux-gnueabihf/lib/cmake/libmongoc-static-1.0
     /usr/arm-linux-gnueabihf/lib/cmake/libbson-1.0
