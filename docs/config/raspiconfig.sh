@@ -32,18 +32,6 @@ Scrivere 'telemetrypi' e riscriverlo ancora per confermare
 in /etc/wpa_supplicant/wpa_supplicant.conf
 
 network={
-        ssid="Linkem_D36ECB"
-        psk="internetsborrato"
-        key_mgmt=WPA-PSK
-}
-
-network={
-        ssid="Infostrada-68F7BF"
-        psk="linternetdic4rletZ"
-        key_mgmt=WPA-PSK
-}
-
-network={
         ssid="eagleTRT"
         psk="eaglepiTRT"
         key_mgmt=WPA-PSK
