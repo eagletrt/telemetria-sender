@@ -134,7 +134,7 @@ int main(int argc, char const *argv[]) {
   //test mode input
   if (argc == 3) {
     testMode = true;
-    testModeCommands = (int*)malloc(strlen(argv[2]));
+    testModeCommands = (int*)malloc(strlen(argv[2])*sizeof(int));
     if (testModeCommands != NULL) {        
         for(int i = 0; i < strlen(argv[2]); i++){ 
           int command = argv[2][i] - '0'; //convert char to int remove the offset '0' to realign to count from 0-9
