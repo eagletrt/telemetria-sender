@@ -67,8 +67,8 @@ RUN cd ${WORKDIR} && wget https://www.lua.org/ftp/lua-5.3.5.tar.gz && \
     cd src && install -m 0755 liblua.a ${CROSS_ROOT}/lib && \
     install -m 0644 lua.h luaconf.h lualib.h lauxlib.h lua.hpp ${CROSS_ROOT}/include
 
-RUN cp /usr/arm-linux-gnueabihf/include/libbson-1.0/* /usr/arm-linux-gnueabihf/$
-RUN cd cd ~/devel
+RUN cp /usr/arm-linux-gnueabihf/include/libbson-1.0/* /usr/arm-linux-gnueabihf/include
+RUN cd ~/devel
 
 # Cleanup build dir
 RUN rm -rf ${WORKDIR}/*
