@@ -81,6 +81,11 @@ $ sudo apt install libmosquitto1
 $ sudo apt-get install libreadline-dev
 ```
 
+(single line)
+```bash
+$ sudo apt install build-essential cmake libmongoc-dev mosquitto-dev mosquitto mosquitto-clients libmosquitto-dev libmosquitto1 libreadline-dev
+```
+
 ## `Install prerequisites (Arch/Manjaro)`
 install the following from the package manager (or with pacman -S packagename):
 - cmake
