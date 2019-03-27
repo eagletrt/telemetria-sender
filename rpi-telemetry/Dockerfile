@@ -8,8 +8,6 @@ RUN dpkg --add-architecture i386 && \
     apt-get install -y libstdc++6:i386 libgcc1:i386 zlib1g:i386 \
                        build-essential cmake git rsync wget file \
                        libreadline-dev libmongoc-dev
-RUN cp /usr/arm-linux-gnueabihf/include/libbson-1.0/* /usr/arm-linux-gnueabihf/include
-RUN cd cd ~/devel
 
 ENV CROSS_TRIPLE arm-linux-gnueabihf
 ENV CROSS_ROOT /usr/${CROSS_TRIPLE}
@@ -68,6 +66,9 @@ RUN cd ${WORKDIR} && wget https://www.lua.org/ftp/lua-5.3.5.tar.gz && \
     MYCFLAGS=-I${CROSS_ROOT}/include make -Csrc liblua.a CC=$CC AR="${AR} rcu" && \
     cd src && install -m 0755 liblua.a ${CROSS_ROOT}/lib && \
     install -m 0644 lua.h luaconf.h lualib.h lauxlib.h lua.hpp ${CROSS_ROOT}/include
+
+RUN cp /usr/arm-linux-gnueabihf/include/libbson-1.0/* /usr/arm-linux-gnueabihf/$
+RUN cd cd ~/devel
 
 # Cleanup build dir
 RUN rm -rf ${WORKDIR}/*
