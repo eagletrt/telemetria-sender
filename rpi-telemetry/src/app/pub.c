@@ -24,7 +24,7 @@ int testModeLastCommand = 2;
 int flushCacheCounter = 1; //we use this counter to regulate the number of flush_cache with the live data from CAN when idle
 
 int (*get_data)(int* data_gathered, int data_lenght,can_data_t *data);
-void dataGathering(int* to_send, int* index, int socket);
+void dataGathering(int** to_send, int* index, int socket);
 
 typedef struct {
   config_t *cfg; //pub and sub configuration file
@@ -291,7 +291,7 @@ state_t do_state_running(state_data_t *state_data){
   //in either case i need the data from can
   int* to_send;
   int index = 0;
-  dataGathering(to_send, &index, state_data->socket);
+  dataGathering(&to_send, &index, state_data->socket);
   get_data(to_send, index ,&state_data->can_data);
   can_data_to_bson(&state_data->can_data, &state_data->bdoc, state_data->ud.cfg->plugin_path);
   if(testMode){
@@ -329,7 +329,7 @@ state_t do_state_idle(state_data_t *state_data) {
         //get data from CAN
         int* to_send;
         int index = 0;
-        dataGathering(to_send, &index, state_data->socket);
+        dataGathering(&to_send, &index, state_data->socket);
         get_data(to_send, index ,&state_data->can_data);    
         can_data_to_bson(&state_data->can_data, &state_data->bdoc, state_data->ud.cfg->plugin_path);
         return PUBLISH;
@@ -347,7 +347,7 @@ state_t do_state_idle(state_data_t *state_data) {
         //get data from CAN
         int* to_send;
         int index = 0;
-        dataGathering(to_send, &index, state_data->socket);
+        dataGathering(&to_send, &index, state_data->socket);
         get_data(to_send, index ,&state_data->can_data);    
         can_data_to_bson(&state_data->can_data, &state_data->bdoc, state_data->ud.cfg->plugin_path);
         return PUBLISH;
@@ -362,7 +362,7 @@ state_t do_state_idle(state_data_t *state_data) {
         //get data from CAN
         int* to_send;
         int index = 0;
-        dataGathering(to_send, &index, state_data->socket);
+        dataGathering(&to_send, &index, state_data->socket);
         get_data(to_send, index ,&state_data->can_data);    
       get_data(to_send, index ,&state_data->can_data);    
         get_data(to_send, index ,&state_data->can_data);    
@@ -495,7 +495,7 @@ state_t do_state_publish(state_data_t *state_data) {
   return EVAL_STATUS;
 }
 
-void dataGathering(int* to_send, int* index, int socket) {
+void dataGathering(int** to_send, int* index, int socket) {
   // Data Gathering
   // Timer setting
 
@@ -508,7 +508,7 @@ void dataGathering(int* to_send, int* index, int socket) {
 
   int size = 90;
   *index = 0;
-  to_send = (int *) malloc(size*sizeof(int));
+  (*to_send) = (int *) malloc(size*sizeof(int));
 
   do {
     int id = 0; 
@@ -521,12 +521,14 @@ void dataGathering(int* to_send, int* index, int socket) {
     if (size - 5 < *index) {
       //realloc
       size *= 2;
-      to_send = (int *) realloc(to_send, size*sizeof(int));
+      (*to_send) = (int *) realloc((*to_send), size*sizeof(int));
     } 
   
-    to_send[(*index)++] = id;
-    to_send[(*index)++] = data1;
-    to_send[(*index)++] = data2; 
+    (*to_send)[(*index)++] = id;
+    (*to_send)[(*index)++] = data1;
+    (*to_send)[(*index)++] = data2; 
+
+    //printf("%li\n", to_send);
 
     clock_gettime(CLOCK_MONOTONIC, &tend);
     msec = (((double)tend.tv_sec*1000 + 1.0e-6*tend.tv_nsec) - end);

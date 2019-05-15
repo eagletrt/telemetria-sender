@@ -124,10 +124,10 @@ add_library(dummy SHARED ${SOURCE_DIR}/plugin/dummy.c)
 # target_link_libraries(dummy erpi)
 set_target_properties(dummy PROPERTIES PREFIX "" SUFFIX ".plugin")
 if (CROSS)
-  add_executable(canbus ${SOURCE_DIR}/plugin/canbus.c)
-  target_link_libraries(canbus erpi)
+  add_library(canbus SHARED ${SOURCE_DIR}/plugin/canbus.c)
+  #target_link_libraries(canbus erpi)
   set_target_properties(canbus PROPERTIES PREFIX "" SUFFIX ".plugin")
-  list(APPEND TARGETS_LIST canbus)
+  #list(APPEND TARGETS_LIST canbus)
 endif()
 
                            

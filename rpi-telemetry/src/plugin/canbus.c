@@ -24,14 +24,15 @@
 #define STM_CENTRAL             0xD0
 #define STM_REAR                0xE0
 
-int get_data(int* data_gathered, int data_lenght,can_data_t *data) {
+int get_data(int** data_gathered, int data_lenght,can_data_t *data) {
+  //printf("%li\n", data_gathered);
 
   struct timespec time;
   static uint32_t id = 0;
   int i = 0;
   uint32_t timestamp;
 
-  if( clock_gettime(CLOCK_MONOTONIC, &time) == -1 ) {
+  if (clock_gettime(CLOCK_MONOTONIC, &time) == -1 ) {
     perror("clock gettime");
     return EXIT_FAILURE;
   }
@@ -42,92 +43,32 @@ int get_data(int* data_gathered, int data_lenght,can_data_t *data) {
   data->timestamp = timestamp;
 
   for (int i = 0; i < data_lenght; i = i+3) {
+
     int id_gathered = data_gathered[i];
     int data1 = data_gathered[i+1];
     int data2 = data_gathered[i+2];
 
     int firstByte = ((data1 >> 24) & 255);
-
+    printf("%d\n", firstByte);
     switch(id_gathered){
-      case(STM_FRONTAL):
+      case(0xB0):
+        //pedals
+        
         if (firstByte == 0x01) {
-          //delta steering
-
-          data->steering_angle = ((data1 >> 16) & 256);
-        } else if (firstByte == 0x02) {
-          //frontal encoder DX
-          
-          //NON ESISTE UN POSTO DOVE METTERLO, NON SERVE?
-        } else if (firstByte == 0x03) {
-          //frontal encoder SX
-
-          //NON ESISTE UN POSTO DOVE METTERLO, NON SERVE?
-        } else if (firstByte == 0x04) {
-          //Gyro Z
-
-          //data->gyro[1].x = ?
-          //data->gyro[1].y = ?
-          //data->gyro[1].z = ?
-
-          //NON SI CAPISCE CHE DATI VENGONO MANDATI
-        } else if (firstByte == 0x05) {
-          //Axel X
-
-          //data->acceleration[1].x = ?
-          //data->acceleration[1].y = ?
-          //data->acceleration[1].z = ?
-
-          //NON SI CAPISCE CHE DATI VENGONO MANDATI
-        } 
-        break;
-      case(STM_CENTRAL):
-        if (firstByte == 0x01) {
-          //Gyro Z
-
-          data->gyro[1].x = ((data1 >> 16) & 256);
-          data->gyro[1].y = ((data1 >> 8) & 256);
-          data->gyro[1].z = ((data1 >> 0) & 256);
-        } else if (firstByte == 0x02) {
-          //Axel X
-
-          data->acceleration[1].x = ((data1 >> 16) & 256);
-          data->acceleration[1].y = ((data1 >> 8) & 256);
-          data->acceleration[1].z = ((data1 >> 0) & 256);
-        } else if (firstByte == 0x03) {
-          //GPS Velocity
-
-          data->speed = ((data1 >> 16) & 256);
-          //E' GIUSTO MESSO QUI DENTRO?
-        } else if (firstByte == 0x04) {
-          //GPS Position
-
-          data->location.latitude = ((data1 >> 16) & 256);
-          //check for N/S? ((data1 >> 16) & 256)
-
-          data->location.longitude = ((data1 >> 0) & 256);
-          //check for E/W? ((data2 >> 24) & 256)
-
-          //data->location.elevation = ??
+        	//throttle
+        	data->throttle = ((data1 >> 16) & 255);
+        } else {
+          data->throttle = 0;
         }
-        break;
-      case(STM_REAR):
-        if (firstByte == 0x01) {
-          //Gyro Z
 
-          data->gyro[1].x = ((data1 >> 16) & 256);
-          data->gyro[1].y = ((data1 >> 8) & 256);
-          data->gyro[1].z = ((data1 >> 0) & 256);
-        } else if (firstByte == 0x02) {
-          //Axel X
+        if (firstByte == 0x02) {
+        	//brake
+        	data->brake = ((data1 >> 16) & 255);
+        }  else {
+          data->brake = 0;
+        }
 
-          data->acceleration[1].x = ((data1 >> 16) & 256);
-          data->acceleration[1].y = ((data1 >> 8) & 256);
-          data->acceleration[1].z = ((data1 >> 0) & 256);
-        } 
-        break;
-      case(TH_BK_VALUE):
-
-        break;
+      break;
     }
   }
   return EXIT_SUCCESS;
