@@ -3,8 +3,66 @@
 #include <stdlib.h>
 #include <stdint.h>
 
-#define ACCUMULATOR_MODULES 12
-#define N_IMUS 1
+#define RESOLVER 0x01
+#define FRONT_WHEELS_ENCODER 0x02
+#define IMU 0x03
+#define THROTTLE 0x04
+#define BRAKE 0x05
+#define STEERING_WHEEL_ENCODER 0x06
+#define GPS 0x07
+#define BMS_HV_TEMP 0x08
+#define BMS_HV_VOLT 0x09
+#define INV_TEMP 0x0A
+#define INV_VOLT 0x0B
+#define INV_CURR 0x0C
+#define BMS_LV_TEMP 0x0D
+
+typedef struct {
+    double x, y, z;
+} imu_tensor;
+
+typedef struct {
+    double latitude, longitude, speed;
+} gps_tensor;
+
+typedef struct {
+  double temp;
+  double volt;
+} bms_hv;
+
+typedef struct {
+  double temp;
+  double volt;
+  double curr;
+} inverter;
+
+typedef struct {
+  double temp;
+} bms_lv;
+
+//CAN DATA
+typedef struct {
+  uint32_t id;
+  uint32_t timestamp;
+
+  double resolver[20];
+  double front_wheels_encoder[20];
+  imu_tensor *imu[20];
+  int throttle[20];
+  int brake[10];
+  double steering_wheel_encoder[20];
+  gps_tensor *gps[20];
+
+  bms_hv *bms_hv[1];
+  inverter *inv[1];
+  bms_lv *bms_lv[1];
+
+  //errori
+} can_data_t;
+
+
+/*
+OLD STRUCT
 
 typedef struct {
   uint32_t id;
@@ -32,6 +90,6 @@ typedef struct {
     double current[3];
     double temperature[ACCUMULATOR_MODULES];
   } accumulator;
-} can_data_t;
+} can_data_t;*/
 
 #endif

@@ -22,37 +22,41 @@ int get_data(int* data_gathered, int data_lenght,can_data_t *data) {
     perror("clock gettime");
     return EXIT_FAILURE;
   }
+
   timestamp = time.tv_sec * 1000 + time.tv_nsec / 1E6;
 
   data->id = id++;
   data->timestamp = timestamp;
   
-  data->location.latitude = 10 + rnd(-100, 100);
-  data->location.longitude = 10 + rnd(-100, 100);
-  data->location.elevation = 193 + rnd(-10, 10);
+  for (int i = 0; i < 20; ++i) {
+    data->resolver[i] = 0.0 + rnd(0, 50);
+    data->front_wheels_encoder[i] = 0.0 + rnd(0, 100);
+    data->imu[i] = (imu_tensor *) malloc (sizeof(imu_tensor) * 20);
+      data->imu[i]->x = 0.0 + rnd(-0.5, 0.5);
+      data->imu[i]->y = 0.0 + rnd(-0.5, 0.5);
+      data->imu[i]->z = 0.0 + rnd(-0.5, 0.5);
+    data->throttle[i] = 0 + rnd(0, 100);
+    data->brake[i%2] = 0 + rnd(0, 100);
+    data->steering_wheel_encoder[i] = 0.0 + rnd(0, 50);
 
-  data->speed = 0.0 + rnd(0, 50);
-  data->odometry = 0.0 + rnd(0, 100);
-  data->steering_angle = 0.0 + rnd(-20, 20);
-  data->throttle = 0.0 + rnd(0, 1);
-  data->brake = 0.0 + rnd(0, 1);
-  data->acceleration[1].x = 0.0 + rnd(-0.5, 0.5);
-  data->acceleration[1].y = 0.0 + rnd(-0.5, 0.5);
-  data->acceleration[1].z = -1.0 + rnd(-0.1, 0.1);
-  data->gyro[1].x = 0.0 + rnd(-0.5, 0.5);
-  data->gyro[1].y = 0.0 + rnd(-0.5, 0.5);
-  data->gyro[1].z = 0.0 + rnd(-0.1, 0.1);
-  data->magneto[1].x = 0.0 + rnd(-3, 3);
-  data->magneto[1].y = 0.0 + rnd(-3, 3);
-  data->magneto[1].z = 0.0 + rnd(-3, 3);
-
-  data->accumulator.voltage = 400 + rnd(-100, 0);
-  data->accumulator.current[0] = 1.0 + rnd(-0.1, 0.1);
-  data->accumulator.current[1] = 1.1 + rnd(-0.1, 0.1);
-  data->accumulator.current[2] = 0.9 + rnd(-0.1, 0.1);
-  for (i = 0; i < ACCUMULATOR_MODULES; i++) {
-    data->accumulator.temperature[i] = 37 + rnd(0, 10);
+    data->gps[i] = (gps_tensor *) malloc (sizeof(gps_tensor) * 20);
+      data->gps[i]->latitude = 0.0 + rnd(-0.5, 0.5);
+      data->gps[i]->longitude = 0.0 + rnd(-0.5, 0.5);
+      data->gps[i]->speed = 0.0 + rnd(-0.5, 0.5);
   }
+
+  data->bms_hv[0] = (bms_hv *) malloc (sizeof(bms_hv));
+    data->bms_hv[0]->temp = 0.0 + rnd(-0.5, 0.5);
+    data->bms_hv[0]->volt = 0.0 + rnd(-0.5, 0.5);
+
+  data->inv[0] = (inverter *) malloc (sizeof(inverter));
+    data->inv[0]->temp = 0.0 + rnd(-0.5, 0.5);
+    data->inv[0]->volt = 0.0 + rnd(-0.5, 0.5);
+    data->inv[0]->curr = 0.0 + rnd(-0.5, 0.5);
+
+  data->bms_lv[0] = (bms_lv *) malloc (sizeof(bms_lv));
+    data->bms_lv[0]->temp = 0.0 + rnd(-0.5, 0.5);
+
   return EXIT_SUCCESS;
 }
 

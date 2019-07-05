@@ -20,7 +20,7 @@ int testModeLength = 0;
 int *testModeCommands; //array that indicate the fsm state to play/test during execution (0 = publish, 1 = cache, 2 = flush)
 bool testMode = false; //indicate weather the pub is in test mode or not
 int testModeLastCommand = 2;
-
+config_t *sending_cfg; //
 int flushCacheCounter = 1; //we use this counter to regulate the number of flush_cache with the live data from CAN when idle
 
 int (*get_data)(int* data_gathered, int data_lenght,can_data_t *data);
@@ -363,8 +363,6 @@ state_t do_state_idle(state_data_t *state_data) {
         int* to_send;
         int index = 0;
         dataGathering(&to_send, &index, state_data->socket);
-        get_data(to_send, index ,&state_data->can_data);    
-      get_data(to_send, index ,&state_data->can_data);    
         get_data(to_send, index ,&state_data->can_data);    
         can_data_to_bson(&state_data->can_data, &state_data->bdoc, state_data->ud.cfg->plugin_path);
         return CACHE;
