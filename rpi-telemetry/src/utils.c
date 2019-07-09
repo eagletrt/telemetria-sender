@@ -7,6 +7,7 @@
 #include <libgen.h>
 
 void print_buffer(FILE * stream, const uint8_t *buf, size_t buflen) {
+  
   size_t i, c = 1;
   fprintf(stream, "%04d: ", 0);
   for (i = 0; i < buflen; i++) {
@@ -288,14 +289,14 @@ config_send *new_config_send(char const *config_file)  {
 
 int can_data_to_bson(can_data_t *can_data, bson_t **bson, char const *plugin_path) {
   struct timespec wall;
-  bson_t *accu, temp;
   int i;
-  printf("bson entered good\n");
 
   if( clock_gettime(CLOCK_REALTIME, &wall) == -1 ) {
     perror("clock gettime");
     exit(EXIT_FAILURE);
   }
+    printf("bson ok\n");
+
   // Timestamp in BSON is expressen in milliseconds after epoch:
   // time.tv_sec * 1000 + time.tv_nsec / 1E6
   *bson = bson_new ();
@@ -326,21 +327,40 @@ int can_data_to_bson(can_data_t *can_data, bson_t **bson, char const *plugin_pat
   }
   bson_append_array_end (*bson, &array_t);
   bson_destroy(&array_t);
+    printf("bson ok 1\n");
 
   //append the imu data
-  BSON_APPEND_ARRAY_BEGIN (*bson, "imu", &array_t);
+  BSON_APPEND_ARRAY_BEGIN (*bson, "imu_gyro", &array_t);
   for (i = 0; i < 20; ++i) {
     bson_t elements;    
     bson_uint32_to_string (i, &key, buf, sizeof buf);
     BSON_APPEND_DOCUMENT_BEGIN (&array_t, key, &elements);
-    BSON_APPEND_DOUBLE (&elements, "x", can_data->imu[i]->x);
-    BSON_APPEND_DOUBLE (&elements, "y", can_data->imu[i]->y);
-    BSON_APPEND_DOUBLE (&elements, "z", can_data->imu[i]->z);
+    printf("ok\n");
+    printf("%f\n", can_data->imu_gyro[i].x);
+    bson_append_double (&elements, "x",1, can_data->imu_gyro[i].x);
+    bson_append_double (&elements, "y",1, can_data->imu_gyro[i].y);
+    bson_append_double (&elements, "z",1, can_data->imu_gyro[i].z);
     bson_append_document_end (&array_t, &elements);
     bson_destroy(&elements);
   }
   bson_append_array_end (*bson, &array_t);
   bson_destroy(&array_t);
+    printf("bson ok 2\n");
+
+  BSON_APPEND_ARRAY_BEGIN (*bson, "imu_axel", &array_t);
+  for (i = 0; i < 20; ++i) {
+    bson_t elements;    
+    bson_uint32_to_string (i, &key, buf, sizeof buf);
+    BSON_APPEND_DOCUMENT_BEGIN (&array_t, key, &elements);
+    bson_append_double (&elements, "x",1, can_data->imu_axel[i].x);
+    bson_append_double (&elements, "y",1, can_data->imu_axel[i].y);
+    bson_append_double (&elements, "z",1, can_data->imu_axel[i].z);
+    bson_append_document_end (&array_t, &elements);
+    bson_destroy(&elements);
+  }
+  bson_append_array_end (*bson, &array_t);
+  bson_destroy(&array_t);
+    printf("bson ok 3\n");
 
   //append the throttle array
   BSON_APPEND_ARRAY_BEGIN (*bson, "throttle", &array_t);
@@ -368,7 +388,6 @@ int can_data_to_bson(can_data_t *can_data, bson_t **bson, char const *plugin_pat
   }
   bson_append_array_end (*bson, &array_t);
   bson_destroy(&array_t);
-  printf("bson still good 2\n");
 
   //append the gps data
   BSON_APPEND_ARRAY_BEGIN (*bson, "gps", &array_t);
@@ -376,15 +395,20 @@ int can_data_to_bson(can_data_t *can_data, bson_t **bson, char const *plugin_pat
     bson_t elements;    
     bson_uint32_to_string (i, &key, buf, sizeof buf);
     BSON_APPEND_DOCUMENT_BEGIN (&array_t, key, &elements);
-    BSON_APPEND_DOUBLE (&elements, "latitude", can_data->gps[i]->latitude);
-    BSON_APPEND_DOUBLE (&elements, "longitude", can_data->gps[i]->longitude);
-    BSON_APPEND_DOUBLE (&elements, "speed", can_data->gps[i]->speed);
+    BSON_APPEND_DOUBLE (&elements, "latitude", can_data->gps[i].latitude);
+    BSON_APPEND_DOUBLE (&elements, "longitude", can_data->gps[i].longitude);
+    BSON_APPEND_DOUBLE (&elements, "speed", can_data->gps[i].speed);
+    BSON_APPEND_DOUBLE (&elements, "altitude", can_data->gps[i].altitude);
+    BSON_APPEND_DOUBLE (&elements, "lat_o", can_data->gps[i].lat_o);
+    BSON_APPEND_DOUBLE (&elements, "lon_o", can_data->gps[i].lon_o);
     bson_append_document_end (&array_t, &elements);
     bson_destroy(&elements);
   }
   bson_append_array_end (*bson, &array_t);
   bson_destroy(&array_t);
-  printf("bson still good 3\n");
+
+  //append the marker
+  BSON_APPEND_INT32 (*bson, "marker", can_data->marker);
 
   //append the hv bms data
   BSON_APPEND_ARRAY_BEGIN (*bson, "bms_hv", &array_t);
@@ -392,8 +416,8 @@ int can_data_to_bson(can_data_t *can_data, bson_t **bson, char const *plugin_pat
     bson_t elements;    
     bson_uint32_to_string (i, &key, buf, sizeof buf);
     BSON_APPEND_DOCUMENT_BEGIN (&array_t, key, &elements);
-    BSON_APPEND_DOUBLE (&elements, "temp", can_data->bms_hv[i]->temp);
-    BSON_APPEND_DOUBLE (&elements, "volt", can_data->bms_hv[i]->volt);
+    BSON_APPEND_DOUBLE (&elements, "temp", can_data->bms_hv[i].temp);
+    BSON_APPEND_DOUBLE (&elements, "volt", can_data->bms_hv[i].volt);
     bson_append_document_end (&array_t, &elements);
     bson_destroy(&elements);
   }
@@ -406,9 +430,9 @@ int can_data_to_bson(can_data_t *can_data, bson_t **bson, char const *plugin_pat
     bson_t elements;    
     bson_uint32_to_string (i, &key, buf, sizeof buf);
     BSON_APPEND_DOCUMENT_BEGIN (&array_t, key, &elements);
-    BSON_APPEND_DOUBLE (&elements, "temp", can_data->inv[i]->temp);
-    BSON_APPEND_DOUBLE (&elements, "curr", can_data->inv[i]->curr);
-    BSON_APPEND_DOUBLE (&elements, "volt", can_data->inv[i]->volt);
+    BSON_APPEND_DOUBLE (&elements, "temp", can_data->inv[i].temp);
+    BSON_APPEND_DOUBLE (&elements, "curr", can_data->inv[i].curr);
+    BSON_APPEND_DOUBLE (&elements, "volt", can_data->inv[i].volt);
     bson_append_document_end (&array_t, &elements);
     bson_destroy(&elements);
   }
@@ -421,7 +445,7 @@ int can_data_to_bson(can_data_t *can_data, bson_t **bson, char const *plugin_pat
     bson_t elements;    
     bson_uint32_to_string (i, &key, buf, sizeof buf);
     BSON_APPEND_DOCUMENT_BEGIN (&array_t, key, &elements);
-    BSON_APPEND_DOUBLE (&elements, "temp", can_data->bms_lv[i]->temp);
+    BSON_APPEND_DOUBLE (&elements, "temp", can_data->bms_lv[i].temp);
     bson_append_document_end (&array_t, &elements);
     bson_destroy(&elements);
   }

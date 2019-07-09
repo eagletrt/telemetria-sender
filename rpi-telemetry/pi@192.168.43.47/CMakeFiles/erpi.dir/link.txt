@@ -1,0 +1,2 @@
+/usr/bin/arm-linux-gnueabihf-ar qc liberpi.a  CMakeFiles/erpi.dir/src/can_custom_lib.c.o CMakeFiles/erpi.dir/src/timer.c.o CMakeFiles/erpi.dir/src/utils.c.o CMakeFiles/erpi.dir/src/linux/libsocketcan.c.o
+/usr/bin/arm-linux-gnueabihf-ranlib liberpi.a

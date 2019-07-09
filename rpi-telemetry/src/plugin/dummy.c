@@ -27,7 +27,7 @@ int get_data(int* data_gathered, int data_lenght,can_data_t *data) {
 
   data->id = id++;
   data->timestamp = timestamp;
-  
+  /*
   for (int i = 0; i < 20; ++i) {
     data->resolver[i] = 0.0 + rnd(0, 50);
     data->front_wheels_encoder[i] = 0.0 + rnd(0, 100);
@@ -56,7 +56,7 @@ int get_data(int* data_gathered, int data_lenght,can_data_t *data) {
 
   data->bms_lv[0] = (bms_lv *) malloc (sizeof(bms_lv));
     data->bms_lv[0]->temp = 0.0 + rnd(-0.5, 0.5);
-
+*/
   return EXIT_SUCCESS;
 }
 

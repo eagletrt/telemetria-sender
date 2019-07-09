@@ -9,6 +9,7 @@
 #include <signal.h>
 #include <stdio.h>
 #include <string.h>
+#include <string.h>
 #include <assert.h>
 
 int _running = 1;
@@ -39,6 +40,7 @@ void my_message_callback(struct mosquitto *mosq, void *userdata,
       char *json;
       doc = bson_new_from_data(buf, message->payloadlen);
       json = bson_as_json(doc, &len);
+
       printf("> Document:\n%s\n> Document size: %zu\n\n", json,
            len);
       free(json);

@@ -1,0 +1,190 @@
+The target system is: Linux - 1 - 
+The host system is: Linux - 4.18.0-18-generic - x86_64
+Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+Compiler: /usr/bin/arm-linux-gnueabihf-gcc 
+Build flags: 
+Id flags:  
+
+The output was:
+0
+
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
+
+The C compiler identification is GNU, found in "/root/devel/xbuild/CMakeFiles/3.10.2/CompilerIdC/a.out"
+
+Determining if the C compiler works passed with the following output:
+Change Dir: /root/devel/xbuild/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_9c13b/fast"
+/usr/bin/make -f CMakeFiles/cmTC_9c13b.dir/build.make CMakeFiles/cmTC_9c13b.dir/build
+make[1]: Entering directory '/root/devel/xbuild/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_9c13b.dir/testCCompiler.c.o
+/usr/bin/arm-linux-gnueabihf-gcc   -Wall -std=gnu11 -o CMakeFiles/cmTC_9c13b.dir/testCCompiler.c.o   -c /root/devel/xbuild/CMakeFiles/CMakeTmp/testCCompiler.c
+Linking C executable cmTC_9c13b
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_9c13b.dir/link.txt --verbose=1
+/usr/bin/arm-linux-gnueabihf-gcc      CMakeFiles/cmTC_9c13b.dir/testCCompiler.c.o  -o cmTC_9c13b 
+make[1]: Leaving directory '/root/devel/xbuild/CMakeFiles/CMakeTmp'
+
+
+Detecting C compiler ABI info compiled with the following output:
+Change Dir: /root/devel/xbuild/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_19c2f/fast"
+/usr/bin/make -f CMakeFiles/cmTC_19c2f.dir/build.make CMakeFiles/cmTC_19c2f.dir/build
+make[1]: Entering directory '/root/devel/xbuild/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_19c2f.dir/CMakeCCompilerABI.c.o
+/usr/bin/arm-linux-gnueabihf-gcc   -Wall -std=gnu11 -o CMakeFiles/cmTC_19c2f.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake-3.10/Modules/CMakeCCompilerABI.c
+Linking C executable cmTC_19c2f
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_19c2f.dir/link.txt --verbose=1
+/usr/bin/arm-linux-gnueabihf-gcc     -v CMakeFiles/cmTC_19c2f.dir/CMakeCCompilerABI.c.o  -o cmTC_19c2f 
+Using built-in specs.
+COLLECT_GCC=/usr/bin/arm-linux-gnueabihf-gcc
+COLLECT_LTO_WRAPPER=/usr/bin/../libexec/gcc/arm-linux-gnueabihf/4.8.3/lto-wrapper
+Target: arm-linux-gnueabihf
+Configured with: /cbuild/slaves/oorts/crosstool-ng/builds/arm-linux-gnueabihf-raspbian-linux/.build/src/gcc-linaro-4.8-2014.01/configure --build=i686-build_pc-linux-gnu --host=i686-build_pc-linux-gnu --target=arm-linux-gnueabihf --prefix=/cbuild/slaves/oorts/crosstool-ng/builds/arm-linux-gnueabihf-raspbian-linux/install --with-sysroot=/cbuild/slaves/oorts/crosstool-ng/builds/arm-linux-gnueabihf-raspbian-linux/install/arm-linux-gnueabihf/libc --enable-languages=c,c++,fortran --disable-multilib --enable-multiarch --with-arch=armv6 --with-tune=arm1176jz-s --with-fpu=vfp --with-float=hard --with-pkgversion='crosstool-NG linaro-1.13.1-4.8-2014.01 - Linaro GCC 2013.11' --with-bugurl=https://bugs.launchpad.net/gcc-linaro --enable-__cxa_atexit --enable-libmudflap --enable-libgomp --enable-libssp --with-gmp=/cbuild/slaves/oorts/crosstool-ng/builds/arm-linux-gnueabihf-raspbian-linux/.build/arm-linux-gnueabihf/build/static --with-mpfr=/cbuild/slaves/oorts/crosstool-ng/builds/arm-linux-gnueabihf-raspbian-linux/.build/arm-linux-gnueabihf/build/static --with-mpc=/cbuild/slaves/oorts/crosstool-ng/builds/arm-linux-gnueabihf-raspbian-linux/.build/arm-linux-gnueabihf/build/static --with-isl=/cbuild/slaves/oorts/crosstool-ng/builds/arm-linux-gnueabihf-raspbian-linux/.build/arm-linux-gnueabihf/build/static --with-cloog=/cbuild/slaves/oorts/crosstool-ng/builds/arm-linux-gnueabihf-raspbian-linux/.build/arm-linux-gnueabihf/build/static --with-libelf=/cbuild/slaves/oorts/crosstool-ng/builds/arm-linux-gnueabihf-raspbian-linux/.build/arm-linux-gnueabihf/build/static --enable-threads=posix --disable-libstdcxx-pch --enable-linker-build-id --enable-plugin --enable-gold --with-local-prefix=/cbuild/slaves/oorts/crosstool-ng/builds/arm-linux-gnueabihf-raspbian-linux/install/arm-linux-gnueabihf/libc --enable-c99 --enable-long-long --with-float=hard
+Thread model: posix
+gcc version 4.8.3 20140106 (prerelease) (crosstool-NG linaro-1.13.1-4.8-2014.01 - Linaro GCC 2013.11) 
+COMPILER_PATH=/usr/bin/../libexec/gcc/arm-linux-gnueabihf/4.8.3/:/usr/bin/../libexec/gcc/arm-linux-gnueabihf/:/usr/bin/../libexec/gcc/:/usr/bin/../libexec/gcc/arm-linux-gnueabihf/:/usr/bin/../lib/gcc/arm-linux-gnueabihf/4.8.3/../../../../arm-linux-gnueabihf/bin/
+LIBRARY_PATH=/usr/bin/../lib/gcc/arm-linux-gnueabihf/4.8.3/:/usr/bin/../lib/gcc/arm-linux-gnueabihf/:/usr/bin/../lib/gcc/:/usr/bin/../lib/gcc/arm-linux-gnueabihf/:/usr/bin/../lib/gcc/arm-linux-gnueabihf/4.8.3/../../../../arm-linux-gnueabihf/lib/:/usr/bin/../arm-linux-gnueabihf/libc/lib/arm-linux-gnueabihf/:/usr/bin/../arm-linux-gnueabihf/libc/lib/:/usr/bin/../arm-linux-gnueabihf/libc/lib/arm-linux-gnueabihf/:/usr/bin/../arm-linux-gnueabihf/libc/usr/lib/arm-linux-gnueabihf/:/usr/bin/../arm-linux-gnueabihf/libc/usr/lib/:/usr/bin/../arm-linux-gnueabihf/libc/usr/lib/arm-linux-gnueabihf/
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_19c2f' '-march=armv6' '-mtune=arm1176jz-s' '-mfloat-abi=hard' '-mfpu=vfp' '-mtls-dialect=gnu'
+ /usr/bin/../libexec/gcc/arm-linux-gnueabihf/4.8.3/collect2 --sysroot=/usr/bin/../arm-linux-gnueabihf/libc --build-id --eh-frame-hdr -dynamic-linker /lib/ld-linux-armhf.so.3 -X -m armelf_linux_eabi -o cmTC_19c2f /usr/bin/../arm-linux-gnueabihf/libc/usr/lib/arm-linux-gnueabihf/crt1.o /usr/bin/../arm-linux-gnueabihf/libc/usr/lib/arm-linux-gnueabihf/crti.o /usr/bin/../lib/gcc/arm-linux-gnueabihf/4.8.3/crtbegin.o -L/usr/bin/../lib/gcc/arm-linux-gnueabihf/4.8.3 -L/usr/bin/../lib/gcc/arm-linux-gnueabihf -L/usr/bin/../lib/gcc -L/usr/bin/../lib/gcc/arm-linux-gnueabihf -L/usr/bin/../lib/gcc/arm-linux-gnueabihf/4.8.3/../../../../arm-linux-gnueabihf/lib -L/usr/bin/../arm-linux-gnueabihf/libc/lib/arm-linux-gnueabihf -L/usr/bin/../arm-linux-gnueabihf/libc/lib -L/usr/bin/../arm-linux-gnueabihf/libc/lib/arm-linux-gnueabihf -L/usr/bin/../arm-linux-gnueabihf/libc/usr/lib/arm-linux-gnueabihf -L/usr/bin/../arm-linux-gnueabihf/libc/usr/lib -L/usr/bin/../arm-linux-gnueabihf/libc/usr/lib/arm-linux-gnueabihf CMakeFiles/cmTC_19c2f.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/bin/../lib/gcc/arm-linux-gnueabihf/4.8.3/crtend.o /usr/bin/../arm-linux-gnueabihf/libc/usr/lib/arm-linux-gnueabihf/crtn.o
+make[1]: Leaving directory '/root/devel/xbuild/CMakeFiles/CMakeTmp'
+
+
+Parsed C implicit link information from above output:
+  link line regex: [^( *|.*[/\])(arm-linux-gnueabihf-ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+  ignore line: [Change Dir: /root/devel/xbuild/CMakeFiles/CMakeTmp]
+  ignore line: []
+  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_19c2f/fast"]
+  ignore line: [/usr/bin/make -f CMakeFiles/cmTC_19c2f.dir/build.make CMakeFiles/cmTC_19c2f.dir/build]
+  ignore line: [make[1]: Entering directory '/root/devel/xbuild/CMakeFiles/CMakeTmp']
+  ignore line: [Building C object CMakeFiles/cmTC_19c2f.dir/CMakeCCompilerABI.c.o]
+  ignore line: [/usr/bin/arm-linux-gnueabihf-gcc   -Wall -std=gnu11 -o CMakeFiles/cmTC_19c2f.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake-3.10/Modules/CMakeCCompilerABI.c]
+  ignore line: [Linking C executable cmTC_19c2f]
+  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_19c2f.dir/link.txt --verbose=1]
+  ignore line: [/usr/bin/arm-linux-gnueabihf-gcc     -v CMakeFiles/cmTC_19c2f.dir/CMakeCCompilerABI.c.o  -o cmTC_19c2f ]
+  ignore line: [Using built-in specs.]
+  ignore line: [COLLECT_GCC=/usr/bin/arm-linux-gnueabihf-gcc]
+  ignore line: [COLLECT_LTO_WRAPPER=/usr/bin/../libexec/gcc/arm-linux-gnueabihf/4.8.3/lto-wrapper]
+  ignore line: [Target: arm-linux-gnueabihf]
+  ignore line: [Configured with: /cbuild/slaves/oorts/crosstool-ng/builds/arm-linux-gnueabihf-raspbian-linux/.build/src/gcc-linaro-4.8-2014.01/configure --build=i686-build_pc-linux-gnu --host=i686-build_pc-linux-gnu --target=arm-linux-gnueabihf --prefix=/cbuild/slaves/oorts/crosstool-ng/builds/arm-linux-gnueabihf-raspbian-linux/install --with-sysroot=/cbuild/slaves/oorts/crosstool-ng/builds/arm-linux-gnueabihf-raspbian-linux/install/arm-linux-gnueabihf/libc --enable-languages=c,c++,fortran --disable-multilib --enable-multiarch --with-arch=armv6 --with-tune=arm1176jz-s --with-fpu=vfp --with-float=hard --with-pkgversion='crosstool-NG linaro-1.13.1-4.8-2014.01 - Linaro GCC 2013.11' --with-bugurl=https://bugs.launchpad.net/gcc-linaro --enable-__cxa_atexit --enable-libmudflap --enable-libgomp --enable-libssp --with-gmp=/cbuild/slaves/oorts/crosstool-ng/builds/arm-linux-gnueabihf-raspbian-linux/.build/arm-linux-gnueabihf/build/static --with-mpfr=/cbuild/slaves/oorts/crosstool-ng/builds/arm-linux-gnueabihf-raspbian-linux/.build/arm-linux-gnueabihf/build/static --with-mpc=/cbuild/slaves/oorts/crosstool-ng/builds/arm-linux-gnueabihf-raspbian-linux/.build/arm-linux-gnueabihf/build/static --with-isl=/cbuild/slaves/oorts/crosstool-ng/builds/arm-linux-gnueabihf-raspbian-linux/.build/arm-linux-gnueabihf/build/static --with-cloog=/cbuild/slaves/oorts/crosstool-ng/builds/arm-linux-gnueabihf-raspbian-linux/.build/arm-linux-gnueabihf/build/static --with-libelf=/cbuild/slaves/oorts/crosstool-ng/builds/arm-linux-gnueabihf-raspbian-linux/.build/arm-linux-gnueabihf/build/static --enable-threads=posix --disable-libstdcxx-pch --enable-linker-build-id --enable-plugin --enable-gold --with-local-prefix=/cbuild/slaves/oorts/crosstool-ng/builds/arm-linux-gnueabihf-raspbian-linux/install/arm-linux-gnueabihf/libc --enable-c99 --enable-long-long --with-float=hard]
+  ignore line: [Thread model: posix]
+  ignore line: [gcc version 4.8.3 20140106 (prerelease) (crosstool-NG linaro-1.13.1-4.8-2014.01 - Linaro GCC 2013.11) ]
+  ignore line: [COMPILER_PATH=/usr/bin/../libexec/gcc/arm-linux-gnueabihf/4.8.3/:/usr/bin/../libexec/gcc/arm-linux-gnueabihf/:/usr/bin/../libexec/gcc/:/usr/bin/../libexec/gcc/arm-linux-gnueabihf/:/usr/bin/../lib/gcc/arm-linux-gnueabihf/4.8.3/../../../../arm-linux-gnueabihf/bin/]
+  ignore line: [LIBRARY_PATH=/usr/bin/../lib/gcc/arm-linux-gnueabihf/4.8.3/:/usr/bin/../lib/gcc/arm-linux-gnueabihf/:/usr/bin/../lib/gcc/:/usr/bin/../lib/gcc/arm-linux-gnueabihf/:/usr/bin/../lib/gcc/arm-linux-gnueabihf/4.8.3/../../../../arm-linux-gnueabihf/lib/:/usr/bin/../arm-linux-gnueabihf/libc/lib/arm-linux-gnueabihf/:/usr/bin/../arm-linux-gnueabihf/libc/lib/:/usr/bin/../arm-linux-gnueabihf/libc/lib/arm-linux-gnueabihf/:/usr/bin/../arm-linux-gnueabihf/libc/usr/lib/arm-linux-gnueabihf/:/usr/bin/../arm-linux-gnueabihf/libc/usr/lib/:/usr/bin/../arm-linux-gnueabihf/libc/usr/lib/arm-linux-gnueabihf/]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_19c2f' '-march=armv6' '-mtune=arm1176jz-s' '-mfloat-abi=hard' '-mfpu=vfp' '-mtls-dialect=gnu']
+  link line: [ /usr/bin/../libexec/gcc/arm-linux-gnueabihf/4.8.3/collect2 --sysroot=/usr/bin/../arm-linux-gnueabihf/libc --build-id --eh-frame-hdr -dynamic-linker /lib/ld-linux-armhf.so.3 -X -m armelf_linux_eabi -o cmTC_19c2f /usr/bin/../arm-linux-gnueabihf/libc/usr/lib/arm-linux-gnueabihf/crt1.o /usr/bin/../arm-linux-gnueabihf/libc/usr/lib/arm-linux-gnueabihf/crti.o /usr/bin/../lib/gcc/arm-linux-gnueabihf/4.8.3/crtbegin.o -L/usr/bin/../lib/gcc/arm-linux-gnueabihf/4.8.3 -L/usr/bin/../lib/gcc/arm-linux-gnueabihf -L/usr/bin/../lib/gcc -L/usr/bin/../lib/gcc/arm-linux-gnueabihf -L/usr/bin/../lib/gcc/arm-linux-gnueabihf/4.8.3/../../../../arm-linux-gnueabihf/lib -L/usr/bin/../arm-linux-gnueabihf/libc/lib/arm-linux-gnueabihf -L/usr/bin/../arm-linux-gnueabihf/libc/lib -L/usr/bin/../arm-linux-gnueabihf/libc/lib/arm-linux-gnueabihf -L/usr/bin/../arm-linux-gnueabihf/libc/usr/lib/arm-linux-gnueabihf -L/usr/bin/../arm-linux-gnueabihf/libc/usr/lib -L/usr/bin/../arm-linux-gnueabihf/libc/usr/lib/arm-linux-gnueabihf CMakeFiles/cmTC_19c2f.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/bin/../lib/gcc/arm-linux-gnueabihf/4.8.3/crtend.o /usr/bin/../arm-linux-gnueabihf/libc/usr/lib/arm-linux-gnueabihf/crtn.o]
+    arg [/usr/bin/../libexec/gcc/arm-linux-gnueabihf/4.8.3/collect2] ==> ignore
+    arg [--sysroot=/usr/bin/../arm-linux-gnueabihf/libc] ==> ignore
+    arg [--build-id] ==> ignore
+    arg [--eh-frame-hdr] ==> ignore
+    arg [-dynamic-linker] ==> ignore
+    arg [/lib/ld-linux-armhf.so.3] ==> ignore
+    arg [-X] ==> ignore
+    arg [-m] ==> ignore
+    arg [armelf_linux_eabi] ==> ignore
+    arg [-o] ==> ignore
+    arg [cmTC_19c2f] ==> ignore
+    arg [/usr/bin/../arm-linux-gnueabihf/libc/usr/lib/arm-linux-gnueabihf/crt1.o] ==> ignore
+    arg [/usr/bin/../arm-linux-gnueabihf/libc/usr/lib/arm-linux-gnueabihf/crti.o] ==> ignore
+    arg [/usr/bin/../lib/gcc/arm-linux-gnueabihf/4.8.3/crtbegin.o] ==> ignore
+    arg [-L/usr/bin/../lib/gcc/arm-linux-gnueabihf/4.8.3] ==> dir [/usr/bin/../lib/gcc/arm-linux-gnueabihf/4.8.3]
+    arg [-L/usr/bin/../lib/gcc/arm-linux-gnueabihf] ==> dir [/usr/bin/../lib/gcc/arm-linux-gnueabihf]
+    arg [-L/usr/bin/../lib/gcc] ==> dir [/usr/bin/../lib/gcc]
+    arg [-L/usr/bin/../lib/gcc/arm-linux-gnueabihf] ==> dir [/usr/bin/../lib/gcc/arm-linux-gnueabihf]
+    arg [-L/usr/bin/../lib/gcc/arm-linux-gnueabihf/4.8.3/../../../../arm-linux-gnueabihf/lib] ==> dir [/usr/bin/../lib/gcc/arm-linux-gnueabihf/4.8.3/../../../../arm-linux-gnueabihf/lib]
+    arg [-L/usr/bin/../arm-linux-gnueabihf/libc/lib/arm-linux-gnueabihf] ==> dir [/usr/bin/../arm-linux-gnueabihf/libc/lib/arm-linux-gnueabihf]
+    arg [-L/usr/bin/../arm-linux-gnueabihf/libc/lib] ==> dir [/usr/bin/../arm-linux-gnueabihf/libc/lib]
+    arg [-L/usr/bin/../arm-linux-gnueabihf/libc/lib/arm-linux-gnueabihf] ==> dir [/usr/bin/../arm-linux-gnueabihf/libc/lib/arm-linux-gnueabihf]
+    arg [-L/usr/bin/../arm-linux-gnueabihf/libc/usr/lib/arm-linux-gnueabihf] ==> dir [/usr/bin/../arm-linux-gnueabihf/libc/usr/lib/arm-linux-gnueabihf]
+    arg [-L/usr/bin/../arm-linux-gnueabihf/libc/usr/lib] ==> dir [/usr/bin/../arm-linux-gnueabihf/libc/usr/lib]
+    arg [-L/usr/bin/../arm-linux-gnueabihf/libc/usr/lib/arm-linux-gnueabihf] ==> dir [/usr/bin/../arm-linux-gnueabihf/libc/usr/lib/arm-linux-gnueabihf]
+    arg [CMakeFiles/cmTC_19c2f.dir/CMakeCCompilerABI.c.o] ==> ignore
+    arg [-lgcc] ==> lib [gcc]
+    arg [--as-needed] ==> ignore
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [--no-as-needed] ==> ignore
+    arg [-lc] ==> lib [c]
+    arg [-lgcc] ==> lib [gcc]
+    arg [--as-needed] ==> ignore
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [--no-as-needed] ==> ignore
+    arg [/usr/bin/../lib/gcc/arm-linux-gnueabihf/4.8.3/crtend.o] ==> ignore
+    arg [/usr/bin/../arm-linux-gnueabihf/libc/usr/lib/arm-linux-gnueabihf/crtn.o] ==> ignore
+  collapse library dir [/usr/bin/../lib/gcc/arm-linux-gnueabihf/4.8.3] ==> [/usr/lib/gcc/arm-linux-gnueabihf/4.8.3]
+  collapse library dir [/usr/bin/../lib/gcc/arm-linux-gnueabihf] ==> [/usr/lib/gcc/arm-linux-gnueabihf]
+  collapse library dir [/usr/bin/../lib/gcc] ==> [/usr/lib/gcc]
+  collapse library dir [/usr/bin/../lib/gcc/arm-linux-gnueabihf] ==> [/usr/lib/gcc/arm-linux-gnueabihf]
+  collapse library dir [/usr/bin/../lib/gcc/arm-linux-gnueabihf/4.8.3/../../../../arm-linux-gnueabihf/lib] ==> [/usr/arm-linux-gnueabihf/lib]
+  collapse library dir [/usr/bin/../arm-linux-gnueabihf/libc/lib/arm-linux-gnueabihf] ==> [/usr/arm-linux-gnueabihf/libc/lib/arm-linux-gnueabihf]
+  collapse library dir [/usr/bin/../arm-linux-gnueabihf/libc/lib] ==> [/usr/arm-linux-gnueabihf/libc/lib]
+  collapse library dir [/usr/bin/../arm-linux-gnueabihf/libc/lib/arm-linux-gnueabihf] ==> [/usr/arm-linux-gnueabihf/libc/lib/arm-linux-gnueabihf]
+  collapse library dir [/usr/bin/../arm-linux-gnueabihf/libc/usr/lib/arm-linux-gnueabihf] ==> [/usr/arm-linux-gnueabihf/libc/usr/lib/arm-linux-gnueabihf]
+  collapse library dir [/usr/bin/../arm-linux-gnueabihf/libc/usr/lib] ==> [/usr/arm-linux-gnueabihf/libc/usr/lib]
+  collapse library dir [/usr/bin/../arm-linux-gnueabihf/libc/usr/lib/arm-linux-gnueabihf] ==> [/usr/arm-linux-gnueabihf/libc/usr/lib/arm-linux-gnueabihf]
+  implicit libs: [gcc;gcc_s;c;gcc;gcc_s]
+  implicit dirs: [/usr/lib/gcc/arm-linux-gnueabihf/4.8.3;/usr/lib/gcc/arm-linux-gnueabihf;/usr/lib/gcc;/usr/arm-linux-gnueabihf/lib;/usr/arm-linux-gnueabihf/libc/lib/arm-linux-gnueabihf;/usr/arm-linux-gnueabihf/libc/lib;/usr/arm-linux-gnueabihf/libc/usr/lib/arm-linux-gnueabihf;/usr/arm-linux-gnueabihf/libc/usr/lib]
+  implicit fwks: []
+
+
+
+
+Detecting C [-std=c11] compiler features compiled with the following output:
+Change Dir: /root/devel/xbuild/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_a6f16/fast"
+/usr/bin/make -f CMakeFiles/cmTC_a6f16.dir/build.make CMakeFiles/cmTC_a6f16.dir/build
+make[1]: Entering directory '/root/devel/xbuild/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_a6f16.dir/feature_tests.c.o
+/usr/bin/arm-linux-gnueabihf-gcc   -Wall -std=gnu11 -std=c11 -o CMakeFiles/cmTC_a6f16.dir/feature_tests.c.o   -c /root/devel/xbuild/CMakeFiles/feature_tests.c
+Linking C executable cmTC_a6f16
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a6f16.dir/link.txt --verbose=1
+/usr/bin/arm-linux-gnueabihf-gcc      CMakeFiles/cmTC_a6f16.dir/feature_tests.c.o  -o cmTC_a6f16 
+make[1]: Leaving directory '/root/devel/xbuild/CMakeFiles/CMakeTmp'
+
+
+    Feature record: C_FEATURE:1c_function_prototypes
+    Feature record: C_FEATURE:1c_restrict
+    Feature record: C_FEATURE:1c_static_assert
+    Feature record: C_FEATURE:1c_variadic_macros
+
+
+Detecting C [-std=c99] compiler features compiled with the following output:
+Change Dir: /root/devel/xbuild/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_37bb8/fast"
+/usr/bin/make -f CMakeFiles/cmTC_37bb8.dir/build.make CMakeFiles/cmTC_37bb8.dir/build
+make[1]: Entering directory '/root/devel/xbuild/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_37bb8.dir/feature_tests.c.o
+/usr/bin/arm-linux-gnueabihf-gcc   -Wall -std=gnu11 -std=c99 -o CMakeFiles/cmTC_37bb8.dir/feature_tests.c.o   -c /root/devel/xbuild/CMakeFiles/feature_tests.c
+Linking C executable cmTC_37bb8
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_37bb8.dir/link.txt --verbose=1
+/usr/bin/arm-linux-gnueabihf-gcc      CMakeFiles/cmTC_37bb8.dir/feature_tests.c.o  -o cmTC_37bb8 
+make[1]: Leaving directory '/root/devel/xbuild/CMakeFiles/CMakeTmp'
+
+
+    Feature record: C_FEATURE:1c_function_prototypes
+    Feature record: C_FEATURE:1c_restrict
+    Feature record: C_FEATURE:0c_static_assert
+    Feature record: C_FEATURE:1c_variadic_macros
+
+
+Detecting C [-std=c90] compiler features compiled with the following output:
+Change Dir: /root/devel/xbuild/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_b8a6f/fast"
+/usr/bin/make -f CMakeFiles/cmTC_b8a6f.dir/build.make CMakeFiles/cmTC_b8a6f.dir/build
+make[1]: Entering directory '/root/devel/xbuild/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_b8a6f.dir/feature_tests.c.o
+/usr/bin/arm-linux-gnueabihf-gcc   -Wall -std=gnu11 -std=c90 -o CMakeFiles/cmTC_b8a6f.dir/feature_tests.c.o   -c /root/devel/xbuild/CMakeFiles/feature_tests.c
+Linking C executable cmTC_b8a6f
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b8a6f.dir/link.txt --verbose=1
+/usr/bin/arm-linux-gnueabihf-gcc      CMakeFiles/cmTC_b8a6f.dir/feature_tests.c.o  -o cmTC_b8a6f 
+make[1]: Leaving directory '/root/devel/xbuild/CMakeFiles/CMakeTmp'
+
+
+    Feature record: C_FEATURE:1c_function_prototypes
+    Feature record: C_FEATURE:0c_restrict
+    Feature record: C_FEATURE:0c_static_assert
+    Feature record: C_FEATURE:0c_variadic_macros

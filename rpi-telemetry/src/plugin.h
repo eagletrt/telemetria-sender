@@ -22,7 +22,8 @@ typedef struct {
 } imu_tensor;
 
 typedef struct {
-    double latitude, longitude, speed;
+    double latitude, longitude, speed, altitude;
+    char lat_o, lon_o;
 } gps_tensor;
 
 typedef struct {
@@ -47,15 +48,17 @@ typedef struct {
 
   double resolver[20];
   double front_wheels_encoder[20];
-  imu_tensor *imu[20];
+  imu_tensor imu_gyro[20];
+  imu_tensor imu_axel[20];
   int throttle[20];
   int brake[10];
   double steering_wheel_encoder[20];
-  gps_tensor *gps[20];
+  gps_tensor gps[20];
+  int marker;
 
-  bms_hv *bms_hv[1];
-  inverter *inv[1];
-  bms_lv *bms_lv[1];
+  bms_hv bms_hv[1];
+  inverter inv[1];
+  bms_lv bms_lv[1];
 
   //errori
 } can_data_t;
