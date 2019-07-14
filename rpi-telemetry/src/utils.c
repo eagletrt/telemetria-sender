@@ -443,7 +443,17 @@ int can_data_to_bson(can_data_t *can_data, bson_t **bson, char const *plugin_pat
   const char *key;
   char buf[10];
 
+  BSON_APPEND_INT32(*bson, "data_lenght", can_data->data_lenght);
+
   bson_t array_t;
+  BSON_APPEND_ARRAY_BEGIN (*bson, "raw", &array_t);
+  for (i = 0; i < can_data->data_lenght; ++i) {
+    bson_uint32_to_string (i, &key, buf, sizeof buf);
+    BSON_APPEND_DOUBLE (&array_t, key, can_data->data_raw[i]);
+  }
+  bson_append_array_end (*bson, &array_t);
+  bson_destroy(&array_t);
+
   BSON_APPEND_ARRAY_BEGIN (*bson, "resolver", &array_t);
   for (i = 0; i < 20; ++i) {
     bson_uint32_to_string (i, &key, buf, sizeof buf);

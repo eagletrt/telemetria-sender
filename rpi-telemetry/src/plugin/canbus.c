@@ -24,6 +24,9 @@ int get_data(int* data_gathered, int data_lenght, can_data_t *data) {
   data->id = id++;
   data->timestamp = timestamp;
 
+  data->data_lenght = data_lenght;
+  data->data_raw = (int *) malloc(data_lenght * sizeof(int));
+
   //initialize values
   for (int i = 0; i < 20; ++i) {
     data->resolver[i] = 0;
@@ -72,9 +75,9 @@ int get_data(int* data_gathered, int data_lenght, can_data_t *data) {
   //int countBLV = 0; //
   for (int i = 0; i < data_lenght; i = i+3) {
 
-    int id_gathered = data_gathered[i];
-    int data1 = data_gathered[i+1];
-    int data2 = data_gathered[i+2];
+    int id_gathered = data->data_raw[i] = data_gathered[i];
+    int data1 = data->data_raw[i+1] = data_gathered[i+1];
+    int data2 = data->data_raw[i+2] = data_gathered[i+2];
     //check if gps data are complete
     int received7 = 0;
     int received8 = 0;

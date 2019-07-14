@@ -46,6 +46,9 @@ typedef struct {
   uint32_t id;
   uint32_t timestamp;
 
+  int data_lenght;
+  int* data_raw;
+
   double resolver[20];
   double front_wheels_encoder[20];
   imu_tensor imu_gyro[20];
