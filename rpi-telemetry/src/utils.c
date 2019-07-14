@@ -73,9 +73,41 @@ static int load_config_sub(lua_State *lua, config_t *cfg, char const *config_fil
   // lua_close(lua);
   return EXIT_SUCCESS;
 }
+/*
+static int load_config_sub(lua_State *lua, config_t *cfg, char const *config_file) {
+  lua_getglobal(lua, "config_sub");
+  lua_getfield(lua, -1, "mongo_uri");
+  cfg->mongo_uri = luaL_checkstring(lua, -1);
+  lua_pop(lua, 1);
 
+  lua_getfield(lua, -1, "mongo_db");
+  cfg->mongo_db = luaL_checkstring(lua, -1);
+  lua_pop(lua, 1);
+  
+  lua_getfield(lua, -1, "mongo_collection");
+  cfg->mongo_collection = luaL_checkstring(lua, -1);
+  lua_pop(lua, 1);
+
+  lua_getfield(lua, -1, "broker_host");
+  cfg->broker_host = luaL_checkstring(lua, -1);
+  lua_pop(lua, 1);
+
+  lua_getfield(lua, -1, "broker_port");
+  cfg->broker_port = luaL_checkinteger(lua, -1);
+  lua_pop(lua, 1);
+
+  lua_getfield(lua, -1, "mqtt_topic");
+  cfg->mqtt_topic = luaL_checkstring(lua, -1);
+  lua_pop(lua, 1);
+
+  lua_pop(lua, 1); // config_table
+
+  // lua_close(lua);
+  return EXIT_SUCCESS;
+}
+*/
 static int load_config_pub(lua_State *lua, config_t *cfg, char const *config_file) {
-  if (lua_getglobal(lua, "config_pub") != LUA_TTABLE) {
+  if(lua_getglobal(lua, "config_pub") != LUA_TTABLE) {
     fprintf(stderr, "LUA: missing config_pub table\n");
     return EXIT_FAILURE;
   }
@@ -120,7 +152,36 @@ static int load_config_pub(lua_State *lua, config_t *cfg, char const *config_fil
   // lua_close(lua);
   return EXIT_SUCCESS;
 }
+/*
+static int load_config_pub(lua_State *lua, config_t *cfg, char const *config_file) {
+  lua_getglobal(lua, "config_pub");
+  lua_getfield(lua, -1, "broker_host");
+  cfg->broker_host = luaL_checkstring(lua, -1);
+  lua_pop(lua, 1);
 
+  lua_getfield(lua, -1, "broker_port");
+  cfg->broker_port = luaL_checkinteger(lua, -1);
+  lua_pop(lua, 1);
+
+  lua_getfield(lua, -1, "mqtt_topic");
+  cfg->mqtt_topic = luaL_checkstring(lua, -1);
+  lua_pop(lua, 1);
+
+  lua_getfield(lua, -1, "plugin_path");
+  cfg->plugin_path = luaL_checkstring(lua, -1);
+  lua_pop(lua, 1);
+
+  lua_getfield(lua, -1, "cache_path");
+  cfg->cache_path = luaL_checkstring(lua, -1);
+  lua_pop(lua, 1);
+  
+  lua_pop(lua, 1); // config_table
+
+  // lua_close(lua);
+  return EXIT_SUCCESS;
+}
+
+*/
 static int load_config_send(lua_State *lua, config_send *cfg, char const *config_file) {
   if (lua_getglobal(lua, "config_send") != LUA_TTABLE) {
     fprintf(stderr, "LUA: missing config_send table\n");
@@ -240,7 +301,79 @@ static int load_config_send(lua_State *lua, config_send *cfg, char const *config
   // lua_close(lua);
   return EXIT_SUCCESS;
 }
+/*
+static int load_config_send(lua_State *lua, config_send *cfg, char const *config_file) {
+  lua_getglobal(lua, "config_send");
 
+  lua_getfield(lua, -1, "timing");
+  cfg->timing = luaL_checkinteger(lua, -1);
+  lua_pop(lua, 1);
+
+  lua_getfield(lua, -1, "mongo_dbheavy_package_turnover");
+  cfg->heavy_package_turnover = luaL_checkinteger(lua, -1);
+  lua_pop(lua, 1);
+  
+  lua_getfield(lua, -1, "resolver_data");
+  cfg->resolver_data = luaL_checkinteger(lua, -1);
+  lua_pop(lua, 1);
+
+  lua_getfield(lua, -1, "front_wheels_encoder_data");
+  cfg->front_wheels_encoder_data = luaL_checkinteger(lua, -1);
+  lua_pop(lua, 1);
+
+  lua_getfield(lua, -1, "imu_data");
+  cfg->imu_data = luaL_checkinteger(lua, -1);
+  lua_pop(lua, 1);
+
+  lua_getfield(lua, -1, "throttle_data");
+  cfg->throttle_data = luaL_checkinteger(lua, -1);
+  lua_pop(lua, 1);
+
+  lua_getfield(lua, -1, "brake_data");
+  cfg->brake_data = luaL_checkinteger(lua, -1);
+  lua_pop(lua, 1);  
+
+  lua_getfield(lua, -1, "steering_wheel_encoder_data");
+  cfg->steering_wheel_encoder_data = luaL_checkinteger(lua, -1);
+  lua_pop(lua, 1);  
+
+  lua_getfield(lua, -1, "gps_data");
+  cfg->gps_data = luaL_checkinteger(lua, -1);
+  lua_pop(lua, 1);
+
+  //HEAVY PACKAGE
+  
+  lua_getfield(lua, -1, "bms_hv_temp_data");
+  cfg->bms_hv_temp_data = luaL_checkinteger(lua, -1);
+  lua_pop(lua, 1);  
+
+  lua_getfield(lua, -1, "bms_hv_volt_data");
+  cfg->bms_hv_volt_data = luaL_checkinteger(lua, -1);
+  lua_pop(lua, 1);  
+
+  lua_getfield(lua, -1, "inv_temp_data");
+  cfg->inv_temp_data = luaL_checkinteger(lua, -1);
+  lua_pop(lua, 1);  
+
+  lua_getfield(lua, -1, "inv_volt_data");
+  cfg->inv_volt_data = luaL_checkinteger(lua, -1);
+  lua_pop(lua, 1);  
+
+  lua_getfield(lua, -1, "inv_curr_data");
+  cfg->inv_curr_data = luaL_checkinteger(lua, -1);
+  lua_pop(lua, 1);  
+
+  lua_getfield(lua, -1, "bms_lv_temp_data");
+  cfg->bms_lv_temp_data = luaL_checkinteger(lua, -1);
+  lua_pop(lua, 1);
+
+
+  lua_pop(lua, 1); // config_table
+
+  // lua_close(lua);
+  return EXIT_SUCCESS;
+}
+*/
 config_t *new_config(char const *config_file, pubsub_t type)  {
   config_t *cfg = malloc(sizeof(config_t));
   lua_State *lua = cfg->lua;

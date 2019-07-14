@@ -10,7 +10,7 @@ config_sub = {
 }
 
 config_pub = {
-  broker_host = "localhost",
+  broker_host = "192.168.43.46",
   broker_port = 1883,
   mqtt_topic = "test/log",
   plugin_path = "install/bin/dummy.plugin",

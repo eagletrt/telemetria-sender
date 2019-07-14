@@ -152,6 +152,9 @@ int get_data(int* data_gathered, int data_lenght, can_data_t *data) {
           data->bms_lv[0].temp = ((data1 & 255)<<8) + ((data2>>24)&255);
         }
       break;
+      case (0xAB):
+        data->marker = 1;
+      break;
     }
   }  
   return EXIT_SUCCESS;
