@@ -26,6 +26,8 @@ int flushCacheCounter = 1; //we use this counter to regulate the number of flush
 int (*get_data)(int* data_gathered, int data_lenght,can_data_t *data);
 void dataGathering(int** to_send, int* index, int socket);
 
+int counterForDeb = 0;
+
 typedef struct {
   config_t *cfg; //pub and sub configuration file
   bool mqtt_connected;
@@ -479,12 +481,14 @@ state_t do_state_publish(state_data_t *state_data) {
 
   //this step will not be necessary (testing only)
   char *json = bson_as_json(state_data->bdoc, &state_data->jlen);
-  printf("> Original doc as JSON (%zu bytes):\n%s\n", state_data->jlen, json);
+  //printf("> Original doc as JSON (%zu bytes):\n%s\n", state_data->jlen, json);
+  printf("> Original doc as JSON (%zu bytes):\n", state_data->jlen);
   free(json);
   // dump it to a data buffer
 
-  printf("> Raw data buffer:\n");
-  print_buffer(stdout, state_data->data, state_data->blen);
+  // printf("> Raw data buffer:\n");
+  // print_buffer(stdout, state_data->data, state_data->blen);
+  
   // Send BSON data as a buffer via MQTT
   mosquitto_publish(state_data->m, NULL, state_data->ud.cfg->mqtt_topic, state_data->blen, state_data->data, 0, false);
   printf("> Sent %zu bytes.\n\n", state_data->blen);
@@ -499,7 +503,7 @@ void dataGathering(int** to_send, int* index, int socket) {
 
   // trigger must be setted in ms, data are sent every end of timer
 
-  double msec = 0, trigger = 100, end = 0;
+  double msec = 0, trigger = 500, end = 0;
   struct timespec tstart={0,0}, tend={0,0};
   clock_gettime(CLOCK_MONOTONIC, &tstart);
   end = ((double)tstart.tv_sec*1000 + 1.0e-6*tstart.tv_nsec);
@@ -514,6 +518,10 @@ void dataGathering(int** to_send, int* index, int socket) {
     int data2 = 0;
 
     receive_can_compact(socket,&id,&data1,&data2);
+    counterForDeb++;
+
+    if (counterForDeb % 100 == 0)
+      printf("\033[31;47mDebug can message count: %d\033[0m\n", counterForDeb);
 
     //realloc
     if (size - 5 < *index) {

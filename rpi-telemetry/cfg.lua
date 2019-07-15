@@ -3,8 +3,8 @@ config_sub = {
   mongo_host = "localhost",
   mongo_port = 27017,
   mongo_db = "test",
-  mongo_collection = "logs",
-  broker_host = "localhost",
+  mongo_collection = "logs_evenings_nuovo3",
+  broker_host = "192.168.43.189",
   broker_port = 1883,
   mqtt_topic = "test/log"
 }

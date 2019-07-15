@@ -428,7 +428,6 @@ int can_data_to_bson(can_data_t *can_data, bson_t **bson, char const *plugin_pat
     perror("clock gettime");
     exit(EXIT_FAILURE);
   }
-    printf("bson ok\n");
 
   // Timestamp in BSON is expressen in milliseconds after epoch:
   // time.tv_sec * 1000 + time.tv_nsec / 1E6
@@ -470,7 +469,6 @@ int can_data_to_bson(can_data_t *can_data, bson_t **bson, char const *plugin_pat
   }
   bson_append_array_end (*bson, &array_t);
   bson_destroy(&array_t);
-    printf("bson ok 1\n");
 
   //append the imu data
   BSON_APPEND_ARRAY_BEGIN (*bson, "imu_gyro", &array_t);
@@ -478,8 +476,6 @@ int can_data_to_bson(can_data_t *can_data, bson_t **bson, char const *plugin_pat
     bson_t elements;    
     bson_uint32_to_string (i, &key, buf, sizeof buf);
     BSON_APPEND_DOCUMENT_BEGIN (&array_t, key, &elements);
-    printf("ok\n");
-    printf("%f\n", can_data->imu_gyro[i].x);
     bson_append_double (&elements, "x",1, can_data->imu_gyro[i].x);
     bson_append_double (&elements, "y",1, can_data->imu_gyro[i].y);
     bson_append_double (&elements, "z",1, can_data->imu_gyro[i].z);
@@ -488,7 +484,6 @@ int can_data_to_bson(can_data_t *can_data, bson_t **bson, char const *plugin_pat
   }
   bson_append_array_end (*bson, &array_t);
   bson_destroy(&array_t);
-    printf("bson ok 2\n");
 
   BSON_APPEND_ARRAY_BEGIN (*bson, "imu_axel", &array_t);
   for (i = 0; i < 20; ++i) {
@@ -503,7 +498,6 @@ int can_data_to_bson(can_data_t *can_data, bson_t **bson, char const *plugin_pat
   }
   bson_append_array_end (*bson, &array_t);
   bson_destroy(&array_t);
-    printf("bson ok 3\n");
 
   //append the throttle array
   BSON_APPEND_ARRAY_BEGIN (*bson, "throttle", &array_t);
@@ -561,6 +555,7 @@ int can_data_to_bson(can_data_t *can_data, bson_t **bson, char const *plugin_pat
     BSON_APPEND_DOCUMENT_BEGIN (&array_t, key, &elements);
     BSON_APPEND_DOUBLE (&elements, "temp", can_data->bms_hv[i].temp);
     BSON_APPEND_DOUBLE (&elements, "volt", can_data->bms_hv[i].volt);
+    BSON_APPEND_DOUBLE (&elements, "kwh", can_data->bms_hv[i].volt);
     bson_append_document_end (&array_t, &elements);
     bson_destroy(&elements);
   }
@@ -589,6 +584,7 @@ int can_data_to_bson(can_data_t *can_data, bson_t **bson, char const *plugin_pat
     bson_uint32_to_string (i, &key, buf, sizeof buf);
     BSON_APPEND_DOCUMENT_BEGIN (&array_t, key, &elements);
     BSON_APPEND_DOUBLE (&elements, "temp", can_data->bms_lv[i].temp);
+    BSON_APPEND_DOUBLE (&elements, "volt", can_data->bms_lv[i].volt);
     bson_append_document_end (&array_t, &elements);
     bson_destroy(&elements);
   }

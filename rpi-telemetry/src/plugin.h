@@ -29,6 +29,7 @@ typedef struct {
 typedef struct {
   double temp;
   double volt;
+  double kwh;
 } bms_hv;
 
 typedef struct {
@@ -39,6 +40,7 @@ typedef struct {
 
 typedef struct {
   double temp;
+  double volt;
 } bms_lv;
 
 //CAN DATA

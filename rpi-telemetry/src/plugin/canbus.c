@@ -63,6 +63,7 @@ int get_data(int* data_gathered, int data_lenght, can_data_t *data) {
 
   //data->bms_lv[0] = (bms_lv *) malloc (sizeof(bms_lv));
     data->bms_lv[0].temp = 0.0;
+    data->bms_hv[0].volt = 0.0;
 
   int countFWE = 0; //
   int countIMG = 0; //
@@ -88,10 +89,13 @@ int get_data(int* data_gathered, int data_lenght, can_data_t *data) {
       case(0xAA):
         if (firstByte == 0x01) {
         //volt                                  
-          data->bms_hv[0].volt = data1 & 16777215; //0xFFFFFF
+          data->bms_hv[0].volt = (data1 & 16777215)/10000; //0xFFFFFF
         } else if (firstByte == 0x0A) {
         //temp
-          data->bms_hv[0].temp = (data1>>8) & 65535; //0xFFFF
+          data->bms_hv[0].temp = ((data1>>8) & 65535)/100; //0xFFFF
+        } else if (firstByte == 0x05) {
+        //curr
+          data->bms_hv[0].kwh = ((data2>>16) & 65535)/1000; //0xFFFF
         }
       break;
       case(0xB0):
@@ -151,9 +155,8 @@ int get_data(int* data_gathered, int data_lenght, can_data_t *data) {
       }
       break;
       case (0xFF):
-        if (firstByte == 0x01) {
-          data->bms_lv[0].temp = ((data1 & 255)<<8) + ((data2>>24)&255);
-        }
+          data->bms_lv[0].volt = ((data1>>24) & 255)/10.0;
+          data->bms_lv[0].temp = ((data1>>8) & 255)/5.0;
       break;
       case (0xAB):
         data->marker = 1;

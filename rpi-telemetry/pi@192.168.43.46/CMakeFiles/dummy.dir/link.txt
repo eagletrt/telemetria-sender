@@ -1,0 +1,1 @@
+/usr/bin/arm-linux-gnueabihf-gcc -fPIC -g  -shared -Wl,-soname,dummy.plugin -o dummy.plugin CMakeFiles/dummy.dir/src/plugin/dummy.c.o 

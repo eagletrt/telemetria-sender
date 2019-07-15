@@ -35,14 +35,13 @@ void my_message_callback(struct mosquitto *mosq, void *userdata,
     bson_error_t error;
     printf("> Payload len: %d\n", message->payloadlen);
     printf("> Data:\n");
-    print_buffer(stdout, buf, message->payloadlen);
+    //print_buffer(stdout, buf, message->payloadlen);
     if (strcmp(message->topic, "test/log") == 0) {
       char *json;
       doc = bson_new_from_data(buf, message->payloadlen);
       json = bson_as_json(doc, &len);
 
-      printf("> Document:\n%s\n> Document size: %zu\n\n", json,
-           len);
+      //printf("> Document:\n%s\n> Document size: %zu\n\n", json, len);
       free(json);
       if (!mongoc_collection_insert_one(ud->coll, doc, NULL, NULL, &error)) {
         fprintf(stderr, "%s\n", error.message);
@@ -50,7 +49,7 @@ void my_message_callback(struct mosquitto *mosq, void *userdata,
       bson_destroy(doc);
     }
     else {
-      fprintf(stderr, "Message on %s: %s\n", message->topic, (char *)message->payload);
+      //fprintf(stderr, "Message on %s: %s\n", message->topic, (char *)message->payload);
     }
   }
 }
