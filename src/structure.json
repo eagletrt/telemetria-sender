@@ -1,0 +1,171 @@
+{
+    "id": "int",
+    "timestamp": "long",
+    "inverterRight": [        
+        {
+            "timestamp": "long",
+            "value": {
+                "data1": "int",
+                "data2": "int"
+            }
+        }, 500
+    ],
+    "inverterLeft": [        
+        {
+            "timestamp": "long",
+            "value": {
+                "data1": "int",
+                "data2": "int"
+            }
+        }, 500
+    ],
+    "bms_hv": {
+        "temperature": [
+            {
+                "timestamp": "long",
+                "value": {
+                    "max": "double",
+                    "min": "double",
+                    "average": "double"
+                }
+            }, 500
+        ],
+        "voltage": [
+            {
+                "timestamp": "long",
+                "value": {
+                    "max": "double",
+                    "min": "double",
+                    "total": "double"
+                }
+            }, 500
+        ],
+        "current": [
+            {
+                "timestamp": "long",
+                "value": {
+                    "current": "double",
+                    "pow": "double"
+                }
+            }, 500
+        ],
+        "errors": [
+            {
+                "timestamp": "long",
+                "value": {
+                    "fault_id": "int",
+                    "fault_index": "int"
+                }
+            }, 500
+        ],
+        "warnings": [
+            {
+                "timestamp": "long",
+                "value": {
+                    "fault_id": "int",
+                    "fault_index": "int"
+                }
+            }, 500
+        ]
+    },
+    "bms_lv": {
+        "values": [
+            {
+                "timestamp": "long",
+                "value": {
+                    "voltage": "double",
+                    "temperature": "double"
+                }
+            }, 500
+        ],
+        "errors": [
+             {
+                 "timestamp": "long",
+                 "value": "int"
+             }, 500
+        ]
+    },
+    "gps": {
+        "latspd": [
+            {
+                "timestamp": "long",
+                "value": {
+                    "latitude_m": "double",
+                    "latitude_o": "int",
+                    "speed": "double"
+                }
+            }, 500
+        ],
+        "lonalt": [
+            {
+                "timestamp": "long",
+                "value": {
+                    "longitude_m": "double",
+                    "longitude_o": "int",
+                    "altitude": "double"
+                }
+            }, 500
+        ]
+    },
+    "imu_gyro": [
+        {
+            "timestamp": "long",
+            "value": {
+                "x": "double",
+                "y": "double",
+                "z": "double",
+                "scale": "double"
+            }
+        }, 500
+    ],
+    "imu_accel": [
+        {
+            "timestamp": "long",
+            "value": {
+                "x": "double",
+                "y": "double",
+                "z": "double",
+                "scale": "double"
+            }
+        }, 500
+    ],
+    "front_wheels_encoder": [
+        {
+            "timestamp": "long",
+            "value": {
+                "speed":"double",
+                "speedms":"double"
+            }
+        }, 500
+    ],
+    "steering_wheel_encoder": [
+        {
+            "timestamp": "long",
+            "value": "double"
+        }, 500
+    ],
+    "distance": [
+        {
+            "timestamp": "long",
+            "value": {
+                "meters": "double",
+                "rotations": "double",
+                "angle": "double",
+                "clock_period": "double"
+            }
+        }, 500
+    ],
+    "throttle": [
+        {
+            "timestamp": "long",
+            "value": "double"
+        }, 500
+    ],
+    "brake": [
+        {
+            "timestamp": "long",
+            "value": "double"
+        }, 500
+    ],
+    "marker": "int"
+}

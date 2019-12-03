@@ -1,7 +1,0 @@
-#!/usr/bin/env sh
-
-if [[ $# == 0 ]]; then
-  docker run -ti --rm -v$(pwd):/root/devel --name erpi eagle-rpi
-else
-  docker run -ti --rm -v$(pwd):/root/devel --name erpi eagle-rpi $@
-fi

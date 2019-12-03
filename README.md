@@ -36,32 +36,26 @@ In più nella cartella config i procedimenti base per configurare il nostro rasp
 Contiene il progetto diviso come segue:
 
 ```bash
-├── architecture.txt
-├── cfg.lua
-├── CMakeLists.txt
-├── cross
-├── Dockerfile
-├── fsm.dot
-├── fsm.pdf
-├── install
-├── Lua.cmake
-├── src
-│   ├── app
-│   │   ├── pub.c
-│   │   └── sub.c
-│   ├── linux
-│   │   ├── can_netlink.h
-│   │   ├── libsocketcan.c
-│   │   └── libsocketcan.h
-│   ├── plugin
-│   │   ├── canbus.c
-│   │   └── dummy.c
-│   ├── plugin.h
-│   ├── timer.c
-│   ├── ultils.c
-│   ├── utils.h
-│   └── version.h.in
-└── Toolchain-rpi.cmake
+Telemetria
+├─ src
+│	├─ lib
+│	├─ node_modules
+│	│	└─ <..>
+│	├─ javascript
+	│	├─ utils
+│		├─ generators
+│	│	└─ index.js
+│	
+	├─ compile.sh
+│	├─ cfg.json
+│	├─ messages.json
+│	├─ structure.json
+│	├─ main.c
+│	└─ pub
+├─ test
+├─ docs
+├─ README.md
+└─ .git
 ```
 
 Nei prossimi punti si può vedere come configurare l'ambiente per poter testare la piattaforma

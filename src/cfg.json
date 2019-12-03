@@ -1,0 +1,13 @@
+{
+  GENERAL SETUP
+  "broker_host": "localhost",
+  "broker_port": 1883,
+  "mqtt_topic": "chimera",
+
+  "mongo_host": "localhost",
+  "mongo_port": 27017,
+  "mongo_db": "testlab",
+  "mongo_collection": "testlab_euber"
+
+  "sending_time": 500
+}
