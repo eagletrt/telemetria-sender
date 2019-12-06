@@ -5,6 +5,7 @@
 
 extern int verbose;
 extern int receive_can_compact(int socket, int* id, int* data1, int*data2);
+extern int telemetry_handler(int id, int data1, int data2);
 
 // {{GENERATE_STRUCTURE_CODE}}
 data_t* data_setup();

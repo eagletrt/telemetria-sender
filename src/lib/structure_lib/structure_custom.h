@@ -5,6 +5,7 @@
 
 extern int verbose;
 extern int receive_can_compact(int socket, int* id, int* data1, int*data2);
+extern int telemetry_handler(int id, int data1, int data2);
 
 typedef struct {
 	int data1;
@@ -177,11 +178,6 @@ typedef struct {
 } front_wheels_encoder_data;
 
 typedef struct {
-	long timestamp;
-	double value;
-} steering_wheel_encoder_data;
-
-typedef struct {
 	double meters;
 	double rotations;
 	double angle;
@@ -204,6 +200,26 @@ typedef struct {
 } brake_data;
 
 typedef struct {
+	long timestamp;
+	double value;
+} steering_wheel_encoder_data;
+
+typedef struct {
+	long timestamp;
+	int control;
+	int cooling;
+	int map;
+} steering_wheel_gears_data;
+
+typedef struct {
+	steering_wheel_encoder_data *encoder;
+	int encoder_count;
+	steering_wheel_gears_data *gears;
+	int gears_count;
+	int marker;
+} steering_wheel_data;
+
+typedef struct {
 	int id;
 	long timestamp;
 	inverterRight_data *inverterRight;
@@ -219,15 +235,13 @@ typedef struct {
 	int imu_accel_count;
 	front_wheels_encoder_data *front_wheels_encoder;
 	int front_wheels_encoder_count;
-	steering_wheel_encoder_data *steering_wheel_encoder;
-	int steering_wheel_encoder_count;
 	distance_data *distance;
 	int distance_count;
 	throttle_data *throttle;
 	int throttle_count;
 	brake_data *brake;
 	int brake_count;
-	int marker;
+	steering_wheel_data steering_wheel;
 } data_t;
 
 

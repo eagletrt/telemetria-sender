@@ -138,12 +138,6 @@
             }
         }, 500
     ],
-    "steering_wheel_encoder": [
-        {
-            "timestamp": "long",
-            "value": "double"
-        }, 500
-    ],
     "distance": [
         {
             "timestamp": "long",
@@ -167,5 +161,21 @@
             "value": "double"
         }, 500
     ],
-    "marker": "int"
+    "steering_wheel": {
+        "encoder": [
+            {
+                "timestamp": "long",
+                "value": "double"
+            }, 500
+        ],
+        "gears": [
+            {
+                "timestamp": "long",
+                "control": "int",
+                "cooling": "int",
+                "map": "int"
+            }, 500
+        ],
+        "marker":"int"
+    }
 }

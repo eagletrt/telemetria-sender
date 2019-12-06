@@ -45,6 +45,7 @@ config_t* config_setup(const char* cfgpath) {
 	jsmn_init(&p);
 	result = jsmn_parse(&p, json, strlen(json), tokens, 64);
 
+	toRtn->sending_time = 500; //default
 	if (verbose) printf("Parsed #%d entries.\n",result-1);
 
 	toRtn = (config_t*) malloc(sizeof(config_t));
@@ -87,25 +88,9 @@ config_t* config_setup(const char* cfgpath) {
 
 	    else if (strcmp(keyString,"sending_time") == 0) {
 	      toRtn->sending_time = atoi(valueString);	
-		} else if (strcmp(keyString,"sending_throttle") == 0) {
-	      toRtn->sending_throttle = atoi(valueString);  
-	    } else if (strcmp(keyString,"sending_brake") == 0) {
-	      toRtn->sending_brake = atoi(valueString);  
-	    } else if (strcmp(keyString,"sending_steering_wheel_encoder") == 0) {
-	      toRtn->sending_steering_wheel_encoder = atoi(valueString);  
-	    } else if (strcmp(keyString,"sending_front_wheels_encoder") == 0) {
-	      toRtn->sending_front_wheels_encoder = atoi(valueString);  
-	    } else if (strcmp(keyString,"sending_imu_gyro") == 0) {
-	      toRtn->sending_imu_gyro = atoi(valueString);	
-		} else if (strcmp(keyString,"sending_imu_axel") == 0) {
-	      toRtn->sending_imu_gyro = atoi(valueString);  
-	    } else if (strcmp(keyString,"sending_gps_data") == 0) {
-	      toRtn->sending_gps_data = atoi(valueString);  
-	    } else if (strcmp(keyString,"sending_bms_hv_data") == 0) {
-	      toRtn->sending_bms_hv_data = atoi(valueString);  
-	    } else if (strcmp(keyString,"sending_bms_lv_data") == 0) {
-	      toRtn->sending_bms_lv_data = atoi(valueString);  
-	    }
+		} else if (strcmp(keyString,"status_checker") == 0) {
+	      toRtn->status_checker = atoi(valueString);	
+		}
 	}
 	if (verbose) printf("%s has generated a correct set of configurations.\n\n", cfgpath);
 	return toRtn;}

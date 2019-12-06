@@ -11,18 +11,18 @@
 #include "./lib/can_lib/can_custom.h"
 
 #include "./lib/structure_lib/structure_custom.h"
-
 #include <mosquitto.h>
 
 //TRACING DEBUG GLOBAL VARIABLE
-int verbose = 2;
+int verbose = 1;
 
 //TELEMETRY STATE
 typedef enum {
 	INIT = 0,
-	SEND = 1,
-	PAUSE = 2,
+	SAVE = 1,
+	IDLE = 2,
 	EXIT = 3,
+	ERROR = 4
 } state_t;
 
 //GLOBAL VARIABLES
@@ -31,6 +31,8 @@ int quitting_signal = 0;
 
 //SIGNATURES
 void handle_signal(int s);
+state_t pass_to(state_t *handler, state_t new_state);
+int telemetry_handler(int id, int data1, int data2);
 
 int main(int argc, char const *argv[]) {
 	if (argc != 2) {
@@ -48,7 +50,7 @@ int main(int argc, char const *argv[]) {
 	
 	bson_t* message;
   	data_t* data_structure;
-
+  	int message_sent = 0; //status_checker;
 
   	while (telemetria_state != EXIT) {
   		switch(telemetria_state) {
@@ -84,17 +86,21 @@ int main(int argc, char const *argv[]) {
 							}
 						}
 					}
-				telemetria_state = SEND;			
+				telemetria_state = IDLE;			
   			break;
 
-  			case SEND:
+  			case SAVE: case IDLE:
   				data_structure = data_setup();
   				data_gather(data_structure,config_file->sending_time, can_socket);
   				data_elaborate(data_structure, &message);
 
-		        mongo_insert(message,mongo_handler);
+		        if (telemetria_state == SAVE) { mongo_insert(message,mongo_handler); }
 				mosquitto_send(mosquitto_handler,message);
 
+				if (++message_sent > config_file->status_checker) {
+					message_sent = 0;
+
+				}
 
 		        if (verbose) { 
 		        	char* str;
@@ -111,10 +117,6 @@ int main(int argc, char const *argv[]) {
 	    	    bson_destroy(message);
 	    	    data_quit(data_structure);	
   			break;
-
-  			case PAUSE:
-				telemetria_state = EXIT;
-  			break;
   		}
   	}
 	mongo_quit(mongo_handler);
@@ -130,3 +132,39 @@ void handle_signal(int s) {
 		telemetria_state = EXIT;
 	}
 }
+
+state_t pass_to(state_t *handler, state_t new_state) {
+	if (new_state != IDLE && new_state != ERROR) {
+		*handler = new_state;
+		return new_state;
+	}
+	return ERROR;
+}
+
+	/* 
+ 	TELEMETRY HANDLER MSG EXPECTED
+	ID = 0xAB
+	[ 	
+	telemetry config = 0
+	status 			 = on=1 off=0
+	pilot			 = 1-x
+	type 			 = 1-y
+	map				 = 1-6
+	manet_1			 = 1-z
+	manet_2			 = 1-z
+	manet_3			 = 1-z
+	]
+	*/
+
+int telemetry_handler(int id, int data1, int data2) {
+	int status = (data1 >> 16) && 0xFF;
+	int map = (data1 >> 8) && 0xFF;
+	int pilot = data1 & 0xFF;
+	//int type = (data2 >> 24) && 0xFF;
+
+	if (status == 0) {
+		pass_to(&telemetria_state, IDLE);
+	} else if (status == 1) {
+		pass_to(&telemetria_state, SAVE);
+	}
+} 

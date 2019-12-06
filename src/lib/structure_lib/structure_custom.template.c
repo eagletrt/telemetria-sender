@@ -6,13 +6,12 @@ int msgid = 0;
 
 data_t* data_setup() {
 	data_t* data = (data_t*) malloc(sizeof(data_t));
-	data->marker = 0;
+	data->steering_wheel.marker = 0;
 	// {{GENERATE_STRUCTURE_INITIALIZER_CODE}}
 	return data;
 }
 
 int data_elaborate(data_t* data, bson_t** sending) {
-
 	//{{GENERATE_BSON_CODE}}
 	return 0;
 }
@@ -149,8 +148,8 @@ int data_gather(data_t* data, int timing, int socket) {
 					break;
 				
 					case 0x02: //steering wheel enconder
-						data->steering_wheel_encoder[data->steering_wheel_encoder_count].timestamp = message_timestamp;
-						data->steering_wheel_encoder[data->steering_wheel_encoder_count++].value = ((data1 >> 16) & 255);
+						data->steering_wheel.encoder[data->steering_wheel.encoder_count].timestamp = message_timestamp;
+						data->steering_wheel.encoder[data->steering_wheel.encoder_count++].value = ((data1 >> 16) & 255);
 					break;
 				}
 			break;
@@ -197,8 +196,11 @@ int data_gather(data_t* data, int timing, int socket) {
 			break;
 
 			case (0xAB): //Marker
-				//OK
-				data->marker = 1;
+				if (firstByte == 1) {
+					data->steering_wheel.marker = 1;
+				} else if (firstByte == 0) {
+					telemetry_handler(id, data1, data2);
+				}
 			break;
 	    }
 

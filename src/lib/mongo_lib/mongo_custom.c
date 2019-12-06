@@ -75,7 +75,7 @@ int mongo_insert(bson_t *insert, dbhandler_t* handler) {
 		if (verbose) printf ( "%s\n", error.message);
     return 1;
 	}
-	if (verbose) printf("The doc was successfully inserted inside the designed collection.\n");
+	if (verbose) printf("BSON succesfully inserted inside the designed collection.\n");
 
   	return 0;}
 

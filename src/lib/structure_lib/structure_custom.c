@@ -6,7 +6,7 @@ int msgid = 0;
 
 data_t* data_setup() {
 	data_t* data = (data_t*) malloc(sizeof(data_t));
-	data->marker = 0;
+	data->steering_wheel.marker = 0;
 	data->inverterRight = (inverterRight_data*)malloc(sizeof(inverterRight_data) * 500);
 	data->inverterRight_count = 0;
 	data->inverterLeft = (inverterLeft_data*)malloc(sizeof(inverterLeft_data) * 500);
@@ -35,20 +35,21 @@ data_t* data_setup() {
 	data->imu_accel_count = 0;
 	data->front_wheels_encoder = (front_wheels_encoder_data*)malloc(sizeof(front_wheels_encoder_data) * 500);
 	data->front_wheels_encoder_count = 0;
-	data->steering_wheel_encoder = (steering_wheel_encoder_data*)malloc(sizeof(steering_wheel_encoder_data) * 500);
-	data->steering_wheel_encoder_count = 0;
 	data->distance = (distance_data*)malloc(sizeof(distance_data) * 500);
 	data->distance_count = 0;
 	data->throttle = (throttle_data*)malloc(sizeof(throttle_data) * 500);
 	data->throttle_count = 0;
 	data->brake = (brake_data*)malloc(sizeof(brake_data) * 500);
 	data->brake_count = 0;
+	data->steering_wheel.encoder = (steering_wheel_encoder_data*)malloc(sizeof(steering_wheel_encoder_data) * 500);
+	data->steering_wheel.encoder_count = 0;
+	data->steering_wheel.gears = (steering_wheel_gears_data*)malloc(sizeof(steering_wheel_gears_data) * 500);
+	data->steering_wheel.gears_count = 0;
 	
 	return data;
 }
 
 int data_elaborate(data_t* data, bson_t** sending) {
-
 	*sending = bson_new();
 	bson_t *children = (bson_t*)malloc(sizeof(bson_t) * 4);
 	BSON_APPEND_INT32(*sending, "id", data->id);
@@ -276,17 +277,6 @@ int data_elaborate(data_t* data, bson_t** sending) {
 	}
 	bson_append_array_end(*sending, &children[0]);
 	bson_destroy(&children[0]);
-	BSON_APPEND_ARRAY_BEGIN(*sending, "steering_wheel_encoder", &children[0]);
-	for (int i = 0; i < (data->steering_wheel_encoder_count); i++)
-	{
-		BSON_APPEND_DOCUMENT_BEGIN(&children[0], "0", &children[1]);
-		BSON_APPEND_INT64(&children[1], "timestamp", data->steering_wheel_encoder[i].timestamp);
-		BSON_APPEND_DOUBLE(&children[1], "value", data->steering_wheel_encoder[i].value);
-		bson_append_document_end(&children[0], &children[1]);
-		bson_destroy(&children[1]);
-	}
-	bson_append_array_end(*sending, &children[0]);
-	bson_destroy(&children[0]);
 	BSON_APPEND_ARRAY_BEGIN(*sending, "distance", &children[0]);
 	for (int i = 0; i < (data->distance_count); i++)
 	{
@@ -326,7 +316,34 @@ int data_elaborate(data_t* data, bson_t** sending) {
 	}
 	bson_append_array_end(*sending, &children[0]);
 	bson_destroy(&children[0]);
-	BSON_APPEND_INT32(*sending, "marker", data->marker);
+	BSON_APPEND_DOCUMENT_BEGIN(*sending, "steering_wheel", &children[0]);
+	BSON_APPEND_ARRAY_BEGIN(&children[0], "encoder", &children[1]);
+	for (int i = 0; i < (data->steering_wheel.encoder_count); i++)
+	{
+		BSON_APPEND_DOCUMENT_BEGIN(&children[1], "0", &children[2]);
+		BSON_APPEND_INT64(&children[2], "timestamp", data->steering_wheel.encoder[i].timestamp);
+		BSON_APPEND_DOUBLE(&children[2], "value", data->steering_wheel.encoder[i].value);
+		bson_append_document_end(&children[1], &children[2]);
+		bson_destroy(&children[2]);
+	}
+	bson_append_array_end(&children[0], &children[1]);
+	bson_destroy(&children[1]);
+	BSON_APPEND_ARRAY_BEGIN(&children[0], "gears", &children[1]);
+	for (int i = 0; i < (data->steering_wheel.gears_count); i++)
+	{
+		BSON_APPEND_DOCUMENT_BEGIN(&children[1], "0", &children[2]);
+		BSON_APPEND_INT64(&children[2], "timestamp", data->steering_wheel.gears[i].timestamp);
+		BSON_APPEND_INT32(&children[2], "control", data->steering_wheel.gears[i].control);
+		BSON_APPEND_INT32(&children[2], "cooling", data->steering_wheel.gears[i].cooling);
+		BSON_APPEND_INT32(&children[2], "map", data->steering_wheel.gears[i].map);
+		bson_append_document_end(&children[1], &children[2]);
+		bson_destroy(&children[2]);
+	}
+	bson_append_array_end(&children[0], &children[1]);
+	bson_destroy(&children[1]);
+	BSON_APPEND_INT32(&children[0], "marker", data->steering_wheel.marker);
+	bson_append_document_end(*sending, &children[0]);
+	bson_destroy(&children[0]);
 	
 	return 0;
 }
@@ -346,10 +363,11 @@ int data_quit(data_t* data) {
 	free(data->imu_gyro);
 	free(data->imu_accel);
 	free(data->front_wheels_encoder);
-	free(data->steering_wheel_encoder);
 	free(data->distance);
 	free(data->throttle);
 	free(data->brake);
+	free(data->steering_wheel.encoder);
+	free(data->steering_wheel.gears);
 	free(data);
 	
 	return 0;
@@ -482,8 +500,8 @@ int data_gather(data_t* data, int timing, int socket) {
 					break;
 				
 					case 0x02: //steering wheel enconder
-						data->steering_wheel_encoder[data->steering_wheel_encoder_count].timestamp = message_timestamp;
-						data->steering_wheel_encoder[data->steering_wheel_encoder_count++].value = ((data1 >> 16) & 255);
+						data->steering_wheel.encoder[data->steering_wheel.encoder_count].timestamp = message_timestamp;
+						data->steering_wheel.encoder[data->steering_wheel.encoder_count++].value = ((data1 >> 16) & 255);
 					break;
 				}
 			break;
@@ -530,8 +548,11 @@ int data_gather(data_t* data, int timing, int socket) {
 			break;
 
 			case (0xAB): //Marker
-				//OK
-				data->marker = 1;
+				if (firstByte == 1) {
+					data->steering_wheel.marker = 1;
+				} else if (firstByte == 0) {
+					telemetry_handler(id, data1, data2);
+				}
 			break;
 	    }
 
