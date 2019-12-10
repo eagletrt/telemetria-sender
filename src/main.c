@@ -31,8 +31,10 @@ int quitting_signal = 0;
 
 //SIGNATURES
 void handle_signal(int s);
-state_t pass_to(state_t *handler, state_t new_state);
+state_t switch_to(state_t *handler, state_t new_state);
 int telemetry_handler(int id, int data1, int data2);
+
+
 
 int main(int argc, char const *argv[]) {
 	if (argc != 2) {
@@ -61,7 +63,7 @@ int main(int argc, char const *argv[]) {
 					} else {
 						//config file is correct
 						//opening mongo handler
-						mongo_handler = mongo_setup(config_file->mongo_port,config_file->mongo_host,config_file->mongo_db,config_file->mongo_collection);
+						mongo_handler = mongo_setup(config_file->mongo_port,config_file->mongo_host,config_file->mongo_db);
 
 						if (mongo_handler == NULL) {
 							telemetria_state = EXIT;
@@ -133,7 +135,7 @@ void handle_signal(int s) {
 	}
 }
 
-state_t pass_to(state_t *handler, state_t new_state) {
+state_t switch_to(state_t *handler, state_t new_state) {
 	if (new_state != IDLE && new_state != ERROR) {
 		*handler = new_state;
 		return new_state;
@@ -158,13 +160,17 @@ state_t pass_to(state_t *handler, state_t new_state) {
 
 int telemetry_handler(int id, int data1, int data2) {
 	int status = (data1 >> 16) && 0xFF;
-	int map = (data1 >> 8) && 0xFF;
+	int type = (data2 >> 24) && 0xFF;
 	int pilot = data1 & 0xFF;
-	//int type = (data2 >> 24) && 0xFF;
+	int map = (data1 >> 8) && 0xFF;
+	
+	state_t result;
 
 	if (status == 0) {
-		pass_to(&telemetria_state, IDLE);
+		result = switch_to(&telemetria_state, IDLE);
 	} else if (status == 1) {
-		pass_to(&telemetria_state, SAVE);
+		result = switch_to(&telemetria_state, SAVE);
 	}
+
+	//END UP CONFIG
 } 

@@ -171,9 +171,11 @@
         "gears": [
             {
                 "timestamp": "long",
-                "control": "int",
-                "cooling": "int",
-                "map": "int"
+                "value": {
+                    "control": "int",
+                    "cooling": "int",
+                    "map": "int"
+                }   
             }, 500
         ],
         "marker":"int"

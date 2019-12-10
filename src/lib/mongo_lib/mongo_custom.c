@@ -3,7 +3,9 @@
 #include <time.h>
 #include "mongo_custom.h"
 
-dbhandler_t* mongo_setup(int port, char* host, char* database, char* collection) {
+char* itostr(int value);
+
+dbhandler_t* mongo_setup(int port, char* host, char* database) {
 	dbhandler_t* toRtn;
 	char* uri_string;
 
@@ -50,23 +52,49 @@ dbhandler_t* mongo_setup(int port, char* host, char* database, char* collection)
 
 	mongoc_client_set_appname (toRtn->client, "E-agle racing team - Telemetria");
 
-	char date[100];
-	time_t now = time(NULL);
-	struct tm *t = localtime(&now);
-	strftime(date,99,"%y%m_%H%M",t);
-	//printf("%s\n", date);
-
-	int size = strlen(collection) + strlen(date);
-	char* collection_name = (char*) malloc(sizeof(char)*size);
-	strcpy(collection_name, collection);
-	strcat(collection_name, date);
 
 	toRtn->database = mongoc_client_get_database(toRtn->client, database);
-  	toRtn->collection = mongoc_client_get_collection(toRtn->client, database, collection_name);
+	toRtn->collection = NULL;
+  	//toRtn->collection = mongoc_client_get_collection(toRtn->client, mongoc_database_get_name(toRtn->database), collection_name);
 	
+	char pilot[] = "deathlok"; 
+	char type[] = "MarioCircuit"; 
+	mongo_set_collection(toRtn,pilot,type, time(0));
+
 	if (verbose) printf("Mongo started up with success.\n\n");
 
  	return toRtn;}
+
+int mongo_set_collection(dbhandler_t* handler, char* driver, char* type, int timestamp) {
+	if (handler->collection != NULL) {
+		mongoc_collection_destroy(handler->collection);
+	}
+
+	char* collection_name;
+	collection_name = (char*) malloc(sizeof(char)* (strlen(driver) + strlen(type) + 14));
+	
+	if (driver[0] > 90) driver[0] -= 'a'-'A';
+	strcpy(collection_name, driver);
+	
+	if (type[0] > 90) type[0] -= 'a'-'A';
+	strcat(collection_name, type);
+	strcat(collection_name, "_");
+
+	time_t t = timestamp;
+	struct tm *formatted_time = localtime(&t);
+	
+	//DAY
+	int day =  formatted_time->tm_mday + (formatted_time->tm_mon+1) * 100 + (formatted_time->tm_year+1900) * 10000 ;
+	strcat(collection_name, itostr(day));
+	strcat(collection_name, "_");
+
+	//TIME
+	int hour =  (formatted_time->tm_sec) + (formatted_time->tm_min) * 100 + (formatted_time->tm_hour) *10000; 
+	strcat(collection_name, itostr(hour));
+
+  	handler->collection = mongoc_client_get_collection(handler->client, mongoc_database_get_name(handler->database), collection_name);
+  	if (verbose) printf("Mongo collection created with success. All the values will be stored in %s\\%s\n",mongoc_database_get_name(handler->database),mongoc_collection_get_name(handler->collection));
+  	return 0;}
 
 int mongo_insert(bson_t *insert, dbhandler_t* handler) {
 	bson_error_t error;
@@ -88,3 +116,24 @@ int mongo_quit(dbhandler_t* handler) {
 
    	free(handler);
    	return 0;}
+
+char* itostr(int value) {
+	char* toRtn = (char*) malloc(sizeof(char) * 15);
+	int reverted = 0;
+
+	int times = 0;
+	while (value != 0) {
+		reverted = (reverted*10) + value%10;
+		value /= 10;
+		times++;
+	}
+
+	int pos = 0;
+	while (times-- > 0) {
+		toRtn[pos++] = (reverted % 10) + '0';
+		reverted /= 10;
+	}
+
+	toRtn[pos] = 0;
+	return toRtn;
+}

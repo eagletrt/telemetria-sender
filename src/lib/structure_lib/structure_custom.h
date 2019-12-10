@@ -205,10 +205,14 @@ typedef struct {
 } steering_wheel_encoder_data;
 
 typedef struct {
-	long timestamp;
 	int control;
 	int cooling;
 	int map;
+} steering_wheel_gears_value_data;
+
+typedef struct {
+	long timestamp;
+	steering_wheel_gears_value_data value;
 } steering_wheel_gears_data;
 
 typedef struct {

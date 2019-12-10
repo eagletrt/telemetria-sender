@@ -15,7 +15,6 @@ typedef struct {
   	char* mongo_host;
   	int mongo_port;
   	char* mongo_db;
-  	char* mongo_collection;
 
   	int sending_time;
     int status_checker;

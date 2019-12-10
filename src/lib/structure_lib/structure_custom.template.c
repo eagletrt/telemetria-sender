@@ -195,11 +195,20 @@ int data_gather(data_t* data, int timing, int socket) {
 				data->bms_lv.values[data->bms_lv.values_count++].value.temperature = (double)((data1>>8) & 255)/5.0;
 			break;
 
-			case (0xAB): //Marker
+			case (0xAB): //Marker and telemetry config
 				if (firstByte == 1) {
 					data->steering_wheel.marker = 1;
 				} else if (firstByte == 0) {
 					telemetry_handler(id, data1, data2);
+				}
+			break;
+
+			case (0xA0): //Steering Wheel Gears
+				if (firstByte == 2) {
+					data->steering_wheel.gears[data->steering_wheel.gears_count].timestamp = message_timestamp;
+					data->steering_wheel.gears[data->steering_wheel.gears_count].value.control = 0;
+					data->steering_wheel.gears[data->steering_wheel.gears_count].value.cooling = 0;
+					data->steering_wheel.gears[data->steering_wheel.gears_count].value.map = 0;
 				}
 			break;
 	    }

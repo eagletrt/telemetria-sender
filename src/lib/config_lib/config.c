@@ -43,16 +43,17 @@ config_t* config_setup(const char* cfgpath) {
 	jsmntok_t tokens[64]; /* We expect no more than 64(39) JSON tokens */
 
 	jsmn_init(&p);
-	result = jsmn_parse(&p, json, strlen(json), tokens, 64);
+	result = jsmn_parse(&p, json, strlen(json), tokens, 100);
 
-	toRtn->sending_time = 500; //default
 	if (verbose) printf("Parsed #%d entries.\n",result-1);
 
 	toRtn = (config_t*) malloc(sizeof(config_t));
+	toRtn->sending_time = 500; //default
 	for (int i = 1; i <result; i+=2) {
 		jsmntok_t key = tokens[i];
 		jsmntok_t value = tokens[i+1];
 		
+
 		unsigned int lenght = key.end - key.start;
 		char keyString[lenght + 1];    
 		memcpy(keyString, &json[key.start], lenght);
@@ -62,7 +63,7 @@ config_t* config_setup(const char* cfgpath) {
 		char valueString[lenght + 1];    
 		memcpy(valueString, &json[value.start], lenght);
 		valueString[lenght] = '\0';
-		
+				
 		if (strcmp(keyString,"broker_host") == 0) {
 			toRtn->broker_host = (char*) malloc(sizeof(char)*lenght);
 			strcpy(toRtn->broker_host, valueString);	
@@ -81,10 +82,7 @@ config_t* config_setup(const char* cfgpath) {
 		} else if (strcmp(keyString,"mongo_db") == 0) {
 			toRtn->mongo_db = (char*) malloc(sizeof(char)*lenght);
 			strcpy(toRtn->mongo_db, valueString);
-		} else if (strcmp(keyString,"mongo_collection") == 0) {
-			toRtn->mongo_collection = (char*) malloc(sizeof(char)*lenght);
-			strcpy(toRtn->mongo_collection, valueString);
-		} 
+		}
 
 	    else if (strcmp(keyString,"sending_time") == 0) {
 	      toRtn->sending_time = atoi(valueString);	
@@ -92,6 +90,7 @@ config_t* config_setup(const char* cfgpath) {
 	      toRtn->status_checker = atoi(valueString);	
 		}
 	}
+
 	if (verbose) printf("%s has generated a correct set of configurations.\n\n", cfgpath);
 	return toRtn;}
 
@@ -100,7 +99,6 @@ int config_quit(config_t* cfg) {
 	free(cfg->mqtt_topic);
 	free(cfg->mongo_host);
 	free(cfg->mongo_db);
-	free(cfg->mongo_collection);
 
 	free(cfg);
 	return 0;}

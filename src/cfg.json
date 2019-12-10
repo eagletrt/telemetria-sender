@@ -9,8 +9,14 @@
   "mongo_collection": "testlab_euber",
 
   "sending_time": 500,
-  "status_checker": 2, 
+  "status_checker": 2,
 
-  "pilots": ["Gianmarco", "Gianluca", "Giangiorgio"],
-  "type": ["Autocross", "Endurance", "Acceleration", "Skidpad"]
+  "pilot1":"Spada",
+  "pilot2":"Germano",
+  "pilot3":"CT_telemetry",
+
+  "type1":"Luigis_Mansion",
+  "type2":"MooMoo_Farm",
+  "type3":"Wario_Stadium",
+  "type4":"Rainbow_Road"
 }
