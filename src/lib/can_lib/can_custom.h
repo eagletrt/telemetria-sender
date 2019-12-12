@@ -33,7 +33,7 @@
 int open_can_socket(char* can_device, struct sockaddr_can* addr);
 
 int simple_send_can(int socket, char* data);
-int send_can(int socket, int id, char* data);
+int send_can(int socket, int id, int len, char* data);
 
 int simple_receive_can(int socket, char** data);
 int receive_can(int socket, int* id,char** data);

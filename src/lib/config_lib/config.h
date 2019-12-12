@@ -20,10 +20,13 @@ typedef struct {
     int status_checker;
 
 	char** pilots;
-	int pilots_size;
+	int pilots_size; //PRIVATE
+	int chosen_pilot; //PRIVATE 
+
 
 	char** races;
-	int races_size;
+	int races_size; //PRIVATE
+	int chosen_race; //PRIVATE
 } config_t;
 
 extern int verbose;

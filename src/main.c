@@ -2,6 +2,7 @@
 #include <signal.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 #include "./lib/config_lib/config.h"
 #include "./lib/config_lib/jsmn/jsmn.h"
@@ -29,12 +30,16 @@ typedef enum {
 state_t telemetria_state = INIT;
 int quitting_signal = 0;
 
+//HANDLERS - BETTER REMOVE THEM FROM HERE
+config_t* config_file;
+dbhandler_t* mongo_handler;
+int can_socket;
+mosq_t* mosquitto_handler;
+
 //SIGNATURES
 void handle_signal(int s);
 state_t switch_to(state_t *handler, state_t new_state);
 int telemetry_handler(int id, int data1, int data2);
-
-
 
 int main(int argc, char const *argv[]) {
 	if (argc != 2) {
@@ -44,11 +49,6 @@ int main(int argc, char const *argv[]) {
 
   	signal(SIGINT, handle_signal);
   	signal(SIGTERM, handle_signal);
-
-  	config_t* config_file;
-  	dbhandler_t* mongo_handler;
-  	int can_socket;
-  	mosq_t* mosquitto_handler;
 	
 	bson_t* message;
   	data_t* data_structure;
@@ -136,7 +136,7 @@ void handle_signal(int s) {
 }
 
 state_t switch_to(state_t *handler, state_t new_state) {
-	if (new_state != IDLE && new_state != ERROR) {
+	if (new_state != INIT && new_state != ERROR) {
 		*handler = new_state;
 		return new_state;
 	}
@@ -150,20 +150,14 @@ state_t switch_to(state_t *handler, state_t new_state) {
 	telemetry config = 0
 	status 			 = on=1 off=0
 	pilot			 = 1-x
-	type 			 = 1-y
-	map				 = 1-6
-	manet_1			 = 1-z
-	manet_2			 = 1-z
-	manet_3			 = 1-z
+	race 			 = 1-y
 	]
 	*/
 
 int telemetry_handler(int id, int data1, int data2) {
-	int status = (data1 >> 16) && 0xFF;
-	int type = (data2 >> 24) && 0xFF;
-	int pilot = data1 & 0xFF;
-	int map = (data1 >> 8) && 0xFF;
-	
+	int status = (data1 >> 16) & 0xFF;
+	int pilot = (data1 >> 8) & 0xFF;
+	int race = data1 & 0xFF;
 	state_t result;
 
 	if (status == 0) {
@@ -172,5 +166,34 @@ int telemetry_handler(int id, int data1, int data2) {
 		result = switch_to(&telemetria_state, SAVE);
 	}
 
-	//END UP CONFIG
+	int change_coll = 0;
+	if (config_file != NULL) {
+		if (pilot < config_file->pilots_size && pilot != config_file->chosen_pilot) {
+			change_coll = 1;
+			config_file->chosen_pilot = pilot;
+		}
+
+		if (race < config_file->races_size && race != config_file->chosen_race) {
+			change_coll = 1;
+			config_file->chosen_race = race;
+		}
+	}
+
+	if (change_coll == 1) {
+		int ctime = time(0);
+		
+		mongo_set_collection(mongo_handler, config_file->pilots[config_file->chosen_pilot] , config_file->races[config_file->chosen_race] , ctime);
+		char *data = (char*) malloc (sizeof(char) * 8);
+		data[0] = 0;
+		data[1] = (result == SAVE) ? 1 : ((result == IDLE) ? 0 : -1);
+		data[2] = pilot;
+		data[3] = race;
+
+		data[4] = (ctime >> 24) & 0xFF;
+		data[5] = (ctime >> 16) & 0xFF;
+		data[6] = (ctime >> 8) & 0xFF;
+		data[7] = (ctime) & 0xFF;
+
+		send_can(can_socket, 0xAB, 8, data);
+	}
 } 

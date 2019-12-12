@@ -52,9 +52,11 @@ config_t* config_setup(const char* cfgpath) {
 
 	toRtn->pilots_size = 0;
 	toRtn->pilots = NULL;
+	toRtn->chosen_pilot = 0;
 
 	toRtn->races_size = 0;
 	toRtn->races = NULL;
+	toRtn->chosen_race = 0;
 	for (int i = 1; i <result; i+=2) {
 		jsmntok_t key = tokens[i];
 		jsmntok_t value = tokens[i+1];

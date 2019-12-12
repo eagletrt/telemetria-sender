@@ -48,9 +48,7 @@ int simple_send_can(int socket, char* data) {
 	return write(socket, &frame, sizeof(struct can_frame));
 }
 
-int send_can(int socket, int id, char* data) {
-	int len = strlen(data);
-
+int send_can(int socket, int id, int len, char* data) {
 	if (len>8) {
 		//Data are too long. Not sending.
 		return -1;
