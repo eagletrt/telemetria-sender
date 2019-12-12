@@ -6,17 +6,22 @@
   "mongo_host": "localhost",
   "mongo_port": 27017,
   "mongo_db": "testlab",
-  "mongo_collection": "testlab_euber",
 
   "sending_time": 500,
   "status_checker": 2,
 
-  "pilot1":"Spada",
-  "pilot2":"Germano",
-  "pilot3":"CT_telemetry",
+  "pilots": [
+    "Spada",
+    "Germano",
+    "CTtelemetry"
+  ],
 
-  "type1":"Luigis_Mansion",
-  "type2":"MooMoo_Farm",
-  "type3":"Wario_Stadium",
-  "type4":"Rainbow_Road"
+  "races": [
+  	"Autocross",
+  	"Skidpad",
+  	"Endurance",
+  	"Acceleration",
+  	"Test",
+  	"Tacchino"
+  ]
 }

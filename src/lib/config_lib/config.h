@@ -18,6 +18,12 @@ typedef struct {
 
   	int sending_time;
     int status_checker;
+
+	char** pilots;
+	int pilots_size;
+
+	char** races;
+	int races_size;
 } config_t;
 
 extern int verbose;

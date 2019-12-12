@@ -49,6 +49,12 @@ config_t* config_setup(const char* cfgpath) {
 
 	toRtn = (config_t*) malloc(sizeof(config_t));
 	toRtn->sending_time = 500; //default
+
+	toRtn->pilots_size = 0;
+	toRtn->pilots = NULL;
+
+	toRtn->races_size = 0;
+	toRtn->races = NULL;
 	for (int i = 1; i <result; i+=2) {
 		jsmntok_t key = tokens[i];
 		jsmntok_t value = tokens[i+1];
@@ -88,8 +94,55 @@ config_t* config_setup(const char* cfgpath) {
 	      toRtn->sending_time = atoi(valueString);	
 		} else if (strcmp(keyString,"status_checker") == 0) {
 	      toRtn->status_checker = atoi(valueString);	
-		}
+		} else if (strcmp(keyString, "pilots") == 0) {
+			for (int j = 0; j < value.size; j++) {
+				jsmntok_t child = tokens[i + j + 2];
+				unsigned int length = child.end - child.start;
+				char childString[length + 1];    
+				memcpy(childString, &json[child.start], length);
+				childString[length] = '\0';
+
+				toRtn->pilots_size++;
+				if (toRtn->pilots == NULL) {
+					toRtn->pilots = (char**)malloc(sizeof(char*) * toRtn->pilots_size);
+				}
+				else {
+					toRtn->pilots = (char**)realloc(toRtn->pilots, sizeof(char*) * toRtn->pilots_size);
+				}
+				toRtn->pilots[toRtn->pilots_size - 1] = (char*) malloc(sizeof(char)*length);
+				strcpy(toRtn->pilots[toRtn->pilots_size - 1], childString);
+			}
+			i += value.size;
+		}  else if (strcmp(keyString, "races") == 0) {
+			for (int j = 0; j < value.size; j++) {
+				jsmntok_t child = tokens[i + j + 2];
+				unsigned int length = child.end - child.start;
+				char childString[length + 1];    
+				memcpy(childString, &json[child.start], length);
+				childString[length] = '\0';
+
+				toRtn->races_size++;
+				if (toRtn->races == NULL) {
+					toRtn->races = (char**)malloc(sizeof(char*) * toRtn->races_size);
+				}
+				else {
+					toRtn->races = (char**)realloc(toRtn->races, sizeof(char*) * toRtn->races_size);
+				}
+				toRtn->races[toRtn->races_size - 1] = (char*) malloc(sizeof(char)*length);
+				strcpy(toRtn->races[toRtn->races_size - 1], childString);
+			}
+			i += value.size;
+		} 
 	}
+
+	for (int i = 0; i < toRtn->pilots_size; i++) {
+		printf("i is %d, pilot is %s\n", i, toRtn->pilots[i]);
+	}
+
+	for (int i = 0; i < toRtn->races_size; i++) {
+		printf("i is %d, race is %s\n", i, toRtn->races[i]);
+	}
+
 
 	if (verbose) printf("%s has generated a correct set of configurations.\n\n", cfgpath);
 	return toRtn;}
