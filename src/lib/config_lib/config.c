@@ -80,6 +80,9 @@ config_t* config_setup(const char* cfgpath) {
 		} else if (strcmp(keyString,"mqtt_topic") == 0) {
 			toRtn->mqtt_topic = (char*) malloc(sizeof(char)*lenght);
 			strcpy(toRtn->mqtt_topic, valueString);
+		} else if (strcmp(keyString,"mqtt_log_topic") == 0) {
+			toRtn->mqtt_log_topic = (char*) malloc(sizeof(char)*lenght);
+			strcpy(toRtn->mqtt_log_topic, valueString);
 		} 
 
     	else if (strcmp(keyString,"mongo_host") == 0) {
@@ -136,15 +139,6 @@ config_t* config_setup(const char* cfgpath) {
 			i += value.size;
 		} 
 	}
-
-	for (int i = 0; i < toRtn->pilots_size; i++) {
-		printf("i is %d, pilot is %s\n", i, toRtn->pilots[i]);
-	}
-
-	for (int i = 0; i < toRtn->races_size; i++) {
-		printf("i is %d, race is %s\n", i, toRtn->races[i]);
-	}
-
 
 	if (verbose) printf("%s has generated a correct set of configurations.\n\n", cfgpath);
 	return toRtn;}

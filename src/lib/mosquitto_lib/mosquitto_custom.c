@@ -34,6 +34,18 @@ int mosquitto_send(mosq_t* handler, bson_t* message) {
   return 0;
 }
 
+int mosquitto_log(mosq_t* handler, char* message) {
+  int len = 0;
+
+  while (message != NULL && message[len] != '\0') {
+    len++;
+  }
+
+  mosquitto_publish(handler->handler, NULL, handler->mqtt_topic, len, message, 0, false);
+  //if (verbose) printf("Logged %d bytes of data", message->len);
+  return 0;
+}
+
 int mosquitto_quit(mosq_t* handler) {
   mosquitto_destroy(handler->handler);
   free(handler->broker_host);

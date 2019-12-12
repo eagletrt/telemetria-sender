@@ -11,6 +11,7 @@ typedef struct {
  	char* broker_host;
   	int broker_port;
   	char* mqtt_topic;
+  	char* mqtt_log_topic;
 
   	char* mongo_host;
   	int mongo_port;

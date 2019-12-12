@@ -35,6 +35,7 @@ config_t* config_file;
 dbhandler_t* mongo_handler;
 int can_socket;
 mosq_t* mosquitto_handler;
+mosq_t* log_handler;
 
 //SIGNATURES
 void handle_signal(int s);
@@ -79,16 +80,16 @@ int main(int argc, char const *argv[]) {
 				            } else {
 				              	//setting up mosquitto
 				              	mosquitto_handler = mosquitto_setup(config_file->broker_port,config_file->broker_host,config_file->mqtt_topic);
-
-								bson_t* insert = BCON_NEW (
-									"info", BCON_UTF8 ("Telemetria started up")
-									);
-								mosquitto_send(mosquitto_handler,insert);
-								bson_destroy(insert);
+				              	log_handler = mosquitto_setup(config_file->broker_port,config_file->broker_host,config_file->mqtt_log_topic);
+								
+								char *startup = (char*) malloc(sizeof(char)*23);
+								strcpy(startup, "Telemetria started up\n");
+								startup[22] = 0;
+								mosquitto_log(log_handler,startup);
 							}
 						}
 					}
-				telemetria_state = IDLE;			
+				switch_to(&telemetria_state, IDLE);
   			break;
 
   			case SAVE: case IDLE:
@@ -136,8 +137,28 @@ void handle_signal(int s) {
 }
 
 state_t switch_to(state_t *handler, state_t new_state) {
-	if (new_state != INIT && new_state != ERROR) {
-		*handler = new_state;
+	if (new_state != INIT && new_state != ERROR && new_state != *handler) {
+		*handler = new_state; 
+
+		char *startup = (char*) malloc(sizeof(char)*36);
+		strcpy(startup, "Telemetria state switched to: ");
+
+		switch(new_state) {
+			case SAVE:
+				strcat(startup, "SAVE\n");
+			break;
+			case EXIT:
+				strcat(startup, "EXIT\n");
+			break;
+			case IDLE:
+				strcat(startup, "IDLE\n");
+			break;
+		}
+
+		startup[35] = 0;
+		mosquitto_log(log_handler,startup);
+		free(startup);
+
 		return new_state;
 	}
 	return ERROR;
@@ -183,6 +204,11 @@ int telemetry_handler(int id, int data1, int data2) {
 		int ctime = time(0);
 		
 		mongo_set_collection(mongo_handler, config_file->pilots[config_file->chosen_pilot] , config_file->races[config_file->chosen_race] , ctime);
+
+		char* message = (char*) malloc(sizeof(char)* (60 + strlen(config_file->pilots[config_file->chosen_pilot]) + strlen(config_file->races[config_file->chosen_race])));
+		sprintf(message, "Collection name has been updated with \nPilot :\t%s\nRace :\t%s\n",config_file->pilots[config_file->chosen_pilot], config_file->races[config_file->chosen_race]);
+		mosquitto_log(log_handler, message);
+		
 		char *data = (char*) malloc (sizeof(char) * 8);
 		data[0] = 0;
 		data[1] = (result == SAVE) ? 1 : ((result == IDLE) ? 0 : -1);
@@ -195,5 +221,6 @@ int telemetry_handler(int id, int data1, int data2) {
 		data[7] = (ctime) & 0xFF;
 
 		send_can(can_socket, 0xAB, 8, data);
+		free(data);
 	}
 } 

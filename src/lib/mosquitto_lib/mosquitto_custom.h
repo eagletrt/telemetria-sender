@@ -21,6 +21,7 @@ extern int verbose;
 
 mosq_t* mosquitto_setup(int port, char* host, char* topic);
 int mosquitto_send(mosq_t* handler, bson_t* message);
+int mosquitto_log(mosq_t* handler, char* message);
 int mosquitto_quit(mosq_t* handler);
 
 #endif
