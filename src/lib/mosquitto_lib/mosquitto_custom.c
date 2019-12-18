@@ -42,7 +42,7 @@ int mosquitto_log(mosq_t* handler, char* message) {
   }
 
   mosquitto_publish(handler->handler, NULL, handler->mqtt_topic, len, message, 0, false);
-  //if (verbose) printf("Logged %d bytes of data", message->len);
+  if (verbose) printf("Logged %d bytes of data", len);
   return 0;
 }
 

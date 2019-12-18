@@ -124,6 +124,8 @@ int main(int argc, char const *argv[]) {
   	}
 	mongo_quit(mongo_handler);
 	config_quit(config_file);
+	mosquitto_quit(mosquitto_handler);
+	mosquitto_quit(log_handler);
 
 	return 0;
 }
@@ -210,7 +212,7 @@ int telemetry_handler(int id, int data1, int data2) {
 		mosquitto_log(log_handler, message);
 		
 		char *data = (char*) malloc (sizeof(char) * 8);
-		data[0] = 0;
+		data[0] = 101;
 		data[1] = (result == SAVE) ? 1 : ((result == IDLE) ? 0 : -1);
 		data[2] = pilot;
 		data[3] = race;
