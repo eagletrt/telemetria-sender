@@ -137,10 +137,30 @@ typedef struct {
 } gps_lonalt_data;
 
 typedef struct {
+	int hours;
+	int minutes;
+	int seconds;
+} gps_time_value_data;
+
+typedef struct {
+	long timestamp;
+	gps_time_value_data value;
+} gps_time_data;
+
+typedef struct {
+	long timestamp;
+	int value;
+} gps_true_track_mode_data;
+
+typedef struct {
 	gps_latspd_data *latspd;
 	int latspd_count;
 	gps_lonalt_data *lonalt;
 	int lonalt_count;
+	gps_time_data *time;
+	int time_count;
+	gps_true_track_mode_data *true_track_mode;
+	int true_track_mode_count;
 } gps_data;
 
 typedef struct {

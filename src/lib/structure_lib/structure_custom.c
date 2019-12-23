@@ -29,6 +29,10 @@ data_t* data_setup() {
 	data->gps.latspd_count = 0;
 	data->gps.lonalt = (gps_lonalt_data*)malloc(sizeof(gps_lonalt_data) * 500);
 	data->gps.lonalt_count = 0;
+	data->gps.time = (gps_time_data*)malloc(sizeof(gps_time_data) * 500);
+	data->gps.time_count = 0;
+	data->gps.true_track_mode = (gps_true_track_mode_data*)malloc(sizeof(gps_true_track_mode_data) * 500);
+	data->gps.true_track_mode_count = 0;
 	data->imu_gyro = (imu_gyro_data*)malloc(sizeof(imu_gyro_data) * 500);
 	data->imu_gyro_count = 0;
 	data->imu_accel = (imu_accel_data*)malloc(sizeof(imu_accel_data) * 500);
@@ -226,6 +230,33 @@ int data_elaborate(data_t* data, bson_t** sending) {
 	}
 	bson_append_array_end(&children[0], &children[1]);
 	bson_destroy(&children[1]);
+	BSON_APPEND_ARRAY_BEGIN(&children[0], "time", &children[1]);
+	for (int i = 0; i < (data->gps.time_count); i++)
+	{
+		BSON_APPEND_DOCUMENT_BEGIN(&children[1], "0", &children[2]);
+		BSON_APPEND_INT64(&children[2], "timestamp", data->gps.time[i].timestamp);
+		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "value", &children[3]);
+		BSON_APPEND_INT32(&children[3], "hours", data->gps.time[i].value.hours);
+		BSON_APPEND_INT32(&children[3], "minutes", data->gps.time[i].value.minutes);
+		BSON_APPEND_INT32(&children[3], "seconds", data->gps.time[i].value.seconds);
+		bson_append_document_end(&children[2], &children[3]);
+		bson_destroy(&children[3]);
+		bson_append_document_end(&children[1], &children[2]);
+		bson_destroy(&children[2]);
+	}
+	bson_append_array_end(&children[0], &children[1]);
+	bson_destroy(&children[1]);
+	BSON_APPEND_ARRAY_BEGIN(&children[0], "true_track_mode", &children[1]);
+	for (int i = 0; i < (data->gps.true_track_mode_count); i++)
+	{
+		BSON_APPEND_DOCUMENT_BEGIN(&children[1], "0", &children[2]);
+		BSON_APPEND_INT64(&children[2], "timestamp", data->gps.true_track_mode[i].timestamp);
+		BSON_APPEND_INT32(&children[2], "value", data->gps.true_track_mode[i].value);
+		bson_append_document_end(&children[1], &children[2]);
+		bson_destroy(&children[2]);
+	}
+	bson_append_array_end(&children[0], &children[1]);
+	bson_destroy(&children[1]);
 	bson_append_document_end(*sending, &children[0]);
 	bson_destroy(&children[0]);
 	BSON_APPEND_ARRAY_BEGIN(*sending, "imu_gyro", &children[0]);
@@ -363,6 +394,8 @@ int data_quit(data_t* data) {
 	free(data->bms_lv.errors);
 	free(data->gps.latspd);
 	free(data->gps.lonalt);
+	free(data->gps.time);
+	free(data->gps.true_track_mode);
 	free(data->imu_gyro);
 	free(data->imu_accel);
 	free(data->front_wheels_encoder);
@@ -525,6 +558,18 @@ int data_gather(data_t* data, int timing, int socket) {
 						data->gps.lonalt[data->gps.lonalt_count++].value.altitude = data2 & 0x0000FFFF;
 					break;
 
+					case 0x12: // time
+						data->gps.time[data->gps.time_count].timestamp = message_timestamp;
+						data->gps.time[data->gps.time_count].value.hours = ((((data1 >> 16) & 0x000000FF) - 48) * 10) + (((data1 >> 8) & 0x000000FF) - 48);
+						data->gps.time[data->gps.time_count].value.minutes = (((data1 & 0x000000FF) - 48) * 10) + (((data2 >> 24) & 0x000000FF) - 48);
+						data->gps.time[data->gps.time_count++].value.seconds = ((((data2 >> 16) & 0x000000FF) - 48) * 10) + (((data2 >> 8) & 0x000000FF) - 48);
+					break;
+
+					case 0x13: // true_track_mode
+						data->gps.true_track_mode[data->gps.true_track_mode_count].timestamp = message_timestamp;
+						data->gps.true_track_mode[data->gps.true_track_mode_count++].value = (data1 >> 8) & 0x0000FFFF;
+					break;
+
 					case 0x06: //front wheels
 						data->front_wheels_encoder[data->front_wheels_encoder_count].timestamp = message_timestamp;
 						data->front_wheels_encoder[data->front_wheels_encoder_count].value.speed = ((data1 >> 8) & 0x0000FFFF) * ((data1 & 0x000000FF) == 0? 1: -1);
@@ -550,21 +595,18 @@ int data_gather(data_t* data, int timing, int socket) {
 				data->bms_lv.values[data->bms_lv.values_count++].value.temperature = (double)((data1>>8) & 255)/5.0;
 			break;
 
-			case (0xAB): //Marker and telemetry config
+			case (0xA0): //Steering Wheel Gears
 				if (firstByte == 1) {
+					data->steering_wheel.gears[data->steering_wheel.gears_count].timestamp = message_timestamp;
+					data->steering_wheel.gears[data->steering_wheel.gears_count].value.control = (data1 >> 16) & 0xFF;
+					data->steering_wheel.gears[data->steering_wheel.gears_count].value.cooling = (data1 >> 8) & 0xFF;
+					data->steering_wheel.gears[data->steering_wheel.gears_count].value.map = (data1) & 0xFF;
+				} else if (firstByte == 100) {
 					data->steering_wheel.marker = 1;
-				} else if (firstByte == 0) {
+				} else if (firstByte == 101) {
 					telemetry_handler(id, data1, data2);
 				}
-			break;
 
-			case (0xA0): //Steering Wheel Gears
-				if (firstByte == 2) {
-					data->steering_wheel.gears[data->steering_wheel.gears_count].timestamp = message_timestamp;
-					data->steering_wheel.gears[data->steering_wheel.gears_count].value.control = 0;
-					data->steering_wheel.gears[data->steering_wheel.gears_count].value.cooling = 0;
-					data->steering_wheel.gears[data->steering_wheel.gears_count].value.map = 0;
-				}
 			break;
 	    }
 

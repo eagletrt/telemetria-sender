@@ -170,6 +170,18 @@ int data_gather(data_t* data, int timing, int socket) {
 						data->gps.lonalt[data->gps.lonalt_count++].value.altitude = data2 & 0x0000FFFF;
 					break;
 
+					case 0x12: // time
+						data->gps.time[data->gps.time_count].timestamp = message_timestamp;
+						data->gps.time[data->gps.time_count].value.hours = ((((data1 >> 16) & 0x000000FF) - 48) * 10) + (((data1 >> 8) & 0x000000FF) - 48);
+						data->gps.time[data->gps.time_count].value.minutes = (((data1 & 0x000000FF) - 48) * 10) + (((data2 >> 24) & 0x000000FF) - 48);
+						data->gps.time[data->gps.time_count++].value.seconds = ((((data2 >> 16) & 0x000000FF) - 48) * 10) + (((data2 >> 8) & 0x000000FF) - 48);
+					break;
+
+					case 0x13: // true_track_mode
+						data->gps.true_track_mode[data->gps.true_track_mode_count].timestamp = message_timestamp;
+						data->gps.true_track_mode[data->gps.true_track_mode_count++].value = (data1 >> 8) & 0x0000FFFF;
+					break;
+
 					case 0x06: //front wheels
 						data->front_wheels_encoder[data->front_wheels_encoder_count].timestamp = message_timestamp;
 						data->front_wheels_encoder[data->front_wheels_encoder_count].value.speed = ((data1 >> 8) & 0x0000FFFF) * ((data1 & 0x000000FF) == 0? 1: -1);

@@ -105,6 +105,22 @@
                     "altitude": "double"
                 }
             }, 500
+        ],
+        "time": [
+            {
+                "timestamp": "long",
+                "value": {
+                    "hours": "int",
+                    "minutes": "int",
+                    "seconds": "int"
+                }
+            }, 500
+        ],
+        "true_track_mode": [
+            {
+                "timestamp": "long",
+                "value": "int"
+            }, 500
         ]
     },
     "imu_gyro": [
