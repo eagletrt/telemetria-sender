@@ -2,7 +2,7 @@
 #include <string.h>
 #include "mosquitto_custom.h"
 
-mosq_t* mosquitto_setup(int port, char* host, char* topic){
+mosq_t* mosquitto_setup(int port, char* host, char* topic, char* log_topic){
   mosq_t* toRtn;
   toRtn = (mosq_t*) malloc(sizeof(mosq_t));
 
@@ -22,6 +22,8 @@ mosq_t* mosquitto_setup(int port, char* host, char* topic){
   toRtn->broker_port = port;
   toRtn->mqtt_topic = (char*) malloc(sizeof(char)*strlen(topic));
   strcpy(toRtn->mqtt_topic,topic);
+  toRtn->mqtt_log_topic = (char*) malloc(sizeof(char)*strlen(log_topic));
+  strcpy(toRtn->mqtt_log_topic,log_topic);
 
   mosquitto_connect(toRtn->handler, toRtn->broker_host, toRtn->broker_port, 60);
   if (verbose) printf("Connection Established\n");
@@ -41,7 +43,7 @@ int mosquitto_log(mosq_t* handler, char* message) {
     len++;
   }
 
-  mosquitto_publish(handler->handler, NULL, handler->mqtt_topic, len, message, 0, false);
+  mosquitto_publish(handler->handler, NULL, handler->mqtt_log_topic, len, message, 0, false);
   if (verbose) printf("Logged %d bytes of data", len);
   return 0;
 }
@@ -50,6 +52,7 @@ int mosquitto_quit(mosq_t* handler) {
   mosquitto_destroy(handler->handler);
   free(handler->broker_host);
   free(handler->mqtt_topic);
+  free(handler->mqtt_log_topic);
 
   free(handler);
   mosquitto_lib_cleanup();

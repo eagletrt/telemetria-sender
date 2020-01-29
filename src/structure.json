@@ -86,26 +86,12 @@
         ]
     },
     "gps": {
-        "latspd": [
-            {
-                "timestamp": "long",
-                "value": {
-                    "latitude_m": "double",
-                    "latitude_o": "int",
-                    "speed": "double"
-                }
-            }, 500
-        ],
-        "lonalt": [
-            {
-                "timestamp": "long",
-                "value": {
-                    "longitude_m": "double",
-                    "longitude_o": "int",
-                    "altitude": "double"
-                }
-            }, 500
-        ]
+        "timestamp" : "long",
+        "latitude": "double",
+        "longitude": "double",
+        "altitude":"double",
+        "ns_indicator": "int",
+        "ew_indicator":"int"
     },
     "imu_gyro": [
         {

@@ -3,6 +3,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+//GPS
+#include<fcntl.h>
+#include<errno.h>
+#include<termios.h>
+#include<unistd.h>
 
 #include "./lib/config_lib/config.h"
 #include "./lib/config_lib/jsmn/jsmn.h"
@@ -12,10 +17,12 @@
 #include "./lib/can_lib/can_custom.h"
 
 #include "./lib/structure_lib/structure_custom.h"
+#include "./lib/gps_lib/gps_custom.h"
 #include <mosquitto.h>
 
 //TRACING DEBUG GLOBAL VARIABLE
 int verbose = 1;
+int gps_plugged = 1;
 
 //TELEMETRY STATE
 typedef enum {
@@ -34,13 +41,14 @@ int quitting_signal = 0;
 config_t* config_file;
 dbhandler_t* mongo_handler;
 int can_socket;
+int serial_port;
 mosq_t* mosquitto_handler;
-mosq_t* log_handler;
 
 //SIGNATURES
 void handle_signal(int s);
 state_t switch_to(state_t *handler, state_t new_state);
 int telemetry_handler(int id, int data1, int data2);
+int fill_gps(data_t* data);
 
 int main(int argc, char const *argv[]) {
 	if (argc != 2) {
@@ -79,13 +87,18 @@ int main(int argc, char const *argv[]) {
 				              telemetria_state = EXIT;
 				            } else {
 				              	//setting up mosquitto
-				              	mosquitto_handler = mosquitto_setup(config_file->broker_port,config_file->broker_host,config_file->mqtt_topic);
-				              	log_handler = mosquitto_setup(config_file->broker_port,config_file->broker_host,config_file->mqtt_log_topic);
-								
+				              	mosquitto_handler = mosquitto_setup(config_file->broker_port,config_file->broker_host,config_file->mqtt_topic,config_file->mqtt_log_topic);
+							
+								if (gps_plugged) {
+									serial_port = openPort("/dev/ttyACM0");
+								} else {
+									serial_port = -1;
+								}
+
 								char *startup = (char*) malloc(sizeof(char)*23);
 								strcpy(startup, "Telemetria started up\n");
 								startup[22] = 0;
-								mosquitto_log(log_handler,startup);
+								mosquitto_log(mosquitto_handler,startup);
 							}
 						}
 					}
@@ -95,6 +108,9 @@ int main(int argc, char const *argv[]) {
   			case SAVE: case IDLE:
   				data_structure = data_setup();
   				data_gather(data_structure,config_file->sending_time, can_socket);
+  				//GPS
+  				if (gps_plugged)
+  					fill_gps(data_structure);
   				data_elaborate(data_structure, &message);
 
 		        if (telemetria_state == SAVE) { mongo_insert(message,mongo_handler); }
@@ -102,7 +118,6 @@ int main(int argc, char const *argv[]) {
 
 				if (++message_sent > config_file->status_checker) {
 					message_sent = 0;
-
 				}
 
 		        if (verbose) { 
@@ -122,10 +137,10 @@ int main(int argc, char const *argv[]) {
   			break;
   		}
   	}
+  	close(serial_port);
 	mongo_quit(mongo_handler);
 	config_quit(config_file);
 	mosquitto_quit(mosquitto_handler);
-	mosquitto_quit(log_handler);
 
 	return 0;
 }
@@ -158,7 +173,7 @@ state_t switch_to(state_t *handler, state_t new_state) {
 		}
 
 		startup[35] = 0;
-		mosquitto_log(log_handler,startup);
+		mosquitto_log(mosquitto_handler,startup);
 		free(startup);
 
 		return new_state;
@@ -202,15 +217,15 @@ int telemetry_handler(int id, int data1, int data2) {
 		}
 	}
 
-	if (change_coll == 1) {
 		int ctime = time(0);
+	if (change_coll == 1) {
 		
 		mongo_set_collection(mongo_handler, config_file->pilots[config_file->chosen_pilot] , config_file->races[config_file->chosen_race] , ctime);
 
 		char* message = (char*) malloc(sizeof(char)* (60 + strlen(config_file->pilots[config_file->chosen_pilot]) + strlen(config_file->races[config_file->chosen_race])));
 		sprintf(message, "Collection name has been updated with \nPilot :\t%s\nRace :\t%s\n",config_file->pilots[config_file->chosen_pilot], config_file->races[config_file->chosen_race]);
-		mosquitto_log(log_handler, message);
-		
+		mosquitto_log(mosquitto_handler, message);
+	}
 		char *data = (char*) malloc (sizeof(char) * 8);
 		data[0] = 101;
 		data[1] = (result == SAVE) ? 1 : ((result == IDLE) ? 0 : -1);
@@ -224,5 +239,27 @@ int telemetry_handler(int id, int data1, int data2) {
 
 		send_can(can_socket, 0xAB, 8, data);
 		free(data);
-	}
+	
 } 
+
+int fill_gps(data_t* data){
+	GGA *GGA_struct = getGGAstruct(serial_port);
+
+	data->gps.timestamp = -1;
+	
+	//latitude and longitude
+	int latitude_d = atoi(GGA_struct->latitude);	 
+    int longitude_d = atoi(GGA_struct->longitude);
+    
+    double latitude_m = latitude_d % 100;
+    double longitude_m = longitude_d % 100;
+	
+	data->gps.latitude = (latitude_d / 100) + (latitude_m/60);
+	data->gps.longitude = (longitude_d / 100) + (longitude_m/60);
+
+    //already corrected data
+    data->gps.altitude = atof(GGA_struct->altitude);
+    data->gps.ns_indicator = GGA_struct->ns_indicator;
+    data->gps.ew_indicator = GGA_struct->ew_indicator;
+	return 0;
+}

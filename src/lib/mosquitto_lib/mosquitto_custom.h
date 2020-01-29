@@ -15,11 +15,12 @@ typedef struct {
 	char* broker_host;
 	int broker_port;
 	char* mqtt_topic;
+	char* mqtt_log_topic;
 } mosq_t;
 
 extern int verbose;
 
-mosq_t* mosquitto_setup(int port, char* host, char* topic);
+mosq_t* mosquitto_setup(int port, char* host, char* topic, char* log_topic);
 int mosquitto_send(mosq_t* handler, bson_t* message);
 int mosquitto_log(mosq_t* handler, char* message);
 int mosquitto_quit(mosq_t* handler);

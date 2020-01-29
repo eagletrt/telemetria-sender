@@ -115,32 +115,12 @@ typedef struct {
 } bms_lv_data;
 
 typedef struct {
-	double latitude_m;
-	int latitude_o;
-	double speed;
-} gps_latspd_value_data;
-
-typedef struct {
 	long timestamp;
-	gps_latspd_value_data value;
-} gps_latspd_data;
-
-typedef struct {
-	double longitude_m;
-	int longitude_o;
+	double latitude;
+	double longitude;
 	double altitude;
-} gps_lonalt_value_data;
-
-typedef struct {
-	long timestamp;
-	gps_lonalt_value_data value;
-} gps_lonalt_data;
-
-typedef struct {
-	gps_latspd_data *latspd;
-	int latspd_count;
-	gps_lonalt_data *lonalt;
-	int lonalt_count;
+	int ns_indicator;
+	int ew_indicator;
 } gps_data;
 
 typedef struct {

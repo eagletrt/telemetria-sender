@@ -45,7 +45,7 @@ int simple_send_can(int socket, char* data) {
 	}
 
 	//invio del frame + salvataggio dei byte inviati
-	return write(socket, &frame, sizeof(struct can_frame));
+	return write(socket, &frame, len);
 }
 
 int send_can(int socket, int id, int len, char* data) {
@@ -65,7 +65,7 @@ int send_can(int socket, int id, int len, char* data) {
 	}
 
 	//invio del frame + salvataggio dei byte inviati
-	return write(socket, &frame, sizeof(struct can_frame));
+	return write(socket, &frame, len);
 }
 
 int simple_receive_can(int socket, char** data) {
