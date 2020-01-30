@@ -1,23 +1,25 @@
 {
     "id": "int",
     "timestamp": "long",
-    "inverterRight": [        
+    "inverterRight": [
         {
             "timestamp": "long",
             "value": {
                 "data1": "int",
                 "data2": "int"
             }
-        }, 500
+        },
+        500
     ],
-    "inverterLeft": [        
+    "inverterLeft": [
         {
             "timestamp": "long",
             "value": {
                 "data1": "int",
                 "data2": "int"
             }
-        }, 500
+        },
+        500
     ],
     "bms_hv": {
         "temperature": [
@@ -28,7 +30,8 @@
                     "min": "double",
                     "average": "double"
                 }
-            }, 500
+            },
+            500
         ],
         "voltage": [
             {
@@ -38,7 +41,8 @@
                     "min": "double",
                     "total": "double"
                 }
-            }, 500
+            },
+            500
         ],
         "current": [
             {
@@ -47,7 +51,8 @@
                     "current": "double",
                     "pow": "double"
                 }
-            }, 500
+            },
+            500
         ],
         "errors": [
             {
@@ -56,7 +61,8 @@
                     "fault_id": "int",
                     "fault_index": "int"
                 }
-            }, 500
+            },
+            500
         ],
         "warnings": [
             {
@@ -65,7 +71,8 @@
                     "fault_id": "int",
                     "fault_index": "int"
                 }
-            }, 500
+            },
+            500
         ]
     },
     "bms_lv": {
@@ -76,42 +83,38 @@
                     "voltage": "double",
                     "temperature": "double"
                 }
-            }, 500
+            },
+            500
         ],
         "errors": [
-             {
-                 "timestamp": "long",
-                 "value": "int"
-             }, 500
+            {
+                "timestamp": "long",
+                "value": "int"
+            },
+            500
         ]
     },
     "gps": {
-        "timestamp" : "long",
+        "timestamp": "long",
         "latitude": "double",
         "longitude": "double",
-        "altitude":"double",
+        "altitude": "double",
         "ns_indicator": "int",
-        "ew_indicator":"int",
+        "ew_indicator": "int",
         "old": {
-            "latspd": [
+            "location": [
                 {
                     "timestamp": "long",
                     "value": {
                         "latitude_m": "double",
                         "latitude_o": "int",
-                        "speed": "double"
-                    }
-                }, 500
-            ],
-            "lonalt": [
-                {
-                    "timestamp": "long",
-                    "value": {
                         "longitude_m": "double",
                         "longitude_o": "int",
+                        "speed": "double",
                         "altitude": "double"
                     }
-                }, 500
+                },
+                500
             ],
             "time": [
                 {
@@ -121,13 +124,15 @@
                         "minutes": "int",
                         "seconds": "int"
                     }
-                }, 500
+                },
+                500
             ],
             "true_track_mode": [
                 {
                     "timestamp": "long",
                     "value": "int"
-                }, 500
+                },
+                500
             ]
         }
     },
@@ -140,7 +145,8 @@
                 "z": "double",
                 "scale": "double"
             }
-        }, 500
+        },
+        500
     ],
     "imu_accel": [
         {
@@ -151,16 +157,18 @@
                 "z": "double",
                 "scale": "double"
             }
-        }, 500
+        },
+        500
     ],
     "front_wheels_encoder": [
         {
             "timestamp": "long",
             "value": {
-                "speed":"double",
-                "speedms":"double"
+                "speed": "double",
+                "speedms": "double"
             }
-        }, 500
+        },
+        500
     ],
     "distance": [
         {
@@ -171,26 +179,30 @@
                 "angle": "double",
                 "clock_period": "double"
             }
-        }, 500
+        },
+        500
     ],
     "throttle": [
         {
             "timestamp": "long",
             "value": "double"
-        }, 500
+        },
+        500
     ],
     "brake": [
         {
             "timestamp": "long",
             "value": "double"
-        }, 500
+        },
+        500
     ],
     "steering_wheel": {
         "encoder": [
             {
                 "timestamp": "long",
                 "value": "double"
-            }, 500
+            },
+            500
         ],
         "gears": [
             {
@@ -199,9 +211,10 @@
                     "control": "int",
                     "cooling": "int",
                     "map": "int"
-                }   
-            }, 500
+                }
+            },
+            500
         ],
-        "marker":"int"
+        "marker": "int"
     }
 }

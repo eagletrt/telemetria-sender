@@ -117,24 +117,16 @@ typedef struct {
 typedef struct {
 	double latitude_m;
 	int latitude_o;
-	double speed;
-} gps_old_latspd_value_data;
-
-typedef struct {
-	long timestamp;
-	gps_old_latspd_value_data value;
-} gps_old_latspd_data;
-
-typedef struct {
 	double longitude_m;
 	int longitude_o;
+	double speed;
 	double altitude;
-} gps_old_lonalt_value_data;
+} gps_old_location_value_data;
 
 typedef struct {
 	long timestamp;
-	gps_old_lonalt_value_data value;
-} gps_old_lonalt_data;
+	gps_old_location_value_data value;
+} gps_old_location_data;
 
 typedef struct {
 	int hours;
@@ -153,10 +145,8 @@ typedef struct {
 } gps_old_true_track_mode_data;
 
 typedef struct {
-	gps_old_latspd_data *latspd;
-	int latspd_count;
-	gps_old_lonalt_data *lonalt;
-	int lonalt_count;
+	gps_old_location_data *location;
+	int location_count;
 	gps_old_time_data *time;
 	int time_count;
 	gps_old_true_track_mode_data *true_track_mode;
