@@ -25,6 +25,14 @@ data_t* data_setup() {
 	data->bms_lv.values_count = 0;
 	data->bms_lv.errors = (bms_lv_errors_data*)malloc(sizeof(bms_lv_errors_data) * 500);
 	data->bms_lv.errors_count = 0;
+	data->gps.old.latspd = (gps_old_latspd_data*)malloc(sizeof(gps_old_latspd_data) * 500);
+	data->gps.old.latspd_count = 0;
+	data->gps.old.lonalt = (gps_old_lonalt_data*)malloc(sizeof(gps_old_lonalt_data) * 500);
+	data->gps.old.lonalt_count = 0;
+	data->gps.old.time = (gps_old_time_data*)malloc(sizeof(gps_old_time_data) * 500);
+	data->gps.old.time_count = 0;
+	data->gps.old.true_track_mode = (gps_old_true_track_mode_data*)malloc(sizeof(gps_old_true_track_mode_data) * 500);
+	data->gps.old.true_track_mode_count = 0;
 	data->imu_gyro = (imu_gyro_data*)malloc(sizeof(imu_gyro_data) * 500);
 	data->imu_gyro_count = 0;
 	data->imu_accel = (imu_accel_data*)malloc(sizeof(imu_accel_data) * 500);
@@ -47,7 +55,7 @@ data_t* data_setup() {
 
 int data_elaborate(data_t* data, bson_t** sending) {
 	*sending = bson_new();
-	bson_t *children = (bson_t*)malloc(sizeof(bson_t) * 4);
+	bson_t *children = (bson_t*)malloc(sizeof(bson_t) * 5);
 	BSON_APPEND_INT32(*sending, "id", data->id);
 	BSON_APPEND_INT64(*sending, "timestamp", data->timestamp);
 	BSON_APPEND_ARRAY_BEGIN(*sending, "inverterRight", &children[0]);
@@ -196,6 +204,68 @@ int data_elaborate(data_t* data, bson_t** sending) {
 	BSON_APPEND_DOUBLE(&children[0], "altitude", data->gps.altitude);
 	BSON_APPEND_INT32(&children[0], "ns_indicator", data->gps.ns_indicator);
 	BSON_APPEND_INT32(&children[0], "ew_indicator", data->gps.ew_indicator);
+	BSON_APPEND_DOCUMENT_BEGIN(&children[0], "old", &children[1]);
+	BSON_APPEND_ARRAY_BEGIN(&children[1], "latspd", &children[2]);
+	for (int i = 0; i < (data->gps.old.latspd_count); i++)
+	{
+		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "0", &children[3]);
+		BSON_APPEND_INT64(&children[3], "timestamp", data->gps.old.latspd[i].timestamp);
+		BSON_APPEND_DOCUMENT_BEGIN(&children[3], "value", &children[4]);
+		BSON_APPEND_DOUBLE(&children[4], "latitude_m", data->gps.old.latspd[i].value.latitude_m);
+		BSON_APPEND_INT32(&children[4], "latitude_o", data->gps.old.latspd[i].value.latitude_o);
+		BSON_APPEND_DOUBLE(&children[4], "speed", data->gps.old.latspd[i].value.speed);
+		bson_append_document_end(&children[3], &children[4]);
+		bson_destroy(&children[4]);
+		bson_append_document_end(&children[2], &children[3]);
+		bson_destroy(&children[3]);
+	}
+	bson_append_array_end(&children[1], &children[2]);
+	bson_destroy(&children[2]);
+	BSON_APPEND_ARRAY_BEGIN(&children[1], "lonalt", &children[2]);
+	for (int i = 0; i < (data->gps.old.lonalt_count); i++)
+	{
+		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "0", &children[3]);
+		BSON_APPEND_INT64(&children[3], "timestamp", data->gps.old.lonalt[i].timestamp);
+		BSON_APPEND_DOCUMENT_BEGIN(&children[3], "value", &children[4]);
+		BSON_APPEND_DOUBLE(&children[4], "longitude_m", data->gps.old.lonalt[i].value.longitude_m);
+		BSON_APPEND_INT32(&children[4], "longitude_o", data->gps.old.lonalt[i].value.longitude_o);
+		BSON_APPEND_DOUBLE(&children[4], "altitude", data->gps.old.lonalt[i].value.altitude);
+		bson_append_document_end(&children[3], &children[4]);
+		bson_destroy(&children[4]);
+		bson_append_document_end(&children[2], &children[3]);
+		bson_destroy(&children[3]);
+	}
+	bson_append_array_end(&children[1], &children[2]);
+	bson_destroy(&children[2]);
+	BSON_APPEND_ARRAY_BEGIN(&children[1], "time", &children[2]);
+	for (int i = 0; i < (data->gps.old.time_count); i++)
+	{
+		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "0", &children[3]);
+		BSON_APPEND_INT64(&children[3], "timestamp", data->gps.old.time[i].timestamp);
+		BSON_APPEND_DOCUMENT_BEGIN(&children[3], "value", &children[4]);
+		BSON_APPEND_INT32(&children[4], "hours", data->gps.old.time[i].value.hours);
+		BSON_APPEND_INT32(&children[4], "minutes", data->gps.old.time[i].value.minutes);
+		BSON_APPEND_INT32(&children[4], "seconds", data->gps.old.time[i].value.seconds);
+		bson_append_document_end(&children[3], &children[4]);
+		bson_destroy(&children[4]);
+		bson_append_document_end(&children[2], &children[3]);
+		bson_destroy(&children[3]);
+	}
+	bson_append_array_end(&children[1], &children[2]);
+	bson_destroy(&children[2]);
+	BSON_APPEND_ARRAY_BEGIN(&children[1], "true_track_mode", &children[2]);
+	for (int i = 0; i < (data->gps.old.true_track_mode_count); i++)
+	{
+		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "0", &children[3]);
+		BSON_APPEND_INT64(&children[3], "timestamp", data->gps.old.true_track_mode[i].timestamp);
+		BSON_APPEND_INT32(&children[3], "value", data->gps.old.true_track_mode[i].value);
+		bson_append_document_end(&children[2], &children[3]);
+		bson_destroy(&children[3]);
+	}
+	bson_append_array_end(&children[1], &children[2]);
+	bson_destroy(&children[2]);
+	bson_append_document_end(&children[0], &children[1]);
+	bson_destroy(&children[1]);
 	bson_append_document_end(*sending, &children[0]);
 	bson_destroy(&children[0]);
 	BSON_APPEND_ARRAY_BEGIN(*sending, "imu_gyro", &children[0]);
@@ -331,6 +401,10 @@ int data_quit(data_t* data) {
 	free(data->bms_hv.warnings);
 	free(data->bms_lv.values);
 	free(data->bms_lv.errors);
+	free(data->gps.old.latspd);
+	free(data->gps.old.lonalt);
+	free(data->gps.old.time);
+	free(data->gps.old.true_track_mode);
 	free(data->imu_gyro);
 	free(data->imu_accel);
 	free(data->front_wheels_encoder);
@@ -479,21 +553,33 @@ int data_gather(data_t* data, int timing, int socket) {
 
 			case (0xD0): //GPS and FWE
 				switch (firstByte) {
-					/*
 					case 0x10: //lat and speed
-						data->gps.latspd[data->gps.latspd_count].timestamp = message_timestamp;
-						data->gps.latspd[data->gps.latspd_count].value.latitude_m  = (double)(((((data1 >> 8) & 0x0000FFFF)<<8)*10000) + (((data1 & 0x000000FF) * 0xFF)<<8) + ((data2 >> 24) & 0x000000FF))/10000.0;
-						data->gps.latspd[data->gps.latspd_count].value.latitude_o  = (data2 >> 16) & 0x000000FF;
-						data->gps.latspd[data->gps.latspd_count++].value.speed = data2 & 0x0000FFFF;
+						data->gps.old.latspd[data->gps.old.latspd_count].timestamp = message_timestamp;
+						data->gps.old.latspd[data->gps.old.latspd_count].value.latitude_m  = (double)(((((data1 >> 8) & 0x0000FFFF)<<8)*10000) + (((data1 & 0x000000FF) * 0xFF)<<8) + ((data2 >> 24) & 0x000000FF))/10000.0;
+						data->gps.old.latspd[data->gps.old.latspd_count].value.latitude_o  = (data2 >> 16) & 0x000000FF;
+						data->gps.old.latspd[data->gps.old.latspd_count++].value.speed = data2 & 0x0000FFFF;
 					break;
 
 					case 0x11: //lon and altitude
-						data->gps.lonalt[data->gps.lonalt_count].timestamp = message_timestamp;
-						data->gps.lonalt[data->gps.lonalt_count].value.longitude_m  = (double)(((((data1 >> 8) & 0x0000FFFF)<<8)*100000) + (((data1 & 0x000000FF) * 0xFF)<<8) + ((data2 >> 24) & 0x000000FF))/100000.0;
-						data->gps.lonalt[data->gps.lonalt_count].value.longitude_o  = (data2 >> 16) & 0x000000FF;
-						data->gps.lonalt[data->gps.lonalt_count++].value.altitude = data2 & 0x0000FFFF;
+						data->gps.old.lonalt[data->gps.old.lonalt_count].timestamp = message_timestamp;
+						data->gps.old.lonalt[data->gps.old.lonalt_count].value.longitude_m  = (double)(((((data1 >> 8) & 0x0000FFFF)<<8)*100000) + (((data1 & 0x000000FF) * 0xFF)<<8) + ((data2 >> 24) & 0x000000FF))/100000.0;
+						data->gps.old.lonalt[data->gps.old.lonalt_count].value.longitude_o  = (data2 >> 16) & 0x000000FF;
+						data->gps.old.lonalt[data->gps.old.lonalt_count++].value.altitude = data2 & 0x0000FFFF;
 					break;
-					*/	
+
+					case 0x12: // time
+						data->gps.old.time[data->gps.old.time_count].timestamp = message_timestamp;
+						data->gps.old.time[data->gps.old.time_count].value.hours = ((((data1 >> 16) & 0x000000FF) - 48) * 10) + (((data1 >> 8) & 0x000000FF) - 48);
+						data->gps.old.time[data->gps.old.time_count].value.minutes = (((data1 & 0x000000FF) - 48) * 10) + (((data2 >> 24) & 0x000000FF) - 48);
+						data->gps.old.time[data->gps.old.time_count++].value.seconds = ((((data2 >> 16) & 0x000000FF) - 48) * 10) + (((data2 >> 8) & 0x000000FF) - 48);
+					break;
+
+					case 0x13: // true_track_mode
+						data->gps.old.true_track_mode[data->gps.old.true_track_mode_count].timestamp = message_timestamp;
+						data->gps.old.true_track_mode[data->gps.old.true_track_mode_count++].value = (data1 >> 8) & 0x0000FFFF;
+					break;
+
+					
 					case 0x06: //front wheels
 						data->front_wheels_encoder[data->front_wheels_encoder_count].timestamp = message_timestamp;
 						data->front_wheels_encoder[data->front_wheels_encoder_count].value.speed = ((data1 >> 8) & 0x0000FFFF) * ((data1 & 0x000000FF) == 0? 1: -1);

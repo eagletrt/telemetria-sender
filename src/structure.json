@@ -91,7 +91,45 @@
         "longitude": "double",
         "altitude":"double",
         "ns_indicator": "int",
-        "ew_indicator":"int"
+        "ew_indicator":"int",
+        "old": {
+            "latspd": [
+                {
+                    "timestamp": "long",
+                    "value": {
+                        "latitude_m": "double",
+                        "latitude_o": "int",
+                        "speed": "double"
+                    }
+                }, 500
+            ],
+            "lonalt": [
+                {
+                    "timestamp": "long",
+                    "value": {
+                        "longitude_m": "double",
+                        "longitude_o": "int",
+                        "altitude": "double"
+                    }
+                }, 500
+            ],
+            "time": [
+                {
+                    "timestamp": "long",
+                    "value": {
+                        "hours": "int",
+                        "minutes": "int",
+                        "seconds": "int"
+                    }
+                }, 500
+            ],
+            "true_track_mode": [
+                {
+                    "timestamp": "long",
+                    "value": "int"
+                }, 500
+            ]
+        }
     },
     "imu_gyro": [
         {

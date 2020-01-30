@@ -156,21 +156,33 @@ int data_gather(data_t* data, int timing, int socket) {
 
 			case (0xD0): //GPS and FWE
 				switch (firstByte) {
-					/*
 					case 0x10: //lat and speed
-						data->gps.latspd[data->gps.latspd_count].timestamp = message_timestamp;
-						data->gps.latspd[data->gps.latspd_count].value.latitude_m  = (double)(((((data1 >> 8) & 0x0000FFFF)<<8)*10000) + (((data1 & 0x000000FF) * 0xFF)<<8) + ((data2 >> 24) & 0x000000FF))/10000.0;
-						data->gps.latspd[data->gps.latspd_count].value.latitude_o  = (data2 >> 16) & 0x000000FF;
-						data->gps.latspd[data->gps.latspd_count++].value.speed = data2 & 0x0000FFFF;
+						data->gps.old.latspd[data->gps.old.latspd_count].timestamp = message_timestamp;
+						data->gps.old.latspd[data->gps.old.latspd_count].value.latitude_m  = (double)(((((data1 >> 8) & 0x0000FFFF)<<8)*10000) + (((data1 & 0x000000FF) * 0xFF)<<8) + ((data2 >> 24) & 0x000000FF))/10000.0;
+						data->gps.old.latspd[data->gps.old.latspd_count].value.latitude_o  = (data2 >> 16) & 0x000000FF;
+						data->gps.old.latspd[data->gps.old.latspd_count++].value.speed = data2 & 0x0000FFFF;
 					break;
 
 					case 0x11: //lon and altitude
-						data->gps.lonalt[data->gps.lonalt_count].timestamp = message_timestamp;
-						data->gps.lonalt[data->gps.lonalt_count].value.longitude_m  = (double)(((((data1 >> 8) & 0x0000FFFF)<<8)*100000) + (((data1 & 0x000000FF) * 0xFF)<<8) + ((data2 >> 24) & 0x000000FF))/100000.0;
-						data->gps.lonalt[data->gps.lonalt_count].value.longitude_o  = (data2 >> 16) & 0x000000FF;
-						data->gps.lonalt[data->gps.lonalt_count++].value.altitude = data2 & 0x0000FFFF;
+						data->gps.old.lonalt[data->gps.old.lonalt_count].timestamp = message_timestamp;
+						data->gps.old.lonalt[data->gps.old.lonalt_count].value.longitude_m  = (double)(((((data1 >> 8) & 0x0000FFFF)<<8)*100000) + (((data1 & 0x000000FF) * 0xFF)<<8) + ((data2 >> 24) & 0x000000FF))/100000.0;
+						data->gps.old.lonalt[data->gps.old.lonalt_count].value.longitude_o  = (data2 >> 16) & 0x000000FF;
+						data->gps.old.lonalt[data->gps.old.lonalt_count++].value.altitude = data2 & 0x0000FFFF;
 					break;
-					*/	
+
+					case 0x12: // time
+						data->gps.old.time[data->gps.old.time_count].timestamp = message_timestamp;
+						data->gps.old.time[data->gps.old.time_count].value.hours = ((((data1 >> 16) & 0x000000FF) - 48) * 10) + (((data1 >> 8) & 0x000000FF) - 48);
+						data->gps.old.time[data->gps.old.time_count].value.minutes = (((data1 & 0x000000FF) - 48) * 10) + (((data2 >> 24) & 0x000000FF) - 48);
+						data->gps.old.time[data->gps.old.time_count++].value.seconds = ((((data2 >> 16) & 0x000000FF) - 48) * 10) + (((data2 >> 8) & 0x000000FF) - 48);
+					break;
+
+					case 0x13: // true_track_mode
+						data->gps.old.true_track_mode[data->gps.old.true_track_mode_count].timestamp = message_timestamp;
+						data->gps.old.true_track_mode[data->gps.old.true_track_mode_count++].value = (data1 >> 8) & 0x0000FFFF;
+					break;
+
+					
 					case 0x06: //front wheels
 						data->front_wheels_encoder[data->front_wheels_encoder_count].timestamp = message_timestamp;
 						data->front_wheels_encoder[data->front_wheels_encoder_count].value.speed = ((data1 >> 8) & 0x0000FFFF) * ((data1 & 0x000000FF) == 0? 1: -1);
