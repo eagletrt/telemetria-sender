@@ -93,6 +93,9 @@ config_t* config_setup(const char* cfgpath) {
 		} else if (strcmp(keyString,"mongo_db") == 0) {
 			toRtn->mongo_db = (char*) malloc(sizeof(char)*lenght);
 			strcpy(toRtn->mongo_db, valueString);
+		} else if (strcmp(keyString,"mongo_collection") == 0) {
+			toRtn->mongo_collection = (char*) malloc(sizeof(char)*lenght);
+			strcpy(toRtn->mongo_collection, valueString);
 		}
 
 	    else if (strcmp(keyString,"sending_time") == 0) {

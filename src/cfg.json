@@ -6,7 +6,9 @@
 
   "mongo_host": "localhost",
   "mongo_port": 27017,
-  "mongo_db": "testlab",
+  "mongo_db": "eagleTRT_test",
+  "mongo_collection": "chimera",
+
 
   "sending_time": 500,
   "status_checker": 2,

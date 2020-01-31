@@ -4,8 +4,9 @@
 #include "mongo_custom.h"
 
 char* itostr(int value);
+bson_t* sessionDocumentBson(char* driver, char* race, int timestamp, char* sessionId);
 
-dbhandler_t* mongo_setup(int port, char* host, char* database) {
+dbhandler_t* mongo_setup(int port, char* host, char* database, char* collection) {
 	dbhandler_t* toRtn;
 	char* uri_string;
 
@@ -15,7 +16,7 @@ dbhandler_t* mongo_setup(int port, char* host, char* database) {
 	char* port_string = (char*) malloc(sizeof(char)*6);
 	for (int i = 4; i >= 0; --i) {
 		port_string[i] = ((char)(port%10)) + '0';
-		port /=10;
+		port /= 10;
 	}
 	port_string[5] = '\0';
 	while (port_string[0] == '0') {
@@ -55,7 +56,7 @@ dbhandler_t* mongo_setup(int port, char* host, char* database) {
 
 	toRtn->database = mongoc_client_get_database(toRtn->client, database);
 	toRtn->collection = NULL;
-  	//toRtn->collection = mongoc_client_get_collection(toRtn->client, mongoc_database_get_name(toRtn->database), collection_name);
+  	toRtn->collection = mongoc_client_get_collection(toRtn->client, mongoc_database_get_name(toRtn->database), collection);
 	
 	char pilot[] = "deathlok"; 
 	char type[] = "MarioCircuit"; 
@@ -63,12 +64,10 @@ dbhandler_t* mongo_setup(int port, char* host, char* database) {
 
 	if (verbose) printf("Mongo started up with success.\n\n");
 
- 	return toRtn;}
+ 	return toRtn;
+}
 
 int mongo_set_collection(dbhandler_t* handler, char* driver, char* type, int timestamp) {
-	if (handler->collection != NULL) {
-		mongoc_collection_destroy(handler->collection);
-	}
 
 	char* collection_name;
 	collection_name = (char*) malloc(sizeof(char)* (strlen(driver) + strlen(type) + 14));
@@ -92,7 +91,10 @@ int mongo_set_collection(dbhandler_t* handler, char* driver, char* type, int tim
 	int hour =  (formatted_time->tm_sec) + (formatted_time->tm_min) * 100 + (formatted_time->tm_hour) *10000; 
 	strcat(collection_name, itostr(hour));
 
-  	handler->collection = mongoc_client_get_collection(handler->client, mongoc_database_get_name(handler->database), collection_name);
+	
+	handler->session_name = collection_name;
+	mongo_insert(sessionDocumentBson(driver, type, timestamp, collection_name), handler);
+
   	if (verbose) printf("Mongo collection created with success. All the values will be stored in %s\\%s\n",mongoc_database_get_name(handler->database),mongoc_collection_get_name(handler->collection));
   	return 0;}
 
@@ -103,19 +105,32 @@ int mongo_insert(bson_t *insert, dbhandler_t* handler) {
 		if (verbose) printf ( "%s\n", error.message);
     return 1;
 	}
-	if (verbose) printf("BSON succesfully inserted inside the designed collection.\n");
+	if (verbose) printf("BSON successfully inserted inside the designed collection.\n");
 
-  	return 0;}
+  	return 0;
+}
+
+bson_t* sessionDocumentBson(char* driver, char* race, int timestamp, char* sessionId) {
+	bson_t* result = bson_new();
+	BSON_APPEND_UTF8 (result, "sessionId", sessionId);
+	BSON_APPEND_INT32(result, "timestamp", timestamp);
+	BSON_APPEND_UTF8 (result, "driver", driver);
+	BSON_APPEND_UTF8 (result, "race", race);
+	return result;
+}
 
 int mongo_quit(dbhandler_t* handler) {
 	mongoc_collection_destroy(handler->collection);
    	mongoc_database_destroy(handler->database);
    	mongoc_client_destroy(handler->client);
    	mongoc_uri_destroy(handler->uri);
-   	mongoc_cleanup ();
+   	mongoc_cleanup();
 
    	free(handler);
-   	return 0;}
+   	return 0;
+}
+
+
 
 char* itostr(int value) {
 	char* toRtn = (char*) malloc(sizeof(char) * 15);

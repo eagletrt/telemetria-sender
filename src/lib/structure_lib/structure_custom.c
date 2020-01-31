@@ -59,6 +59,7 @@ int data_elaborate(data_t *data, bson_t **sending)
 	bson_t *children = (bson_t*)malloc(sizeof(bson_t) * 5);
 	BSON_APPEND_INT32(*sending, "id", data->id);
 	BSON_APPEND_INT64(*sending, "timestamp", data->timestamp);
+	BSON_APPEND_UTF8(*sending, "sessionId", data->sessionId);
 	BSON_APPEND_ARRAY_BEGIN(*sending, "inverterRight", &children[0]);
 	for (int i = 0; i < (data->inverterRight_count); i++)
 	{
@@ -406,11 +407,12 @@ int data_quit(data_t *data)
 	return 0;
 }
 
-int data_gather(data_t *data, int timing, int socket)
+int data_gather(data_t *data, int timing, int socket, char* sessionId)
 {
 	msgid++;
 
 	data->id = msgid;
+	data->sessionId = sessionId;
 
 	double msec = 0, end = 0;
 	struct timespec tstart = {0, 0}, tend = {0, 0};

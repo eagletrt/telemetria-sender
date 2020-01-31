@@ -16,18 +16,19 @@ typedef struct {
   	char* mongo_host;
   	int mongo_port;
   	char* mongo_db;
+	char* mongo_collection;
 
   	int sending_time;
     int status_checker;
 
 	char** pilots;
-	int pilots_size; //PRIVATE
-	int chosen_pilot; //PRIVATE 
+	int pilots_size;
+	int chosen_pilot; 
 
 
 	char** races;
-	int races_size; //PRIVATE
-	int chosen_race; //PRIVATE
+	int races_size;
+	int chosen_race;
 } config_t;
 
 extern int verbose;

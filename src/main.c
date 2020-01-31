@@ -72,7 +72,7 @@ int main(int argc, char const *argv[]) {
 					} else {
 						//config file is correct
 						//opening mongo handler
-						mongo_handler = mongo_setup(config_file->mongo_port,config_file->mongo_host,config_file->mongo_db);
+						mongo_handler = mongo_setup(config_file->mongo_port,config_file->mongo_host,config_file->mongo_db, config_file->mongo_collection);
 
 						if (mongo_handler == NULL) {
 							telemetria_state = EXIT;
@@ -107,7 +107,7 @@ int main(int argc, char const *argv[]) {
 
   			case SAVE: case IDLE:
   				data_structure = data_setup();
-  				data_gather(data_structure,config_file->sending_time, can_socket);
+  				data_gather(data_structure,config_file->sending_time, can_socket, mongo_handler->session_name);
   				//GPS
   				if (gps_plugged)
   					fill_gps(data_structure);

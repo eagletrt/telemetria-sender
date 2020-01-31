@@ -80,6 +80,9 @@ class BsonCodeGenerator {
             case 'double':
                 this._print(`BSON_APPEND_DOUBLE(${this._parseDepth()}, "${this._getKey()}", data${this._parseKeys()});`);
                 break;
+            case 'char*':
+                this._print(`BSON_APPEND_UTF8(${this._parseDepth()}, "${this._getKey()}", data${this._parseKeys()});`);
+                break;
         }
     }
 

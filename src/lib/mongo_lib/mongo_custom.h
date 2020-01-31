@@ -27,9 +27,10 @@ typedef struct {
   	mongoc_client_t *client;
   	mongoc_database_t *database;
   	mongoc_collection_t *collection;
+	char* session_name;
 } dbhandler_t;
 
-dbhandler_t* mongo_setup(int port, char* host, char* database);
+dbhandler_t* mongo_setup(int port, char* host, char* database, char* collection);
 int mongo_insert(bson_t* insert, dbhandler_t* handler);
 int mongo_set_collection(dbhandler_t* handler, char* driver, char* type, int timestamp);
 int mongo_quit(dbhandler_t* handler);

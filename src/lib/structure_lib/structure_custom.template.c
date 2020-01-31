@@ -25,11 +25,12 @@ int data_quit(data_t *data)
 	return 0;
 }
 
-int data_gather(data_t *data, int timing, int socket)
+int data_gather(data_t *data, int timing, int socket, char* sessionId)
 {
 	msgid++;
 
 	data->id = msgid;
+	data->sessionId = sessionId;
 
 	double msec = 0, end = 0;
 	struct timespec tstart = {0, 0}, tend = {0, 0};

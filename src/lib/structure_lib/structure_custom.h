@@ -246,6 +246,7 @@ typedef struct {
 typedef struct {
 	int id;
 	long timestamp;
+	char* sessionId;
 	inverterRight_data *inverterRight;
 	int inverterRight_count;
 	inverterLeft_data *inverterLeft;
@@ -272,6 +273,6 @@ typedef struct {
 data_t* data_setup();
 int data_elaborate(data_t* data, bson_t** sending);
 int data_quit(data_t* data);
-int data_gather(data_t* data, int timing, int socket);
+int data_gather(data_t* data, int timing, int socket, char* sessionId);
 
 #endif

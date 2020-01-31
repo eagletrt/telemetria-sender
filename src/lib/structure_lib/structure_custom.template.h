@@ -11,6 +11,6 @@ extern int telemetry_handler(int id, int data1, int data2);
 data_t* data_setup();
 int data_elaborate(data_t* data, bson_t** sending);
 int data_quit(data_t* data);
-int data_gather(data_t* data, int timing, int socket);
+int data_gather(data_t* data, int timing, int socket, char* sessionId);
 
 #endif

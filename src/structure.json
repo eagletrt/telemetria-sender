@@ -1,6 +1,7 @@
 {
     "id": "int",
     "timestamp": "long",
+    "sessionId": "char*",
     "inverterRight": [
         {
             "timestamp": "long",
