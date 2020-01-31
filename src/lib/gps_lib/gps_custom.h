@@ -3,8 +3,9 @@
 #define _GPS_H_
 
 //types
-struct GLL{
-	char 	*latitude,
+struct GLL
+{
+	char *latitude,
 		*longitude,
 		ns_indicator,
 		ew_indicator,
@@ -13,8 +14,9 @@ struct GLL{
 };
 typedef struct GLL GLL;
 
-struct GGA{ 
-	char	*latitude,
+struct GGA
+{
+	char *latitude,
 		*longitude,
 		ns_indicator,
 		ew_indicator,
@@ -24,13 +26,10 @@ struct GGA{
 };
 typedef struct GGA GGA;
 
-
 //signatures
 int openPort(char *port);
-GLL GLLstring2GLLstruct(char* message);
-GGA* GGAstring2GGAstruct(char* message);
-GGA* getGGAstruct(int serial_port);
+GLL GLLstring2GLLstruct(char *message);
+GGA *GGAstring2GGAstruct(char *message);
+GGA *getGGAstruct(int serial_port);
 
 #endif
-
-

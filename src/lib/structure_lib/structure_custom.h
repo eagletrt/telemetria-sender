@@ -164,12 +164,12 @@ typedef struct {
 } gps_old_data;
 
 typedef struct {
-	long timestamp;
+	double timestamp;
 	double latitude;
 	double longitude;
-	double altitude;
-	int ns_indicator;
-	int ew_indicator;
+	char* altitude;
+	char* ns_indicator;
+	char* ew_indicator;
 	gps_old_data old;
 } gps_data;
 

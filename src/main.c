@@ -102,7 +102,7 @@ int main(int argc, char const *argv[]) {
 							}
 						}
 					}
-				switch_to(&telemetria_state, IDLE); // WARN: change to IDLE during test
+				switch_to(&telemetria_state, SAVE); // WARN: change to IDLE during test
   			break;
 
   			case SAVE: case IDLE:
@@ -245,7 +245,7 @@ int telemetry_handler(int id, int data1, int data2) {
 int fill_gps(data_t* data){
 	GGA *GGA_struct = getGGAstruct(serial_port);
 
-	data->gps.timestamp = -1;
+	data->gps.timestamp = atof(GGA_struct->UTCtime);
 	
 	//latitude and longitude
 	int latitude_d = atoi(GGA_struct->latitude);	 
@@ -257,9 +257,16 @@ int fill_gps(data_t* data){
 	data->gps.latitude = (latitude_d / 100) + (latitude_m/60);
 	data->gps.longitude = (longitude_d / 100) + (longitude_m/60);
 
+
     //already corrected data
-    data->gps.altitude = atof(GGA_struct->altitude);
-    data->gps.ns_indicator = GGA_struct->ns_indicator;
-    data->gps.ew_indicator = GGA_struct->ew_indicator;
+    data->gps.altitude = GGA_struct->altitude;
+    data->gps.ns_indicator = malloc(sizeof(char) * 2);
+	data->gps.ns_indicator[0] = GGA_struct->ns_indicator;
+	data->gps.ns_indicator[1] = '\0';
+    data->gps.ew_indicator = malloc(sizeof(char) * 2);
+	data->gps.ew_indicator[0] = GGA_struct->ew_indicator;
+	data->gps.ew_indicator[1] = '\0';
+
+	printf("ciao\n");
 	return 0;
 }

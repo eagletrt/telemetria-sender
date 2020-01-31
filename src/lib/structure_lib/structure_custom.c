@@ -198,12 +198,12 @@ int data_elaborate(data_t* data, bson_t** sending) {
 	bson_append_document_end(*sending, &children[0]);
 	bson_destroy(&children[0]);
 	BSON_APPEND_DOCUMENT_BEGIN(*sending, "gps", &children[0]);
-	BSON_APPEND_INT64(&children[0], "timestamp", data->gps.timestamp);
+	BSON_APPEND_DOUBLE(&children[0], "timestamp", data->gps.timestamp);
 	BSON_APPEND_DOUBLE(&children[0], "latitude", data->gps.latitude);
 	BSON_APPEND_DOUBLE(&children[0], "longitude", data->gps.longitude);
-	BSON_APPEND_DOUBLE(&children[0], "altitude", data->gps.altitude);
-	BSON_APPEND_INT32(&children[0], "ns_indicator", data->gps.ns_indicator);
-	BSON_APPEND_INT32(&children[0], "ew_indicator", data->gps.ew_indicator);
+	BSON_APPEND_UTF8(&children[0], "altitude", data->gps.altitude);
+	BSON_APPEND_UTF8(&children[0], "ns_indicator", data->gps.ns_indicator);
+	BSON_APPEND_UTF8(&children[0], "ew_indicator", data->gps.ew_indicator);
 	BSON_APPEND_DOCUMENT_BEGIN(&children[0], "old", &children[1]);
 	BSON_APPEND_ARRAY_BEGIN(&children[1], "latspd", &children[2]);
 	for (int i = 0; i < (data->gps.old.latspd_count); i++)
