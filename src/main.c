@@ -245,28 +245,39 @@ int telemetry_handler(int id, int data1, int data2) {
 int fill_gps(data_t* data){
 	GGA *GGA_struct = getGGAstruct(serial_port);
 
-	data->gps.timestamp = atof(GGA_struct->UTCtime);
-	
-	//latitude and longitude
-	int latitude_d = atoi(GGA_struct->latitude);	 
-    int longitude_d = atoi(GGA_struct->longitude);
-    
-    double latitude_m = latitude_d % 100;
-    double longitude_m = longitude_d % 100;
-	
-	data->gps.latitude = (latitude_d / 100) + (latitude_m/60);
-	data->gps.longitude = (longitude_d / 100) + (longitude_m/60);
+	if (GGA_struct != NULL) {
 
+		data->gps.timestamp = atof(GGA_struct->UTCtime);
 
-    //already corrected data
-    data->gps.altitude = GGA_struct->altitude;
-    data->gps.ns_indicator = malloc(sizeof(char) * 2);
-	data->gps.ns_indicator[0] = GGA_struct->ns_indicator;
-	data->gps.ns_indicator[1] = '\0';
-    data->gps.ew_indicator = malloc(sizeof(char) * 2);
-	data->gps.ew_indicator[0] = GGA_struct->ew_indicator;
-	data->gps.ew_indicator[1] = '\0';
+		data->gps.latitude = (char*) malloc(sizeof(char) * strlen(GGA_struct->latitude));
+		strcpy(data->gps.latitude, GGA_struct->latitude);
+		
+		data->gps.longitude = (char*) malloc(sizeof(char) * strlen(GGA_struct->longitude));
+		strcpy(data->gps.longitude, GGA_struct->longitude);
+		
+		//latitude and longitude
+		/*
+		int latitude_d = atoi(GGA_struct->latitude);	 
+		int longitude_d = atoi(GGA_struct->longitude);
+		
+		double latitude_m = latitude_d % 100;
+		double longitude_m = longitude_d % 100;
+		
+		data->gps.latitude = (latitude_d / 100) + (latitude_m/60);
+		data->gps.longitude = (longitude_d / 100) + (longitude_m/60);
+		*/
 
-	printf("ciao\n");
+		/*
+		data->gps.altitude = GGA_struct->altitude;
+		data->gps.ns_indicator = malloc(sizeof(char) * 2);
+		data->gps.ns_indicator[0] = GGA_struct->ns_indicator;
+		data->gps.ns_indicator[1] = '\0';
+		data->gps.ew_indicator = malloc(sizeof(char) * 2);
+		data->gps.ew_indicator[0] = GGA_struct->ew_indicator;
+		data->gps.ew_indicator[1] = '\0';
+		*/
+
+	}
+
 	return 0;
 }

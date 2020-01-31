@@ -87,11 +87,8 @@
     },
     "gps": {
         "timestamp" : "double",
-        "latitude": "double",
-        "longitude": "double",
-        "altitude":"char*",
-        "ns_indicator": "char*",
-        "ew_indicator":"char*",
+        "latitude": "char*",
+        "longitude": "char*",
         "old": {
             "latspd": [
                 {

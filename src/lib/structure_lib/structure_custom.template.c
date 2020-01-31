@@ -7,6 +7,8 @@ int msgid = 0;
 data_t* data_setup() {
 	data_t* data = (data_t*) malloc(sizeof(data_t));
 	data->steering_wheel.marker = 0;
+	data->gps.latitude = "";
+	data->gps.longitude = "";
 	// {{GENERATE_STRUCTURE_INITIALIZER_CODE}}
 	return data;
 }
