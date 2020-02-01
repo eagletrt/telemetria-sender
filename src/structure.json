@@ -1,24 +1,20 @@
 {
     "id": "int",
     "timestamp": "long",
-    "inverterRight": [        
-        {
-            "timestamp": "long",
-            "value": {
-                "data1": "int",
-                "data2": "int"
-            }
-        }, 500
-    ],
-    "inverterLeft": [        
-        {
-            "timestamp": "long",
-            "value": {
-                "data1": "int",
-                "data2": "int"
-            }
-        }, 500
-    ],
+    "inverter": {
+        "right": [
+            {
+                "timestamp": "long",
+                "resolver_speed": "int"
+            }, 500
+        ],
+        "left": [
+            {
+                "timestamp": "long",
+                "resolver_speed": "int"
+            }, 500
+        ]
+    },
     "bms_hv": {
         "temperature": [
             {

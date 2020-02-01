@@ -22,7 +22,7 @@
 
 //TRACING DEBUG GLOBAL VARIABLE
 int verbose = 1;
-int gps_plugged = 1; // WARN: change to 1 during tests
+int gps_plugged = 0; // WARN: change to 1 during tests
 
 //TELEMETRY STATE
 typedef enum {

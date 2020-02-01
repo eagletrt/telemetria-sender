@@ -49,16 +49,26 @@ int data_gather(data_t* data, int timing, int socket) {
 
 	    switch(id) {
 
+			//LEFT INVERTER
 	    	case(0x181):
-	    		data->inverterLeft[data->inverterLeft_count].timestamp = message_timestamp;
-	    		data->inverterLeft[data->inverterLeft_count].value.data1 = data1;
-	    		data->inverterLeft[data->inverterLeft_count++].value.data2 = data2;
+				switch (firstByte)
+				{
+				case 0x04:
+					data->inverter.left[data->inverter.left_count].timestamp = message_timestamp;
+	    			data->inverter.left[data->inverter.left_count].resolver_speed = data1 & 0x0000FFFF;
+					break;
+				}
 	    	break;
 
+			//RIGHT INVERTER
 	    	case(0x182):
-	    		data->inverterRight[data->inverterRight_count].timestamp = message_timestamp;
-	    		data->inverterRight[data->inverterRight_count].value.data1 = data1;
-	    		data->inverterRight[data->inverterRight_count++].value.data2 = data2;
+	    		switch (firstByte)
+				{
+				case 0x04:
+					data->inverter.right[data->inverter.right_count].timestamp = message_timestamp;
+	    			data->inverter.right[data->inverter.right_count].resolver_speed = data1 & 0x0000FFFF;
+					break;
+				}
 	    	break;
 
 			case(0xAA): //BMS HV

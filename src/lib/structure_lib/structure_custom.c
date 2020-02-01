@@ -7,10 +7,12 @@ int msgid = 0;
 data_t* data_setup() {
 	data_t* data = (data_t*) malloc(sizeof(data_t));
 	data->steering_wheel.marker = 0;
-	data->inverterRight = (inverterRight_data*)malloc(sizeof(inverterRight_data) * 500);
-	data->inverterRight_count = 0;
-	data->inverterLeft = (inverterLeft_data*)malloc(sizeof(inverterLeft_data) * 500);
-	data->inverterLeft_count = 0;
+	data->gps.latitude = "";
+	data->gps.longitude = "";
+	data->inverter.right = (inverter_right_data*)malloc(sizeof(inverter_right_data) * 500);
+	data->inverter.right_count = 0;
+	data->inverter.left = (inverter_left_data*)malloc(sizeof(inverter_left_data) * 500);
+	data->inverter.left_count = 0;
 	data->bms_hv.temperature = (bms_hv_temperature_data*)malloc(sizeof(bms_hv_temperature_data) * 500);
 	data->bms_hv.temperature_count = 0;
 	data->bms_hv.voltage = (bms_hv_voltage_data*)malloc(sizeof(bms_hv_voltage_data) * 500);
@@ -58,35 +60,30 @@ int data_elaborate(data_t* data, bson_t** sending) {
 	bson_t *children = (bson_t*)malloc(sizeof(bson_t) * 5);
 	BSON_APPEND_INT32(*sending, "id", data->id);
 	BSON_APPEND_INT64(*sending, "timestamp", data->timestamp);
-	BSON_APPEND_ARRAY_BEGIN(*sending, "inverterRight", &children[0]);
-	for (int i = 0; i < (data->inverterRight_count); i++)
+	BSON_APPEND_DOCUMENT_BEGIN(*sending, "inverter", &children[0]);
+	BSON_APPEND_ARRAY_BEGIN(&children[0], "right", &children[1]);
+	for (int i = 0; i < (data->inverter.right_count); i++)
 	{
-		BSON_APPEND_DOCUMENT_BEGIN(&children[0], "0", &children[1]);
-		BSON_APPEND_INT64(&children[1], "timestamp", data->inverterRight[i].timestamp);
-		BSON_APPEND_DOCUMENT_BEGIN(&children[1], "value", &children[2]);
-		BSON_APPEND_INT32(&children[2], "data1", data->inverterRight[i].value.data1);
-		BSON_APPEND_INT32(&children[2], "data2", data->inverterRight[i].value.data2);
+		BSON_APPEND_DOCUMENT_BEGIN(&children[1], "0", &children[2]);
+		BSON_APPEND_INT64(&children[2], "timestamp", data->inverter.right[i].timestamp);
+		BSON_APPEND_INT32(&children[2], "resolver_speed", data->inverter.right[i].resolver_speed);
 		bson_append_document_end(&children[1], &children[2]);
 		bson_destroy(&children[2]);
-		bson_append_document_end(&children[0], &children[1]);
-		bson_destroy(&children[1]);
 	}
-	bson_append_array_end(*sending, &children[0]);
-	bson_destroy(&children[0]);
-	BSON_APPEND_ARRAY_BEGIN(*sending, "inverterLeft", &children[0]);
-	for (int i = 0; i < (data->inverterLeft_count); i++)
+	bson_append_array_end(&children[0], &children[1]);
+	bson_destroy(&children[1]);
+	BSON_APPEND_ARRAY_BEGIN(&children[0], "left", &children[1]);
+	for (int i = 0; i < (data->inverter.left_count); i++)
 	{
-		BSON_APPEND_DOCUMENT_BEGIN(&children[0], "0", &children[1]);
-		BSON_APPEND_INT64(&children[1], "timestamp", data->inverterLeft[i].timestamp);
-		BSON_APPEND_DOCUMENT_BEGIN(&children[1], "value", &children[2]);
-		BSON_APPEND_INT32(&children[2], "data1", data->inverterLeft[i].value.data1);
-		BSON_APPEND_INT32(&children[2], "data2", data->inverterLeft[i].value.data2);
+		BSON_APPEND_DOCUMENT_BEGIN(&children[1], "0", &children[2]);
+		BSON_APPEND_INT64(&children[2], "timestamp", data->inverter.left[i].timestamp);
+		BSON_APPEND_INT32(&children[2], "resolver_speed", data->inverter.left[i].resolver_speed);
 		bson_append_document_end(&children[1], &children[2]);
 		bson_destroy(&children[2]);
-		bson_append_document_end(&children[0], &children[1]);
-		bson_destroy(&children[1]);
 	}
-	bson_append_array_end(*sending, &children[0]);
+	bson_append_array_end(&children[0], &children[1]);
+	bson_destroy(&children[1]);
+	bson_append_document_end(*sending, &children[0]);
 	bson_destroy(&children[0]);
 	BSON_APPEND_DOCUMENT_BEGIN(*sending, "bms_hv", &children[0]);
 	BSON_APPEND_ARRAY_BEGIN(&children[0], "temperature", &children[1]);
@@ -199,11 +196,8 @@ int data_elaborate(data_t* data, bson_t** sending) {
 	bson_destroy(&children[0]);
 	BSON_APPEND_DOCUMENT_BEGIN(*sending, "gps", &children[0]);
 	BSON_APPEND_DOUBLE(&children[0], "timestamp", data->gps.timestamp);
-	BSON_APPEND_DOUBLE(&children[0], "latitude", data->gps.latitude);
-	BSON_APPEND_DOUBLE(&children[0], "longitude", data->gps.longitude);
-	BSON_APPEND_UTF8(&children[0], "altitude", data->gps.altitude);
-	BSON_APPEND_UTF8(&children[0], "ns_indicator", data->gps.ns_indicator);
-	BSON_APPEND_UTF8(&children[0], "ew_indicator", data->gps.ew_indicator);
+	BSON_APPEND_UTF8(&children[0], "latitude", data->gps.latitude);
+	BSON_APPEND_UTF8(&children[0], "longitude", data->gps.longitude);
 	BSON_APPEND_DOCUMENT_BEGIN(&children[0], "old", &children[1]);
 	BSON_APPEND_ARRAY_BEGIN(&children[1], "latspd", &children[2]);
 	for (int i = 0; i < (data->gps.old.latspd_count); i++)
@@ -392,8 +386,8 @@ int data_elaborate(data_t* data, bson_t** sending) {
 }
 
 int data_quit(data_t* data) {
-	free(data->inverterRight);
-	free(data->inverterLeft);
+	free(data->inverter.right);
+	free(data->inverter.left);
 	free(data->bms_hv.temperature);
 	free(data->bms_hv.voltage);
 	free(data->bms_hv.current);
@@ -444,16 +438,26 @@ int data_gather(data_t* data, int timing, int socket) {
 
 	    switch(id) {
 
+			//LEFT INVERTER
 	    	case(0x181):
-	    		data->inverterLeft[data->inverterLeft_count].timestamp = message_timestamp;
-	    		data->inverterLeft[data->inverterLeft_count].value.data1 = data1;
-	    		data->inverterLeft[data->inverterLeft_count++].value.data2 = data2;
+				switch (firstByte)
+				{
+				case 0x04:
+					data->inverter.left[data->inverter.left_count].timestamp = message_timestamp;
+	    			data->inverter.left[data->inverter.left_count].resolver_speed = data1 & 0x0000FFFF;
+					break;
+				}
 	    	break;
 
+			//RIGHT INVERTER
 	    	case(0x182):
-	    		data->inverterRight[data->inverterRight_count].timestamp = message_timestamp;
-	    		data->inverterRight[data->inverterRight_count].value.data1 = data1;
-	    		data->inverterRight[data->inverterRight_count++].value.data2 = data2;
+	    		switch (firstByte)
+				{
+				case 0x04:
+					data->inverter.right[data->inverter.right_count].timestamp = message_timestamp;
+	    			data->inverter.right[data->inverter.right_count].resolver_speed = data1 & 0x0000FFFF;
+					break;
+				}
 	    	break;
 
 			case(0xAA): //BMS HV

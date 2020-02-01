@@ -8,24 +8,21 @@ extern int receive_can_compact(int socket, int* id, int* data1, int*data2);
 extern int telemetry_handler(int id, int data1, int data2);
 
 typedef struct {
-	int data1;
-	int data2;
-} inverterRight_value_data;
+	long timestamp;
+	int resolver_speed;
+} inverter_right_data;
 
 typedef struct {
 	long timestamp;
-	inverterRight_value_data value;
-} inverterRight_data;
+	int resolver_speed;
+} inverter_left_data;
 
 typedef struct {
-	int data1;
-	int data2;
-} inverterLeft_value_data;
-
-typedef struct {
-	long timestamp;
-	inverterLeft_value_data value;
-} inverterLeft_data;
+	inverter_right_data *right;
+	int right_count;
+	inverter_left_data *left;
+	int left_count;
+} inverter_data;
 
 typedef struct {
 	double max;
@@ -165,11 +162,8 @@ typedef struct {
 
 typedef struct {
 	double timestamp;
-	double latitude;
-	double longitude;
-	char* altitude;
-	char* ns_indicator;
-	char* ew_indicator;
+	char* latitude;
+	char* longitude;
 	gps_old_data old;
 } gps_data;
 
@@ -256,10 +250,7 @@ typedef struct {
 typedef struct {
 	int id;
 	long timestamp;
-	inverterRight_data *inverterRight;
-	int inverterRight_count;
-	inverterLeft_data *inverterLeft;
-	int inverterLeft_count;
+	inverter_data inverter;
 	bms_hv_data bms_hv;
 	bms_lv_data bms_lv;
 	gps_data gps;
