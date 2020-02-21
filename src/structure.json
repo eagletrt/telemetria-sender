@@ -1,13 +1,12 @@
 {
     "id": "int",
     "timestamp": "long",
-    "sessionId": "char*",
     "inverterRight": [
         {
             "timestamp": "long",
             "value": {
-                "data1": "int",
-                "data2": "int"
+                "data_left": "int",
+                "data_right": "int"
             }
         },
         500
@@ -16,8 +15,8 @@
         {
             "timestamp": "long",
             "value": {
-                "data1": "int",
-                "data2": "int"
+                "data_left": "int",
+                "data_right": "int"
             }
         },
         500
@@ -96,12 +95,33 @@
         ]
     },
     "gps": {
-        "timestamp": "long",
-        "latitude": "double",
-        "longitude": "double",
-        "altitude": "double",
-        "ns_indicator": "int",
-        "ew_indicator": "int",
+        "new": [
+            {
+                "timestamp": "long",
+                "value": {
+                    "latitude_GGA": "double",
+                    "longitude_GGA": "double",
+                    "altitude_GGA": "double",
+                    "ns_indicator_GGA": "char*",
+                    "ew_indicator_GGA": "char*",
+                    "utc_time_GGA": "char*",
+                    "latitude_GLL": "double",
+                    "longitude_GLL": "double",
+                    "ns_indicator_GLL": "char*",
+                    "ew_indicator_GLL": "char*",
+                    "utc_time_GLL": "char*",
+                    "ground_speed_knots_VTG": "double",
+                    "ground_speed_human_VTG": "double",
+                    "latitude_RMC": "double",
+                    "longitude_RMC": "double",
+                    "ns_indicator_RMC": "char*",
+                    "ew_indicator_RMC": "char*",
+                    "utc_time_RMC": "char*",
+                    "date_RMC": "char*",
+                    "ground_speed_knots_RMC": "double"
+                }
+            }, 500
+        ],        
         "old": {
             "location": [
                 {

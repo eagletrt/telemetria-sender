@@ -27,7 +27,7 @@ class BsonCodeGenerator {
     }
 
     _parseDepth() {
-        return (this.depth === 0 ? '*sending' : `&children[${this.depth - 1}]`);
+        return (this.depth === 0 ? '*bson_document' : `&children[${this.depth - 1}]`);
     }
 
     _parseKey({ key, type }) {
@@ -158,7 +158,7 @@ class BsonCodeGenerator {
     }
 
     generate() {
-        this._print(`*sending = bson_new();`);
+        this._print(`*bson_document = bson_new();`);
         this._print(`bson_t *children = (bson_t*)malloc(sizeof(bson_t) * ${this.maxDepth});`);
         this._firstParse(this.structure);
         return this.result;
