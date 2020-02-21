@@ -15,9 +15,10 @@
   "pilots": [
     "default",
     "Ivan",
-    "Gastaldello",
-    "Pilot1",
-    "Pilot2"
+    "Filippo",
+    "Mirco",
+    "Nicola",
+    "Davide"
   ],
 
   "races": [
@@ -38,5 +39,5 @@
   "can_interface": "can0",
   "sending_rate": 500,
   "gps_plugged": 1,
-  "verbose": 0
+  "verbose": 1
 }

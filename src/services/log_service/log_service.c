@@ -1,17 +1,21 @@
 #include "log_service.h"
 
 void debugConfigPath() {
-    char *message;
-    asprintf(&message, "Config file path is %s", condition.config_path);
-    logDebug(message);
-    free(message);
+    if (condition.verbose) {
+        char *message;
+        asprintf(&message, "Config file path is %s", condition.config_path);
+        logDebug(message);
+        free(message);
+    }
 }
 
 void debugGpsPort() {
-    char *message;
-    asprintf(&message, "Gps port is %d", condition.gps_port);
-    logDebug(message);
-    free(message);
+    if (condition.verbose) {
+        char *message;
+        asprintf(&message, "Gps port is %d", condition.gps_port);
+        logDebug(message);
+        free(message);
+    }
 }
 
 void infoTransition(int from, int to, char** labels) {  
