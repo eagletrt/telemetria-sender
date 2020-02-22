@@ -23,24 +23,57 @@ extern condition_t condition;
 /* TYPES */
 
 typedef struct {
-	int data_left;
-	int data_right;
-} inverterRight_value_data;
+	long timestamp;
+	double value;
+} inverters_right_speed_data;
 
 typedef struct {
 	long timestamp;
-	inverterRight_value_data value;
-} inverterRight_data;
-
-typedef struct {
-	int data_left;
-	int data_right;
-} inverterLeft_value_data;
+	double value;
+} inverters_right_temperature_igbt_data;
 
 typedef struct {
 	long timestamp;
-	inverterLeft_value_data value;
-} inverterLeft_data;
+	double value;
+} inverters_right_temperature_motors_data;
+
+typedef struct {
+	inverters_right_speed_data *speed;
+	int speed_count;
+	inverters_right_temperature_igbt_data *temperature_igbt;
+	int temperature_igbt_count;
+	inverters_right_temperature_motors_data *temperature_motors;
+	int temperature_motors_count;
+} inverters_right_data;
+
+typedef struct {
+	long timestamp;
+	double value;
+} inverters_left_speed_data;
+
+typedef struct {
+	long timestamp;
+	double value;
+} inverters_left_temperature_igbt_data;
+
+typedef struct {
+	long timestamp;
+	double value;
+} inverters_left_temperature_motors_data;
+
+typedef struct {
+	inverters_left_speed_data *speed;
+	int speed_count;
+	inverters_left_temperature_igbt_data *temperature_igbt;
+	int temperature_igbt_count;
+	inverters_left_temperature_motors_data *temperature_motors;
+	int temperature_motors_count;
+} inverters_left_data;
+
+typedef struct {
+	inverters_right_data right;
+	inverters_left_data left;
+} inverters_data;
 
 typedef struct {
 	double max;
@@ -285,10 +318,7 @@ typedef struct {
 typedef struct {
 	int id;
 	long timestamp;
-	inverterRight_data *inverterRight;
-	int inverterRight_count;
-	inverterLeft_data *inverterLeft;
-	int inverterLeft_count;
+	inverters_data inverters;
 	bms_hv_data bms_hv;
 	bms_lv_data bms_lv;
 	gps_data gps;

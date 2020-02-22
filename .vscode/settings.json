@@ -1,5 +1,11 @@
 {
     "files.associations": {
-        "mongo_custom.h": "c"
+        "mongo_custom.h": "c",
+        "istream": "c",
+        "ostream": "c",
+        "array": "c",
+        "tuple": "c",
+        "type_traits": "c",
+        "utility": "c"
     }
 }
