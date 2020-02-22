@@ -1,26 +1,48 @@
 {
     "id": "int",
     "timestamp": "long",
-    "inverterRight": [
-        {
-            "timestamp": "long",
-            "value": {
-                "data_left": "int",
-                "data_right": "int"
-            }
+    "inverters": {
+        "right": {
+            "speed": [
+                {
+                    "timestamp": "long",
+                    "value": "int"
+                }, 500
+            ],
+            "temperature_igbt": [
+                {
+                    "timestamp": "long",
+                    "value": "int"
+                }, 500
+            ],
+            "temperature_motors": [
+                {
+                    "timestamp": "long",
+                    "value": "int"
+                }, 500
+            ]
         },
-        500
-    ],
-    "inverterLeft": [
-        {
-            "timestamp": "long",
-            "value": {
-                "data_left": "int",
-                "data_right": "int"
-            }
-        },
-        500
-    ],
+        "left": {
+            "speed": [
+                {
+                    "timestamp": "long",
+                    "value": "int"
+                }, 500
+            ],
+            "temperature_igbt": [
+                {
+                    "timestamp": "long",
+                    "value": "int"
+                }, 500
+            ],
+            "temperature_motors": [
+                {
+                    "timestamp": "long",
+                    "value": "int"
+                }, 500
+            ]
+        }
+    },
     "bms_hv": {
         "temperature": [
             {

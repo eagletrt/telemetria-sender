@@ -10,10 +10,18 @@ static long long int getCurrentTimestamp();
 data_t* structureCreate() {
 	data_t* data = (data_t*) malloc(sizeof(data_t));
 	data->steering_wheel.marker = 0;
-	data->inverterRight = (inverterRight_data*)malloc(sizeof(inverterRight_data) * 500);
-	data->inverterRight_count = 0;
-	data->inverterLeft = (inverterLeft_data*)malloc(sizeof(inverterLeft_data) * 500);
-	data->inverterLeft_count = 0;
+	data->inverters.right.speed = (inverters_right_speed_data*)malloc(sizeof(inverters_right_speed_data) * 500);
+	data->inverters.right.speed_count = 0;
+	data->inverters.right.temperature_igbt = (inverters_right_temperature_igbt_data*)malloc(sizeof(inverters_right_temperature_igbt_data) * 500);
+	data->inverters.right.temperature_igbt_count = 0;
+	data->inverters.right.temperature_motors = (inverters_right_temperature_motors_data*)malloc(sizeof(inverters_right_temperature_motors_data) * 500);
+	data->inverters.right.temperature_motors_count = 0;
+	data->inverters.left.speed = (inverters_left_speed_data*)malloc(sizeof(inverters_left_speed_data) * 500);
+	data->inverters.left.speed_count = 0;
+	data->inverters.left.temperature_igbt = (inverters_left_temperature_igbt_data*)malloc(sizeof(inverters_left_temperature_igbt_data) * 500);
+	data->inverters.left.temperature_igbt_count = 0;
+	data->inverters.left.temperature_motors = (inverters_left_temperature_motors_data*)malloc(sizeof(inverters_left_temperature_motors_data) * 500);
+	data->inverters.left.temperature_motors_count = 0;
 	data->bms_hv.temperature = (bms_hv_temperature_data*)malloc(sizeof(bms_hv_temperature_data) * 500);
 	data->bms_hv.temperature_count = 0;
 	data->bms_hv.voltage = (bms_hv_voltage_data*)malloc(sizeof(bms_hv_voltage_data) * 500);
@@ -61,35 +69,80 @@ void structureToBson(data_t *data, bson_t** bson_document) {
 	bson_t *children = (bson_t*)malloc(sizeof(bson_t) * 5);
 	BSON_APPEND_INT32(*bson_document, "id", data->id);
 	BSON_APPEND_INT64(*bson_document, "timestamp", data->timestamp);
-	BSON_APPEND_ARRAY_BEGIN(*bson_document, "inverterRight", &children[0]);
-	for (int i = 0; i < (data->inverterRight_count); i++)
+	BSON_APPEND_DOCUMENT_BEGIN(*bson_document, "inverters", &children[0]);
+	BSON_APPEND_DOCUMENT_BEGIN(&children[0], "right", &children[1]);
+	BSON_APPEND_ARRAY_BEGIN(&children[1], "speed", &children[2]);
+	for (int i = 0; i < (data->inverters.right.speed_count); i++)
 	{
-		BSON_APPEND_DOCUMENT_BEGIN(&children[0], "0", &children[1]);
-		BSON_APPEND_INT64(&children[1], "timestamp", data->inverterRight[i].timestamp);
-		BSON_APPEND_DOCUMENT_BEGIN(&children[1], "value", &children[2]);
-		BSON_APPEND_INT32(&children[2], "data_left", data->inverterRight[i].value.data_left);
-		BSON_APPEND_INT32(&children[2], "data_right", data->inverterRight[i].value.data_right);
-		bson_append_document_end(&children[1], &children[2]);
-		bson_destroy(&children[2]);
-		bson_append_document_end(&children[0], &children[1]);
-		bson_destroy(&children[1]);
+		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "0", &children[3]);
+		BSON_APPEND_INT64(&children[3], "timestamp", data->inverters.right.speed[i].timestamp);
+		BSON_APPEND_INT32(&children[3], "value", data->inverters.right.speed[i].value);
+		bson_append_document_end(&children[2], &children[3]);
+		bson_destroy(&children[3]);
 	}
-	bson_append_array_end(*bson_document, &children[0]);
-	bson_destroy(&children[0]);
-	BSON_APPEND_ARRAY_BEGIN(*bson_document, "inverterLeft", &children[0]);
-	for (int i = 0; i < (data->inverterLeft_count); i++)
+	bson_append_array_end(&children[1], &children[2]);
+	bson_destroy(&children[2]);
+	BSON_APPEND_ARRAY_BEGIN(&children[1], "temperature_igbt", &children[2]);
+	for (int i = 0; i < (data->inverters.right.temperature_igbt_count); i++)
 	{
-		BSON_APPEND_DOCUMENT_BEGIN(&children[0], "0", &children[1]);
-		BSON_APPEND_INT64(&children[1], "timestamp", data->inverterLeft[i].timestamp);
-		BSON_APPEND_DOCUMENT_BEGIN(&children[1], "value", &children[2]);
-		BSON_APPEND_INT32(&children[2], "data_left", data->inverterLeft[i].value.data_left);
-		BSON_APPEND_INT32(&children[2], "data_right", data->inverterLeft[i].value.data_right);
-		bson_append_document_end(&children[1], &children[2]);
-		bson_destroy(&children[2]);
-		bson_append_document_end(&children[0], &children[1]);
-		bson_destroy(&children[1]);
+		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "0", &children[3]);
+		BSON_APPEND_INT64(&children[3], "timestamp", data->inverters.right.temperature_igbt[i].timestamp);
+		BSON_APPEND_INT32(&children[3], "value", data->inverters.right.temperature_igbt[i].value);
+		bson_append_document_end(&children[2], &children[3]);
+		bson_destroy(&children[3]);
 	}
-	bson_append_array_end(*bson_document, &children[0]);
+	bson_append_array_end(&children[1], &children[2]);
+	bson_destroy(&children[2]);
+	BSON_APPEND_ARRAY_BEGIN(&children[1], "temperature_motors", &children[2]);
+	for (int i = 0; i < (data->inverters.right.temperature_motors_count); i++)
+	{
+		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "0", &children[3]);
+		BSON_APPEND_INT64(&children[3], "timestamp", data->inverters.right.temperature_motors[i].timestamp);
+		BSON_APPEND_INT32(&children[3], "value", data->inverters.right.temperature_motors[i].value);
+		bson_append_document_end(&children[2], &children[3]);
+		bson_destroy(&children[3]);
+	}
+	bson_append_array_end(&children[1], &children[2]);
+	bson_destroy(&children[2]);
+	bson_append_document_end(&children[0], &children[1]);
+	bson_destroy(&children[1]);
+	BSON_APPEND_DOCUMENT_BEGIN(&children[0], "left", &children[1]);
+	BSON_APPEND_ARRAY_BEGIN(&children[1], "speed", &children[2]);
+	for (int i = 0; i < (data->inverters.left.speed_count); i++)
+	{
+		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "0", &children[3]);
+		BSON_APPEND_INT64(&children[3], "timestamp", data->inverters.left.speed[i].timestamp);
+		BSON_APPEND_INT32(&children[3], "value", data->inverters.left.speed[i].value);
+		bson_append_document_end(&children[2], &children[3]);
+		bson_destroy(&children[3]);
+	}
+	bson_append_array_end(&children[1], &children[2]);
+	bson_destroy(&children[2]);
+	BSON_APPEND_ARRAY_BEGIN(&children[1], "temperature_igbt", &children[2]);
+	for (int i = 0; i < (data->inverters.left.temperature_igbt_count); i++)
+	{
+		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "0", &children[3]);
+		BSON_APPEND_INT64(&children[3], "timestamp", data->inverters.left.temperature_igbt[i].timestamp);
+		BSON_APPEND_INT32(&children[3], "value", data->inverters.left.temperature_igbt[i].value);
+		bson_append_document_end(&children[2], &children[3]);
+		bson_destroy(&children[3]);
+	}
+	bson_append_array_end(&children[1], &children[2]);
+	bson_destroy(&children[2]);
+	BSON_APPEND_ARRAY_BEGIN(&children[1], "temperature_motors", &children[2]);
+	for (int i = 0; i < (data->inverters.left.temperature_motors_count); i++)
+	{
+		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "0", &children[3]);
+		BSON_APPEND_INT64(&children[3], "timestamp", data->inverters.left.temperature_motors[i].timestamp);
+		BSON_APPEND_INT32(&children[3], "value", data->inverters.left.temperature_motors[i].value);
+		bson_append_document_end(&children[2], &children[3]);
+		bson_destroy(&children[3]);
+	}
+	bson_append_array_end(&children[1], &children[2]);
+	bson_destroy(&children[2]);
+	bson_append_document_end(&children[0], &children[1]);
+	bson_destroy(&children[1]);
+	bson_append_document_end(*bson_document, &children[0]);
 	bson_destroy(&children[0]);
 	BSON_APPEND_DOCUMENT_BEGIN(*bson_document, "bms_hv", &children[0]);
 	BSON_APPEND_ARRAY_BEGIN(&children[0], "temperature", &children[1]);
@@ -408,8 +461,12 @@ void structureToBson(data_t *data, bson_t** bson_document) {
 }
 
 void structureDelete(data_t *data) {
-	free(data->inverterRight);
-	free(data->inverterLeft);
+	free(data->inverters.right.speed);
+	free(data->inverters.right.temperature_igbt);
+	free(data->inverters.right.temperature_motors);
+	free(data->inverters.left.speed);
+	free(data->inverters.left.temperature_igbt);
+	free(data->inverters.left.temperature_motors);
 	free(data->bms_hv.temperature);
 	free(data->bms_hv.voltage);
 	free(data->bms_hv.current);
@@ -464,20 +521,69 @@ gather_code gatherStructure(data_t *document)
 		clock_gettime(CLOCK_MONOTONIC, &tmessage);
 
 		int first_byte = ((data_left >> 24) & 255);
+        int leftByte, rightByte, temp;
 
 		switch (id)
 		{
 
             case (INVERTER_RIGHT_ID):
-                document->inverterLeft[document->inverterLeft_count].timestamp = getCurrentTimestamp();
-                document->inverterLeft[document->inverterLeft_count].value.data_left = data_left;
-                document->inverterLeft[document->inverterLeft_count++].value.data_right = data_right;
+                switch (first_byte)
+                {
+                    case INVERTER_RIGHT_SPEED_FB: 
+                        printf("caldskfjsa1\n");
+                        leftByte = (data_left >> 8) & 0x000000FF;
+                        rightByte = (data_left >> 16) & 0x000000FF;
+                        temp = leftByte * 256 + rightByte;
+                        document->inverters.right.speed[document->inverters.right.speed_count].timestamp = getCurrentTimestamp();
+                        document->inverters.right.speed[document->inverters.right.speed_count++].value = (temp >= 32768 ? temp - 65536 : temp);
+                        break;
+
+                    case INVERTER_RIGHT_TEMPERATURE_IGBT_FB:
+                        leftByte = (data_left >> 8) & 0x000000FF;
+                        rightByte = (data_left >> 16) & 0x000000FF;
+                        temp = leftByte * 256 + rightByte;
+                        document->inverters.right.temperature_igbt[document->inverters.right.temperature_igbt_count].timestamp = getCurrentTimestamp();
+                        document->inverters.right.temperature_igbt[document->inverters.right.temperature_igbt_count++].value = (temp >= 32768 ? temp - 65536 : temp);
+                        break;
+
+                    case INVERTER_RIGHT_TEMPERATURE_MOTORS_FB:
+                        leftByte = (data_left >> 8) & 0x000000FF;
+                        rightByte = (data_left >> 16) & 0x000000FF;
+                        temp = leftByte * 256 + rightByte;
+                        document->inverters.right.temperature_motors[document->inverters.right.temperature_motors_count].timestamp = getCurrentTimestamp();
+                        document->inverters.right.temperature_motors[document->inverters.right.temperature_motors_count++].value = (temp >= 32768 ? temp - 65536 : temp);
+                        break;
+                }
                 break;
 
             case (INVERTER_LEFT_ID):
-                document->inverterRight[document->inverterRight_count].timestamp = getCurrentTimestamp();
-                document->inverterRight[document->inverterRight_count].value.data_left = data_left;
-                document->inverterRight[document->inverterRight_count++].value.data_right = data_right;
+                switch (first_byte)
+                {
+                    case INVERTER_LEFT_SPEED_FB: 
+                        printf("caldskfjsa1\n");
+                        leftByte = (data_left >> 8) & 0x000000FF;
+                        rightByte = (data_left >> 16) & 0x000000FF;
+                        temp = leftByte * 256 + rightByte;
+                        document->inverters.left.speed[document->inverters.left.speed_count].timestamp = getCurrentTimestamp();
+                        document->inverters.left.speed[document->inverters.left.speed_count++].value = (temp >= 32768 ? temp - 65536 : temp);
+                        break;
+
+                    case INVERTER_LEFT_TEMPERATURE_IGBT_FB:
+                        leftByte = (data_left >> 8) & 0x000000FF;
+                        rightByte = (data_left >> 16) & 0x000000FF;
+                        temp = leftByte * 256 + rightByte;
+                        document->inverters.left.temperature_igbt[document->inverters.left.temperature_igbt_count].timestamp = getCurrentTimestamp();
+                        document->inverters.left.temperature_igbt[document->inverters.left.temperature_igbt_count++].value = (temp >= 32768 ? temp - 65536 : temp);
+                        break;
+
+                    case INVERTER_LEFT_TEMPERATURE_MOTORS_FB:
+                        leftByte = (data_left >> 8) & 0x000000FF;
+                        rightByte = (data_left >> 16) & 0x000000FF;
+                        temp = leftByte * 256 + rightByte;
+                        document->inverters.left.temperature_motors[document->inverters.left.temperature_motors_count].timestamp = getCurrentTimestamp();
+                        document->inverters.left.temperature_motors[document->inverters.left.temperature_motors_count++].value = (temp >= 32768 ? temp - 65536 : temp);
+                        break;
+                }
                 break;
 
             case (BMS_HV_ID):

@@ -53,20 +53,67 @@ gather_code gatherStructure(data_t *document)
 		clock_gettime(CLOCK_MONOTONIC, &tmessage);
 
 		int first_byte = ((data_left >> 24) & 255);
+        int leftByte, rightByte, temp;
 
 		switch (id)
 		{
 
             case (INVERTER_RIGHT_ID):
-                document->inverterLeft[document->inverterLeft_count].timestamp = getCurrentTimestamp();
-                document->inverterLeft[document->inverterLeft_count].value.data_left = data_left;
-                document->inverterLeft[document->inverterLeft_count++].value.data_right = data_right;
+                switch (first_byte)
+                {
+                    case INVERTER_RIGHT_SPEED_FB: 
+                        leftByte = (data_left >> 8) & 0x000000FF;
+                        rightByte = (data_left >> 16) & 0x000000FF;
+                        temp = leftByte * 256 + rightByte;
+                        document->inverters.right.speed[document->inverters.right.speed_count].timestamp = getCurrentTimestamp();
+                        document->inverters.right.speed[document->inverters.right.speed_count++].value = (temp >= 32768 ? temp - 65536 : temp);
+                        break;
+
+                    case INVERTER_RIGHT_TEMPERATURE_IGBT_FB:
+                        leftByte = (data_left >> 8) & 0x000000FF;
+                        rightByte = (data_left >> 16) & 0x000000FF;
+                        temp = leftByte * 256 + rightByte;
+                        document->inverters.right.temperature_igbt[document->inverters.right.temperature_igbt_count].timestamp = getCurrentTimestamp();
+                        document->inverters.right.temperature_igbt[document->inverters.right.temperature_igbt_count++].value = (temp >= 32768 ? temp - 65536 : temp);
+                        break;
+
+                    case INVERTER_RIGHT_TEMPERATURE_MOTORS_FB:
+                        leftByte = (data_left >> 8) & 0x000000FF;
+                        rightByte = (data_left >> 16) & 0x000000FF;
+                        temp = leftByte * 256 + rightByte;
+                        document->inverters.right.temperature_motors[document->inverters.right.temperature_motors_count].timestamp = getCurrentTimestamp();
+                        document->inverters.right.temperature_motors[document->inverters.right.temperature_motors_count++].value = (temp >= 32768 ? temp - 65536 : temp);
+                        break;
+                }
                 break;
 
             case (INVERTER_LEFT_ID):
-                document->inverterRight[document->inverterRight_count].timestamp = getCurrentTimestamp();
-                document->inverterRight[document->inverterRight_count].value.data_left = data_left;
-                document->inverterRight[document->inverterRight_count++].value.data_right = data_right;
+                switch (first_byte)
+                {
+                    case INVERTER_LEFT_SPEED_FB: 
+                        leftByte = (data_left >> 8) & 0x000000FF;
+                        rightByte = (data_left >> 16) & 0x000000FF;
+                        temp = leftByte * 256 + rightByte;
+                        document->inverters.left.speed[document->inverters.left.speed_count].timestamp = getCurrentTimestamp();
+                        document->inverters.left.speed[document->inverters.left.speed_count++].value = (temp >= 32768 ? temp - 65536 : temp);
+                        break;
+
+                    case INVERTER_LEFT_TEMPERATURE_IGBT_FB:
+                        leftByte = (data_left >> 8) & 0x000000FF;
+                        rightByte = (data_left >> 16) & 0x000000FF;
+                        temp = leftByte * 256 + rightByte;
+                        document->inverters.left.temperature_igbt[document->inverters.left.temperature_igbt_count].timestamp = getCurrentTimestamp();
+                        document->inverters.left.temperature_igbt[document->inverters.left.temperature_igbt_count++].value = (temp >= 32768 ? temp - 65536 : temp);
+                        break;
+
+                    case INVERTER_LEFT_TEMPERATURE_MOTORS_FB:
+                        leftByte = (data_left >> 8) & 0x000000FF;
+                        rightByte = (data_left >> 16) & 0x000000FF;
+                        temp = leftByte * 256 + rightByte;
+                        document->inverters.left.temperature_motors[document->inverters.left.temperature_motors_count].timestamp = getCurrentTimestamp();
+                        document->inverters.left.temperature_motors[document->inverters.left.temperature_motors_count++].value = (temp >= 32768 ? temp - 65536 : temp);
+                        break;
+                }
                 break;
 
             case (BMS_HV_ID):
