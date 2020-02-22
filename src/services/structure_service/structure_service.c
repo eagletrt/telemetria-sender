@@ -530,7 +530,6 @@ gather_code gatherStructure(data_t *document)
                 switch (first_byte)
                 {
                     case INVERTER_RIGHT_SPEED_FB: 
-                        printf("caldskfjsa1\n");
                         leftByte = (data_left >> 8) & 0x000000FF;
                         rightByte = (data_left >> 16) & 0x000000FF;
                         temp = leftByte * 256 + rightByte;
@@ -560,7 +559,6 @@ gather_code gatherStructure(data_t *document)
                 switch (first_byte)
                 {
                     case INVERTER_LEFT_SPEED_FB: 
-                        printf("caldskfjsa1\n");
                         leftByte = (data_left >> 8) & 0x000000FF;
                         rightByte = (data_left >> 16) & 0x000000FF;
                         temp = leftByte * 256 + rightByte;
@@ -991,6 +989,7 @@ gather_code gatherStructure(data_t *document)
                     }
                 }
             }
+            gpsFree(gps_data);
         }
 
         document->timestamp = getCurrentTimestamp();

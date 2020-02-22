@@ -76,6 +76,10 @@ void errorGatheringData() {
     logError("Error in gathering data");
 }
 
+void errorOpeningGPS() {
+    logError("Error in opening GPS port");
+}
+
 void errorGeneric(char* message) {
     logError(message);
     free(message);

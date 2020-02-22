@@ -62,6 +62,7 @@ typedef struct {
     char* config_path;
     int gps_plugged;
     int gps_port;
+    char* gps_interface;
     int verbose;
 } condition_t;
 

@@ -21,13 +21,13 @@ static void gpsPrint(gps_struct* data);
 
 /* EXPORTED FUNCTIONS */
 
-int openGPSPort(char *port) {
+int openGPSPort() {
 	// Opens the serial port
-	int serial_port = open(port, O_RDWR);
+	int serial_port = open(condition.gps_interface, O_RDWR);
 
 	// Handle in case of error
 	if(serial_port < 0) {
-		printf("Error %i from open: %s\n", errno, strerror(errno));
+		logWarning("Error in opening GPS port");
 		return -1;
 	}
 
@@ -37,7 +37,8 @@ int openGPSPort(char *port) {
 
 	// Read in existing settings and handle errors
 	if(tcgetattr(serial_port, &tty) != 0) {
-		printf("Error %i from tcgetattr: %s\n", errno, strerror(errno));
+		logWarning("Error in GPS tcgetattr");
+		return -1;
 	}
 
 	// the c_cflags member of the termios contains control fields
@@ -68,7 +69,8 @@ int openGPSPort(char *port) {
 
 	// After changing settings we need to save the tty termios struct, also error checking
 	if(tcsetattr(serial_port, TCSANOW, &tty) != 0) {
-		printf("Error %i from tcsetattr: %s\n", errno, strerror(errno));
+		logWarning("Error in GPS tcsetattr");
+		return -1;
 	}
 
 	return serial_port;

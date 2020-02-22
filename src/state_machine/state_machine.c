@@ -46,7 +46,11 @@ result_codes init_state() {
 
     if (condition.gps_plugged) {
         infoGpsPlugged();
-        condition.gps_port = openGPSPort("/dev/ttyACM0");
+        condition.gps_port = openGPSPort();
+        if (condition.gps_port < 0) {
+            errorOpeningGPS();
+            return ERROR;
+        }
         debugGpsPort();
     }
     

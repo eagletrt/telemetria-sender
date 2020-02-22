@@ -65,11 +65,10 @@ typedef struct {
 /* FUNCTIONS */
 
 /**
- * Opens the gps port
- * @param port The gps port 
+ * Opens and returns the gps port
  * @return The serial port
 */ 
-int openGPSPort(char *port);
+int openGPSPort();
 
 /**
  * Reads data from the gps serial port and returns it as a structured object

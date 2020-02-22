@@ -35,6 +35,7 @@ void successQuitting();
 
 void errorParsingConfig();
 void errorGatheringData();
+void errorOpeningGPS();
 void errorGeneric(char* message);
 
 void debugGeneric(char* message);
