@@ -12,7 +12,7 @@ void debugConfigPath() {
 void debugGpsPort() {
     if (condition.verbose) {
         char *message;
-        asprintf(&message, "Gps port is %d", condition.gps_port);
+        asprintf(&message, "Gps port is %d", condition.gps.port);
         logDebug(message);
         free(message);
     }

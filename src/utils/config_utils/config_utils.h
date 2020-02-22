@@ -25,13 +25,17 @@ typedef struct {
 } mongo_config_t;
 
 typedef struct {
+    int plugged;
+    char* interface;
+} gps_config_t;
+
+typedef struct {
     mqtt_config_t mqtt;
     mongo_config_t mongodb;
+    gps_config_t gps;
 
     char* can_interface;
     int sending_rate;
-    int gps_plugged;
-    char* gps_interface;
     int verbose;
     
     char** pilots;

@@ -44,10 +44,10 @@ result_codes init_state() {
         return ERROR;
     }
 
-    if (condition.gps_plugged) {
+    if (condition.gps.plugged) {
         infoGpsPlugged();
-        condition.gps_port = openGPSPort();
-        if (condition.gps_port < 0) {
+        condition.gps.port = openGPSPort();
+        if (condition.gps.port < 0) {
             errorOpeningGPS();
             return ERROR;
         }

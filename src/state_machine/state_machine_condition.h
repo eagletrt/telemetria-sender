@@ -39,6 +39,12 @@ typedef struct {
 } can_condition_t;
 
 typedef struct {
+    char* interface;
+    int plugged;
+    int port;
+} gps_condition_t;
+
+typedef struct {
     char** pilots;
     int pilots_count;
     int selected_pilot;
@@ -57,12 +63,10 @@ typedef struct {
     mqtt_condition_t mqtt;
     mongodb_condition_t mongodb;
     can_condition_t can;
+    gps_condition_t gps;
     session_condition_t session;
     structure_condition_t structure;
     char* config_path;
-    int gps_plugged;
-    int gps_port;
-    char* gps_interface;
     int verbose;
 } condition_t;
 

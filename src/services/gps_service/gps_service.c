@@ -23,7 +23,7 @@ static void gpsPrint(gps_struct* data);
 
 int openGPSPort() {
 	// Opens the serial port
-	int serial_port = open(condition.gps_interface, O_RDWR);
+	int serial_port = open(condition.gps.interface, O_RDWR);
 
 	// Handle in case of error
 	if(serial_port < 0) {
@@ -82,7 +82,7 @@ gps_struct* readGPS() {
 	memset(&read_buf,'\0',sizeof(read_buf));
 	
 	// Get size in bytes and handle errors;
-	int num_bytes = read(condition.gps_port, &read_buf, sizeof(read_buf));
+	int num_bytes = read(condition.gps.port, &read_buf, sizeof(read_buf));
 	if(num_bytes < 0){
 		logWarning("GPS not reading");
 		return NULL;

@@ -894,7 +894,7 @@ gather_code gatherStructure(data_t *document)
             }
 
         // Read GPS
-        if (condition.gps_plugged) {
+        if (condition.gps.plugged) {
             gps_struct* gps_data = readGPS();
             if (gps_data != NULL) {
                 if (gps_data->gga && gps_data->gga->status) {

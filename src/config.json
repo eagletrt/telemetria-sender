@@ -12,6 +12,11 @@
     "db": "eagle_test"
   },
 
+  "gps": {
+    "plugged": 0,
+    "interface": "/dev/ttyACM0"
+  },
+
   "pilots": [
     "default",
     "Ivan",
@@ -38,7 +43,5 @@
 
   "can_interface": "can0",
   "sending_rate": 500,
-  "gps_plugged": 0,
-  "gps_interface": "/dev/ttyACM0",
   "verbose": 1
 }

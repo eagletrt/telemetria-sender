@@ -29,8 +29,8 @@ config_t* newConfig() {
 
     config->can_interface = strdup("can0");
     config->sending_rate = 500;
-    config->gps_plugged = 0;
-    config->gps_interface = strdup("/dev/ttyACM0");
+    config->gps.plugged = 0;
+    config->gps.interface = strdup("/dev/ttyACM0");
     config->verbose = 1;
 
     config->pilots_count = 3;
@@ -82,6 +82,8 @@ void deleteConfig(config_t *config) {
     free(config->mongodb.host);
     free(config->mongodb.db);
 
+    free(config->gps.interface);
+
     free(config->can_interface);
     freeStringsArray(config->pilots, &config->pilots_count);
     freeStringsArray(config->races, &config->races_count);
@@ -96,10 +98,10 @@ void printConfig(const config_t* config) {
     printf("config->mongodb.host:\t%s\n", config->mongodb.host);
     printf("config->mongodb.port:\t%d\n", config->mongodb.port);
     printf("config->mongodb.db:\t%s\n", config->mongodb.db);
+    printf("config->gps.plugged:\t%d\n", config->gps.plugged);
+    printf("config->gps.interface:\t%s\n", config->gps.interface);
     printf("config->can_interface:\t%s\n", config->can_interface);
     printf("config->sending_rate:\t%d\n", config->sending_rate);
-    printf("config->gps_plugged:\t%d\n", config->gps_plugged);
-    printf("config->gps_interface:\t%s\n", config->gps_interface);
     printf("config->verbose:\t%d\n", config->verbose);
     printf("config->pilots: ");
     printStringsArray(config->pilots, config->pilots_count);
@@ -246,6 +248,36 @@ static void parseMongodbObject(const jsmntok_t *json_tokens, const char *json_st
     }
 }
 
+static void parseGpsObject(const jsmntok_t *json_tokens, const char *json_string, config_t *config, int *i) {
+    ++(*i);
+    int size = json_tokens[*i].size;
+
+    for (int j = 0; j < size; ++j) {
+        ++(*i);
+        char* key = extractString(json_tokens[*i], json_string);
+        if (strcmp(key, "interface") == 0) {
+            free(config->gps.interface);
+            config->gps.interface = getStringValue(json_tokens, json_string, i);
+        }
+        else if (strcmp(key, "plugged") == 0) {
+            config->gps.plugged = getIntValue(json_tokens, json_string, i);
+        }
+        else {
+            ++(*i);
+            jsmntok_t token = json_tokens[*i];
+            switch (token.type)
+            {
+                case JSMN_ARRAY:
+                    *i += token.size;
+                    break;
+                case JSMN_OBJECT:
+                    *i += 2 * token.size;
+                    break;
+            }
+        }
+    }
+}
+
 static void parseJsonTokens(const jsmntok_t *json_tokens, int tokens_length, const char *json_string, config_t *config) {
     for (int i = 1; i < tokens_length; ++i) {
         char* key = extractString(json_tokens[i], json_string);
@@ -256,12 +288,6 @@ static void parseJsonTokens(const jsmntok_t *json_tokens, int tokens_length, con
         }
         else if (strcmp(key, "sending_rate") == 0) {
             config->sending_rate = getIntValue(json_tokens, json_string, &i);
-        } 
-        else if (strcmp(key, "gps_plugged") == 0) {
-            config->gps_plugged = getIntValue(json_tokens, json_string, &i);
-        } 
-        else if (strcmp(key, "gps_interface") == 0) {
-            config->gps_interface = getStringValue(json_tokens, json_string, &i);
         } 
         else if (strcmp(key, "verbose") == 0) {
             config->verbose = getIntValue(json_tokens, json_string, &i);
@@ -283,6 +309,9 @@ static void parseJsonTokens(const jsmntok_t *json_tokens, int tokens_length, con
         }
         else if (strcmp(key, "mongodb") == 0) {
             parseMongodbObject(json_tokens, json_string, config, &i);
+        }
+        else if (strcmp(key, "gps") == 0) {
+            parseGpsObject(json_tokens, json_string, config, &i);
         }
         else {
             ++i;
