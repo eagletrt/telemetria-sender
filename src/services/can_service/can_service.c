@@ -3,10 +3,12 @@
 can_code canSetup() {
     can_code result;
 
+    // Reads the can_interface from the conditions and opens the can
     char* can_interface = condition.can.can_interface;
     struct sockaddr_can addr;
     int socket = canOpenSocket(can_interface, &addr);
     
+    // Sets the right result depending on the outcome
     if (socket == -1) {
         result = CAN_SERVICE_CONNECTION_ERROR;
     }
@@ -17,6 +19,7 @@ can_code canSetup() {
         condition.can.socket = socket;
         result = CAN_SERVICE_OK;
     }
+
     return result;
 }
 
@@ -26,8 +29,10 @@ int canRead(int *id, int *data_left, int *data_right) {
 
 can_code canAnswerWheel(int enabled) {
     can_code result = CAN_SERVICE_OK;
+    // Get the current time
     int timestamp = time(NULL);
 
+    // Create the message data
     char *data = (char*) malloc(sizeof(char) * 8);
 	data[0] = 101;
 	data[1] = (enabled ? 1 : 0);
@@ -38,12 +43,16 @@ can_code canAnswerWheel(int enabled) {
 	data[6] = (timestamp >> 8) & 0xFF;
 	data[7] = (timestamp) & 0xFF;
 
+    // Send the message
 	int outcome = canSend(condition.can.socket, 0xAB, 8, data);
+    // Set the result depending on the outcome
     if (outcome < 0) {
         result = CAN_SERVICE_SENDING_ERROR;
     }
     
+    // Free the data
 	free(data);
+    
     return result;
 }
 

@@ -1,100 +1,97 @@
 #include "gps_service.h"
 
 
-/* INTERNAL SIGNATURES */
+/* INTERNAL FUNCTIONS SIGNATURES */
 
+// Allocates and returns a new gps_structure
 static gps_struct* gpsNew();
+// Skip n times a comma-token and returns the last one
 static char* skipTokens(int n);
+// Parses the given GGA message and returns it as an object
 static gps_gga_struct* parseGGA(char *message);
+// Parses the given GLL message and returns it as an object
 static gps_gll_struct* parseGLL(char *message);
+// Parses the given VTG message and returns it as an object
 static gps_vtg_struct* parseVTG(char *message);
+// Parses the given RMC message and returns it as an object
 static gps_rmc_struct* parseRMC(char *message);
+// Prints the given gps_struct object
 static void gpsPrint(gps_struct* data);
 
 
 /* EXPORTED FUNCTIONS */
 
-int openGPSPort(char *port){
+int openGPSPort(char *port) {
+	// Opens the serial port
+	int serial_port = open(port, O_RDWR);
 
-	//open serial port
-	int serial_port = open(port,O_RDWR);
-
-	//check for errors
-	if(serial_port < 0){
-
-		printf("Error %i from open: %s\n",errno,strerror(errno));
+	// Handle in case of error
+	if(serial_port < 0) {
+		printf("Error %i from open: %s\n", errno, strerror(errno));
 		return -1;
-
 	}
 
-	//create new termios struct to configure port
+	// Create termios struct to configure port
 	struct termios tty;
-	memset(&tty, 0, sizeof tty);
+	memset(&tty, 0, sizeof(tty));
 
-	//read in existing settings, handle errors
-	if(tcgetattr(serial_port, &tty) != 0){
-
+	// Read in existing settings and handle errors
+	if(tcgetattr(serial_port, &tty) != 0) {
 		printf("Error %i from tcgetattr: %s\n", errno, strerror(errno));
-
 	}
 
-	//the c_cflags member of the termios contains control fields
-
-	tty.c_cflag &= ~PARENB; 	//disable parity bit
-	tty.c_cflag &= ~CSTOPB;		//clear stop field
-	tty.c_cflag |= CS8;		//8 data bits per byte
-	tty.c_cflag &= ~CRTSCTS;	//disable TRS/CTS hardware flow control
-	tty.c_cflag |= CREAD | CLOCAL;	//turn on READ and ignore control lines, setting CLOCAL allows us to read data
-
-	//local modes
-	tty.c_lflag &= ~ICANON;		//disable canonical mode, in canonical mode input data is received line by line, usually undesired when dealing with serial ports
-	tty.c_lflag &= ~ECHO;		//if this bit (ECHO) is set, sent characters will be echoed back.
+	// the c_cflags member of the termios contains control fields
+	tty.c_cflag &= ~PARENB;				// disable parity bit
+	tty.c_cflag &= ~CSTOPB;				// clear stop field
+	tty.c_cflag |= CS8;					// 8 data bits per byte
+	tty.c_cflag &= ~CRTSCTS;			// disable TRS/CTS hardware flow control
+	tty.c_cflag |= CREAD | CLOCAL;		// turn on READ and ignore control lines, setting CLOCAL allows us to read data
+	// local modes
+	tty.c_lflag &= ~ICANON;		// disable canonical mode, in canonical mode input data is received line by line, usually undesired when dealing with serial ports
+	tty.c_lflag &= ~ECHO;		// if this bit (ECHO) is set, sent characters will be echoed back.
 	tty.c_lflag &= ~ECHOE;
 	tty.c_lflag &= ~ECHONL;
-	tty.c_lflag &= ~ISIG;		//when the ISIG bit is set, INTR,QUIT and SUSP characters are interpreted. we don't want this with a serial port
-
-	//input modes (c_iflag)
-	//the c_iflag member of the termios struct contains low-level settings for input processing. the c_iflag member is an int
-	tty.c_iflag &= ~(IXON | IXOFF | IXANY);						//clearing IXON,IXOFF,IXANY disable software flow control
-	tty.c_iflag &= ~(IGNBRK | BRKINT | PARMRK | ISTRIP | INLCR | IGNCR | ICRNL);	//clearing all of this bits disable any special handling of received bytes, i want raw data
-
-	//output modes (c_oflag). the c_oflag member of the termios struct contain low level settings for output processing, we want to disable any special handling of output chars/bytes
-	tty.c_oflag &= ~OPOST;		//prevent special interpretation of output bytes
-	tty.c_oflag &= ~ONLCR;		//prevent conversion of newline to carriage return/line feed
-
-	//setting VTIME VMIN
-	tty.c_cc[VTIME] = 10;		//read() will block until either any amount of data is received or the timeout ocurs
+	tty.c_lflag &= ~ISIG;		// when the ISIG bit is set, INTR,QUIT and SUSP characters are interpreted. we don't want this with a serial port
+	// the c_iflag member of the termios struct contains low-level settings for input processing. the c_iflag member is an int
+	tty.c_iflag &= ~(IXON | IXOFF | IXANY);											// clearing IXON,IXOFF,IXANY disable software flow control
+	tty.c_iflag &= ~(IGNBRK | BRKINT | PARMRK | ISTRIP | INLCR | IGNCR | ICRNL);	// clearing all of this bits disable any special handling of received bytes, i want raw data
+	// output modes (c_oflag). the c_oflag member of the termios struct contain low level settings for output processing, we want to disable any special handling of output chars/bytes
+	tty.c_oflag &= ~OPOST;		// prevent special interpretation of output bytes
+	tty.c_oflag &= ~ONLCR;		// prevent conversion of newline to carriage return/line feed
+	// setting VTIME VMIN
+	tty.c_cc[VTIME] = 10;		// read() will block until either any amount of data is received or the timeout ocurs
 	tty.c_cc[VMIN] = 0;
 
-	//setting baud rate
+	// Setting baud rate
 	cfsetispeed(&tty, B460800);
 	cfsetospeed(&tty, B460800);
 
-	//after changing settings we need to save the tty termios struct, also error checking
-	if(tcsetattr(serial_port, TCSANOW, &tty) != 0){
-
+	// After changing settings we need to save the tty termios struct, also error checking
+	if(tcsetattr(serial_port, TCSANOW, &tty) != 0) {
 		printf("Error %i from tcsetattr: %s\n", errno, strerror(errno));
-
 	}
 
 	return serial_port;
-
 }
 
 gps_struct* readGPS() { 
+	// Instantiate and fill the buffer
 	char read_buf[1024];
 	memset(&read_buf,'\0',sizeof(read_buf));
 	
+	// Get size in bytes and handle errors;
 	int num_bytes = read(condition.gps_port, &read_buf, sizeof(read_buf));
 	if(num_bytes < 0){
 		logWarning("GPS not reading");
 		return NULL;
 	}
 
+	// Initialize token
 	char *token;
 	token = strtok(read_buf,"\n");
-	gps_struct *result = gpsNew();
 
+	// Initialize the gps_struct and initialize it parsing the message
+	gps_struct *result = gpsNew();
 	while (token != NULL) {
 		if (strstr(token, "GGA")){
 			result->gga = parseGGA(token);
@@ -124,7 +121,7 @@ void gpsFree(gps_struct* gps_data) {
 	free(gps_data);
 }
 
-/* INTERNAL FUNCTIONS */
+/* INTERNAL FUNCTIONS DEFINITIONS */
 
 static gps_struct* gpsNew() {
 	gps_struct* result = (gps_struct*) malloc(sizeof(gps_struct));

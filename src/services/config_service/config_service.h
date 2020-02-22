@@ -15,6 +15,9 @@ extern condition_t condition;
 
 /* TYPES */
 
+/**
+ * The enum containing all the can service error codes 
+*/ 
 typedef enum {
     CONFIG_OK,
     CONFIG_ERROR
@@ -22,6 +25,10 @@ typedef enum {
 
 /* FUNCTIONS */
 
+/**
+ * It reads the config file, parses it, updates the condition and deallocates the config.
+ * All in a function
+*/
 config_code handleConfig();
 
 #endif

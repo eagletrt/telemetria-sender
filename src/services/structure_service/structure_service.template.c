@@ -521,6 +521,7 @@ gather_code gatherStructure(data_t *document)
                     }
                 }
             }
+            gpsFree(gps_data);
         }
 
         document->timestamp = getCurrentTimestamp();

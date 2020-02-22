@@ -1,6 +1,8 @@
 #ifndef TELEMETRY_GPS_SERVICE
 #define TELEMETRY_GPS_SERVICE
 
+/* IMPORTS */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -15,6 +17,8 @@
 /* EXTERN */
 
 extern condition_t condition;
+
+/* TYPES */
 
 typedef struct {
 	double latitude;
@@ -58,8 +62,25 @@ typedef struct {
 	gps_rmc_struct *rmc;
 } gps_struct;
 
+/* FUNCTIONS */
+
+/**
+ * Opens the gps port
+ * @param port The gps port 
+ * @return The serial port
+*/ 
 int openGPSPort(char *port);
+
+/**
+ * Reads data from the gps serial port and returns it as a structured object
+ * @return The parsed data as a gps_struct object pointer
+*/ 
 gps_struct* readGPS();
+
+/**
+ * Deallocates the given gps_struct object
+ * @param The gps_struct object that is to be deallocated
+*/ 
 void gpsFree(gps_struct* gps_data);
 
 #endif
