@@ -18,6 +18,12 @@ void debugGpsPort() {
     }
 }
 
+void debugGeneric(char* message) {
+    if (condition.verbose) {
+        logDebug(message);
+    }
+}
+
 void infoTransition(int from, int to, char** labels) {  
   if (from != to) {
     char* from_label = strdup(labels[from]);
@@ -83,10 +89,4 @@ void errorOpeningGPS() {
 void errorGeneric(char* message) {
     logError(message);
     free(message);
-}
-
-void debugGeneric(char* message) {
-    if (condition.verbose) {
-        logDebug(message);
-    }
 }
