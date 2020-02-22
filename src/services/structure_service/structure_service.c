@@ -76,7 +76,7 @@ void structureToBson(data_t *data, bson_t** bson_document) {
 	{
 		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "0", &children[3]);
 		BSON_APPEND_INT64(&children[3], "timestamp", data->inverters.right.speed[i].timestamp);
-		BSON_APPEND_DOUBLE(&children[3], "value", data->inverters.right.speed[i].value);
+		BSON_APPEND_INT32(&children[3], "value", data->inverters.right.speed[i].value);
 		bson_append_document_end(&children[2], &children[3]);
 		bson_destroy(&children[3]);
 	}
@@ -87,7 +87,7 @@ void structureToBson(data_t *data, bson_t** bson_document) {
 	{
 		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "0", &children[3]);
 		BSON_APPEND_INT64(&children[3], "timestamp", data->inverters.right.temperature_igbt[i].timestamp);
-		BSON_APPEND_DOUBLE(&children[3], "value", data->inverters.right.temperature_igbt[i].value);
+		BSON_APPEND_INT32(&children[3], "value", data->inverters.right.temperature_igbt[i].value);
 		bson_append_document_end(&children[2], &children[3]);
 		bson_destroy(&children[3]);
 	}
@@ -98,7 +98,7 @@ void structureToBson(data_t *data, bson_t** bson_document) {
 	{
 		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "0", &children[3]);
 		BSON_APPEND_INT64(&children[3], "timestamp", data->inverters.right.temperature_motors[i].timestamp);
-		BSON_APPEND_DOUBLE(&children[3], "value", data->inverters.right.temperature_motors[i].value);
+		BSON_APPEND_INT32(&children[3], "value", data->inverters.right.temperature_motors[i].value);
 		bson_append_document_end(&children[2], &children[3]);
 		bson_destroy(&children[3]);
 	}
@@ -112,7 +112,7 @@ void structureToBson(data_t *data, bson_t** bson_document) {
 	{
 		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "0", &children[3]);
 		BSON_APPEND_INT64(&children[3], "timestamp", data->inverters.left.speed[i].timestamp);
-		BSON_APPEND_DOUBLE(&children[3], "value", data->inverters.left.speed[i].value);
+		BSON_APPEND_INT32(&children[3], "value", data->inverters.left.speed[i].value);
 		bson_append_document_end(&children[2], &children[3]);
 		bson_destroy(&children[3]);
 	}
@@ -123,7 +123,7 @@ void structureToBson(data_t *data, bson_t** bson_document) {
 	{
 		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "0", &children[3]);
 		BSON_APPEND_INT64(&children[3], "timestamp", data->inverters.left.temperature_igbt[i].timestamp);
-		BSON_APPEND_DOUBLE(&children[3], "value", data->inverters.left.temperature_igbt[i].value);
+		BSON_APPEND_INT32(&children[3], "value", data->inverters.left.temperature_igbt[i].value);
 		bson_append_document_end(&children[2], &children[3]);
 		bson_destroy(&children[3]);
 	}
@@ -134,7 +134,7 @@ void structureToBson(data_t *data, bson_t** bson_document) {
 	{
 		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "0", &children[3]);
 		BSON_APPEND_INT64(&children[3], "timestamp", data->inverters.left.temperature_motors[i].timestamp);
-		BSON_APPEND_DOUBLE(&children[3], "value", data->inverters.left.temperature_motors[i].value);
+		BSON_APPEND_INT32(&children[3], "value", data->inverters.left.temperature_motors[i].value);
 		bson_append_document_end(&children[2], &children[3]);
 		bson_destroy(&children[3]);
 	}
@@ -521,7 +521,7 @@ gather_code gatherStructure(data_t *document)
 		clock_gettime(CLOCK_MONOTONIC, &tmessage);
 
 		int first_byte = ((data_left >> 24) & 255);
-        double leftByte, rightByte;
+        int leftByte, rightByte, temp;
 
 		switch (id)
 		{
@@ -530,24 +530,28 @@ gather_code gatherStructure(data_t *document)
                 switch (first_byte)
                 {
                     case INVERTER_RIGHT_SPEED_FB: 
+                        printf("caldskfjsa1\n");
                         leftByte = (data_left >> 8) & 0x000000FF;
                         rightByte = (data_left >> 16) & 0x000000FF;
+                        temp = leftByte * 256 + rightByte;
                         document->inverters.right.speed[document->inverters.right.speed_count].timestamp = getCurrentTimestamp();
-                        document->inverters.right.speed[document->inverters.right.speed_count++].value = leftByte * 256 + rightByte;
+                        document->inverters.right.speed[document->inverters.right.speed_count++].value = (temp >= 32768 ? temp - 65536 : temp);
                         break;
 
                     case INVERTER_RIGHT_TEMPERATURE_IGBT_FB:
                         leftByte = (data_left >> 8) & 0x000000FF;
                         rightByte = (data_left >> 16) & 0x000000FF;
+                        temp = leftByte * 256 + rightByte;
                         document->inverters.right.temperature_igbt[document->inverters.right.temperature_igbt_count].timestamp = getCurrentTimestamp();
-                        document->inverters.right.temperature_igbt[document->inverters.right.temperature_igbt_count++].value = leftByte * 256 + rightByte;
+                        document->inverters.right.temperature_igbt[document->inverters.right.temperature_igbt_count++].value = (temp >= 32768 ? temp - 65536 : temp);
                         break;
 
                     case INVERTER_RIGHT_TEMPERATURE_MOTORS_FB:
                         leftByte = (data_left >> 8) & 0x000000FF;
                         rightByte = (data_left >> 16) & 0x000000FF;
+                        temp = leftByte * 256 + rightByte;
                         document->inverters.right.temperature_motors[document->inverters.right.temperature_motors_count].timestamp = getCurrentTimestamp();
-                        document->inverters.right.temperature_motors[document->inverters.right.temperature_motors_count++].value = leftByte * 256 + rightByte;
+                        document->inverters.right.temperature_motors[document->inverters.right.temperature_motors_count++].value = (temp >= 32768 ? temp - 65536 : temp);
                         break;
                 }
                 break;
@@ -556,24 +560,28 @@ gather_code gatherStructure(data_t *document)
                 switch (first_byte)
                 {
                     case INVERTER_LEFT_SPEED_FB: 
+                        printf("caldskfjsa1\n");
                         leftByte = (data_left >> 8) & 0x000000FF;
                         rightByte = (data_left >> 16) & 0x000000FF;
+                        temp = leftByte * 256 + rightByte;
                         document->inverters.left.speed[document->inverters.left.speed_count].timestamp = getCurrentTimestamp();
-                        document->inverters.left.speed[document->inverters.left.speed_count++].value = leftByte * 256 + rightByte;
+                        document->inverters.left.speed[document->inverters.left.speed_count++].value = (temp >= 32768 ? temp - 65536 : temp);
                         break;
 
                     case INVERTER_LEFT_TEMPERATURE_IGBT_FB:
                         leftByte = (data_left >> 8) & 0x000000FF;
                         rightByte = (data_left >> 16) & 0x000000FF;
+                        temp = leftByte * 256 + rightByte;
                         document->inverters.left.temperature_igbt[document->inverters.left.temperature_igbt_count].timestamp = getCurrentTimestamp();
-                        document->inverters.left.temperature_igbt[document->inverters.left.temperature_igbt_count++].value = leftByte * 256 + rightByte;
+                        document->inverters.left.temperature_igbt[document->inverters.left.temperature_igbt_count++].value = (temp >= 32768 ? temp - 65536 : temp);
                         break;
 
                     case INVERTER_LEFT_TEMPERATURE_MOTORS_FB:
                         leftByte = (data_left >> 8) & 0x000000FF;
                         rightByte = (data_left >> 16) & 0x000000FF;
+                        temp = leftByte * 256 + rightByte;
                         document->inverters.left.temperature_motors[document->inverters.left.temperature_motors_count].timestamp = getCurrentTimestamp();
-                        document->inverters.left.temperature_motors[document->inverters.left.temperature_motors_count++].value = leftByte * 256 + rightByte;
+                        document->inverters.left.temperature_motors[document->inverters.left.temperature_motors_count++].value = (temp >= 32768 ? temp - 65536 : temp);
                         break;
                 }
                 break;

@@ -24,17 +24,17 @@ extern condition_t condition;
 
 typedef struct {
 	long timestamp;
-	double value;
+	int value;
 } inverters_right_speed_data;
 
 typedef struct {
 	long timestamp;
-	double value;
+	int value;
 } inverters_right_temperature_igbt_data;
 
 typedef struct {
 	long timestamp;
-	double value;
+	int value;
 } inverters_right_temperature_motors_data;
 
 typedef struct {
@@ -48,17 +48,17 @@ typedef struct {
 
 typedef struct {
 	long timestamp;
-	double value;
+	int value;
 } inverters_left_speed_data;
 
 typedef struct {
 	long timestamp;
-	double value;
+	int value;
 } inverters_left_temperature_igbt_data;
 
 typedef struct {
 	long timestamp;
-	double value;
+	int value;
 } inverters_left_temperature_motors_data;
 
 typedef struct {

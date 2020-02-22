@@ -6,19 +6,19 @@
             "speed": [
                 {
                     "timestamp": "long",
-                    "value": "double"
+                    "value": "int"
                 }, 500
             ],
             "temperature_igbt": [
                 {
                     "timestamp": "long",
-                    "value": "double"
+                    "value": "int"
                 }, 500
             ],
             "temperature_motors": [
                 {
                     "timestamp": "long",
-                    "value": "double"
+                    "value": "int"
                 }, 500
             ]
         },
@@ -26,19 +26,19 @@
             "speed": [
                 {
                     "timestamp": "long",
-                    "value": "double"
+                    "value": "int"
                 }, 500
             ],
             "temperature_igbt": [
                 {
                     "timestamp": "long",
-                    "value": "double"
+                    "value": "int"
                 }, 500
             ],
             "temperature_motors": [
                 {
                     "timestamp": "long",
-                    "value": "double"
+                    "value": "int"
                 }, 500
             ]
         }
