@@ -95,7 +95,7 @@ int canReceiveCompact(int socket, int* id, int* dataLeft, int* dataRight) {
 
 	for (int i = 0; i < 4; ++i) {
 		*dataLeft += (i < frame_read.can_dlc ? frame_read.data[i] << (8 * (3 - i)) : 0);
-		*dataRight += ((i + 4) < frame_read.can_dlc ? frame_read.data[i] << (8 * (3 - i)) : 0);
+		*dataRight += ((i + 4) < frame_read.can_dlc ? frame_read.data[i + 4] << (8 * (3 - i)) : 0);
 	}
 
 	return result;

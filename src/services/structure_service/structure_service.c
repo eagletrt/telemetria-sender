@@ -663,6 +663,10 @@ gather_code gatherStructure(data_t *document)
                     break;
 
                 case IMU_ACCEL_FB:
+
+			printf("%d\n",  data_right);
+printf("%d\n", data_right & 0x000000FF);
+			
                     document->imu_accel[document->imu_accel_count].timestamp = getCurrentTimestamp();
                     document->imu_accel[document->imu_accel_count].value.x = (double)((data_left >> 8) & 0x0000FFFF);
                     document->imu_accel[document->imu_accel_count].value.y = (double)((data_left & 0x000000FF) * 0xFF) + ((data_right >> 24) & 0x000000FF);

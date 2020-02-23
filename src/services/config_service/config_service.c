@@ -53,6 +53,6 @@ static void updateCondition(const config_t* config) {
     // Update other attributes
     condition.can.can_interface = strdup(config->can_interface);
     condition.gps.plugged = config->gps.plugged;
-    condition.gps.interface = config->gps.interface;
+    condition.gps.interface = strdup(config->gps.interface);
     condition.verbose = config->verbose;
 }
