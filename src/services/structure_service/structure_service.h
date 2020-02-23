@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
 #include <time.h>
 #include <sys/timeb.h>
 #include <sys/sysinfo.h>
@@ -163,6 +164,8 @@ typedef struct {
 } bms_lv_data;
 
 typedef struct {
+	double latitude_GGA_safe;
+	double longitude_GGA_safe;
 	double latitude_GGA;
 	double longitude_GGA;
 	double altitude_GGA;

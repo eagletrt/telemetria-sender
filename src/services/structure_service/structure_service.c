@@ -3,6 +3,7 @@
 /* INTERNAL FUNCTIONS SIGNATURES */
 
 static void resetGpsElement(data_t *document, int index);
+static double parseNmeaCoord(double coord);
 static long long int getCurrentTimestamp();
 
 /* EXPORTED FUNCTIONS */
@@ -260,6 +261,8 @@ void structureToBson(data_t *data, bson_t** bson_document) {
 		BSON_APPEND_DOCUMENT_BEGIN(&children[1], "0", &children[2]);
 		BSON_APPEND_INT64(&children[2], "timestamp", data->gps.new[i].timestamp);
 		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "value", &children[3]);
+		BSON_APPEND_DOUBLE(&children[3], "latitude_GGA_safe", data->gps.new[i].value.latitude_GGA_safe);
+		BSON_APPEND_DOUBLE(&children[3], "longitude_GGA_safe", data->gps.new[i].value.longitude_GGA_safe);
 		BSON_APPEND_DOUBLE(&children[3], "latitude_GGA", data->gps.new[i].value.latitude_GGA);
 		BSON_APPEND_DOUBLE(&children[3], "longitude_GGA", data->gps.new[i].value.longitude_GGA);
 		BSON_APPEND_DOUBLE(&children[3], "altitude_GGA", data->gps.new[i].value.altitude_GGA);
@@ -904,8 +907,10 @@ gather_code gatherStructure(data_t *document)
                         gll_done = 0;
                         vtg_done = 0;
                         rmc_done = 0;
-                        document->gps.new[document->gps.new_count].value.latitude_GGA = gps_data->gga->latitude;
-                        document->gps.new[document->gps.new_count].value.longitude_GGA = gps_data->gga->longitude;
+                        document->gps.new[document->gps.new_count].value.latitude_GGA_safe = gps_data->gga->latitude;
+                        document->gps.new[document->gps.new_count].value.longitude_GGA_safe = gps_data->gga->longitude;
+                        document->gps.new[document->gps.new_count].value.latitude_GGA = parseNmeaCoord(gps_data->gga->latitude);
+                        document->gps.new[document->gps.new_count].value.longitude_GGA = parseNmeaCoord(gps_data->gga->longitude);
                         document->gps.new[document->gps.new_count].value.altitude_GGA = gps_data->gga->altitude;
                         document->gps.new[document->gps.new_count].value.ns_indicator_GGA = gps_data->gga->ns_indicator;
                         document->gps.new[document->gps.new_count].value.ew_indicator_GGA = gps_data->gga->ew_indicator;
@@ -913,8 +918,10 @@ gather_code gatherStructure(data_t *document)
                     }
                     else {
                         gga_done = 1;
-                        document->gps.new[document->gps.new_count].value.latitude_GGA = gps_data->gga->latitude;
-                        document->gps.new[document->gps.new_count].value.longitude_GGA = gps_data->gga->longitude;
+                        document->gps.new[document->gps.new_count].value.latitude_GGA_safe = gps_data->gga->latitude;
+                        document->gps.new[document->gps.new_count].value.longitude_GGA_safe = gps_data->gga->longitude;
+                        document->gps.new[document->gps.new_count].value.latitude_GGA = parseNmeaCoord(gps_data->gga->latitude);
+                        document->gps.new[document->gps.new_count].value.longitude_GGA = parseNmeaCoord(gps_data->gga->longitude);
                         document->gps.new[document->gps.new_count].value.altitude_GGA = gps_data->gga->altitude;
                         document->gps.new[document->gps.new_count].value.ns_indicator_GGA = gps_data->gga->ns_indicator;
                         document->gps.new[document->gps.new_count].value.ew_indicator_GGA = gps_data->gga->ew_indicator;
@@ -929,16 +936,16 @@ gather_code gatherStructure(data_t *document)
                         gga_done = 0;
                         vtg_done = 0;
                         rmc_done = 0;
-                        document->gps.new[document->gps.new_count].value.latitude_GLL = gps_data->gll->latitude;
-                        document->gps.new[document->gps.new_count].value.longitude_GLL = gps_data->gll->longitude;
+                        document->gps.new[document->gps.new_count].value.latitude_GLL = parseNmeaCoord(gps_data->gll->latitude);
+                        document->gps.new[document->gps.new_count].value.longitude_GLL = parseNmeaCoord(gps_data->gll->longitude);
                         document->gps.new[document->gps.new_count].value.ns_indicator_GLL = gps_data->gll->ns_indicator;
                         document->gps.new[document->gps.new_count].value.ew_indicator_GLL = gps_data->gll->ew_indicator;
                         document->gps.new[document->gps.new_count].value.utc_time_GLL = gps_data->gll->utc_time;
                     }
                     else {
                         gll_done = 1;
-                        document->gps.new[document->gps.new_count].value.latitude_GLL = gps_data->gll->latitude;
-                        document->gps.new[document->gps.new_count].value.longitude_GLL = gps_data->gll->longitude;
+                        document->gps.new[document->gps.new_count].value.latitude_GLL = parseNmeaCoord(gps_data->gll->latitude);
+                        document->gps.new[document->gps.new_count].value.longitude_GLL = parseNmeaCoord(gps_data->gll->longitude);
                         document->gps.new[document->gps.new_count].value.ns_indicator_GLL = gps_data->gll->ns_indicator;
                         document->gps.new[document->gps.new_count].value.ew_indicator_GLL = gps_data->gll->ew_indicator;
                         document->gps.new[document->gps.new_count].value.utc_time_GLL = gps_data->gll->utc_time;
@@ -969,8 +976,8 @@ gather_code gatherStructure(data_t *document)
                         gll_done = 0;
                         vtg_done = 0;
                         gga_done = 0;
-                        document->gps.new[document->gps.new_count].value.latitude_RMC = gps_data->rmc->latitude;
-                        document->gps.new[document->gps.new_count].value.longitude_RMC = gps_data->rmc->longitude;
+                        document->gps.new[document->gps.new_count].value.latitude_RMC = parseNmeaCoord(gps_data->rmc->latitude);
+                        document->gps.new[document->gps.new_count].value.longitude_RMC = parseNmeaCoord(gps_data->rmc->longitude);
                         document->gps.new[document->gps.new_count].value.ground_speed_knots_RMC = gps_data->rmc->ground_speed_knots;
                         document->gps.new[document->gps.new_count].value.ns_indicator_RMC = gps_data->rmc->ns_indicator;
                         document->gps.new[document->gps.new_count].value.ew_indicator_RMC = gps_data->rmc->ew_indicator;
@@ -979,8 +986,8 @@ gather_code gatherStructure(data_t *document)
                     }
                     else {
                         rmc_done = 1;
-                        document->gps.new[document->gps.new_count].value.latitude_RMC = gps_data->rmc->latitude;
-                        document->gps.new[document->gps.new_count].value.longitude_RMC = gps_data->rmc->longitude;
+                        document->gps.new[document->gps.new_count].value.latitude_RMC = parseNmeaCoord(gps_data->rmc->latitude);
+                        document->gps.new[document->gps.new_count].value.longitude_RMC = parseNmeaCoord(gps_data->rmc->longitude);
                         document->gps.new[document->gps.new_count].value.ground_speed_knots_RMC = gps_data->rmc->ground_speed_knots;
                         document->gps.new[document->gps.new_count].value.ns_indicator_RMC = gps_data->rmc->ns_indicator;
                         document->gps.new[document->gps.new_count].value.ew_indicator_RMC = gps_data->rmc->ew_indicator;
@@ -1005,6 +1012,8 @@ gather_code gatherStructure(data_t *document)
 
 static void resetGpsElement(data_t *document, int index) {
     document->gps.new[index].timestamp = getCurrentTimestamp();
+    document->gps.new[index].value.latitude_GGA_safe = 0.0;
+    document->gps.new[index].value.longitude_GGA_safe = 0.0;
     document->gps.new[index].value.latitude_GGA = 0.0;
     document->gps.new[index].value.longitude_GGA = 0.0;
     document->gps.new[index].value.altitude_GGA = 0.0;
@@ -1025,6 +1034,13 @@ static void resetGpsElement(data_t *document, int index) {
     document->gps.new[index].value.utc_time_RMC = "";
     document->gps.new[index].value.date_RMC = "";
     document->gps.new[index].value.ground_speed_knots_RMC = 0.0;
+}
+
+static double parseNmeaCoord(double coord) {
+    double temp = coord / 100;
+    double left = floor(temp);
+    double right = (temp - left) * (5 / 3);
+    return (left + right);
 }
 
 static long long int getCurrentTimestamp() {

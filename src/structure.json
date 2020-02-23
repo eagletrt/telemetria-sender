@@ -121,6 +121,8 @@
             {
                 "timestamp": "long",
                 "value": {
+                    "latitude_GGA_safe": "double",
+                    "longitude_GGA_safe": "double", 
                     "latitude_GGA": "double",
                     "longitude_GGA": "double",
                     "altitude_GGA": "double",
