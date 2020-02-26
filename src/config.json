@@ -13,7 +13,7 @@
   },
 
   "gps": {
-    "plugged": 1,
+    "plugged": 0,
     "interface": "/dev/ttyACM0"
   },
 

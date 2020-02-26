@@ -22,5 +22,6 @@ gcc main.c -o sender.out \
     -lmongoc-1.0 \
     -lbson-1.0 \
     -lmosquitto \
+    -lpthread \
     -lm
 echo "compiled :)"

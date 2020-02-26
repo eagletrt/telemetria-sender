@@ -11,6 +11,7 @@
 #include <sys/timeb.h>
 #include <sys/sysinfo.h>
 #include <bson.h>
+#include <pthread.h>
 #include "../../state_machine/state_machine_condition.h"
 #include "../can_service/can_service.h"
 #include "../log_service/log_service.h"
