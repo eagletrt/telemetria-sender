@@ -49,11 +49,11 @@ gather_code gatherStructure(data_t *document) {
     gather_can_args.document = document;
     gather_can_args.outcome = &outcome;
     gather_gps_args_t gather_gps_args;
-    gather_gps_args.document;
+    gather_gps_args.document = document;
 
-	//pthread_create(&can_thread, NULL, gatherCan, &gather_can_args); 
+	pthread_create(&can_thread, NULL, gatherCan, &gather_can_args); 
     pthread_create(&gps_thread, NULL, gatherGps, &gather_gps_args);    
-    //pthread_join(can_thread, NULL);
+    pthread_join(can_thread, NULL);
     pthread_join(gps_thread, NULL);
     
     document->timestamp = getCurrentTimestamp();
