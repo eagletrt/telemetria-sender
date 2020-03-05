@@ -53,7 +53,7 @@ result_codes init_state() {
         }
         if (condition.gps.simulated) {
             int outcome = prepareSimulatedPort();
-            if (outcome < 1) {
+            if (outcome < 0) {
                 errorOpeningGPS();
                 return ERROR;
             }
