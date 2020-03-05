@@ -71,6 +71,11 @@ typedef struct {
 int openGPSPort();
 
 /**
+ * Preparing port to be simulated
+*/ 
+void prepareSimulatedPort();
+
+/**
  * Reads data from the gps serial port and returns it as a structured object
  * @return The parsed data as a gps_struct object pointer
 */ 

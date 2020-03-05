@@ -30,6 +30,7 @@ config_t* newConfig() {
     config->can_interface = strdup("can0");
     config->sending_rate = 500;
     config->gps.plugged = 0;
+    config->gps.simulated = 0;
     config->gps.interface = strdup("/dev/ttyACM0");
     config->verbose = 1;
 
@@ -99,6 +100,7 @@ void printConfig(const config_t* config) {
     printf("config->mongodb.port:\t%d\n", config->mongodb.port);
     printf("config->mongodb.db:\t%s\n", config->mongodb.db);
     printf("config->gps.plugged:\t%d\n", config->gps.plugged);
+    printf("config->gps.simulated:\t%d\n", config->gps.simulated);
     printf("config->gps.interface:\t%s\n", config->gps.interface);
     printf("config->can_interface:\t%s\n", config->can_interface);
     printf("config->sending_rate:\t%d\n", config->sending_rate);
@@ -261,6 +263,9 @@ static void parseGpsObject(const jsmntok_t *json_tokens, const char *json_string
         }
         else if (strcmp(key, "plugged") == 0) {
             config->gps.plugged = getIntValue(json_tokens, json_string, i);
+        }
+        else if (strcmp(key, "simulated") == 0) {
+            config->gps.simulated = getIntValue(json_tokens, json_string, i);
         }
         else {
             ++(*i);

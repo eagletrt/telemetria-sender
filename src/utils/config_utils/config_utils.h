@@ -26,6 +26,7 @@ typedef struct {
 
 typedef struct {
     int plugged;
+    int simulated;
     char* interface;
 } gps_config_t;
 

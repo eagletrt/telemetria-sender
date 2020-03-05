@@ -76,6 +76,17 @@ int openGPSPort() {
 	return serial_port;
 }
 
+void prepareSimulatedPort() {
+	struct termios ts;
+    if(tcgetattr(condition.gps.port, &ts))
+    {
+        perror("tcgetattr");
+        exit(1);
+    }
+    cfmakeraw(&ts);
+    tcsetattr(condition.gps.port, TCSANOW, &ts);
+}
+
 gps_struct* readGPS() { 
 	// Instantiate and fill the buffer
 	char read_buf[1024];

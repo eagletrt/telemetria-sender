@@ -41,6 +41,7 @@ typedef struct {
 typedef struct {
     char* interface;
     int plugged;
+    int simulated;
     int port;
 } gps_condition_t;
 

@@ -51,6 +51,9 @@ result_codes init_state() {
             errorOpeningGPS();
             return ERROR;
         }
+        if (condition.gps.simulated) {
+            prepareSimulatedPort();
+        }
         debugGpsPort();
     }
     

@@ -14,6 +14,7 @@
 
   "gps": {
     "plugged": 0,
+    "simulated": 1,
     "interface": "/dev/ttyACM0"
   },
 
