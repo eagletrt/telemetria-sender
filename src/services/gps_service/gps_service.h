@@ -73,7 +73,7 @@ int openGPSPort();
 /**
  * Preparing port to be simulated
 */ 
-void prepareSimulatedPort();
+int prepareSimulatedPort();
 
 /**
  * Reads data from the gps serial port and returns it as a structured object

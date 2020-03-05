@@ -76,15 +76,16 @@ int openGPSPort() {
 	return serial_port;
 }
 
-void prepareSimulatedPort() {
+int prepareSimulatedPort() {
 	struct termios ts;
     if(tcgetattr(condition.gps.port, &ts))
     {
-        perror("tcgetattr");
-        exit(1);
+		logWarning("Error in preparing GPS simulated port");
+		return -1;
     }
     cfmakeraw(&ts);
     tcsetattr(condition.gps.port, TCSANOW, &ts);
+	return 0;
 }
 
 gps_struct* readGPS() { 

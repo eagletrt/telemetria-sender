@@ -52,7 +52,11 @@ result_codes init_state() {
             return ERROR;
         }
         if (condition.gps.simulated) {
-            prepareSimulatedPort();
+            int outcome = prepareSimulatedPort();
+            if (outcome < 1) {
+                errorOpeningGPS();
+                return ERROR;
+            }
         }
         debugGpsPort();
     }
