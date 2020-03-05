@@ -535,9 +535,8 @@ static void* gatherGps(void *args) {
 
         // Parse gps messages for x milliseconds
         do {
-
             gps_data = readGPS();
-            if (gps_data != NULL) {
+            if (gps_data != NULL && document->gps.new_count < 480) {
                 if (gps_data->gga && gps_data->gga->status) {
                     if (gga_done) {
                         ++(document->gps.new_count);

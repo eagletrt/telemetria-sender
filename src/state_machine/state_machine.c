@@ -70,7 +70,7 @@ result_codes idle_state() {
     debugGeneric("Creating empty structure");
     data_t *document = structureCreate();
 
-    debugGeneric("Gathering data from can");
+    debugGeneric("Gathering data");
     gather_code gather_outcome = gatherStructure(document);
 
     debugGeneric("Transforming document to bson");

@@ -102,7 +102,6 @@ gps_struct* readGPS() {
 	// Initialize token
 	char *token;
 	token = strtok(read_buf,"\n");
-
 	// Initialize the gps_struct and initialize it parsing the message
 	gps_struct *result = gpsNew();
 	while (token != NULL) {
