@@ -57,6 +57,7 @@ gather_code gatherStructure(data_t *document) {
     pthread_join(gps_thread, NULL);
     
     document->timestamp = getCurrentTimestamp();
+    document->sessionName = condition.mongodb.instance->session_name;
     document->id = condition.structure.id++;
 
 	return outcome;
