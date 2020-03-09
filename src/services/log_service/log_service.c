@@ -1,12 +1,5 @@
 #include "log_service.h"
 
-void debugConfigPath() {
-    char *message;
-    asprintf(&message, "Config file path is %s", condition.config_path);
-    logDebug(message);
-    free(message);
-}
-
 void debugGpsPort() {
     if (condition.verbose) {
         char *message;
@@ -20,6 +13,13 @@ void debugGeneric(char* message) {
     if (condition.verbose) {
         logDebug(message);
     }
+}
+
+void infoConfigPath() {
+    char *message;
+    asprintf(&message, "Config file path is %s", condition.config_path);
+    logInfo(message);
+    free(message);
 }
 
 void infoTransition(int from, int to, char** labels) {  

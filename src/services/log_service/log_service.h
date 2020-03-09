@@ -21,10 +21,6 @@ extern condition_t condition;
 /* FUNCTIONS */
 
 /**
- * Prints the debug log showing the config path
-*/
-void debugConfigPath();
-/**
  * Prints the debug log showing the gps port
 */
 void debugGpsPort();
@@ -34,6 +30,10 @@ void debugGpsPort();
 */
 void debugGeneric(char* message);
 
+/**
+ * Prints the info log showing the config path
+*/
+void infoConfigPath();
 /**
  * Prints the info log showing a state transition
  * @param from The state before the transition

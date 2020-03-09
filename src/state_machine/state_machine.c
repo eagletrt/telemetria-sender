@@ -16,7 +16,7 @@ transition_t state_transitions[] = {
 result_codes init_state() {
     infoStartingUp();
 
-    debugConfigPath();
+    infoConfigPath();
     config_code config_outcome = handleConfig();
     if (config_outcome != CONFIG_OK) {
         errorParsingConfig();
