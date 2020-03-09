@@ -31,6 +31,7 @@ typedef struct {
     char* db;
     char* collection;
     mongodb_instance_t *instance;
+	char* session_name;
 } mongodb_condition_t;
 
 typedef struct {

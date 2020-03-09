@@ -6,10 +6,11 @@ static const char* MONGODB_PREFIX = "mongodb://";
 static const char* MONGODB_APP_NAME = "E-agle racing team - Telemetria";
 static char* getStringPort(int port);
 static char* getUri(char* host, char* port);
-static mongodb_instance_t* getInstance(char* uri, char* db);
+static mongodb_instance_t* getInstance(char* uri, char* db, char* collection);
 static char* itostr(int value);
 static char* getFormattedTimestamp(int timestamp);
 static char* getSessionName(const char* formatted_timestamp, const char* pilot, const char* race);
+static bson_t* sessionDocumentBson(const char* formatted_timestamp, const char* pilot, const char* race, int timestamp, const char* session_name);
 
 static char* getStringPort(int port) {
 	int length = digitsCount(port) + 1;
@@ -36,28 +37,26 @@ static char* getUri(char* host, char* port) {
 	return uri;
 }
 
-static mongodb_instance_t* getInstance(char* uri, char* db) {
+static mongodb_instance_t* getInstance(char* uri, char* db, char* collection) {
 	mongodb_instance_t* instance = 
 		(mongodb_instance_t*) malloc(sizeof(mongodb_instance_t));
 
 	bson_error_t error;
 	instance->uri = mongoc_uri_new_with_error(uri, &error);
 	if (!instance->uri) {
-		char* message;
-		asprintf(&message, "Error in mongodb: %s", error.message);
-		logWarning(message);
-		free(message);
+		printf("Error in mongo: %s\n", error.message);
 		return NULL;
 	}
 
 	instance->client = mongoc_client_new_from_uri(instance->uri);
 	if (!instance->client) {
-		logWarning("Error in mongodb: cannot create client");
+		printf("Error in mongo: cannot create client\n");
 		return NULL;
 	}
 
 	mongoc_client_set_appname(instance->client, MONGODB_APP_NAME);
 	instance->database = mongoc_client_get_database(instance->client, db);
+	instance->collection = mongoc_client_get_collection(instance->client, mongoc_database_get_name(instance->database), collection);
 
 	return instance;
 }
@@ -120,15 +119,28 @@ static char* getSessionName(const char* formatted_timestamp, const char* pilot, 
 	return session_name;
 }
 
+static bson_t* sessionDocumentBson(const char* formatted_timestamp, const char* pilot, const char* race, int timestamp, const char* session_name) {
+	bson_t* document = bson_new();
+
+	BSON_APPEND_UTF8 (document, "sessionName", session_name);
+	BSON_APPEND_INT32(document, "timestamp", timestamp);
+	BSON_APPEND_UTF8 (document, "formatted_timestamp", formatted_timestamp);
+	BSON_APPEND_UTF8 (document, "pilot", pilot);
+	BSON_APPEND_UTF8 (document, "race", race);
+
+	return document;
+}
+
 /* EXPORTED FUNCTIONS */
 
 mongo_code mongoSetup() {
 	char* host = condition.mongodb.host;
 	char* port = getStringPort(condition.mongodb.port);
 	char* db = condition.mongodb.db;
+	char* collection = condition.mongodb.collection;
 	char* uri = getUri(host, port);
 
-	condition.mongodb.instance = getInstance(uri, db);
+	condition.mongodb.instance = getInstance(uri, db, collection);
 	if (condition.mongodb.instance == NULL) {
 		return MONGO_SETUP_ERROR;
 	}
@@ -143,12 +155,10 @@ mongo_code mongoStartSession() {
 	const char* pilot = condition.session.pilots[condition.session.selected_pilot];
 	const char* race = condition.session.races[condition.session.selected_race];
 	char* session_name = getSessionName(formatted_timestamp, pilot, race);
-	
 	condition.mongodb.instance->session_name = session_name;
-	condition.mongodb.instance->collection = 
-		mongoc_client_get_collection(condition.mongodb.instance->client, mongoc_database_get_name(condition.mongodb.instance->database), session_name);
-
-	return MONGO_OK;
+	
+	bson_t* session_document = sessionDocumentBson(formatted_timestamp, pilot, race, timestamp, session_name);
+	return mongoInsert(session_document);
 }
 
 mongo_code mongoInsert(bson_t *data) {

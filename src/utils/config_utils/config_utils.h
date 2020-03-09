@@ -22,6 +22,7 @@ typedef struct {
     char* host;
     int port;
     char* db;
+    char* collection;
 } mongo_config_t;
 
 typedef struct {

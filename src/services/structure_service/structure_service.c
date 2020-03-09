@@ -84,6 +84,7 @@ void structureToBson(data_t *data, bson_t** bson_document) {
 	bson_t *children = (bson_t*)malloc(sizeof(bson_t) * 5);
 	BSON_APPEND_INT32(*bson_document, "id", data->id);
 	BSON_APPEND_INT64(*bson_document, "timestamp", data->timestamp);
+	BSON_APPEND_UTF8(*bson_document, "sessionName", data->sessionName);
 	BSON_APPEND_DOCUMENT_BEGIN(*bson_document, "inverters", &children[0]);
 	BSON_APPEND_DOCUMENT_BEGIN(&children[0], "right", &children[1]);
 	BSON_APPEND_ARRAY_BEGIN(&children[1], "speed", &children[2]);

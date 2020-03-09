@@ -39,6 +39,7 @@ static void updateCondition(const config_t* config) {
     condition.mongodb.host = strdup(config->mongodb.host);
     condition.mongodb.port = config->mongodb.port;
     condition.mongodb.db = strdup(config->mongodb.db);
+    condition.mongodb.collection = strdup(config->mongodb.collection);
 
     // Update session-pilots attributes
     condition.session.pilots = cloneStringsArray(config->pilots, config->pilots_count);

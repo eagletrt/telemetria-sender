@@ -322,6 +322,7 @@ typedef struct {
 typedef struct {
 	int id;
 	long timestamp;
+	char* sessionName;
 	inverters_data inverters;
 	bms_hv_data bms_hv;
 	bms_lv_data bms_lv;

@@ -1,6 +1,7 @@
 {
     "id": "int",
     "timestamp": "long",
+    "sessionName": "char*",
     "inverters": {
         "right": {
             "speed": [
