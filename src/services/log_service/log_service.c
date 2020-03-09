@@ -1,12 +1,10 @@
 #include "log_service.h"
 
 void debugConfigPath() {
-    if (condition.verbose) {
-        char *message;
-        asprintf(&message, "Config file path is %s", condition.config_path);
-        logDebug(message);
-        free(message);
-    }
+    char *message;
+    asprintf(&message, "Config file path is %s", condition.config_path);
+    logDebug(message);
+    free(message);
 }
 
 void debugGpsPort() {
