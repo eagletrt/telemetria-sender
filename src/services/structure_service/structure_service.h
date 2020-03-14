@@ -343,7 +343,6 @@ typedef struct {
 } data_t;
 
 
-
 typedef enum { 
     GATHER_IDLE, 
     GATHER_ENABLE, 

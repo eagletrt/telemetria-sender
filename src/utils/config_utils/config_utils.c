@@ -120,7 +120,7 @@ void printConfig(const config_t* config) {
 
 static int getJsonString(FILE *config_file, char **json_string) {
     char* line;
-    size_t lineLength = NULL;
+    size_t lineLength = 0;
     int json_length = 0;
 
     getline(&line, &lineLength, config_file);

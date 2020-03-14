@@ -24,7 +24,7 @@ extern condition_t condition;
 
 /* TYPES */
 
-// {{GENERATE_STRUCTURE_CODE}}
+// {{GENERATE_STRUCTURE_TYPE}}
 
 typedef enum { 
     GATHER_IDLE, 
