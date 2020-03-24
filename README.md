@@ -6,6 +6,10 @@ This is the telemetry repo of **[@eagletrt](https://www.github.com/eagletrt)**
 
 This project is made for the [@eagletrt](https://www.github.com/eagletrt) car, in order to save data when the car is running. The telemetry is a program located in the **raspberry** attached to the **canbus** of the car and directly to the serial porf of the **rover gps**, making it working. It reads the **messages** sent by the **sensors** attached to the canbus or the rover gps, accumulates them in an **organized structure** and every 500 milliseconds saves the data in a local **mongodb** and forwards it via **mqtt**. In order to avoid saving a huge amount of unneeded data when the car is not moving, the telemetry can be **controlled** by the **steering-wheel**, that can send messages via can to start or stop the telemetry to save the data in the database and pass parameters such as **pilot** and **race** to track the current session in the database.
 
+## How was it made
+
+The telemetry is a **C** program, thought to run on a **linux system**. Being the code related to the **saved structure** very long and since it changed very frequently, I eventuallly came up with a strange solution. There is the `structure.json` file that determines the structure of the saved data and with an **[npm module](https://github.com/euberdeveloper/eagletrt-code-generator)** the c code related to that part is generated automatically.
+
 ## How to use it
 
 On the raspeberry of the telemetry there is the **Ubuntu** for ARM operative system. Hence, all the code was thought to run on a **Linux** system.
