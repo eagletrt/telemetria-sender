@@ -164,3 +164,19 @@ This is an example of **structure.json**:
     }
 }
 ```
+
+### Code generation
+
+Since a huge amount of code depended on the structure and the structure changed frequently, **lots of hours** used to be lost doing **repetitive work** and copy-paste for every changed message. **C** is a **static type** language and is not favorable for structure as the telemetry one. It is anyway **essential** because of the **performance** we needed. **Javascript** is instead a very **flexible** language and is not **statically typed**. So I made a [repository](https://github.com/euberdeveloper/eagletrt-code-generator) in **Typescript** that became an [npm module](https://www.npmjs.com/package/eagletrt-code-generator) to **generate** the **C code** that **depends** on the structure.
+
+There are some files, the **template files**, ending with `.template.c` or `.template.h`. Those files contains some **special comments** such as `// {{GENERATE_BSON_CODE}}` instead of the pieces of code that depends on the structure.
+
+The **code generator**:
+
+* __Reads__ the `structure.json`
+* __Looks__ for the **template files**
+* __Substitutes__ the **special comments** with the code automatically generated and based on the read structure
+* __Creates__ a file without the `.template` extension for each template file
+
+So, when the structure changes, it is only needed to change the `structure.json` file properly and run `npm run transpile` to generate the new C code.
+
