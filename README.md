@@ -10,14 +10,24 @@ This project is made for the [@eagletrt](https://www.github.com/eagletrt) car, i
 
 On the raspeberry of the telemetry there is the **Ubuntu** for ARM operative system. Hence, all the code was thought to run on a **Linux** system.
 
-The prerequisites to run the telemetry are:
+### The prerequisites to run the telemetry are:
 * Use a **Linux** operative system
 * Install **gcc** to compile c programs, on ubuntu `sudo apt install build-essential`
 * Install **nodejs** to execute js scripts, on ubuntu I suggest reading [this](https://tecadmin.net/install-latest-nodejs-npm-on-ubuntu)
 * Install **mosquitto** to host an mqtt broker, `sudo apt install mosquitto && sudo apt install mosquitto-clients`
 * Install **canutils** to connect to canbus, `sudo apt install can-utils`
-* Install **mongodb** to have the local database, I suggest reading [this](https://hevodata.com/blog/install-mongodb-on-ubuntu/)
-* Install **mongodriver for c** to use mongodb from c, `sudo apt install 
+* Install **mongodb** to have the local database, on ubuntu I suggest reading [this](https://hevodata.com/blog/install-mongodb-on-ubuntu/)
+* Install **mongodriver for c** to use mongodb from c, on ubuntu `sudo apt install libmongoc-dev && sudo apt install libbson-dev`
+* Install **mqttdriver for c** to use mqtt from c, on ubuntu `sudo apt install libmosquitto-dev`
 
+### To run the telemetry:
 * Clone [this repo](https://github.com/eagletrt/fenice-telemetria-sender)
-* 
+* Execute `npm i` to install the nodejs dependencies
+* Execute `npm run transpile` or `npx eagle generate` to execute the js script and generate the c code
+* Execute `npm run compile` or `./compile.sh` to compile the c code
+* Execute `npm run start` or `sudo ./sender.out config.json` to start the telemetry (executing `npm run serve` does all the last three points with an only command)
+
+### To change the telemetry status:
+* Execute `npm run enable` or `./enable.sh` to enable the telemetry and make it saving data on the db
+* Execute `npm run idle` or `./idle.sh` to disable the telemetry and make it stopping saving data on the db
+This is usually useful when debbugging the application on a local computer, because simulates what does the steering wheel of the car
