@@ -20,6 +20,11 @@ On the raspeberry of the telemetry there is the **Ubuntu** for ARM operative sys
 * Install **mongodriver for c** to use mongodb from c, on ubuntu `sudo apt install libmongoc-dev && sudo apt install libbson-dev`
 * Install **mqttdriver for c** to use mqtt from c, on ubuntu `sudo apt install libmosquitto-dev`
 
+### Before running the telemetry:
+* Make sure mongod service is active (check `mongo` works)
+* Simulate the canbus and the gps serial port (check [this repo](https://github.com/FilippoGas/eagletrt-telemetry-simulator))
+This is needed when debugging the telemetry in a local pc
+
 ### To run the telemetry:
 * Clone [this repo](https://github.com/eagletrt/fenice-telemetria-sender)
 * Execute `npm i` to install the nodejs dependencies
@@ -31,3 +36,6 @@ On the raspeberry of the telemetry there is the **Ubuntu** for ARM operative sys
 * Execute `npm run enable` or `./enable.sh` to enable the telemetry and make it saving data on the db
 * Execute `npm run idle` or `./idle.sh` to disable the telemetry and make it stopping saving data on the db
 This is usually useful when debbugging the application on a local computer, because simulates what does the steering wheel of the car
+
+### To check everything is going well:
+
