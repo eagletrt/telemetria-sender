@@ -6,10 +6,6 @@ This is the telemetry repo of **[@eagletrt](https://www.github.com/eagletrt)**
 
 This project is made for the [@eagletrt](https://www.github.com/eagletrt) car, in order to save data when the car is running. The telemetry is a program located in the **raspberry** attached to the **canbus** of the car and directly to the serial porf of the **rover gps**, making it working. It reads the **messages** sent by the **sensors** attached to the canbus or the rover gps, accumulates them in an **organized structure** and every 500 milliseconds saves the data in a local **mongodb** and forwards it via **mqtt**. In order to avoid saving a huge amount of unneeded data when the car is not moving, the telemetry can be **controlled** by the **steering-wheel**, that can send messages via can to start or stop the telemetry to save the data in the database and pass parameters such as **pilot** and **race** to track the current session in the database.
 
-## How was it made
-
-The telemetry is a **C** program, thought to run on a **linux system**. Being the code related to the **saved structure** very long and since it changed very frequently, I eventuallly came up with a strange solution. There is the `structure.json` file that determines the structure of the saved data and with an **[npm module](https://github.com/euberdeveloper/eagletrt-code-generator)** the c code related to that part is generated automatically.
-
 ## How to use it
 
 On the raspeberry of the telemetry there is the **Ubuntu** for ARM operative system. Hence, all the code was thought to run on a **Linux** system.
@@ -46,3 +42,18 @@ This is usually useful when debbugging the application on a local computer, beca
 * Before starting the telemetry execute `mosquitto_sub -t telemetria_log`. It should show the log of the telemetry.
 * Execute `mosquitto_sub -t telemetria`, it should show the data sent by the telemetry via mqtt (it is sent even when the telemetry is idle).
 * Open **mongo compass** and check the data is saved on mogodb
+
+## How was it made
+
+The telemetry is a **C** program, thought to run on a **linux system**. Being the code related to the **saved structure** very long and since it changed very frequently, I eventuallly came up with a strange solution. There is the `structure.json` file that determines the structure of the saved data and with an **[npm module](https://github.com/euberdeveloper/eagletrt-code-generator)** the c code related to that part is generated automatically.
+
+### State machine
+
+The program is a quite simple **state machine**, implemented in c with a **matrix of transitions functions**. It has also a mega global variable called **condition**, accessible everywhere in the code.
+
+The states are:
+
+* __INIT__: When the telemetry is starting, it reads the **config** file and sets up everything (**canbus interface**, **gps serial port**, **mqtt connection**, **mongodb connection**). After being executed, it will pass to the **IDLE** state.
+* __IDLE__: The telemetry is actually running. There are two threads that read all the can messages and gps messages and save them in a structure. Every 500ms this structure is converted to **bson** and sent via **mqtt**. After being executed, it will repeat itself unless a **can message** to enable the telemetry is received.
+* __ENABLED__: The telemetry does the same thing of the **IDLE** state, but it also saves the data in **mongodb**. After being executed, it will repeat itself unless a **can message** to disable the telemetry is received.
+* __EXIT__: The telemetry tries to gently deallocate all the data and close all connections before exiting. It is usually reached when an **error** occurs.
