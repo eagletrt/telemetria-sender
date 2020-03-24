@@ -1,61 +1,23 @@
-# Fenice Telemetria Sender - Refactor Edition
+# fenice-telemetria-sender
 
-## File System
+This is the telemetry repo of **[@eagletrt](https://www.github.com/eagletrt)**
 
-```bash
-Telemetria
-├─ src
-│	├─ lib
-│	│	├─ can_lib
-│	│	│	├─ can_custom.h
-│	│	│	└─ can_custom.c
-│	│	├─ config_lib
-│	│	│	├─ config_custom.h
-│	│	│	├─ config_custom.c
-│	│	│	└─ jsmn
-│	│	├─ mongo_lib
-│	│	│	├─ mongo_custom.h
-│	│	│	└─ mongo_custom.c
-│	│	├─ mosquitto_lib
-│	│	│	├─ mosquitto_custom.h
-│	│	│	└─ mosquitto_custom.c
-│	│	└─ structure_lib
-│	│		├─ structure_custom.h
-│	│		├─ structure_custom.c
-│	│		├─ structure_custom.template.h
-│	│		└─ structure_custom.template.c
-│	├─ javascript
-│	│	├─ utils
-│	│	├─ generators
-│	│	└─ index.js
-│	├─ compile.sh
-│	├─ cfg.json
-│	├─ package.json
-│	├─ structure.json
-│	└─ main.c
-├─ test
-├─ docs
-├─ README.md
-└─ .git
-```
+## Project purpose
 
-The directory **src** contains the code for the Sender application. 
+This project is made for the [@eagletrt](https://www.github.com/eagletrt) car, in order to save data when the car is running. The telemetry is a program located in the **raspberry** attached to the **canbus** of the car and directly to the serial porf of the **rover gps**, making it working. It reads the **messages** sent by the **sensors** attached to the canbus or the rover gps, accumulates them in an **organized structure** and every 500 milliseconds saves the data in a local **mongodb** and forwards it via **mqtt**. In order to avoid saving a huge amount of unneeded data when the car is not moving, the telemetry can be **controlled** by the **steering-wheel**, that can send messages via can to start or stop the telemetry to save the data in the database and pass parameters such as **pilot** and **race** to track the current session in the database.
 
-The subdir *javascript* instead consist of all the file needed for the dynamic generation of the code. 
-The javascript code is run through node before the compilation of the C code. 
+## How to use it
 
-Inside subdir *lib* there are all the ad hoc library developed for the project. 
-The ones regarding *can_lib*, *mongo_lib* and *mosquitto_lib* are the one tested to check the correctness of the environment
+On the raspeberry of the telemetry there is the **Ubuntu** for ARM operative system. Hence, all the code was thought to run on a **Linux** system.
 
+The prerequisites to run the telemetry are:
+* Use a **Linux** operative system
+* Install **gcc** to compile c programs, on ubuntu `sudo apt install build-essential`
+* Install **nodejs** to execute js scripts, on ubuntu I suggest reading [this](https://tecadmin.net/install-latest-nodejs-npm-on-ubuntu)
+* Install **mosquitto** to host an mqtt broker, `sudo apt install mosquitto && sudo apt install mosquitto-clients`
+* Install **canutils** to connect to canbus, `sudo apt install can-utils`
+* Install **mongodb** to have the local database, I suggest reading [this](https://hevodata.com/blog/install-mongodb-on-ubuntu/)
+* Install **mongodriver for c** to use mongodb from c, `sudo apt install 
 
-The other directories **test** and **docs** contains the test codes regarding the upcited libraries and some useful documents for the understanding of the whole project **(TBC)**
-
-## ENVIRONMENT SETUP
-
-## INSTALLATION
-
-## LAUNCH
-```bash
-	$ ./pub cfg.json
-```
-On the car system, a service is implemented. At the start up of the device, the application will launch by itself.
+* Clone [this repo](https://github.com/eagletrt/fenice-telemetria-sender)
+* 
