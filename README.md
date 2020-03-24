@@ -92,3 +92,31 @@ The options are:
 * __sending_rate__: The number of milliseconds every which the telemetry saves the accumulated data, before emptying it and repeating the cycle
 
 * __verbose__: If also the debug messages will be logged in the console
+
+### Structure
+
+The structure of the gathered data is saved in the `structure.json` file and is based on the possible **messages**:
+
+* The **structure** is a **json object**, but every **primitive key** contains the **value type** instead of the value itself
+* For each **message** there is an **array of objects**
+* Each **array** contains only two elements: the **message object** and the **message max count**
+* Each **message object** represents the model of the **parsed message**. It has the **timestamp** of the receive time and a **value** containing the value of the message (a value or an object of values)
+* Each **message max count** represents the maximum number of messages that can be saved in a single document
+* Each array can be saved **directly** in the "root" of the structure object, or **nested in other objects**, in order better to organize the structure. For instance, all the bms message arrays are nested in the bms object
+* There is an **id** key, containing a progressive id of the document starting by `1`
+* There is a **timestamp** key, containing the timestamp when the document is saved in the db, or sent via mqtt
+* There is a **sessionName** key, that refers to the **session** of the document itself
+
+Each time the telemetry enters in the **ENABLED** state, the **id** number is reset and a new **session** is created. A session is based on the **timestamp** when the telemetry was enabled and the **parameters** (pilot, race) passed by the steering wheel. A **session document** containing these parameters is created and inserted in the database.
+
+This is an example of **session document**:
+
+```json
+{
+    "sessionName": "20200309_175011_default_default",
+    "timestamp": 1583772611,
+    "formatted_timestamp": "20200309_175011",
+    "pilot": "default",
+    "race": "default"
+}
+```
