@@ -39,3 +39,6 @@ This is usually useful when debbugging the application on a local computer, beca
 
 ### To check everything is going well:
 
+* Before starting the telemetry execute `mosquitto_sub -t telemetria_log`. It should show the log of the telemetry.
+* Execute `mosquitto_sub -t telemetria`, it should show the data sent by the telemetry via mqtt (it is sent even when the telemetry is idle).
+* Open **mongo compass** and check the data is saved on mogodb
