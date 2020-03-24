@@ -57,3 +57,38 @@ The states are:
 * __IDLE__: The telemetry is actually running. There are two threads that read all the can messages and gps messages and save them in a structure. Every 500ms this structure is converted to **bson** and sent via **mqtt**. After being executed, it will repeat itself unless a **can message** to enable the telemetry is received.
 * __ENABLED__: The telemetry does the same thing of the **IDLE** state, but it also saves the data in **mongodb**. After being executed, it will repeat itself unless a **can message** to disable the telemetry is received.
 * __EXIT__: The telemetry tries to gently deallocate all the data and close all connections before exiting. It is usually reached when an **error** occurs.
+
+### Configuration
+
+There is the **config.json** file to configure various aspects of the telemetry. The name can be actually changed and is given as a parameter when executing the compiled **sender.out** file. There is no need of recompiling the telemetry after changing this file.
+
+The options are:
+
+* __mqtt__: The options regarding the mqtt connection
+  * __host__: The host of the mqtt connection
+  * __port__: The port of the mqtt connection
+  * __data_topic__: The topic where the bson data is sent
+  * __log_topic__: The topic where the telemetry log is sent
+  
+* __mongodb__: The options regarding the mongodb connection
+  * __host__: The host of the mongodb connection
+  * __port__: The port of the mongodb connection
+  * __db__: The db where the data will be saved
+  * __collection__: The collection where the data will be saved
+  
+* __gps__: The options regarding the rover gps plugged to the telemetry
+  * __plugged__: If the gps is plugged to the telemetry. If the gps is not plugged but this option is set to `1`, the telemetry will try to read the gps serial port and will crush.
+  * __simulated__: If the gps is simulated and not real.
+  * __interface__: The interface name of the gps serial port
+  
+* __pilots__: The array containing the possible pilots who drive the car. Every time the steering wheel enables the telemetry, it specifies also the index of the pilot who drives the car. The pilots name will be added to the current session, to the data saved in the database
+
+* __races__: The array containing the possible races that the car can perform. Every time the steering wheel enables the telemetry, it specifies also the index of the race that the car is performing. The race name will be added to the current session, to the data saved in the database
+
+* __circuit__: The array containing the possible circuits where the car is running. Every time the steering wheel enables the telemetry, it specifies also the index of the circuit where the car is running. The circuit name will be added to the current session, to the data saved in the database. **NB**: `currently not implemented`
+
+* __can_interface__: The interface of the canbus
+
+* __sending_rate__: The number of milliseconds every which the telemetry saves the accumulated data, before emptying it and repeating the cycle
+
+* __verbose__: If also the debug messages will be logged in the console
