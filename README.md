@@ -120,3 +120,47 @@ This is an example of **session document**:
     "race": "default"
 }
 ```
+
+This is an example of **structure.json**:
+
+```
+{
+    "id": "int",
+    "timestamp": "long",
+    "sessionName": "char*",
+    "throttle": [
+        {
+            "timestamp": "long",
+            "value": "double"
+        }, 200
+    ],
+    "brake": [
+        {
+            "timestamp": "long",
+            "value": "double"
+        }, 200
+    ],
+    "bms_hv": {
+        "temperature": [
+            {
+                "timestamp": "long",
+                "value": {
+                    "max": "double",
+                    "min": "double",
+                    "average": "double"
+                }
+            }, 500
+        ],
+        "voltage": [
+            {
+                "timestamp": "long",
+                "value": {
+                    "max": "double",
+                    "min": "double",
+                    "total": "double"
+                }
+            }, 500
+        ]
+    }
+}
+```
