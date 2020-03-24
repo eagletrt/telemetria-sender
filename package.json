@@ -1,0 +1,27 @@
+{
+  "name": "telemetria-c",
+  "version": "1.0.0",
+  "description": "Generates c code with javascript",
+  "main": "javascript/index.js",
+  "scripts": {
+    "transpile": "npx eagle generate",
+    "compile": "./compile.sh",
+    "start": "sudo ./sender.out config.json",
+    "serve": "npm run compile && npm run start",
+    "enable": "./enable_signal.sh",
+    "idle": "./idle_signal.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/euberdeveloper/telemetria-c.git"
+  },
+  "author": "Euber Developer",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/euberdeveloper/telemetria-c/issues"
+  },
+  "homepage": "https://github.com/euberdeveloper/telemetria-c#readme",
+  "devDependencies": {
+    "eagletrt-code-generator": "^1.0.6"
+  }
+}
