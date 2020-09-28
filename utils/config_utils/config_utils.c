@@ -8,7 +8,7 @@ static int getJsonTokens(const char* json_string, int json_length, jsmntok_t** j
 static char* extractString(jsmntok_t token, const char *json_string);
 static char* getStringValue(const jsmntok_t *json_tokens, const char *json_string, int *i);
 static int getIntValue(const jsmntok_t *json_tokens, const char *json_string, int *i);
-static char** getArrayValue(const jsmntok_t *json_tokens, const char *json_string, int *size, int *i);
+static char** getStringArrayValue(const jsmntok_t *json_tokens, const char *json_string, int *size, int *i);
 static void parseMqttObject(const jsmntok_t *json_tokens, const char *json_string, config_t *config, int *i);
 static void parseMongodbObject(const jsmntok_t *json_tokens, const char *json_string, config_t *config, int *i);
 static void parseJsonTokens(const jsmntok_t *json_tokens, int tokens_length, const char *json_string, config_t *config);
@@ -165,7 +165,13 @@ static int getIntValue(const jsmntok_t *json_tokens, const char *json_string, in
     return atoi(extractString(token, json_string));
 }
 
-static char** getArrayValue(const jsmntok_t *json_tokens, const char *json_string, int *size, int *i) {
+static double getDoubleValue(const jsmntok_t *json_tokens, const char *json_string, int *i) {
+    ++(*i);
+    const jsmntok_t token = json_tokens[*i];
+    return atof(extractString(token, json_string));
+}
+
+static char** getStringArrayValue(const jsmntok_t *json_tokens, const char *json_string, int *size, int *i) {
     char **string_array;
 
     ++(*i);
@@ -179,6 +185,38 @@ static char** getArrayValue(const jsmntok_t *json_tokens, const char *json_strin
     }
 
     return string_array;
+}
+
+static int* getIntArrayValue(const jsmntok_t *json_tokens, const char *json_string, int *size, int *i) {
+    int *int_array;
+
+    ++(*i);
+    *size = json_tokens[*i].size;
+    int_array = (int*) malloc(sizeof(int) * *size);
+
+    for (int j = 0; j < *size; ++j) {
+        ++(*i);
+        char* child = extractString(json_tokens[*i], json_string);
+        int_array[j] = atoi(child);
+    }
+
+    return int_array;
+}
+
+static double* getDoubleArrayValue(const jsmntok_t *json_tokens, const char *json_string, int *size, int *i) {
+    double *double_array;
+
+    ++(*i);
+    *size = json_tokens[*i].size;
+    double_array = (double*) malloc(sizeof(double) * *size);
+
+    for (int j = 0; j < *size; ++j) {
+        ++(*i);
+        char* child = extractString(json_tokens[*i], json_string);
+        double_array[j] = atof(child);
+    }
+
+    return double_array;
 }
 
 static void parseMqttObject(const jsmntok_t *json_tokens, const char *json_string, config_t *config, int *i) {
@@ -306,15 +344,15 @@ static void parseJsonTokens(const jsmntok_t *json_tokens, int tokens_length, con
         } 
         else if (strcmp(key, "pilots") == 0) {
             freeStringsArray(config->pilots, &config->pilots_count);
-            config->pilots = getArrayValue(json_tokens, json_string, &config->pilots_count, &i);
+            config->pilots = getStringArrayValue(json_tokens, json_string, &config->pilots_count, &i);
         }
         else if (strcmp(key, "races") == 0) {
             freeStringsArray(config->races, &config->races_count);
-            config->races = getArrayValue(json_tokens, json_string, &config->races_count, &i);
+            config->races = getStringArrayValue(json_tokens, json_string, &config->races_count, &i);
         }
         else if (strcmp(key, "circuits") == 0) {
             freeStringsArray(config->circuits, &config->circuits_count);
-            config->circuits = getArrayValue(json_tokens, json_string, &config->circuits_count, &i);
+            config->circuits = getStringArrayValue(json_tokens, json_string, &config->circuits_count, &i);
         }
         else if (strcmp(key, "mqtt") == 0) {
             parseMqttObject(json_tokens, json_string, config, &i);
