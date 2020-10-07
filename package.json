@@ -1,8 +1,7 @@
 {
-  "name": "telemetria-c",
+  "name": "fenice-telemetria-sender",
   "version": "1.0.0",
-  "description": "Generates c code with javascript",
-  "main": "javascript/index.js",
+  "description": "The telemetry of eagletrt",
   "scripts": {
     "transpile": "npx eagle generate",
     "compile": "./compile.sh",
@@ -13,15 +12,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/euberdeveloper/telemetria-c.git"
+    "url": "git+https://github.com/eagletrt/fenice-telemetria-sender.git"
   },
   "author": "Euber Developer",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/euberdeveloper/telemetria-c/issues"
+    "url": "https://github.com/eagletrt/fenice-telemetria-sender/issues"
   },
-  "homepage": "https://github.com/euberdeveloper/telemetria-c#readme",
+  "homepage": "https://github.com/eagletrt/fenice-telemetria-sender#readme",
   "devDependencies": {
-    "eagletrt-code-generator": "^1.0.6"
+    "eagletrt-code-generator": "^2.1.2"
   }
 }
