@@ -35,6 +35,20 @@ void freeStringsArray(char** array, int* n);
 void printStringsArray(char** array, int n);
 
 /**
+ * Prints an array of integers
+ * 
+ * @param array The array of integers
+*/
+void printIntArray(int* array);
+
+/**
+ * Prints an array of double
+ * 
+ * @param array The array of double
+*/
+void printDoubleArray(double* array);
+
+/**
  * Returns the number of digits of a number
  * 
  * @param n The number whose digits are counted
