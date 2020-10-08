@@ -42,10 +42,13 @@ typedef struct {
 typedef struct {
 	inverters_right_speed_data *speed;
 	int speed_count;
+	int speed_size;
 	inverters_right_temperature_igbt_data *temperature_igbt;
 	int temperature_igbt_count;
+	int temperature_igbt_size;
 	inverters_right_temperature_motors_data *temperature_motors;
 	int temperature_motors_count;
+	int temperature_motors_size;
 } inverters_right_data;
 
 typedef struct {
@@ -66,10 +69,13 @@ typedef struct {
 typedef struct {
 	inverters_left_speed_data *speed;
 	int speed_count;
+	int speed_size;
 	inverters_left_temperature_igbt_data *temperature_igbt;
 	int temperature_igbt_count;
+	int temperature_igbt_size;
 	inverters_left_temperature_motors_data *temperature_motors;
 	int temperature_motors_count;
+	int temperature_motors_size;
 } inverters_left_data;
 
 typedef struct {
@@ -132,14 +138,19 @@ typedef struct {
 typedef struct {
 	bms_hv_temperature_data *temperature;
 	int temperature_count;
+	int temperature_size;
 	bms_hv_voltage_data *voltage;
 	int voltage_count;
+	int voltage_size;
 	bms_hv_current_data *current;
 	int current_count;
+	int current_size;
 	bms_hv_errors_data *errors;
 	int errors_count;
+	int errors_size;
 	bms_hv_warnings_data *warnings;
 	int warnings_count;
+	int warnings_size;
 } bms_hv_data;
 
 typedef struct {
@@ -160,8 +171,10 @@ typedef struct {
 typedef struct {
 	bms_lv_values_data *values;
 	int values_count;
+	int values_size;
 	bms_lv_errors_data *errors;
 	int errors_count;
+	int errors_size;
 } bms_lv_data;
 
 typedef struct {
@@ -227,15 +240,19 @@ typedef struct {
 typedef struct {
 	gps_old_location_data *location;
 	int location_count;
+	int location_size;
 	gps_old_time_data *time;
 	int time_count;
+	int time_size;
 	gps_old_true_track_mode_data *true_track_mode;
 	int true_track_mode_count;
+	int true_track_mode_size;
 } gps_old_data;
 
 typedef struct {
 	gps_new_data *new;
 	int new_count;
+	int new_size;
 	gps_old_data old;
 } gps_data;
 
@@ -314,8 +331,10 @@ typedef struct {
 typedef struct {
 	steering_wheel_encoder_data *encoder;
 	int encoder_count;
+	int encoder_size;
 	steering_wheel_gears_data *gears;
 	int gears_count;
+	int gears_size;
 	int marker;
 } steering_wheel_data;
 
@@ -329,16 +348,22 @@ typedef struct {
 	gps_data gps;
 	imu_gyro_data *imu_gyro;
 	int imu_gyro_count;
+	int imu_gyro_size;
 	imu_accel_data *imu_accel;
 	int imu_accel_count;
+	int imu_accel_size;
 	front_wheels_encoder_data *front_wheels_encoder;
 	int front_wheels_encoder_count;
+	int front_wheels_encoder_size;
 	distance_data *distance;
 	int distance_count;
+	int distance_size;
 	throttle_data *throttle;
 	int throttle_count;
+	int throttle_size;
 	brake_data *brake;
 	int brake_count;
+	int brake_size;
 	steering_wheel_data steering_wheel;
 } data_t;
 
