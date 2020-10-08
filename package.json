@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "The telemetry of eagletrt",
   "scripts": {
-    "transpile": "npx eagle generate",
+    "transpile": "npx eagle generate -s ./models/structure.model.json -c ./models/config.model.json",
+    "validate:config": "ajv validate -s ./models/config.schema.json -d ./config.json",
     "compile": "./compile.sh",
-    "start": "sudo ./sender.out config.json",
+    "start": "npm run validate:config && sudo ./sender.out config.json",
     "serve": "npm run compile && npm run start",
     "enable": "./enable_signal.sh",
     "idle": "./idle_signal.sh"
@@ -21,6 +22,7 @@
   },
   "homepage": "https://github.com/eagletrt/fenice-telemetria-sender#readme",
   "devDependencies": {
-    "eagletrt-code-generator": "^2.1.2"
+    "ajv-cli": "^3.3.0",
+    "eagletrt-code-generator": "^2.2.0"
   }
 }
