@@ -638,14 +638,14 @@ static void* gatherCan(void *args) {
                 switch (first_byte)
                 {
                     case INVERTER_RIGHT_SPEED_FB:
-                        // TODO: Nicola, add this if to every message, so that there is no overflow in the messages array. In order to do it, the structure code generator will be modified  by me, adding the ......_size property, both on allocator and type
-                        //if (document->inverters.right.speed_count < document->inverters.right.speed_size) {
+                        // TODO: Nicola, add this if to every message, so that there is no overflow in the messages array.
+                        if (document->inverters.right.speed_count < document->inverters.right.speed_size) {
                             byte_left = (data_left >> 8) & 0x000000FF;
                             byte_right = (data_left >> 16) & 0x000000FF;
                             temp = byte_left * 256 + byte_right;
                             document->inverters.right.speed[document->inverters.right.speed_count].timestamp = getCurrentTimestamp();
                             document->inverters.right.speed[document->inverters.right.speed_count++].value = (temp >= 32768 ? temp - 65536 : temp);
-                        //}
+                        }
                         break;
 
                     case INVERTER_RIGHT_TEMPERATURE_IGBT_FB:

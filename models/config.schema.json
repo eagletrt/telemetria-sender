@@ -1,15 +1,13 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "$id": "http://example.com/product.schema.json",
-    "title": "Config Model",
-    "description": "v1.0 - 2020/10/8\nJSON Schema for the structor of the object rappresenting the configuration of 'fenice-telemetria-sender'.",
-    "type": "object",
+    "$id": "http://eagletrt.it/eagletrt-telemetria-chimera/config.schema.json",
+    "title": "Config Json",
+    "description": "v1.0 - 2020-10-08 / Schema for the Json config of eagletrt-telemetria-chimera.",
 
     "definitions": {
-        "boolean_integer": {
+        "boolean-integer": {
             "type": "integer",
             "enum": [0, 1]
-            
         },
         "port": {
             "type": "integer",
@@ -19,122 +17,147 @@
         "host": {
             "type": "string"
         },
-        "simple_string": {
+        "simple-string": {
             "type": "string",
             "maxLength": 255,
             "pattern": "^[a-zA-Z0-9 \\-_.~!*'();:@&=+$,\\/?#\\[\\]]*$"
+        },
+        "strings-set": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+                "type": "string"
+            }
         }
     },
 
+    "type": "object",
     "properties": {
-        "$schema": {
-            "type": "string"
-        },
-        "$id": {
-            "type": "string"
-        },
-        "can_interface": {
-            "description": "Name of the can interface",
-            "type": "string"
-        },
-        "sending_rate": {
-            "description": "Sending rate in milliseconds",
-            "type": "integer",
-            "minimum": 0
-        },
-        "verbose": {
-            "description": "Verbopsity level of logs",
-            "type": "integer",
-            "minimum": 0,
-            "maximum": 3
-        },
-        "pilots": {
-            "description": "List of pilots names",
-            "type": "array",
-            "items": {
-                "type": "string"
-            },
-            "uniqueItems": true
-        },
-        "races": {
-            "description": "List of pilots names",
-            "type": "array",
-            "items": {
-                "type": "string"
-            },
-            "uniqueItems": true
-        },
-        "circuits": {
-            "description": "List of pilots names",
-            "type": "array",
-            "items": {
-                "type": "string"
-            },
-            "uniqueItems": true
-        },
         "mqtt": {
             "description": "Mqtt configuration object",
             "type": "object",
             "properties": {
                 "host": {
-                    "description": "Host of mqtt server.\nDeaful: localhost",
+                    "description": "Host of mqtt server",
+                    "default": "localhost",
                     "$ref": "#/definitions/host"
                 },
                 "port": {
-                    "description": "Port of mqtt server.\nDeaful: 1883",
+                    "description": "Port of mqtt server",
+                    "default": 1883,
                     "$ref": "#/definitions/port"
                 },
                 "data_topic": {
-                    "description": "Topic use to send mqtt data packets.\nDeaful: telemetria",
-                    "$ref": "#/definitions/simple_string"
+                    "description": "Topic used to send mqtt data documents",
+                    "default": "telemetria",
+                    "$ref": "#/definitions/simple-string"
                 },
                 "log_topic": {
-                    "description": "Topic use to send mqtt log packets.\nDeaful: telemetria_log",
-                    "$ref": "#/definitions/simple_string"
+                    "description": "Topic use to send mqtt log lines",
+                    "default": "telemetria_log",
+                    "$ref": "#/definitions/simple-string"
                 }
-            }
+            },
+            "additionalProperties": false
         },
         "mongodb": {
-            "description": "Mongo configuration object",
+            "description": "MongoDB configuration object",
             "type": "object",
             "properties": {
                 "host": {
-                    "description": "Host of mongo server.\nDeaful: localhost",
+                    "description": "Host of the mongodb server",
+                    "default": "localhost",
                     "$ref": "#/definitions/host"
                 },
                 "port": {
-                    "description": "Port of mongo server.\nDeaful: 27017",
+                    "description": "Port of the mongo server",
+                    "default": "27017",
                     "$ref": "#/definitions/port"
                 },
                 "db": {
-                    "description": "Mongo database name.\nDeaful: eagle_test",
-                    "$ref": "#/definitions/simple_string"
+                    "description": "MongoDB database's name",
+                    "default": "eagle_test",
+                    "$ref": "#/definitions/simple-string"
                 },
                 "collection": {
-                    "description": "Mongo collection name.\nDeaful: scimmera",
-                    "$ref": "#/definitions/simple_string"
+                    "description": "MongoDB collection's name",
+                    "default": "chimera",
+                    "$ref": "#/definitions/simple-string"
                 }
-            }
+            },
+            "additionalProperties": false
         },
         "gps": {
             "description": "GPS configuration object",
             "type": "object",
             "properties": {
                 "plugged": {
-                    "description": "Whether the gps is plugged in.\nDeaful: 1",
-                    "$ref": "#/definitions/boolean_integer"
+                    "description": "Whether the gps is plugged in",
+                    "default": 1,
+                    "$ref": "#/definitions/boolean-integer"
                 },
                 "simulated": {
-                    "description": "Whether the gps is simulated.\nDeaful: 1",
-                    "$ref": "#/definitions/boolean_integer"
+                    "description": "Whether the gps is simulated",
+                    "default": 1,
+                    "$ref": "#/definitions/boolean-integer"
                 },
                 "interface": {
-                    "description": "Interface of the gps.\nDeaful: 1",
-                    "$ref": "#/definitions/simple_string"
+                    "description": "Interface of the simulated gps' serial port",
+                    "default": "/dev/pts/4",
+                    "$ref": "#/definitions/simple-string"
                 }
-            }
+            },
+            "additionalProperties": false
+        },
+        "pilots": {
+            "description": "List of the pilots' names",
+            "default": [
+                "default",
+                "Ivan",
+                "Filippo",
+                "Mirco",
+                "Nicola",
+                "Davide"
+            ],
+            "$ref": "#/definitions/strings-set"
+        },
+        "races": {
+            "description": "List of the types of races",
+            "default": [
+                "default",
+                "Autocross",
+                "Skidpad",
+                "Endurance",
+                "Acceleration"
+            ],
+            "$ref": "#/definitions/strings-set"
+        },
+        "circuits": {
+            "description": "List of the circuits",
+            "default": [
+                "default",
+                "Vadena",
+                "Varano",
+                "Povo"
+            ],
+            "$ref": "#/definitions/strings-set"
+        },
+        "can_interface": {
+            "description": "Name of the can interface",
+            "default": "can0",
+            "type": "string"
+        },
+        "sending_rate": {
+            "description": "Sending rate in milliseconds",
+            "default": 500,
+            "type": "integer",
+            "minimum": 0
+        },
+        "verbose": {
+            "description": "Whether debug logs will be printed",
+            "default": 0,
+            "$ref": "#/definitions/boolean-integer"
         }
     },
-    "required": ["can_interface"],
     "additionalProperties": false
   }
