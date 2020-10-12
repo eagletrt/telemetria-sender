@@ -10,13 +10,13 @@
     "host": "localhost",
     "port": 27017,
     "db": "eagle_test",
-    "collection": "scimmera"
+    "collection": "chimera"
   },
 
   "gps": {
     "plugged": 1,
     "simulated": 1,
-    "interface": "/dev/pts/4"
+    "interface": "/dev/pts/2"
   },
 
   "pilots": [
