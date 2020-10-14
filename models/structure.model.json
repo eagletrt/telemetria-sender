@@ -8,19 +8,22 @@
                 {
                     "timestamp": "long",
                     "value": "int"
-                }, 500
+                },
+                500
             ],
             "temperature_igbt": [
                 {
                     "timestamp": "long",
                     "value": "int"
-                }, 500
+                },
+                500
             ],
             "temperature_motors": [
                 {
                     "timestamp": "long",
                     "value": "int"
-                }, 500
+                },
+                500
             ]
         },
         "left": {
@@ -28,19 +31,22 @@
                 {
                     "timestamp": "long",
                     "value": "int"
-                }, 500
+                },
+                500
             ],
             "temperature_igbt": [
                 {
                     "timestamp": "long",
                     "value": "int"
-                }, 500
+                },
+                500
             ],
             "temperature_motors": [
                 {
                     "timestamp": "long",
                     "value": "int"
-                }, 500
+                },
+                500
             ]
         }
     },
@@ -123,7 +129,7 @@
                 "timestamp": "long",
                 "value": {
                     "latitude_GGA_safe": "double",
-                    "longitude_GGA_safe": "double", 
+                    "longitude_GGA_safe": "double",
                     "latitude_GGA": "double",
                     "longitude_GGA": "double",
                     "altitude_GGA": "double",
@@ -145,8 +151,9 @@
                     "date_RMC": "char*",
                     "ground_speed_knots_RMC": "double"
                 }
-            }, 500
-        ],        
+            },
+            500
+        ],
         "old": {
             "location": [
                 {
@@ -206,16 +213,29 @@
         },
         500
     ],
-    "front_wheels_encoder": [
-        {
-            "timestamp": "long",
-            "value": {
-                "speed": "double",
-                "speedms": "double"
-            }
-        },
-        500
-    ],
+    "front_wheels_encoders": {
+        "right": [
+            {
+                "timestamp": "long",
+                "value": {
+                    "speed": "double",
+                    "speedms": "double",
+                    "error_flag": "int"
+                }
+            }, 500
+        ],
+        "left": [
+            {
+                "timestamp": "long",
+                "value": {
+                    "speed": "double",
+                    "speedms": "double",
+                    "error_flag": "int"
+                }
+            },
+            500
+        ]
+    },
     "distance": [
         {
             "timestamp": "long",
@@ -231,14 +251,18 @@
     "throttle": [
         {
             "timestamp": "long",
-            "value": "double"
+            "value": "int"
         },
         500
     ],
     "brake": [
         {
             "timestamp": "long",
-            "value": "double"
+            "value": {
+                "is_breaking": "int",
+                "pressure_front": "int",
+                "pressure_back": "int" 
+            }
         },
         500
     ],

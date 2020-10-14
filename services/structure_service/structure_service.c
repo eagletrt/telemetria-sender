@@ -82,9 +82,12 @@ data_t* structureCreate() {
 	data->imu_accel_size = 500;
 	data->imu_accel = (imu_accel_data*) malloc(sizeof(imu_accel_data) * data->imu_accel_size);
 	data->imu_accel_count = 0;
-	data->front_wheels_encoder_size = 500;
-	data->front_wheels_encoder = (front_wheels_encoder_data*) malloc(sizeof(front_wheels_encoder_data) * data->front_wheels_encoder_size);
-	data->front_wheels_encoder_count = 0;
+	data->front_wheels_encoders.right_size = 500;
+	data->front_wheels_encoders.right = (front_wheels_encoders_right_data*) malloc(sizeof(front_wheels_encoders_right_data) * data->front_wheels_encoders.right_size);
+	data->front_wheels_encoders.right_count = 0;
+	data->front_wheels_encoders.left_size = 500;
+	data->front_wheels_encoders.left = (front_wheels_encoders_left_data*) malloc(sizeof(front_wheels_encoders_left_data) * data->front_wheels_encoders.left_size);
+	data->front_wheels_encoders.left_count = 0;
 	data->distance_size = 500;
 	data->distance = (distance_data*) malloc(sizeof(distance_data) * data->distance_size);
 	data->distance_count = 0;
@@ -415,20 +418,40 @@ void structureToBson(data_t *data, bson_t** bson_document) {
 	}
 	bson_append_array_end(*bson_document, &children[0]);
 	bson_destroy(&children[0]);
-	BSON_APPEND_ARRAY_BEGIN(*bson_document, "front_wheels_encoder", &children[0]);
-	for (int i = 0; i < (data->front_wheels_encoder_count); i++)
+	BSON_APPEND_DOCUMENT_BEGIN(*bson_document, "front_wheels_encoders", &children[0]);
+	BSON_APPEND_ARRAY_BEGIN(&children[0], "right", &children[1]);
+	for (int i = 0; i < (data->front_wheels_encoders.right_count); i++)
 	{
-		BSON_APPEND_DOCUMENT_BEGIN(&children[0], "0", &children[1]);
-		BSON_APPEND_INT64(&children[1], "timestamp", data->front_wheels_encoder[i].timestamp);
-		BSON_APPEND_DOCUMENT_BEGIN(&children[1], "value", &children[2]);
-		BSON_APPEND_DOUBLE(&children[2], "speed", data->front_wheels_encoder[i].value.speed);
-		BSON_APPEND_DOUBLE(&children[2], "speedms", data->front_wheels_encoder[i].value.speedms);
+		BSON_APPEND_DOCUMENT_BEGIN(&children[1], "0", &children[2]);
+		BSON_APPEND_INT64(&children[2], "timestamp", data->front_wheels_encoders.right[i].timestamp);
+		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "value", &children[3]);
+		BSON_APPEND_DOUBLE(&children[3], "speed", data->front_wheels_encoders.right[i].value.speed);
+		BSON_APPEND_DOUBLE(&children[3], "speedms", data->front_wheels_encoders.right[i].value.speedms);
+		BSON_APPEND_INT32(&children[3], "error_flag", data->front_wheels_encoders.right[i].value.error_flag);
+		bson_append_document_end(&children[2], &children[3]);
+		bson_destroy(&children[3]);
 		bson_append_document_end(&children[1], &children[2]);
 		bson_destroy(&children[2]);
-		bson_append_document_end(&children[0], &children[1]);
-		bson_destroy(&children[1]);
 	}
-	bson_append_array_end(*bson_document, &children[0]);
+	bson_append_array_end(&children[0], &children[1]);
+	bson_destroy(&children[1]);
+	BSON_APPEND_ARRAY_BEGIN(&children[0], "left", &children[1]);
+	for (int i = 0; i < (data->front_wheels_encoders.left_count); i++)
+	{
+		BSON_APPEND_DOCUMENT_BEGIN(&children[1], "0", &children[2]);
+		BSON_APPEND_INT64(&children[2], "timestamp", data->front_wheels_encoders.left[i].timestamp);
+		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "value", &children[3]);
+		BSON_APPEND_DOUBLE(&children[3], "speed", data->front_wheels_encoders.left[i].value.speed);
+		BSON_APPEND_DOUBLE(&children[3], "speedms", data->front_wheels_encoders.left[i].value.speedms);
+		BSON_APPEND_INT32(&children[3], "error_flag", data->front_wheels_encoders.left[i].value.error_flag);
+		bson_append_document_end(&children[2], &children[3]);
+		bson_destroy(&children[3]);
+		bson_append_document_end(&children[1], &children[2]);
+		bson_destroy(&children[2]);
+	}
+	bson_append_array_end(&children[0], &children[1]);
+	bson_destroy(&children[1]);
+	bson_append_document_end(*bson_document, &children[0]);
 	bson_destroy(&children[0]);
 	BSON_APPEND_ARRAY_BEGIN(*bson_document, "distance", &children[0]);
 	for (int i = 0; i < (data->distance_count); i++)
@@ -452,7 +475,7 @@ void structureToBson(data_t *data, bson_t** bson_document) {
 	{
 		BSON_APPEND_DOCUMENT_BEGIN(&children[0], "0", &children[1]);
 		BSON_APPEND_INT64(&children[1], "timestamp", data->throttle[i].timestamp);
-		BSON_APPEND_DOUBLE(&children[1], "value", data->throttle[i].value);
+		BSON_APPEND_INT32(&children[1], "value", data->throttle[i].value);
 		bson_append_document_end(&children[0], &children[1]);
 		bson_destroy(&children[1]);
 	}
@@ -463,7 +486,12 @@ void structureToBson(data_t *data, bson_t** bson_document) {
 	{
 		BSON_APPEND_DOCUMENT_BEGIN(&children[0], "0", &children[1]);
 		BSON_APPEND_INT64(&children[1], "timestamp", data->brake[i].timestamp);
-		BSON_APPEND_DOUBLE(&children[1], "value", data->brake[i].value);
+		BSON_APPEND_DOCUMENT_BEGIN(&children[1], "value", &children[2]);
+		BSON_APPEND_INT32(&children[2], "is_breaking", data->brake[i].value.is_breaking);
+		BSON_APPEND_INT32(&children[2], "pressure_front", data->brake[i].value.pressure_front);
+		BSON_APPEND_INT32(&children[2], "pressure_back", data->brake[i].value.pressure_back);
+		bson_append_document_end(&children[1], &children[2]);
+		bson_destroy(&children[2]);
 		bson_append_document_end(&children[0], &children[1]);
 		bson_destroy(&children[1]);
 	}
@@ -523,7 +551,8 @@ void structureDelete(data_t *data) {
 	free(data->gps.old.true_track_mode);
 	free(data->imu_gyro);
 	free(data->imu_accel);
-	free(data->front_wheels_encoder);
+	free(data->front_wheels_encoders.right);
+	free(data->front_wheels_encoders.left);
 	free(data->distance);
 	free(data->throttle);
 	free(data->brake);
@@ -754,13 +783,15 @@ static void* gatherCan(void *args) {
             case (PEDALS_ID):
                 if (first_byte == THROTTLE_FB && document->throttle_count < document->throttle_size) {
                     document->throttle[document->throttle_count].timestamp = getCurrentTimestamp();
-                    document->throttle[document->throttle_count].value = ((data_left >> 16) & 255);
+                    document->throttle[document->throttle_count].value = ((data_left >> 16) & 0x000000FF);
 
                     document->throttle_count++;
                 }
                 else if (first_byte == BRAKE_FB && document->brake_count < document->brake_size) {
                     document->brake[document->brake_count].timestamp = getCurrentTimestamp();
-                    document->brake[document->brake_count].value = ((data_left >> 16) & 255);
+                    document->brake[document->brake_count].value.is_breaking = ((data_left >> 16) & 0x000000FF);
+                    document->brake[document->brake_count].value.pressure_front = (data_left & 0x0000FF00) + ((data_right >> 24) & 0x000000FF);
+                    document->brake[document->brake_count].value.pressure_back = ((data_right >> 8) & 0x0000FF00) + (data_right & 0x000000FF);
 
                     document->brake_count++;
                 }
@@ -972,13 +1003,23 @@ static void* gatherCan(void *args) {
                         }
                         break;
 
-                    case FRONT_WHEELS_FB:
-                        if (document->front_wheels_encoder_count < document->front_wheels_encoder_size) {
-                            document->front_wheels_encoder[document->front_wheels_encoder_count].timestamp = getCurrentTimestamp();
-                            document->front_wheels_encoder[document->front_wheels_encoder_count].value.speed = ((data_left >> 8) & 0x0000FFFF) * ((data_left & 0x000000FF) == 0 ? 1 : -1);
-                            document->front_wheels_encoder[document->front_wheels_encoder_count].value.speedms = (((data_right >> 16) & 0x0000FFFF) * ((data_left & 0x000000FF) == 0 ? 1 : -1)) / 100;
+                    case FRONT_WHEELS_LEFT_FB:
+                        if (document->front_wheels_encoders.left_count < document->front_wheels_encoders.left_size) {
+                            document->front_wheels_encoders.left[document->front_wheels_encoders.left_count].timestamp = getCurrentTimestamp();
+                            document->front_wheels_encoders.left[document->front_wheels_encoders.left_count].value.speed = ((data_left >> 8) & 0x0000FFFF) * ((data_left & 0x000000FF) == 0 ? 1 : -1);
+                            document->front_wheels_encoders.left[document->front_wheels_encoders.left_count].value.speedms = (((data_right >> 16) & 0x0000FFFF) * ((data_left & 0x000000FF) == 0 ? 1 : -1)) / 100;
+                            document->front_wheels_encoders.left[document->front_wheels_encoders.left_count].value.error_flag = (data_right >> 8) & 0x000000FF;
+                            document->front_wheels_encoders.left_count++;
+                        }
+                        break;
 
-                            document->front_wheels_encoder_count++;
+                    case FRONT_WHEELS_RIGHT_FB:
+                        if (document->front_wheels_encoders.right_count < document->front_wheels_encoders.right_size) {
+                            document->front_wheels_encoders.right[document->front_wheels_encoders.right_count].timestamp = getCurrentTimestamp();
+                            document->front_wheels_encoders.right[document->front_wheels_encoders.right_count].value.speed = ((data_left >> 8) & 0x0000FFFF) * ((data_left & 0x000000FF) == 0 ? 1 : -1);
+                            document->front_wheels_encoders.right[document->front_wheels_encoders.right_count].value.speedms = (((data_right >> 16) & 0x0000FFFF) * ((data_left & 0x000000FF) == 0 ? 1 : -1)) / 100;
+                            document->front_wheels_encoders.right[document->front_wheels_encoders.right_count].value.error_flag = (data_right >> 8) & 0x000000FF;
+                            document->front_wheels_encoders.right_count++;
                         }
                         break;
 

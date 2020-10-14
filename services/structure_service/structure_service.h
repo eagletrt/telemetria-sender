@@ -283,12 +283,33 @@ typedef struct {
 typedef struct {
 	double speed;
 	double speedms;
-} front_wheels_encoder_value_data;
+	int error_flag;
+} front_wheels_encoders_right_value_data;
 
 typedef struct {
 	long timestamp;
-	front_wheels_encoder_value_data value;
-} front_wheels_encoder_data;
+	front_wheels_encoders_right_value_data value;
+} front_wheels_encoders_right_data;
+
+typedef struct {
+	double speed;
+	double speedms;
+	int error_flag;
+} front_wheels_encoders_left_value_data;
+
+typedef struct {
+	long timestamp;
+	front_wheels_encoders_left_value_data value;
+} front_wheels_encoders_left_data;
+
+typedef struct {
+	front_wheels_encoders_right_data *right;
+	int right_count;
+	int right_size;
+	front_wheels_encoders_left_data *left;
+	int left_count;
+	int left_size;
+} front_wheels_encoders_data;
 
 typedef struct {
 	double meters;
@@ -304,12 +325,18 @@ typedef struct {
 
 typedef struct {
 	long timestamp;
-	double value;
+	int value;
 } throttle_data;
 
 typedef struct {
+	int is_breaking;
+	int pressure_front;
+	int pressure_back;
+} brake_value_data;
+
+typedef struct {
 	long timestamp;
-	double value;
+	brake_value_data value;
 } brake_data;
 
 typedef struct {
@@ -352,9 +379,7 @@ typedef struct {
 	imu_accel_data *imu_accel;
 	int imu_accel_count;
 	int imu_accel_size;
-	front_wheels_encoder_data *front_wheels_encoder;
-	int front_wheels_encoder_count;
-	int front_wheels_encoder_size;
+	front_wheels_encoders_data front_wheels_encoders;
 	distance_data *distance;
 	int distance_count;
 	int distance_size;

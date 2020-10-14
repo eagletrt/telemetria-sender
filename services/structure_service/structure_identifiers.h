@@ -21,7 +21,8 @@
 #define LONALT_FB 0x11
 #define TIME_FB 0x12 
 #define TTM_FB 0x13
-#define FRONT_WHEELS_FB 0x06
+#define FRONT_WHEELS_RIGHT_FB 0x06
+#define FRONT_WHEELS_LEFT_FB 0x07
 #define DISTANCE_FB 0x08 
 
 #define WHEEL_ID 0xA0

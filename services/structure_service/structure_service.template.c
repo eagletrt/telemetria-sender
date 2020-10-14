@@ -258,13 +258,15 @@ static void* gatherCan(void *args) {
             case (PEDALS_ID):
                 if (first_byte == THROTTLE_FB && document->throttle_count < document->throttle_size) {
                     document->throttle[document->throttle_count].timestamp = getCurrentTimestamp();
-                    document->throttle[document->throttle_count].value = ((data_left >> 16) & 255);
+                    document->throttle[document->throttle_count].value = ((data_left >> 16) & 0x000000FF);
 
                     document->throttle_count++;
                 }
                 else if (first_byte == BRAKE_FB && document->brake_count < document->brake_size) {
                     document->brake[document->brake_count].timestamp = getCurrentTimestamp();
-                    document->brake[document->brake_count].value = ((data_left >> 16) & 255);
+                    document->brake[document->brake_count].value.is_breaking = ((data_left >> 16) & 0x000000FF);
+                    document->brake[document->brake_count].value.pressure_front = (data_left & 0x0000FF00) + ((data_right >> 24) & 0x000000FF);
+                    document->brake[document->brake_count].value.pressure_back = ((data_right >> 8) & 0x0000FF00) + (data_right & 0x000000FF);
 
                     document->brake_count++;
                 }
@@ -476,13 +478,23 @@ static void* gatherCan(void *args) {
                         }
                         break;
 
-                    case FRONT_WHEELS_FB:
-                        if (document->front_wheels_encoder_count < document->front_wheels_encoder_size) {
-                            document->front_wheels_encoder[document->front_wheels_encoder_count].timestamp = getCurrentTimestamp();
-                            document->front_wheels_encoder[document->front_wheels_encoder_count].value.speed = ((data_left >> 8) & 0x0000FFFF) * ((data_left & 0x000000FF) == 0 ? 1 : -1);
-                            document->front_wheels_encoder[document->front_wheels_encoder_count].value.speedms = (((data_right >> 16) & 0x0000FFFF) * ((data_left & 0x000000FF) == 0 ? 1 : -1)) / 100;
+                    case FRONT_WHEELS_LEFT_FB:
+                        if (document->front_wheels_encoders.left_count < document->front_wheels_encoders.left_size) {
+                            document->front_wheels_encoders.left[document->front_wheels_encoders.left_count].timestamp = getCurrentTimestamp();
+                            document->front_wheels_encoders.left[document->front_wheels_encoders.left_count].value.speed = ((data_left >> 8) & 0x0000FFFF) * ((data_left & 0x000000FF) == 0 ? 1 : -1);
+                            document->front_wheels_encoders.left[document->front_wheels_encoders.left_count].value.speedms = (((data_right >> 16) & 0x0000FFFF) * ((data_left & 0x000000FF) == 0 ? 1 : -1)) / 100;
+                            document->front_wheels_encoders.left[document->front_wheels_encoders.left_count].value.error_flag = (data_right >> 8) & 0x000000FF;
+                            document->front_wheels_encoders.left_count++;
+                        }
+                        break;
 
-                            document->front_wheels_encoder_count++;
+                    case FRONT_WHEELS_RIGHT_FB:
+                        if (document->front_wheels_encoders.right_count < document->front_wheels_encoders.right_size) {
+                            document->front_wheels_encoders.right[document->front_wheels_encoders.right_count].timestamp = getCurrentTimestamp();
+                            document->front_wheels_encoders.right[document->front_wheels_encoders.right_count].value.speed = ((data_left >> 8) & 0x0000FFFF) * ((data_left & 0x000000FF) == 0 ? 1 : -1);
+                            document->front_wheels_encoders.right[document->front_wheels_encoders.right_count].value.speedms = (((data_right >> 16) & 0x0000FFFF) * ((data_left & 0x000000FF) == 0 ? 1 : -1)) / 100;
+                            document->front_wheels_encoders.right[document->front_wheels_encoders.right_count].value.error_flag = (data_right >> 8) & 0x000000FF;
+                            document->front_wheels_encoders.right_count++;
                         }
                         break;
 
