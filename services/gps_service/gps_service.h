@@ -20,6 +20,9 @@ extern condition_t condition;
 
 /* TYPES */
 
+/**
+ * The struct for the $GGA gps messages
+*/ 
 typedef struct {
 	double latitude;
 	double longitude;
@@ -30,6 +33,9 @@ typedef struct {
 	int status;
 } gps_gga_struct;
 
+/**
+ * The struct for the $GLL gps messages
+*/ 
 typedef struct {
 	double latitude;
 	double longitude;
@@ -39,11 +45,17 @@ typedef struct {
 	int status;
 } gps_gll_struct;
 
+/**
+ * The struct for the $VTG gps messages
+*/ 
 typedef struct {
 	double ground_speed_knots;
 	double ground_speed_human;
 } gps_vtg_struct;
 
+/**
+ * The struct for the $RMC gps messages
+*/ 
 typedef struct {
 	double latitude;
 	double longitude;
@@ -55,6 +67,9 @@ typedef struct {
 	double ground_speed_knots;
 } gps_rmc_struct;
 
+/**
+ * The struct that contains all the gps messages that will be stored in a single document
+*/ 
 typedef struct {
 	gps_gga_struct *gga;
 	gps_gll_struct *gll;

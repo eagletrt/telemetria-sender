@@ -24,6 +24,9 @@ extern condition_t condition;
 
 /* TYPES */
 
+/**
+ * The enum type that describes a result for a mongo operation
+*/
 typedef enum {
     MONGO_OK,
     MONGO_SETUP_ERROR,
@@ -32,10 +35,31 @@ typedef enum {
 
 /* FUNCTIONS */
 
+/**
+ * Setups mongodb, creating a mongo instance with the connection options in the condition and adding them to the condition itself.
+ * @return MONGO_SETUP_ERROR if there were an error, MONGO_OK otherwise
+*/
 mongo_code mongoSetup();
+/**
+ * Starts a session, by inserting a session document
+ * @return MONGO_INSERT_ERROR if there were an error, MONGO_OK otherwise
+*/
 mongo_code mongoStartSession();
+/**
+ * Inserts a document to mongodb
+ * @param data The bson document to insert
+ * @return MONGO_INSERT_ERROR if there were an error, MONGO_OK otherwise
+*/
 mongo_code mongoInsert(bson_t* data);
+/**
+ * Quits mongodb, destroying the mongo instance
+*/
 void mongoQuit();
+/**
+ * Given a mongo code, returns a message
+ * @param code The code that will define the returned message
+ * @return The returned message
+*/
 char* mongoErrorMessage(mongo_code code);
 
 #endif
