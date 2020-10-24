@@ -61,6 +61,9 @@ typedef struct {
     int id;
 } structure_condition_t;
 
+/**
+ * The struct of the condition, the only global variable of the project and that defines the status of the finite-state-machine. 
+*/
 typedef struct {
     mqtt_condition_t mqtt;
     mongodb_condition_t mongodb;
