@@ -8,7 +8,7 @@ This project is made for the [@eagletrt](https://www.github.com/eagletrt) car, i
 
 ## How was it made
 
-The telemetry is a **C** program, thought to run on a **linux system**. Being the code related to the **saved structure** very long and since it changed very frequently, I eventuallly came up with a strange solution. There is the `structure.json` file that determines the structure of the saved data and with an **[npm module](https://github.com/euberdeveloper/eagletrt-code-generator)** the c code related to that part is generated automatically.
+The telemetry is a **C** program, thought to run on a **linux system**. Being the code related to the **saved structure** very long and since it changed very frequently, I eventuallly came up with a strange solution. There is the `structure.model.json` file that determines the structure of the saved data and with an **[npm module](https://github.com/euberdeveloper/eagletrt-code-generator)** the c code related to that part is generated automatically.
 
 ### State machine
 
@@ -58,7 +58,7 @@ The options are:
 
 ### Structure
 
-The structure of the gathered data is saved in the `structure.json` file and is based on the possible **messages**:
+The structure of the gathered data is saved in the `structure.model.json` file and is based on the possible **messages**:
 
 * The **structure** is a **json object**, but every **primitive key** contains the **value type** instead of the value itself
 * For each **message** there is an **array of objects**
@@ -141,7 +141,7 @@ The **code generator**:
 * __Substitutes__ the **special comments** with the code automatically generated and based on the read structure
 * __Creates__ a file without the `.template` extension for each template file
 
-So, when the structure changes, it is only needed to change the `structure.json` file properly and run `npm run transpile` to generate the new C code.
+So, when the structure changes, it is only needed to change the `structure.model.json` file properly and run `npm run transpile` to generate the new C code.
 
 ### Code organization
 
