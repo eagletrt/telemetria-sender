@@ -48,7 +48,7 @@ The options are:
 
 * __races__: The array containing the possible races that the car can perform. Every time the steering wheel enables the telemetry, it specifies also the index of the race that the car is performing. The race name will be added to the current session, to the data saved in the database
 
-* __circuit__: The array containing the possible circuits where the car is running. Every time the steering wheel enables the telemetry, it specifies also the index of the circuit where the car is running. The circuit name will be added to the current session, to the data saved in the database. **NB**: `currently not implemented`
+* __circuits__: The array containing the possible circuits where the car is running. Every time the steering wheel enables the telemetry, it specifies also the index of the circuit where the car is running. The circuit name will be added to the current session, to the data saved in the database. **NB**: `currently not implemented`
 
 * __can_interface__: The interface of the canbus
 
@@ -56,9 +56,13 @@ The options are:
 
 * __verbose__: If also the debug messages will be logged in the console
 
+To check that `config.json` respects these creterias, it is validated with a **json schema** residing in `/models/config.schema.json`.
+
+There is also a part of the code that declares the config struct and parses the `config.json` file. It is generated with the code generator and depends on the `/models/config.model.json` file, which has exactly the same content of the `config.json`, but it **defines** the possible options and the specified value for an option is the **default value** if it is not specified in the `config.json`. The `config.model.json` is validated by the code generator with this [json schema](https://github.com/eagletrt/eagletrt-code-generator/blob/master/source/lib/schemas/config.schema.json).
+
 ### Structure
 
-The structure of the gathered data is saved in the `structure.model.json` file and is based on the possible **messages**:
+The structure of the gathered data is saved in the `/models/structure.model.json` file and is based on the possible **messages**:
 
 * The **structure** is a **json object**, but every **primitive key** contains the **value type** instead of the value itself
 * For each **message** there is an **array of objects**
@@ -128,20 +132,24 @@ This is an example of **structure.json**:
 }
 ```
 
+To be sure that the provided `structure.model.json` file is valid, it is checked with [this json schema](https://github.com/eagletrt/eagletrt-code-generator/blob/master/source/lib/schemas/structure.schema.json).
+
 ### Code generation
 
-Since a huge amount of code depended on the structure and the structure changed frequently, **lots of hours** used to be lost doing **repetitive work** and copy-paste for every changed message. **C** is a **static type** language and is not favorable for structure as the telemetry one. It is anyway **essential** because of the **performance** we needed. **Javascript** is instead a very **flexible** language and is not **statically typed**. So I made a [repository](https://github.com/euberdeveloper/eagletrt-code-generator) in **Typescript** that became an [npm module](https://www.npmjs.com/package/eagletrt-code-generator) to **generate** the **C code** that **depends** on the structure.
+Since a huge amount of code depended on the structure and the structure changed frequently, **lots of hours** used to be lost doing **repetitive work** and copy-paste for every changed message. **C** is a **static type** language and is not favorable for structure as the telemetry one. It is anyway **essential** because of the **performance** we needed. **Javascript** is instead a very **flexible** language and is not **statically typed**. So I made a [repository](https://github.com/euberdeveloper/eagletrt-code-generator) in **Typescript** that became an [npm module](https://www.npmjs.com/package/eagletrt-code-generator) to **generate** the **C code** that **depends** on the structure. 
+
+The same approach has been applied to the code that defined the config struct and parsed the `config.json` via `jsmn`. It resulted in a big amount of repetitive code and has been automatize via the `/models/config.model.json` and the code generation.
 
 There are some files, the **template files**, ending with `.template.c` or `.template.h`. Those files contains some **special comments** such as `// {{GENERATE_BSON_CODE}}` instead of the pieces of code that depends on the structure.
 
 The **code generator**:
 
-* __Reads__ the `structure.json`
+* __Reads__ the `/models/structure.model.json` and `/models/config.model.json`
 * __Looks__ for the **template files**
-* __Substitutes__ the **special comments** with the code automatically generated and based on the read structure
+* __Substitutes__ the **special comments** with the code automatically generated and based on the read models
 * __Creates__ a file without the `.template` extension for each template file
 
-So, when the structure changes, it is only needed to change the `structure.model.json` file properly and run `npm run transpile` to generate the new C code.
+So, when the data structure or the config structure changes, it is only needed to change the `structure.model.json` or `config.model.json` file properly and run `npm run transpile` to generate the new C code.
 
 ### Code organization
 
