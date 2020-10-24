@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/eagletrt/fenice-telemetria-sender#readme",
   "devDependencies": {
-    "ajv-cli": "^3.3.0",
-    "eagletrt-code-generator": "^2.3.1"
+    "@eagletrt/eagletrt-code-generator": "^2.5.6",
+    "ajv-cli": "^3.3.0"
   }
 }
