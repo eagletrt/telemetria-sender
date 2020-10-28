@@ -1,7 +1,9 @@
 #include "misc_utils.h"
 
 char** cloneStringsArray(char** array, int n) {
-    char** clone = (char**) malloc(sizeof(char*) * n);
+    char** clone = n > 0 
+        ? (char**) malloc(sizeof(char*) * n) 
+        : NULL;
 
     for (int i = 0; i < n; ++i) {
         clone[i] = strdup(array[i]);

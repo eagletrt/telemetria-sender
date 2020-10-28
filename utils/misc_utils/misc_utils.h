@@ -15,6 +15,7 @@
  * 
  * @param array The array of strings
  * @param n The number of strings in the array
+ * @return The cloned array of strings. NULL if n is zero
 */
 char** cloneStringsArray(char** array, int n);
 
@@ -52,6 +53,7 @@ void printDoubleArray(double* array);
  * Returns the number of digits of a number
  * 
  * @param n The number whose digits are counted
+ * @return the number of digits of the passed argument
 */
 int digitsCount(int n);
 

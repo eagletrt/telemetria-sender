@@ -1,5 +1,4 @@
 #!/bin/bash
-#node ./javascript/
 echo "transpiling..."
 npm run transpile
 echo "compiling..."
