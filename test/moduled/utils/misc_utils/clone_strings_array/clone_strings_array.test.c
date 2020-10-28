@@ -31,7 +31,7 @@ static void test_clone_strings_array_tear_down_1(void* fixture);
 
 static MunitTest tests_clone_strings_array[] = {
   {
-    "/clone-strings-array/n-equal-to-size",
+    "/n-equal-to-size",
     test_clone_strings_array_0,
     test_clone_strings_array_setup_0,
     test_clone_strings_array_tear_down_0,
@@ -39,7 +39,7 @@ static MunitTest tests_clone_strings_array[] = {
     test_clone_strings_array_params_0
   },
   {
-    "/clone-strings-array/n-lower-than-size",
+    "/n-lower-than-size",
     test_clone_strings_array_1,
     test_clone_strings_array_setup_1,
     test_clone_strings_array_tear_down_1,
