@@ -3,12 +3,15 @@
 /* EXPORTED SUITE */
 
 MunitSuite* get_misc_utils_suite() {
-  MunitSuite* misc_utils_suite = (MunitSuite*) malloc(sizeof(MunitSuite));
-  misc_utils_suite->prefix = "/misc-utils";
-  misc_utils_suite->tests = NULL;
-  misc_utils_suite->suites = get_misc_utils_clone_strings_array_suite();
-  misc_utils_suite->iterations = 1;
-  misc_utils_suite->options = MUNIT_SUITE_OPTION_NONE;
+  MunitSuite* sub_suites = (MunitSuite*) malloc(1 * sizeof(MunitSuite));
+  sub_suites[0] = *get_misc_utils_clone_strings_array_suite();
 
-  return misc_utils_suite;
+  MunitSuite* suite = (MunitSuite*) malloc(sizeof(MunitSuite));
+  suite->prefix = "/misc-utils";
+  suite->tests = NULL;
+  suite->suites = sub_suites;
+  suite->iterations = 1;
+  suite->options = MUNIT_SUITE_OPTION_NONE;
+
+  return suite;
 }

@@ -10,6 +10,9 @@
     "serve": "npm run compile && npm run start",
     "enable": "./enable_signal.sh",
     "idle": "./idle_signal.sh",
+    "test:moduled:compile": "cd test/moduled && ./compile.sh",
+    "test:moduled:start": "./test/moduled/test.out",
+    "test:moduled": "npm run test:moduled:compile && npm run test:moduled:start",
     "commit": "git add . && cz"
   },
   "repository": {
