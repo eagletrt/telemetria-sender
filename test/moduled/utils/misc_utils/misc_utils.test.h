@@ -8,6 +8,6 @@
 
 /* EXPORTED SUITE */
 
-extern MunitSuite *misc_utils_suite;
+MunitSuite* get_misc_utils_suite();
 
 #endif

@@ -27,9 +27,9 @@ static void* test_clone_strings_array_setup_1(const MunitParameter params[], voi
 static MunitResult test_clone_strings_array_1(const MunitParameter params[], void* fixture);
 static void test_clone_strings_array_tear_down_1(void* fixture);
 
-/* EXPORTED TESTS */
+/* EXPORTED SUITE */
 
-MunitTest const tests_clone_strings_array[] = {
+static MunitTest tests_clone_strings_array[] = {
   {
     "/clone-strings-array/n-equal-to-size",
     test_clone_strings_array_0,
@@ -48,6 +48,18 @@ MunitTest const tests_clone_strings_array[] = {
   },
   { NULL, NULL, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL }
 };
+
+static MunitSuite misc_utils_clone_strings_array_suite = {
+  "/clone-strings-array",
+  tests_clone_strings_array,
+  NULL,
+  1,
+  MUNIT_SUITE_OPTION_NONE
+};
+
+MunitSuite* get_misc_utils_clone_strings_array_suite() {
+  return &misc_utils_clone_strings_array_suite;
+}
 
 /* HELPER FUNCTIONS DEFINITIONS */
 

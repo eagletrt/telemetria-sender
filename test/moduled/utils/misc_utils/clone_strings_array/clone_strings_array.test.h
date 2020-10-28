@@ -8,6 +8,6 @@
 
 /* EXPORTED TESTS */
 
-extern const MunitTest tests_clone_strings_array[];
+MunitSuite* get_misc_utils_clone_strings_array_suite();
 
 #endif
