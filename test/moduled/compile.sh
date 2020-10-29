@@ -6,5 +6,6 @@ gcc main.test.c -o test.out \
     ./utils/misc_utils/misc_utils.test.c \
     ./utils/misc_utils/clone_strings_array/clone_strings_array.test.c \
     ./utils/misc_utils/free_strings_array/free_strings_array.test.c \
+    ./utils/log_utils/log_utils.test.c \
     -lm
 echo "compiled :)"
