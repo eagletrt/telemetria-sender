@@ -1,14 +1,12 @@
-#ifndef TELEMETRY_LOG_UTILS
-#define TELEMETRY_LOG_UTILS
+#ifndef TELEMETRY_TEST_LOG_UTILS
+#define TELEMETRY_TEST_LOG_UTILS
 
 /* IMPORTS */
 
 #include "../../munit/munit.h"
-#include "../../../../../utils/log_utils/log_utils_colors.h"
-#include "../../../../../utils/log_utils/log_utils.h"
+#include "../../../../utils/log_utils/log_utils.h"
 
-
-/* FUNCTIONS */
+/* EXPORTED SUITE */
 
 MunitSuite* get_log_utils_suite();
 
