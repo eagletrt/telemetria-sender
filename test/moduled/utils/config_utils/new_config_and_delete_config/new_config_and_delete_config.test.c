@@ -41,4 +41,6 @@ static MunitResult test_new_config_and_delete_config(const MunitParameter params
 {
     config_t* config = newConfig();
     deleteConfig(config);
+
+    return MUNIT_OK;
 }
