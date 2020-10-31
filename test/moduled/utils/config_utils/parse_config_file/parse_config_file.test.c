@@ -5,7 +5,6 @@
 struct _test_parse_config_file_fixture
 {
     config_t *config;
-    char *filename;
 };
 typedef struct _test_parse_config_file_fixture test_parse_config_file_fixture;
 
@@ -65,6 +64,7 @@ static MunitResult test_parse_config_file(const MunitParameter params[], void *f
 static void test_parse_config_file_tear_down(void *fixture)
 {
     test_parse_config_file_fixture *typed_fixture = (test_parse_config_file_fixture *)malloc(sizeof(test_parse_config_file_fixture));
+    printf(typed_fixture->config->mqtt.log_topic);
     //deleteConfig(&(typed_fixture->config)); //TODO: fix
     free(typed_fixture);
 }
