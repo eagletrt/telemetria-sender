@@ -62,7 +62,6 @@ config_t* newConfig() {
 
 void parseConfigFile(const char* path, config_t **config) {
     FILE *config_file = fopen(path, "r");
-
     if (config_file == NULL) {
         *config = NULL;
     }
