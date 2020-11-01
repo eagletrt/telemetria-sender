@@ -4,6 +4,7 @@
 /* IMPORTS */
 
 #include "../../../libs/munit/munit.h"
+#include "../../../libs/test_utils/test_utils.h"
 #include "../../../../../utils/log_utils/log_utils.h"
 
 /* EXPORTED SUITE */

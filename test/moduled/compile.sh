@@ -2,6 +2,7 @@
 echo "compiling..."
 gcc main.test.c -o test.out \
     ./libs/munit/munit.c \
+    ./libs/test_utils/test_utils.c \
     ../../utils/misc_utils/misc_utils.c \
     ./suites/utils/misc_utils/misc_utils.test.c \
     ./suites/utils/misc_utils/clone_strings_array/clone_strings_array.test.c \
