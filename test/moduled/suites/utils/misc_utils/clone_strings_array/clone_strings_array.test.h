@@ -3,8 +3,8 @@
 
 /** IMPORTS **/
 
-#include "../../../../../utils/misc_utils/misc_utils.h"
-#include "../../../munit/munit.h"
+#include "../../../../../../utils/misc_utils/misc_utils.h"
+#include "../../../../libs/munit/munit.h"
 
 /* EXPORTED TESTS */
 

@@ -3,8 +3,8 @@
 
 /* IMPORTS */
 
-#include "../../munit/munit.h"
-#include "../../../../utils/log_utils/log_utils.h"
+#include "../../../libs/munit/munit.h"
+#include "../../../../../utils/log_utils/log_utils.h"
 
 /* EXPORTED SUITE */
 

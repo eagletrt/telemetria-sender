@@ -1,7 +1,7 @@
-#include "munit/munit.h"
-#include "utils/misc_utils/misc_utils.test.h"
-#include "utils/log_utils/log_utils.test.h"
-#include "utils/config_utils/config_utils.test.h"
+#include "libs/munit/munit.h"
+#include "suites/utils/misc_utils/misc_utils.test.h"
+#include "suites/utils/log_utils/log_utils.test.h"
+#include "suites/utils/config_utils/config_utils.test.h"
 
 int main(int argc, char *argv[]) {
     MunitSuite* sub_suites = (MunitSuite*) malloc(3 * sizeof(MunitSuite));

@@ -3,7 +3,7 @@
 
 /** IMPORTS **/
 
-#include "../../munit/munit.h"
+#include "../../../libs/munit/munit.h"
 #include "./clone_strings_array/clone_strings_array.test.h"
 #include "./free_strings_array/free_strings_array.test.h"
 
