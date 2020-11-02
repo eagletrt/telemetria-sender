@@ -40,6 +40,28 @@ static MunitResult test_new_config(const MunitParameter params[], void *fixture)
     munit_assert_string_equal(config->mqtt.data_topic, "telemetria");
     munit_assert_string_equal(config->mqtt.log_topic, "telemetria_log");
 
+    munit_assert_string_equal(config->mongodb.host, "localhost");
+    munit_assert_int(config->mongodb.port, ==, 27017);
+    munit_assert_string_equal(config->mongodb.db, "eagle_test");
+    munit_assert_string_equal(config->mongodb.collection, "chimera");
+
+    munit_assert_true(config->gps.plugged);
+    munit_assert_true(config->gps.simulated);
+    munit_assert_string_equal(config->gps.interface, "/dev/pts/4");
+
+    munit_assert_int(config->pilots_count, >=, 1);
+    munit_assert_string_equal(config->pilots[0], "default");
+
+    munit_assert_int(config->circuits_count, >=, 1);
+    munit_assert_string_equal(config->circuits[0], "default");
+
+    munit_assert_int(config->races_count, >=, 1);
+    munit_assert_string_equal(config->races[0], "default");
+
+    munit_assert_string_equal(config->can_interface, "can0");
+    munit_assert_int(config->sending_rate, ==, 500);
+    munit_assert_false(config->verbose);
+
     deleteConfig(config);
 
     return MUNIT_OK;
