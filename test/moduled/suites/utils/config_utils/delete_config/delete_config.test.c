@@ -36,6 +36,8 @@ MunitSuite *get_config_utils_delete_config_suite() {
 	return &config_utils_delete_config_suite;
 }
 
+/* HELPER FUNCTIONS DEFINITIONS */
+
 static char *test_delete_config_params_n[] = {"", "test/assets/config_file/config.json", NULL};
 static MunitParameterEnum test_delete_config_params[] = {
 	{"filename", test_delete_config_params_n},
@@ -43,10 +45,11 @@ static MunitParameterEnum test_delete_config_params[] = {
 };
 
 static void *test_delete_config_setup(const MunitParameter params[], void *user_data) {
-	test_delete_config_fixture *fixture = (test_delete_config_fixture *)malloc(sizeof(test_delete_config_fixture));
+	test_delete_config_fixture *fixture = (test_delete_config_fixture *) malloc(sizeof(test_delete_config_fixture));
 	config_t *config = newConfig();
-	if (strlen(params[0].value) > 0)
+	if (strlen(params[0].value) > 0) {
 		parseConfigFile(params[0].value, &config);
+	}
 	fixture->config = config;
 }
 
@@ -57,5 +60,5 @@ static MunitResult test_delete_config(const MunitParameter params[], void *fixtu
 }
 
 static void test_delete_config_tear_down(void *fixture) {
-	test_delete_config_fixture *typed_fixture = (test_delete_config_fixture *)malloc(sizeof(test_delete_config_fixture));
+	test_delete_config_fixture *typed_fixture = (test_delete_config_fixture *) malloc(sizeof(test_delete_config_fixture));
 }
