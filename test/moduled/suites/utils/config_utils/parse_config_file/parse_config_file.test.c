@@ -38,7 +38,7 @@ MunitSuite *get_config_utils_parse_config_file_suite()
     return &config_utils_parse_config_file_suite;
 }
 
-static char *test_parse_config_file_params_n[] = {"/home/toscan/dev/chimera-telemetria-sender/config.json", NULL};
+static char *test_parse_config_file_params_n[] = {"./config.json", NULL};
 static MunitParameterEnum test_parse_config_file_params[] = {
     {"filename", test_parse_config_file_params_n},
     {NULL, NULL},
