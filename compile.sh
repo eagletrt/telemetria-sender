@@ -23,4 +23,8 @@ gcc main.c -o sender.out \
     -lmosquitto \
     -lpthread \
     -lm
-echo "compiled :)"
+if [ $? -eq 0 ]; then
+    echo "compiled :)"
+else
+    echo "Error in compilation :("
+fi

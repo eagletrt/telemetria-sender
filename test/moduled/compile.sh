@@ -38,4 +38,8 @@ gcc main.test.c -o test.out \
     ./suites/services/services.test.c \
     \
     -lm
-echo "compiled :)"
+if [ $? -eq 0 ]; then
+    echo "compiled :)"
+else
+    echo "Error in compilation :("
+fi
