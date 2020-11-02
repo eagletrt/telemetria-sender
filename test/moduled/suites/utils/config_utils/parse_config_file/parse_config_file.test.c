@@ -38,7 +38,7 @@ MunitSuite *get_config_utils_parse_config_file_suite()
     return &config_utils_parse_config_file_suite;
 }
 
-static char *test_parse_config_file_params_n[] = {"./config.json", NULL};
+static char *test_parse_config_file_params_n[] = {"test/moduled/suites/utils/config_utils/assets/config.json", NULL};
 static MunitParameterEnum test_parse_config_file_params[] = {
     {"filename", test_parse_config_file_params_n},
     {NULL, NULL},
@@ -65,6 +65,6 @@ static void test_parse_config_file_tear_down(void *fixture)
 {
     test_parse_config_file_fixture *typed_fixture = (test_parse_config_file_fixture *)malloc(sizeof(test_parse_config_file_fixture));
     printf(typed_fixture->config->mqtt.log_topic);
-    //deleteConfig(&(typed_fixture->config)); //TODO: fix
+    //deleteConfig(typed_fixture->config); //TODO: fix
     free(typed_fixture);
 }

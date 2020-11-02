@@ -6,6 +6,8 @@
 #include "../../../libs/munit/munit.h"
 #include "./new_config_and_delete_config/new_config_and_delete_config.test.h"
 #include "./parse_config_file/parse_config_file.test.h"
+#include "./delete_config/delete_config.test.h"
+#include "./new_config/new_config.test.h"
 
 /* EXPORTED SUITE */
 

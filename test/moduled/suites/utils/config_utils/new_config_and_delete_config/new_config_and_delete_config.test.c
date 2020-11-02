@@ -30,16 +30,17 @@ MunitSuite *get_config_utils_new_config_and_delete_config_suite()
     return &config_utils_new_config_and_delete_config_suite;
 }
 
-static char *test_new_config_and_delete_config_params_n[] = {
-    "0", NULL};
+static char *test_new_config_and_delete_config_params_n[] = {"", "test/moduled/suites/utils/config_utils/assets/config.json", NULL};
 static MunitParameterEnum test_new_config_and_delete_config_params[] = {
-    {"n", test_new_config_and_delete_config_params_n},
+    {"filename", test_new_config_and_delete_config_params_n},
     {NULL, NULL},
 };
 
 static MunitResult test_new_config_and_delete_config(const MunitParameter params[], void *fixture)
 {
     config_t* config = newConfig();
+    if (strlen(params[0].value) > 0)
+        parseConfigFile(params[0].value, &config);
     deleteConfig(config);
 
     return MUNIT_OK;
