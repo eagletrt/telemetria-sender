@@ -9,6 +9,7 @@
 #include "./print_strings_array/print_strings_array.test.h"
 #include "./print_int_array/print_int_array.test.h"
 #include "./print_double_array/print_double_array.test.h"
+#include "./digit_counts/digit_counts.test.h"
 
 /* EXPORTED SUITE */
 
