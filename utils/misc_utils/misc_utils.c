@@ -21,31 +21,42 @@ void freeStringsArray(char** array, int* n) {
 }
 
 void printStringsArray(char** array, int n) {
-    printf("[\n");
-    for (int i = 0; i < n; ++i) {
-        printf("\t%s\n", array[i]);
+    if (n <= 0) {
+        printf("[]\n");
     }
-    printf("]\n");
+    else {
+        printf("[\n");
+        for (int i = 0; i < n; ++i) {
+            printf("\t%s\n", array[i]);
+        }
+        printf("]\n");
+    }
 }
 
-void printIntArray(int* array) {
-    const int n = sizeof(array) / sizeof(int);
-
-    printf("[\n");
-    for (int i = 0; i < n; ++i) {
-        printf("\t%d\n", array[i]);
+void printIntArray(int* array, int n) {
+    if (n <= 0) {
+        printf("[]\n");
     }
-    printf("]\n");
+    else {
+        printf("[\n");
+        for (int i = 0; i < n; ++i) {
+            printf("\t%d\n", array[i]);
+        }
+        printf("]\n");
+    }
 }
 
-void printDoubleArray(double* array) {
-    const int n = sizeof(array) / sizeof(double);
-
-    printf("[\n");
-    for (int i = 0; i < n; ++i) {
-        printf("\t%f\n", array[i]);
+void printDoubleArray(double* array, int n) {
+    if (n <= 0) {
+        printf("[]\n");
     }
-    printf("]\n");
+    else {
+        printf("[\n");
+        for (int i = 0; i < n; ++i) {
+            printf("\t%f\n", array[i]);
+        }
+        printf("]\n");
+    }
 }
 
 int digitsCount(int n) {

@@ -40,14 +40,14 @@ void printStringsArray(char** array, int n);
  * 
  * @param array The array of integers
 */
-void printIntArray(int* array);
+void printIntArray(int* array, int n);
 
 /**
  * Prints an array of double
  * 
  * @param array The array of double
 */
-void printDoubleArray(double* array);
+void printDoubleArray(double* array, int n);
 
 /**
  * Returns the number of digits of a number

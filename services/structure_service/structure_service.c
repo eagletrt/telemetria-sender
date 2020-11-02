@@ -1139,7 +1139,7 @@ static void* gatherGps(void *args) {
                         document->gps.new[document->gps.new_count].value.altitude_GGA = gps_data->gga->altitude;
                         document->gps.new[document->gps.new_count].value.ns_indicator_GGA = gps_data->gga->ns_indicator;
                         document->gps.new[document->gps.new_count].value.ew_indicator_GGA = gps_data->gga->ew_indicator;
-                        document->gps.new[document->gps.new_count].value.utc_time_GGA = getCurrentTimestamp();
+                        document->gps.new[document->gps.new_count].value.utc_time_GGA = gps_data->gga->utc_time;
                     }
                     else {
                         gga_done = 1;
@@ -1150,7 +1150,7 @@ static void* gatherGps(void *args) {
                         document->gps.new[document->gps.new_count].value.altitude_GGA = gps_data->gga->altitude;
                         document->gps.new[document->gps.new_count].value.ns_indicator_GGA = gps_data->gga->ns_indicator;
                         document->gps.new[document->gps.new_count].value.ew_indicator_GGA = gps_data->gga->ew_indicator;
-                        document->gps.new[document->gps.new_count].value.utc_time_GGA = getCurrentTimestamp();
+                        document->gps.new[document->gps.new_count].value.utc_time_GGA = gps_data->gga->utc_time;
                     }
                 }
 
@@ -1165,7 +1165,7 @@ static void* gatherGps(void *args) {
                         document->gps.new[document->gps.new_count].value.longitude_GLL = parseNmeaCoord(gps_data->gll->longitude);
                         document->gps.new[document->gps.new_count].value.ns_indicator_GLL = gps_data->gll->ns_indicator;
                         document->gps.new[document->gps.new_count].value.ew_indicator_GLL = gps_data->gll->ew_indicator;
-                        document->gps.new[document->gps.new_count].value.utc_time_GLL = getCurrentTimestamp();
+                        document->gps.new[document->gps.new_count].value.utc_time_GLL = gps_data->gll->utc_time;
                     }
                     else {
                         gll_done = 1;
@@ -1173,7 +1173,7 @@ static void* gatherGps(void *args) {
                         document->gps.new[document->gps.new_count].value.longitude_GLL = parseNmeaCoord(gps_data->gll->longitude);
                         document->gps.new[document->gps.new_count].value.ns_indicator_GLL = gps_data->gll->ns_indicator;
                         document->gps.new[document->gps.new_count].value.ew_indicator_GLL = gps_data->gll->ew_indicator;
-                        document->gps.new[document->gps.new_count].value.utc_time_GLL = getCurrentTimestamp();
+                        document->gps.new[document->gps.new_count].value.utc_time_GLL = gps_data->gll->utc_time;
                     }
                 }
 
@@ -1206,7 +1206,7 @@ static void* gatherGps(void *args) {
                         document->gps.new[document->gps.new_count].value.ground_speed_knots_RMC = gps_data->rmc->ground_speed_knots;
                         document->gps.new[document->gps.new_count].value.ns_indicator_RMC = gps_data->rmc->ns_indicator;
                         document->gps.new[document->gps.new_count].value.ew_indicator_RMC = gps_data->rmc->ew_indicator;
-                        document->gps.new[document->gps.new_count].value.utc_time_RMC = getCurrentTimestamp();
+                        document->gps.new[document->gps.new_count].value.utc_time_RMC = gps_data->rmc->utc_time;
                         document->gps.new[document->gps.new_count].value.date_RMC = gps_data->rmc->date;
                     }
                     else {
@@ -1216,7 +1216,7 @@ static void* gatherGps(void *args) {
                         document->gps.new[document->gps.new_count].value.ground_speed_knots_RMC = gps_data->rmc->ground_speed_knots;
                         document->gps.new[document->gps.new_count].value.ns_indicator_RMC = gps_data->rmc->ns_indicator;
                         document->gps.new[document->gps.new_count].value.ew_indicator_RMC = gps_data->rmc->ew_indicator;
-                        document->gps.new[document->gps.new_count].value.utc_time_RMC = getCurrentTimestamp();
+                        document->gps.new[document->gps.new_count].value.utc_time_RMC = gps_data->rmc->utc_time;
                         document->gps.new[document->gps.new_count].value.date_RMC = gps_data->rmc->date;
                     }
                 }
