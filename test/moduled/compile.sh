@@ -15,6 +15,7 @@ gcc main.test.c -o test.out \
     ./suites/utils/misc_utils/digit_counts/digit_counts.test.c \
     ../../utils/log_utils/log_utils.c \
     ./suites/utils/log_utils/log_utils.test.c \
+    ./suites/utils/log_utils/log_info/log_info.test.c \
     ../../utils/config_utils/config_utils.c \
     ../../utils/config_utils/jsmn/jsmn.c \
     ./suites/utils/config_utils/config_utils.test.c \
