@@ -15,6 +15,10 @@ gcc main.test.c -o test.out \
     \
     ./suites/utils/log_utils/log_utils.test.c \
     ./suites/utils/log_utils/log_info/log_info.test.c \
+    ./suites/utils/log_utils/log_success/log_success.test.c \
+    ./suites/utils/log_utils/log_debug/log_debug.test.c \
+    ./suites/utils/log_utils/log_error/log_error.test.c \
+    ./suites/utils/log_utils/log_warning/log_warning.test.c \
     \
     ./suites/utils/misc_utils/misc_utils.test.c \
     ./suites/utils/misc_utils/digit_counts/digit_counts.test.c \
