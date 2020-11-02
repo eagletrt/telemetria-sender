@@ -1,13 +1,11 @@
 #include "libs/munit/munit.h"
-#include "suites/utils/misc_utils/misc_utils.test.h"
-#include "suites/utils/log_utils/log_utils.test.h"
-#include "suites/utils/config_utils/config_utils.test.h"
+#include "suites/utils/utils.test.h"
+#include "suites/services/services.test.h"
 
 int main(int argc, char *argv[]) {
-    MunitSuite* sub_suites = (MunitSuite*) malloc(3 * sizeof(MunitSuite));
-    sub_suites[0] = *get_misc_utils_suite();
-    sub_suites[1] = *get_log_utils_suite();
-    sub_suites[2] = *get_config_utils_suite();
+    MunitSuite* sub_suites = (MunitSuite*) malloc(2 * sizeof(MunitSuite));
+    sub_suites[0] = *get_utils_suite();
+    sub_suites[1] = *get_services_suite();
 
     MunitSuite* main_test_suite = (MunitSuite*) malloc(sizeof(MunitSuite));
     main_test_suite->prefix = "/moduled-tests";
