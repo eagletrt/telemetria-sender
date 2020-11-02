@@ -2,10 +2,9 @@
 
 /* HELPER FUNCTIONS SIGNATURES */
 
-struct _test_delete_config_fixture {
+typedef struct {
 	config_t *config;
-};
-typedef struct _test_delete_config_fixture test_delete_config_fixture;
+} test_delete_config_fixture;
 
 static char *test_delete_config_params_n[];
 static MunitParameterEnum test_delete_config_params[];
@@ -41,10 +40,17 @@ MunitSuite *get_config_utils_delete_config_suite() {
 
 /* HELPER FUNCTIONS DEFINITIONS */
 
-static char *test_delete_config_params_n[] = {"", "test/assets/config_file/config.json", NULL};
+static char *test_delete_config_params_n[] = {
+	"", 
+	"test/moduled/suites/utils/config_utils/delete_config/assets/0.config.json", 
+	"test/moduled/suites/utils/config_utils/delete_config/assets/1.config.json", 
+	"test/moduled/suites/utils/config_utils/delete_config/assets/2.config.json", 
+	NULL
+};
+
 static MunitParameterEnum test_delete_config_params[] = {
-	{"filename", test_delete_config_params_n},
-	{NULL, NULL},
+	{ "filename", test_delete_config_params_n },
+	{ NULL, NULL },
 };
 
 static void *test_delete_config_setup(const MunitParameter params[], void *user_data) {

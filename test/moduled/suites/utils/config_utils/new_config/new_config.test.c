@@ -2,29 +2,21 @@
 
 /* HELPER FUNCTIONS SIGNATURES */
 
-struct _test_new_config_fixture
-{
-    config_t *config;
-};
-typedef struct _test_new_config_fixture test_new_config_fixture;
-
-static char *test_new_config_params_n[];
-static MunitParameterEnum test_new_config_params[];
-
-static void *test_new_config_setup(const MunitParameter params[], void *user_data);
 static MunitResult test_new_config(const MunitParameter params[], void *fixture);
-static void test_new_config_tear_down(void *fixture);
 
 /* EXPORTED SUITE */
 
 static MunitTest tests_new_config[] = {
-    {"",
-     test_new_config,
-     test_new_config_setup,
-     test_new_config_tear_down,
-     MUNIT_TEST_OPTION_NONE,
-     test_new_config_params},
-    {NULL, NULL, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL}};
+    {
+        "",
+        test_new_config,
+        NULL,
+        NULL,
+        MUNIT_TEST_OPTION_NONE,
+        NULL
+    },
+    { NULL, NULL, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL }
+};
 
 static MunitSuite config_utils_new_config_suite = {
     "/new_config",
@@ -33,31 +25,22 @@ static MunitSuite config_utils_new_config_suite = {
     1,
     MUNIT_SUITE_OPTION_NONE};
 
-MunitSuite *get_config_utils_new_config_suite()
-{
+MunitSuite *get_config_utils_new_config_suite() {
     return &config_utils_new_config_suite;
 }
 
-static char *test_new_config_params_n[] = {"", NULL};
-static MunitParameterEnum test_new_config_params[] = {
-    {"filename", test_new_config_params_n},
-    {NULL, NULL},
-};
-
-static void *test_new_config_setup(const MunitParameter params[], void *user_data)
-{
-    test_new_config_fixture *fixture = (test_new_config_fixture *)malloc(sizeof(test_new_config_fixture));
-}
+/* HELPER FUNCTIONS DEFINITIONS */
 
 static MunitResult test_new_config(const MunitParameter params[], void *fixture)
 {
-    test_new_config_fixture *typed_fixture = (test_new_config_fixture *)fixture;
-    typed_fixture->config = newConfig();
-    return MUNIT_OK;
-}
+    config_t *config = newConfig();
 
-static void test_new_config_tear_down(void *fixture)
-{
-    test_new_config_fixture *typed_fixture = (test_new_config_fixture *)malloc(sizeof(test_new_config_fixture));
-    //deleteConfig(&(typed_fixture->config)); //TODO: fix
+    munit_assert_string_equal(config->mqtt.host, "localhost");
+    munit_assert_int(config->mqtt.port, ==, 1883);
+    munit_assert_string_equal(config->mqtt.data_topic, "telemetria");
+    munit_assert_string_equal(config->mqtt.log_topic, "telemetria_log");
+
+    deleteConfig(config);
+
+    return MUNIT_OK;
 }
