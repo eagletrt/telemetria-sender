@@ -30,6 +30,7 @@ gcc main.test.c -o test.out \
     \
     ./suites/utils/config_utils/config_utils.test.c \
     ./suites/utils/config_utils/new_config/new_config.test.c \
+    ./suites/utils/config_utils/print_config/print_config.test.c \
     ./suites/utils/config_utils/delete_config/delete_config.test.c \
     ./suites/utils/config_utils/parse_config_file/parse_config_file.test.c \
     ./suites/utils/config_utils/new_config_and_delete_config/new_config_and_delete_config.test.c \
