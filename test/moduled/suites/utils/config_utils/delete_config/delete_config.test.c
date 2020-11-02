@@ -17,13 +17,16 @@ static void test_delete_config_tear_down(void *fixture);
 /* EXPORTED SUITE */
 
 static MunitTest tests_delete_config[] = {
-	{"",
-	 test_delete_config,
-	 test_delete_config_setup,
-	 test_delete_config_tear_down,
-	 MUNIT_TEST_OPTION_NONE,
-	 test_delete_config_params},
-	{NULL, NULL, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL}};
+	{
+		"",
+		test_delete_config,
+		test_delete_config_setup,
+		test_delete_config_tear_down,
+		MUNIT_TEST_OPTION_NONE,
+		test_delete_config_params
+	},
+	{ NULL, NULL, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL }
+};
 
 static MunitSuite config_utils_delete_config_suite = {
 	"/delete_config",
