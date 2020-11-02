@@ -2,9 +2,6 @@
 #include "suites/utils/utils.test.h"
 #include "suites/services/services.test.h"
 
-
-SALAMANDRAAAAAAAAAAAAAAAAAAAAAAA
-
 int main(int argc, char *argv[]) {
     MunitSuite* sub_suites = (MunitSuite*) malloc(2 * sizeof(MunitSuite));
     sub_suites[0] = *get_utils_suite();
