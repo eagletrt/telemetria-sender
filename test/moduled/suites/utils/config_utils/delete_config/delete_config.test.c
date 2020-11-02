@@ -2,9 +2,8 @@
 
 /* HELPER FUNCTIONS SIGNATURES */
 
-struct _test_delete_config_fixture
-{
-    config_t *config;
+struct _test_delete_config_fixture {
+	config_t *config;
 };
 typedef struct _test_delete_config_fixture test_delete_config_fixture;
 
@@ -18,49 +17,45 @@ static void test_delete_config_tear_down(void *fixture);
 /* EXPORTED SUITE */
 
 static MunitTest tests_delete_config[] = {
-    {"",
-     test_delete_config,
-     test_delete_config_setup,
-     test_delete_config_tear_down,
-     MUNIT_TEST_OPTION_NONE,
-     test_delete_config_params},
-    {NULL, NULL, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL}};
+	{"",
+	 test_delete_config,
+	 test_delete_config_setup,
+	 test_delete_config_tear_down,
+	 MUNIT_TEST_OPTION_NONE,
+	 test_delete_config_params},
+	{NULL, NULL, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL}};
 
 static MunitSuite config_utils_delete_config_suite = {
-    "/delete_config",
-    tests_delete_config,
-    NULL,
-    1,
-    MUNIT_SUITE_OPTION_NONE};
+	"/delete_config",
+	tests_delete_config,
+	NULL,
+	1,
+	MUNIT_SUITE_OPTION_NONE};
 
-MunitSuite *get_config_utils_delete_config_suite()
-{
-    return &config_utils_delete_config_suite;
+MunitSuite *get_config_utils_delete_config_suite() {
+	return &config_utils_delete_config_suite;
 }
 
 static char *test_delete_config_params_n[] = {"", "test/assets/config_file/config.json", NULL};
 static MunitParameterEnum test_delete_config_params[] = {
-    {"filename", test_delete_config_params_n},
-    {NULL, NULL},
+	{"filename", test_delete_config_params_n},
+	{NULL, NULL},
 };
 
-static void *test_delete_config_setup(const MunitParameter params[], void *user_data)
-{
-    test_delete_config_fixture *fixture = (test_delete_config_fixture *)malloc(sizeof(test_delete_config_fixture));
-    config_t *config = newConfig();
-    if (strlen(params[0].value) > 0)
-        parseConfigFile(params[0].value, &config);
-    fixture->config = config;
+static void *test_delete_config_setup(const MunitParameter params[], void *user_data) {
+	test_delete_config_fixture *fixture = (test_delete_config_fixture *)malloc(sizeof(test_delete_config_fixture));
+	config_t *config = newConfig();
+	if (strlen(params[0].value) > 0)
+		parseConfigFile(params[0].value, &config);
+	fixture->config = config;
 }
 
-static MunitResult test_delete_config(const MunitParameter params[], void *fixture)
-{
-    test_delete_config_fixture *typed_fixture = (test_delete_config_fixture *)fixture;
-    deleteConfig(typed_fixture->config);
-    return MUNIT_OK;
+static MunitResult test_delete_config(const MunitParameter params[], void *fixture) {
+	test_delete_config_fixture *typed_fixture = (test_delete_config_fixture *)fixture;
+	deleteConfig(typed_fixture->config);
+	return MUNIT_OK;
 }
 
-static void test_delete_config_tear_down(void *fixture)
-{
-    test_delete_config_fixture *typed_fixture = (test_delete_config_fixture *)malloc(sizeof(test_delete_config_fixture));
+static void test_delete_config_tear_down(void *fixture) {
+	test_delete_config_fixture *typed_fixture = (test_delete_config_fixture *)malloc(sizeof(test_delete_config_fixture));
 }
