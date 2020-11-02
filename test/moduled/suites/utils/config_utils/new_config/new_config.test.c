@@ -38,7 +38,7 @@ MunitSuite *get_config_utils_new_config_suite()
     return &config_utils_new_config_suite;
 }
 
-static char *test_new_config_params_n[] = {"", "test/moduled/suites/utils/config_utils/assets/config.json", NULL};
+static char *test_new_config_params_n[] = {"", NULL};
 static MunitParameterEnum test_new_config_params[] = {
     {"filename", test_new_config_params_n},
     {NULL, NULL},
