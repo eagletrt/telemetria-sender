@@ -30,7 +30,7 @@ MunitSuite *get_config_utils_new_config_and_delete_config_suite()
     return &config_utils_new_config_and_delete_config_suite;
 }
 
-static char *test_new_config_and_delete_config_params_n[] = {"", "test/moduled/suites/utils/config_utils/assets/config.json", NULL};
+static char *test_new_config_and_delete_config_params_n[] = {"", "test/assets/config_file/config.json", NULL};
 static MunitParameterEnum test_new_config_and_delete_config_params[] = {
     {"filename", test_new_config_and_delete_config_params_n},
     {NULL, NULL},
