@@ -3,9 +3,10 @@
 #include "suites/services/services.test.h"
 
 int main(int argc, char *argv[]) {
-    MunitSuite* sub_suites = (MunitSuite*) malloc(2 * sizeof(MunitSuite));
+    MunitSuite* sub_suites = (MunitSuite*) malloc(3 * sizeof(MunitSuite));
     sub_suites[0] = *get_utils_suite();
     sub_suites[1] = *get_services_suite();
+    sub_suites[2] = (MunitSuite) { NULL, NULL, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL };
 
     MunitSuite* main_test_suite = (MunitSuite*) malloc(sizeof(MunitSuite));
     main_test_suite->prefix = "/moduled-tests";
