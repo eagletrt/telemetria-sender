@@ -54,9 +54,8 @@ gcc main.test.c -o test.out \
     -lm
 if [ $? -eq 0 ]; then
     echo "compiled :)"
-    if [ "$1" == "serve" ]; then
-        ./test.out
-    fi
+    exit 0
 else
     echo "Error in compilation :("
+    exit 1
 fi

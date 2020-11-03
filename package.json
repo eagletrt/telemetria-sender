@@ -13,7 +13,6 @@
     "test:moduled:compile": "cd test/moduled && ./compile.sh",
     "test:moduled:start": "./test/moduled/test.out",
     "test:moduled": "npm run test:moduled:compile && npm run test:moduled:start",
-    "test:moduled:serve": "cd test/moduled && ./compile.sh serve",
     "commit": "git add . && cz"
   },
   "repository": {

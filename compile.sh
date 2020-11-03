@@ -25,6 +25,8 @@ gcc main.c -o sender.out \
     -lm
 if [ $? -eq 0 ]; then
     echo "compiled :)"
+    exit 0
 else
     echo "Error in compilation :("
+    exit 1
 fi
