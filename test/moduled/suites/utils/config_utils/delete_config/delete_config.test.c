@@ -6,7 +6,7 @@ typedef struct {
     config_t *config;
 } test_delete_config_fixture;
 
-static char *test_delete_config_params_n[];
+static char *test_delete_config_params_file_path[];
 static MunitParameterEnum test_delete_config_params[];
 
 static void *test_delete_config_setup(const MunitParameter params[], void *user_data);
@@ -16,20 +16,24 @@ static void test_delete_config_tear_down(void *fixture);
 /* EXPORTED SUITE */
 
 static MunitTest tests_delete_config[] = {
-    {"",
-     test_delete_config,
-     test_delete_config_setup,
-     test_delete_config_tear_down,
-     MUNIT_TEST_OPTION_NONE,
-     test_delete_config_params},
-    {NULL, NULL, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL}};
+    {
+        "",
+        test_delete_config,
+        test_delete_config_setup,
+        test_delete_config_tear_down,
+        MUNIT_TEST_OPTION_NONE,
+        test_delete_config_params
+    },
+    { NULL, NULL, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL }
+};
 
 static MunitSuite config_utils_delete_config_suite = {
     "/delete_config",
     tests_delete_config,
     NULL,
     1,
-    MUNIT_SUITE_OPTION_NONE};
+    MUNIT_SUITE_OPTION_NONE
+};
 
 MunitSuite *get_config_utils_delete_config_suite() {
     return &config_utils_delete_config_suite;
@@ -37,16 +41,17 @@ MunitSuite *get_config_utils_delete_config_suite() {
 
 /* HELPER FUNCTIONS DEFINITIONS */
 
-static char *test_delete_config_params_n[] = {
+static char* test_delete_config_params_file_path[] = {
     "",
     "test/moduled/suites/utils/config_utils/delete_config/assets/0.config.json",
     "test/moduled/suites/utils/config_utils/delete_config/assets/1.config.json",
     "test/moduled/suites/utils/config_utils/delete_config/assets/2.config.json",
-    NULL};
+    NULL
+};
 
 static MunitParameterEnum test_delete_config_params[] = {
-    {"filename", test_delete_config_params_n},
-    {NULL, NULL},
+    { "file_path", test_delete_config_params_file_path },
+    { NULL, NULL },
 };
 
 static void *test_delete_config_setup(const MunitParameter params[], void *user_data) {
@@ -61,7 +66,7 @@ static void *test_delete_config_setup(const MunitParameter params[], void *user_
 
 static MunitResult test_delete_config(const MunitParameter params[], void *fixture) {
     test_delete_config_fixture *typed_fixture = (test_delete_config_fixture *)fixture;
-    //deleteConfig(typed_fixture->config);
+    deleteConfig(typed_fixture->config);
     return MUNIT_OK;
 }
 

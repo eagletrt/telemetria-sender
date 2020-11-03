@@ -1,0 +1,30 @@
+{
+  "sending_rate": 250,
+
+  "pilots": [
+    "default"
+  ],
+
+  "mongodb": {
+    "collection": "scimmera"
+  },
+
+  "races": [
+      "default",
+      "Autocross"
+  ],
+
+  "verbose": 0,
+
+  "mqtt": {
+    "host": "localhost",
+    "port": 2323,
+    "log_topic": "log"
+  },
+
+  "gps": {
+    "plugged": 1,
+    "simulated": 1,
+    "interface": "/dev/pts/2"
+  }
+}

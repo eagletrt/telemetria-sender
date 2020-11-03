@@ -3,8 +3,14 @@
 
 /** IMPORTS **/
 
+// Let this shit to be able to use asprintf
+#ifndef _GNU_SOURCE
+#define _GNU_SOURCE 1
+#endif
+
 #include "../../../../../../utils/config_utils/config_utils.h"
 #include "../../../../libs/munit/munit.h"
+
 
 /* EXPORTED TESTS */
 
