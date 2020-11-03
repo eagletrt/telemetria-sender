@@ -5,6 +5,7 @@
 
 #include "../../../../../../utils/config_utils/config_utils.h"
 #include "../../../../libs/munit/munit.h"
+#include "../../../../libs/test_utils/test_utils.h"
 
 /* EXPORTED TESTS */
 
