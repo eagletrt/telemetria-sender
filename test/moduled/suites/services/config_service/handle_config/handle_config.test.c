@@ -1,7 +1,5 @@
 #include "handle_config.test.h"
 
-extern condition_t condition;
-
 /* HELPER FUNCTIONS SIGNATURES */
 
 static MunitParameterEnum test_handle_config_params_correct[];
@@ -70,7 +68,7 @@ static MunitParameterEnum test_handle_config_params_wrong[] = {
 
 static void *test_handle_config_setup(const MunitParameter params[], void *user_data) {
     condition.config_path = params[0].value;
-	//freopen("/dev/null", "w", stdout);
+	freopen("/dev/null", "w", stdout);
 }
 
 static MunitResult test_handle_config_correct(const MunitParameter params[], void *fixture) {

@@ -10,6 +10,7 @@ gcc main.test.c -o test.out \
     ../../utils/config_utils/config_utils.c \
     ../../utils/config_utils/jsmn/jsmn.c \
     ../../services/config_service/config_service.c \
+    ../../services/mongo_service/mongo_service.c \
     \
     \
     ./suites/utils/utils.test.c \
@@ -41,6 +42,9 @@ gcc main.test.c -o test.out \
     ./suites/services/config_service/config_service.test.c \
     ./suites/services/config_service/handle_config/handle_config.test.c \
     \
+    ./suites/services/mongo_service/mongo_service.test.c \
+    ./suites/services/mongo_service/mongo_setup/mongo_setup.test.c \
+    \
     -I/usr/include/libbson-1.0 \
     -I/usr/include/libmongoc-1.0 \
     -lmongoc-1.0 \
@@ -50,6 +54,9 @@ gcc main.test.c -o test.out \
     -lm
 if [ $? -eq 0 ]; then
     echo "compiled :)"
+    if [ $1 == "serve" ]; then
+        ./test.out
+    fi
 else
     echo "Error in compilation :("
 fi
