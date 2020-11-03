@@ -20,6 +20,7 @@ void redirect_stdout(redirect_config_t* config) {
 
 void recover_stdout(redirect_config_t* config) {
     fflush(stdout);
+    fcntl(config->out_pipe[0], F_SETFL, O_NONBLOCK);
     read(config->out_pipe[0], config->buffer, 5 * TEST_UTILS_BUFFER_SIZE); //lettura pipe nel buffer
     dup2(config->saved_stdout, STDOUT_FILENO); //ripristino stdout
 }

@@ -4,7 +4,7 @@
 /* IMPORTS */
 
 #include "../../libs/munit/munit.h"
-#include "../../../../state_machine/state_machine_condition.h"
+#include "./log_service/log_service.test.h"
 #include "./config_service/config_service.test.h"
 #include "./mongo_service/mongo_service.test.h"
 

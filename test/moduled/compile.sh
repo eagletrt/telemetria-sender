@@ -9,6 +9,7 @@ gcc main.test.c -o test.out \
     ../../utils/misc_utils/misc_utils.c \
     ../../utils/config_utils/config_utils.c \
     ../../utils/config_utils/jsmn/jsmn.c \
+    ../../services/log_service/log_service.c \
     ../../services/config_service/config_service.c \
     ../../services/mongo_service/mongo_service.c \
     \
@@ -38,6 +39,10 @@ gcc main.test.c -o test.out \
     \
     \
     ./suites/services/services.test.c \
+    \
+    ./suites/services/log_service/log_service.test.c \
+    ./suites/services/log_service/debug_config_path/debug_config_path.test.c \
+    ./suites/services/log_service/debug_config_path/assets/debug_config_path.assets.c \
     \
     ./suites/services/config_service/config_service.test.c \
     ./suites/services/config_service/handle_config/handle_config.test.c \
