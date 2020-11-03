@@ -7,46 +7,58 @@
             "speed": [
                 {
                     "timestamp": "long",
-                    "value": "int"
+                    "value": "float"
                 },
                 500
             ],
             "temperature_igbt": [
                 {
                     "timestamp": "long",
-                    "value": "int"
+                    "value": "float"
                 },
                 500
             ],
             "temperature_motors": [
                 {
                     "timestamp": "long",
-                    "value": "int"
+                    "value": "float"
                 },
                 500
+            ],
+            "torque": [
+                {
+                    "timestamp": "long",
+                    "value": "float"
+                }, 500
             ]
         },
         "left": {
             "speed": [
                 {
                     "timestamp": "long",
-                    "value": "int"
+                    "value": "float"
                 },
                 500
             ],
             "temperature_igbt": [
                 {
                     "timestamp": "long",
-                    "value": "int"
+                    "value": "float"
                 },
                 500
             ],
             "temperature_motors": [
                 {
                     "timestamp": "long",
-                    "value": "int"
+                    "value": "float"
                 },
                 500
+            ],
+            "torque": [
+                {
+                    "timestamp": "long",
+                    "value": "float"
+                }, 500
             ]
         }
     },
@@ -189,52 +201,107 @@
             ]
         }
     },
-    "imu_gyro": [
-        {
-            "timestamp": "long",
-            "value": {
-                "x": "double",
-                "y": "double",
-                "z": "double",
-                "scale": "double"
-            }
-        },
-        500
-    ],
-    "imu_accel": [
-        {
-            "timestamp": "long",
-            "value": {
-                "x": "double",
-                "y": "double",
-                "z": "double",
-                "scale": "double"
-            }
-        },
-        500
-    ],
-    "front_wheels_encoders": {
-        "right": [
+    "imu_old": {
+        "gyro": [
             {
                 "timestamp": "long",
                 "value": {
-                    "speed": "double",
-                    "speedms": "double",
-                    "error_flag": "int"
+                    "x": "double",
+                    "y": "double",
+                    "z": "double",
+                    "scale": "double"
                 }
             }, 500
         ],
-        "left": [
+        "accel": [
             {
                 "timestamp": "long",
                 "value": {
-                    "speed": "double",
-                    "speedms": "double",
-                    "error_flag": "int"
+                    "x": "double",
+                    "y": "double",
+                    "z": "double",
+                    "scale": "double"
                 }
-            },
-            500
+            }, 500
         ]
+    },
+    "imu": {
+        "gyro": [
+            {
+                "timestamp": "long",
+                "value": {
+                    "x": "double",
+                    "y": "double",
+                    "z": "double"
+                }
+            }, 500
+        ],
+        "accel": [
+            {
+                "timestamp": "long",
+                "value": {
+                    "x": "double",
+                    "y": "double",
+                    "z": "double"
+                }
+            }, 500
+        ]
+    },
+    "front_wheels_encoders": {
+        "right": {
+            "speed": [
+                {
+                    "timestamp": "long",
+                    "value": {
+                        "speed": "double",
+                        "error_flag": "int"
+                    }
+                }, 500
+            ],
+            "speed_rads": [
+                {
+                    "timestamp": "long",
+                    "value": "double"
+                }, 500
+            ],
+            "angle": [
+                {
+                    "timestamp": "long",
+                    "value": {
+                        "angle_0": "float",
+                        "angle_1": "float",
+                        "angle_delta": "float"
+                    }
+                }, 500
+            ]
+        },
+        "left": {
+            "speed": [
+                {
+                    "timestamp": "long",
+                    "value": {
+                        "speed": "double",
+                        "error_flag": "int"
+                    }
+                }, 500
+            ],
+            "speed_rads": [
+                {
+                    "timestamp": "long",
+                    "value": "double"
+                }, 500
+            ],
+            "angle": [
+                {
+                    "timestamp": "long",
+                    "value": {
+                        "angle_0": "float",
+                        "angle_1": "float",
+                        "angle_delta": "float"
+                    }
+                }, 500
+            ]
+        }
     },
     "distance": [
         {
@@ -248,24 +315,24 @@
         },
         500
     ],
-    "throttle": [
-        {
-            "timestamp": "long",
-            "value": "int"
-        },
-        500
-    ],
-    "brake": [
-        {
-            "timestamp": "long",
-            "value": {
-                "is_breaking": "int",
-                "pressure_front": "int",
-                "pressure_back": "int" 
-            }
-        },
-        500
-    ],
+    "pedals": {
+        "throttle": [
+            {
+                "timestamp": "long",
+                "value": "int"
+            }, 500
+        ],
+        "brake": [
+            {
+                "timestamp": "long",
+                "value": {
+                    "is_breaking": "int",
+                    "pressure_front": "float",
+                    "pressure_back": "float" 
+                }
+            }, 500
+        ]
+    },
     "steering_wheel": {
         "encoder": [
             {

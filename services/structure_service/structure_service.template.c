@@ -141,7 +141,7 @@ static void* gatherCan(void *args) {
             case (INVERTER_RIGHT_ID):
                 switch (first_byte)
                 {
-                    case INVERTER_RIGHT_SPEED_FB:
+                    case INVERTER_SPEED_FB:
                         if (document->inverters.right.speed_count < document->inverters.right.speed_size) {
                             byte_left = (data_left >> 8) & 0x000000FF;
                             byte_right = (data_left >> 16) & 0x000000FF;
@@ -151,7 +151,7 @@ static void* gatherCan(void *args) {
                         }
                         break;
 
-                    case INVERTER_RIGHT_TEMPERATURE_IGBT_FB:
+                    case INVERTER_TEMPERATURE_IGBT_FB:
                         if (document->inverters.right.temperature_igbt_count < document->inverters.right.temperature_igbt_size) {
                             byte_left = (data_left >> 8) & 0x000000FF;
                             byte_right = (data_left >> 16) & 0x000000FF;
@@ -161,22 +161,31 @@ static void* gatherCan(void *args) {
                         }
                         break;
 
-                    case INVERTER_RIGHT_TEMPERATURE_MOTORS_FB:
-                    if (document->inverters.right.temperature_motors_count < document->inverters.right.temperature_motors_size) {
-                        byte_left = (data_left >> 8) & 0x000000FF;
-                        byte_right = (data_left >> 16) & 0x000000FF;
-                        temp = byte_left * 256 + byte_right;
-                        document->inverters.right.temperature_motors[document->inverters.right.temperature_motors_count].timestamp = getCurrentTimestamp();
-                        document->inverters.right.temperature_motors[document->inverters.right.temperature_motors_count++].value = (temp >= 32768 ? temp - 65536 : temp);
-                    }
-                    break;
+                    case INVERTER_TEMPERATURE_MOTORS_FB:
+                        if (document->inverters.right.temperature_motors_count < document->inverters.right.temperature_motors_size) {
+                            byte_left = (data_left >> 8) & 0x000000FF;
+                            byte_right = (data_left >> 16) & 0x000000FF;
+                            temp = byte_left * 256 + byte_right;
+                            document->inverters.right.temperature_motors[document->inverters.right.temperature_motors_count].timestamp = getCurrentTimestamp();
+                            document->inverters.right.temperature_motors[document->inverters.right.temperature_motors_count++].value = (temp >= 32768 ? temp - 65536 : temp);
+                        }
+                        break;
+                    case INVERTER_TORQUE_FB:
+                        if (document->inverters.right.torque_count < document->inverters.right.torque_size) {
+                            byte_left = (data_left >> 8) & 0x000000FF;
+                            byte_right = (data_left >> 16) & 0x000000FF;
+                            temp = byte_left * 256 + byte_right;
+                            document->inverters.right.torque[document->inverters.right.torque_count].timestamp = getCurrentTimestamp();
+                            document->inverters.right.torque[document->inverters.right.torque_count++].value = (temp >= 32768 ? temp - 65536 : temp);
+                        }
+                        break;
                 }
                 break;
 
             case (INVERTER_LEFT_ID):
                 switch (first_byte)
                 {
-                    case INVERTER_LEFT_SPEED_FB: 
+                    case INVERTER_SPEED_FB: 
                         if (document->inverters.left.speed_count < document->inverters.left.speed_size) {
                             byte_left = (data_left >> 8) & 0x000000FF;
                             byte_right = (data_left >> 16) & 0x000000FF;
@@ -186,7 +195,7 @@ static void* gatherCan(void *args) {
                         }
                         break;
 
-                    case INVERTER_LEFT_TEMPERATURE_IGBT_FB:
+                    case INVERTER_TEMPERATURE_IGBT_FB:
                         if (document->inverters.left.temperature_igbt_count < document->inverters.left.temperature_igbt_size) {
                             byte_left = (data_left >> 8) & 0x000000FF;
                             byte_right = (data_left >> 16) & 0x000000FF;
@@ -196,13 +205,22 @@ static void* gatherCan(void *args) {
                         }
                         break;
 
-                    case INVERTER_LEFT_TEMPERATURE_MOTORS_FB:
+                    case INVERTER_TEMPERATURE_MOTORS_FB:
                         if (document->inverters.left.temperature_motors_count < document->inverters.left.temperature_motors_size) {
                             byte_left = (data_left >> 8) & 0x000000FF;
                             byte_right = (data_left >> 16) & 0x000000FF;
                             temp = byte_left * 256 + byte_right;
                             document->inverters.left.temperature_motors[document->inverters.left.temperature_motors_count].timestamp = getCurrentTimestamp();
                             document->inverters.left.temperature_motors[document->inverters.left.temperature_motors_count++].value = (temp >= 32768 ? temp - 65536 : temp);
+                        }
+                        break;
+                    case INVERTER_TORQUE_FB:
+                        if (document->inverters.left.torque_count < document->inverters.left.torque_size) {
+                            byte_left = (data_left >> 8) & 0x000000FF;
+                            byte_right = (data_left >> 16) & 0x000000FF;
+                            temp = byte_left * 256 + byte_right;
+                            document->inverters.left.torque[document->inverters.left.torque_count].timestamp = getCurrentTimestamp();
+                            document->inverters.left.torque[document->inverters.left.torque_count++].value = (temp >= 32768 ? temp - 65536 : temp);
                         }
                         break;
                 }
@@ -256,62 +274,62 @@ static void* gatherCan(void *args) {
                 break;
 
             case (PEDALS_ID):
-                if (first_byte == THROTTLE_FB && document->throttle_count < document->throttle_size) {
-                    document->throttle[document->throttle_count].timestamp = getCurrentTimestamp();
-                    document->throttle[document->throttle_count].value = ((data_left >> 16) & 0x000000FF);
+                if (first_byte == THROTTLE_FB && document->pedals.throttle_count < document->pedals.throttle_size) {
+                    document->pedals.throttle[document->pedals.throttle_count].timestamp = getCurrentTimestamp();
+                    document->pedals.throttle[document->pedals.throttle_count].value = ((data_left >> 16) & 0x000000FF);
 
-                    document->throttle_count++;
+                    document->pedals.throttle_count++;
                 }
-                else if (first_byte == BRAKE_FB && document->brake_count < document->brake_size) {
-                    document->brake[document->brake_count].timestamp = getCurrentTimestamp();
-                    document->brake[document->brake_count].value.is_breaking = ((data_left >> 16) & 0x000000FF);
-                    document->brake[document->brake_count].value.pressure_front = (data_left & 0x0000FF00) + ((data_right >> 24) & 0x000000FF);
-                    document->brake[document->brake_count].value.pressure_back = ((data_right >> 8) & 0x0000FF00) + (data_right & 0x000000FF);
+                else if (first_byte == BRAKE_FB && document->pedals.brake_count < document->pedals.brake_size) {
+                    document->pedals.brake[document->pedals.brake_count].timestamp = getCurrentTimestamp();
+                    document->pedals.brake[document->pedals.brake_count].value.is_breaking = ((data_left >> 16) & 0x000000FF);
+                    document->pedals.brake[document->pedals.brake_count].value.pressure_front = (data_left & 0x0000FF00) + ((data_right >> 24) & 0x000000FF) / 500;
+                    document->pedals.brake[document->pedals.brake_count].value.pressure_back = ((data_right >> 8) & 0x0000FF00) + (data_right & 0x000000FF) / 500;
 
-                    document->brake_count++;
+                    document->pedals.brake_count++;
                 }
                 break;
 
-            case (IMU_SWE_ID):
+            case (IMU_SWE_OLD_ID):
                 switch (first_byte)
                 {
                     case IMU_GYRO_FB:
-                        if (document->imu_gyro_count < document->imu_gyro_size) {
-                            document->imu_gyro[document->imu_gyro_count].timestamp = getCurrentTimestamp();
-                            document->imu_gyro[document->imu_gyro_count].value.x = (double)((data_left >> 8) & 0x0000FFFF);
-                            document->imu_gyro[document->imu_gyro_count].value.y = (double)((data_left & 0x000000FF) * 0xFF) + ((data_right >> 24) & 0x000000FF);
-                            document->imu_gyro[document->imu_gyro_count].value.z = (double)((data_right >> 8) & 0x0000FFFF);
-                            document->imu_gyro[document->imu_gyro_count].value.scale = ((data_right)&0x000000FF) * 10;
+                        if (document->imu_old.gyro_count < document->imu_old.gyro_size) {
+                            document->imu_old.gyro[document->imu_old.gyro_count].timestamp = getCurrentTimestamp();
+                            document->imu_old.gyro[document->imu_old.gyro_count].value.x = (double)((data_left >> 8) & 0x0000FFFF);
+                            document->imu_old.gyro[document->imu_old.gyro_count].value.y = (double)((data_left & 0x000000FF) * 0xFF) + ((data_right >> 24) & 0x000000FF);
+                            document->imu_old.gyro[document->imu_old.gyro_count].value.z = (double)((data_right >> 8) & 0x0000FFFF);
+                            document->imu_old.gyro[document->imu_old.gyro_count].value.scale = ((data_right)&0x000000FF) * 10;
 
-                            document->imu_gyro[document->imu_gyro_count].value.x /= 10.0;
-                            document->imu_gyro[document->imu_gyro_count].value.y /= 10.0;
-                            document->imu_gyro[document->imu_gyro_count].value.z /= 10.0;
+                            document->imu_old.gyro[document->imu_old.gyro_count].value.x /= 10.0;
+                            document->imu_old.gyro[document->imu_old.gyro_count].value.y /= 10.0;
+                            document->imu_old.gyro[document->imu_old.gyro_count].value.z /= 10.0;
 
-                            document->imu_gyro[document->imu_gyro_count].value.x -= document->imu_gyro[document->imu_gyro_count].value.scale;
-                            document->imu_gyro[document->imu_gyro_count].value.y -= document->imu_gyro[document->imu_gyro_count].value.scale;
-                            document->imu_gyro[document->imu_gyro_count].value.z -= document->imu_gyro[document->imu_gyro_count].value.scale;
+                            document->imu_old.gyro[document->imu_old.gyro_count].value.x -= document->imu_old.gyro[document->imu_old.gyro_count].value.scale;
+                            document->imu_old.gyro[document->imu_old.gyro_count].value.y -= document->imu_old.gyro[document->imu_old.gyro_count].value.scale;
+                            document->imu_old.gyro[document->imu_old.gyro_count].value.z -= document->imu_old.gyro[document->imu_old.gyro_count].value.scale;
 
-                            document->imu_gyro_count++;
+                            document->imu_old.gyro_count++;
                         }
                         break;
 
                     case IMU_ACCEL_FB:
-                        if (document->imu_accel_count < document->imu_accel_size) {
-                            document->imu_accel[document->imu_accel_count].timestamp = getCurrentTimestamp();
-                            document->imu_accel[document->imu_accel_count].value.x = (double)((data_left >> 8) & 0x0000FFFF);
-                            document->imu_accel[document->imu_accel_count].value.y = (double)((data_left & 0x000000FF) * 0xFF) + ((data_right >> 24) & 0x000000FF);
-                            document->imu_accel[document->imu_accel_count].value.z = (double)((data_right >> 8) & 0x0000FFFF);
-                            document->imu_accel[document->imu_accel_count].value.scale = (data_right)&0x000000FF;
+                        if (document->imu_old.accel_count < document->imu_old.accel_size) {
+                            document->imu_old.accel[document->imu_old.accel_count].timestamp = getCurrentTimestamp();
+                            document->imu_old.accel[document->imu_old.accel_count].value.x = (double)((data_left >> 8) & 0x0000FFFF);
+                            document->imu_old.accel[document->imu_old.accel_count].value.y = (double)((data_left & 0x000000FF) * 0xFF) + ((data_right >> 24) & 0x000000FF);
+                            document->imu_old.accel[document->imu_old.accel_count].value.z = (double)((data_right >> 8) & 0x0000FFFF);
+                            document->imu_old.accel[document->imu_old.accel_count].value.scale = (data_right)&0x000000FF;
 
-                            document->imu_accel[document->imu_accel_count].value.x /= 100.0;
-                            document->imu_accel[document->imu_accel_count].value.y /= 100.0;
-                            document->imu_accel[document->imu_accel_count].value.z /= 100.0;
+                            document->imu_old.accel[document->imu_old.accel_count].value.x /= 100.0;
+                            document->imu_old.accel[document->imu_old.accel_count].value.y /= 100.0;
+                            document->imu_old.accel[document->imu_old.accel_count].value.z /= 100.0;
 
-                            document->imu_accel[document->imu_accel_count].value.x -= document->imu_accel[document->imu_accel_count].value.scale;
-                            document->imu_accel[document->imu_accel_count].value.y -= document->imu_accel[document->imu_accel_count].value.scale;
-                            document->imu_accel[document->imu_accel_count].value.z -= document->imu_accel[document->imu_accel_count].value.scale;
+                            document->imu_old.accel[document->imu_old.accel_count].value.x -= document->imu_old.accel[document->imu_old.accel_count].value.scale;
+                            document->imu_old.accel[document->imu_old.accel_count].value.y -= document->imu_old.accel[document->imu_old.accel_count].value.scale;
+                            document->imu_old.accel[document->imu_old.accel_count].value.z -= document->imu_old.accel[document->imu_old.accel_count].value.scale;
 
-                            document->imu_accel_count++;
+                            document->imu_old.accel_count++;
                         }
                         break;
 
@@ -323,8 +341,48 @@ static void* gatherCan(void *args) {
                         break;
                 }
                 break;
+                
+            case (IMU_GYRO_ID):
+                if (document->imu.gyro_count < document->imu.gyro_size) {
+                    document->imu.gyro[document->imu.gyro_count].timestamp = getCurrentTimestamp();
+                    temp = (double)((data_left >> 16) & 0x0000FFFF); 
+                    document->imu.gyro[document->imu.gyro_count].value.x = (temp >= 32768 ? temp - 65536 : temp);
 
-            case (GPS_FWE_ID):
+                    temp = (double)(data_left & 0x0000FFFF);
+                    document->imu.gyro[document->imu.gyro_count].value.y = (temp >= 32768 ? temp - 65536 : temp);
+                    
+                    temp = (double)((data_right >> 16) & 0x0000FFFF);
+                    document->imu.gyro[document->imu.gyro_count].value.z = (temp >= 32768 ? temp - 65536 : temp);
+
+                    document->imu.gyro[document->imu.gyro_count].value.x *= (8 / 65536) * 100;
+                    document->imu.gyro[document->imu.gyro_count].value.y *= (8 / 65536) * 100;
+                    document->imu.gyro[document->imu.gyro_count].value.z *= (8 / 65536) * 100;
+
+                    document->imu_old.gyro_count++;
+                }
+                break;
+
+            case (IMU_ACCEL_ID):
+                if (document->imu.accel_count < document->imu.accel_size) {
+                    document->imu.accel[document->imu.accel_count].timestamp = getCurrentTimestamp();
+                    temp = (double)((data_left >> 16) & 0x0000FFFF);
+                    document->imu.accel[document->imu.accel_count].value.x = (temp >= 32768 ? temp - 65536 : temp);
+
+                    temp = (double)(data_left & 0x0000FFFF);
+                    document->imu.accel[document->imu.accel_count].value.y = (temp >= 32768 ? temp - 65536 : temp);
+                    
+                    temp = (double)((data_right >> 16) & 0x0000FFFF);
+                    document->imu.accel[document->imu.accel_count].value.z = (temp >= 32768 ? temp - 65536 : temp);
+
+                    document->imu.accel[document->imu.accel_count].value.x *= (8 / 65536) * 100;
+                    document->imu.accel[document->imu.accel_count].value.y *= (8 / 65536) * 100;
+                    document->imu.accel[document->imu.accel_count].value.z *= (8 / 65536) * 100;
+
+                    document->imu_old.accel_count++;
+                }
+                break;
+
+            case (FRONT_WHEELS_ENCODER_RIGHT_ID):
                 switch (first_byte)
                 {
                     case LATSPD_FB:
@@ -478,23 +536,30 @@ static void* gatherCan(void *args) {
                         }
                         break;
 
-                    case FRONT_WHEELS_LEFT_FB:
-                        if (document->front_wheels_encoders.left_count < document->front_wheels_encoders.left_size) {
-                            document->front_wheels_encoders.left[document->front_wheels_encoders.left_count].timestamp = getCurrentTimestamp();
-                            document->front_wheels_encoders.left[document->front_wheels_encoders.left_count].value.speed = ((data_left >> 8) & 0x0000FFFF) * ((data_left & 0x000000FF) == 0 ? 1 : -1);
-                            document->front_wheels_encoders.left[document->front_wheels_encoders.left_count].value.speedms = (((data_right >> 16) & 0x0000FFFF) * ((data_left & 0x000000FF) == 0 ? 1 : -1)) / 100;
-                            document->front_wheels_encoders.left[document->front_wheels_encoders.left_count].value.error_flag = (data_right >> 8) & 0x000000FF;
-                            document->front_wheels_encoders.left_count++;
+                    case FRONT_WHEELS_FB_SPEED_FB:
+                        if (document->front_wheels_encoders.right.speed_count < document->front_wheels_encoders.right.speed_size) {
+                            document->front_wheels_encoders.right.speed[document->front_wheels_encoders.right.speed_count].timestamp = getCurrentTimestamp();
+                            document->front_wheels_encoders.right.speed[document->front_wheels_encoders.right.speed_count].value.speed = ((data_left >> 8) & 0x0000FFFF) * ((data_left & 0x000000FF) == 0 ? 1 : -1);
+                            document->front_wheels_encoders.right.speed[document->front_wheels_encoders.right.speed_count].value.error_flag = (data_right >> 8) & 0x000000FF;
+                            document->front_wheels_encoders.right.speed_count++;
                         }
                         break;
 
-                    case FRONT_WHEELS_RIGHT_FB:
-                        if (document->front_wheels_encoders.right_count < document->front_wheels_encoders.right_size) {
-                            document->front_wheels_encoders.right[document->front_wheels_encoders.right_count].timestamp = getCurrentTimestamp();
-                            document->front_wheels_encoders.right[document->front_wheels_encoders.right_count].value.speed = ((data_left >> 8) & 0x0000FFFF) * ((data_left & 0x000000FF) == 0 ? 1 : -1);
-                            document->front_wheels_encoders.right[document->front_wheels_encoders.right_count].value.speedms = (((data_right >> 16) & 0x0000FFFF) * ((data_left & 0x000000FF) == 0 ? 1 : -1)) / 100;
-                            document->front_wheels_encoders.right[document->front_wheels_encoders.right_count].value.error_flag = (data_right >> 8) & 0x000000FF;
-                            document->front_wheels_encoders.right_count++;
+                    case FRONT_WHEELS_FB_SPEED_RADS_FB:
+                        if (document->front_wheels_encoders.right.speed_rads_count < document->front_wheels_encoders.right.speed_rads_size) {
+                            document->front_wheels_encoders.right.speed_rads[document->front_wheels_encoders.right.speed_rads_count].timestamp = getCurrentTimestamp();
+                            document->front_wheels_encoders.right.speed_rads[document->front_wheels_encoders.right.speed_rads_count].value = (data_left & 0x00FFFFFF) / 10000;
+                            document->front_wheels_encoders.right.speed_rads_count++;
+                        }
+                        break;
+
+                    case FRONT_WHEELS_FB_SPEED_ANGLE_FB:
+                        if (document->front_wheels_encoders.right.angle_count < document->front_wheels_encoders.right.angle_size) { 
+                            document->front_wheels_encoders.right.angle[document->front_wheels_encoders.right.angle_count].timestamp = getCurrentTimestamp();
+                            document->front_wheels_encoders.right.angle[document->front_wheels_encoders.right.angle_count].value.angle_0 = ((data_left >> 8) & 0x0000FFFF) / 100;
+                            document->front_wheels_encoders.right.angle[document->front_wheels_encoders.right.angle_count].value.angle_1 = (((data_left & 0x000000FF) * 0xFF) + ((data_right >> 24) & 0x000000FF)) / 100;
+                            document->front_wheels_encoders.right.angle[document->front_wheels_encoders.right.angle_count].value.angle_delta = ((data_right >> 8) & 0x0000FFFF) / 100;
+                            document->front_wheels_encoders.right.angle_count++;
                         }
                         break;
 
@@ -505,6 +570,38 @@ static void* gatherCan(void *args) {
                             document->distance[document->distance_count].value.rotations = ((data_left & 0x000000FF) * 0xFF) + ((data_right >> 24) & 0x000000FF);
                             document->distance[document->distance_count].value.angle = (data_right >> 16) & 0x000000F;
                             document->distance[document->distance_count++].value.clock_period = (data_right >> 8) & 0x000000F;
+                        }
+                        break;
+                }
+                break;
+
+            case (FRONT_WHEELS_ENCODER_LEFT_ID):
+                switch (first_byte)
+                {
+                    case FRONT_WHEELS_FB_SPEED_FB:
+                        if (document->front_wheels_encoders.left.speed_count < document->front_wheels_encoders.left.speed_size) {
+                            document->front_wheels_encoders.left.speed[document->front_wheels_encoders.left.speed_count].timestamp = getCurrentTimestamp();
+                            document->front_wheels_encoders.left.speed[document->front_wheels_encoders.left.speed_count].value.speed = ((data_left >> 8) & 0x0000FFFF) * ((data_left & 0x000000FF) == 0 ? 1 : -1);
+                            document->front_wheels_encoders.left.speed[document->front_wheels_encoders.left.speed_count].value.error_flag = (data_right >> 8) & 0x000000FF;
+                            document->front_wheels_encoders.left.speed_count++;
+                        }
+                        break;
+
+                    case FRONT_WHEELS_FB_SPEED_RADS_FB:
+                        if (document->front_wheels_encoders.left.speed_rads_count < document->front_wheels_encoders.left.speed_rads_size) {
+                            document->front_wheels_encoders.left.speed_rads[document->front_wheels_encoders.left.speed_rads_count].timestamp = getCurrentTimestamp();
+                            document->front_wheels_encoders.left.speed_rads[document->front_wheels_encoders.left.speed_rads_count].value = (data_left & 0x00FFFFFF) / 10000;
+                            document->front_wheels_encoders.left.speed_rads_count++;
+                        }
+                        break;
+
+                    case FRONT_WHEELS_FB_SPEED_ANGLE_FB:
+                        if (document->front_wheels_encoders.left.angle_count < document->front_wheels_encoders.left.angle_size) { 
+                            document->front_wheels_encoders.left.angle[document->front_wheels_encoders.left.angle_count].timestamp = getCurrentTimestamp();
+                            document->front_wheels_encoders.left.angle[document->front_wheels_encoders.left.angle_count].value.angle_0 = ((data_left >> 8) & 0x0000FFFF) / 100;
+                            document->front_wheels_encoders.left.angle[document->front_wheels_encoders.left.angle_count].value.angle_1 = (((data_left & 0x000000FF) * 0xFF) + ((data_right >> 24) & 0x000000FF)) / 100;
+                            document->front_wheels_encoders.left.angle[document->front_wheels_encoders.left.angle_count].value.angle_delta = ((data_right >> 8) & 0x0000FFFF) / 100;
+                            document->front_wheels_encoders.left.angle_count++;
                         }
                         break;
                 }

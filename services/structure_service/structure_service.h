@@ -26,18 +26,23 @@ extern condition_t condition;
 
 typedef struct {
 	long timestamp;
-	int value;
+	float value;
 } inverters_right_speed_data;
 
 typedef struct {
 	long timestamp;
-	int value;
+	float value;
 } inverters_right_temperature_igbt_data;
 
 typedef struct {
 	long timestamp;
-	int value;
+	float value;
 } inverters_right_temperature_motors_data;
+
+typedef struct {
+	long timestamp;
+	float value;
+} inverters_right_torque_data;
 
 typedef struct {
 	inverters_right_speed_data *speed;
@@ -49,22 +54,30 @@ typedef struct {
 	inverters_right_temperature_motors_data *temperature_motors;
 	int temperature_motors_count;
 	int temperature_motors_size;
+	inverters_right_torque_data *torque;
+	int torque_count;
+	int torque_size;
 } inverters_right_data;
 
 typedef struct {
 	long timestamp;
-	int value;
+	float value;
 } inverters_left_speed_data;
 
 typedef struct {
 	long timestamp;
-	int value;
+	float value;
 } inverters_left_temperature_igbt_data;
 
 typedef struct {
 	long timestamp;
-	int value;
+	float value;
 } inverters_left_temperature_motors_data;
+
+typedef struct {
+	long timestamp;
+	float value;
+} inverters_left_torque_data;
 
 typedef struct {
 	inverters_left_speed_data *speed;
@@ -76,6 +89,9 @@ typedef struct {
 	inverters_left_temperature_motors_data *temperature_motors;
 	int temperature_motors_count;
 	int temperature_motors_size;
+	inverters_left_torque_data *torque;
+	int torque_count;
+	int torque_size;
 } inverters_left_data;
 
 typedef struct {
@@ -261,6 +277,38 @@ typedef struct {
 	double y;
 	double z;
 	double scale;
+} imu_old_gyro_value_data;
+
+typedef struct {
+	long timestamp;
+	imu_old_gyro_value_data value;
+} imu_old_gyro_data;
+
+typedef struct {
+	double x;
+	double y;
+	double z;
+	double scale;
+} imu_old_accel_value_data;
+
+typedef struct {
+	long timestamp;
+	imu_old_accel_value_data value;
+} imu_old_accel_data;
+
+typedef struct {
+	imu_old_gyro_data *gyro;
+	int gyro_count;
+	int gyro_size;
+	imu_old_accel_data *accel;
+	int accel_count;
+	int accel_size;
+} imu_old_data;
+
+typedef struct {
+	double x;
+	double y;
+	double z;
 } imu_gyro_value_data;
 
 typedef struct {
@@ -272,7 +320,6 @@ typedef struct {
 	double x;
 	double y;
 	double z;
-	double scale;
 } imu_accel_value_data;
 
 typedef struct {
@@ -281,34 +328,93 @@ typedef struct {
 } imu_accel_data;
 
 typedef struct {
+	imu_gyro_data *gyro;
+	int gyro_count;
+	int gyro_size;
+	imu_accel_data *accel;
+	int accel_count;
+	int accel_size;
+} imu_data;
+
+typedef struct {
 	double speed;
-	double speedms;
 	int error_flag;
-} front_wheels_encoders_right_value_data;
+} front_wheels_encoders_right_speed_value_data;
 
 typedef struct {
 	long timestamp;
-	front_wheels_encoders_right_value_data value;
+	front_wheels_encoders_right_speed_value_data value;
+} front_wheels_encoders_right_speed_data;
+
+typedef struct {
+	long timestamp;
+	double value;
+} front_wheels_encoders_right_speed_rads_data;
+
+typedef struct {
+	float angle_0;
+	float angle_1;
+	float angle_delta;
+} front_wheels_encoders_right_angle_value_data;
+
+typedef struct {
+	long timestamp;
+	front_wheels_encoders_right_angle_value_data value;
+} front_wheels_encoders_right_angle_data;
+
+typedef struct {
+	front_wheels_encoders_right_speed_data *speed;
+	int speed_count;
+	int speed_size;
+	front_wheels_encoders_right_speed_rads_data *speed_rads;
+	int speed_rads_count;
+	int speed_rads_size;
+	front_wheels_encoders_right_angle_data *angle;
+	int angle_count;
+	int angle_size;
 } front_wheels_encoders_right_data;
 
 typedef struct {
 	double speed;
-	double speedms;
 	int error_flag;
-} front_wheels_encoders_left_value_data;
+} front_wheels_encoders_left_speed_value_data;
 
 typedef struct {
 	long timestamp;
-	front_wheels_encoders_left_value_data value;
+	front_wheels_encoders_left_speed_value_data value;
+} front_wheels_encoders_left_speed_data;
+
+typedef struct {
+	long timestamp;
+	double value;
+} front_wheels_encoders_left_speed_rads_data;
+
+typedef struct {
+	float angle_0;
+	float angle_1;
+	float angle_delta;
+} front_wheels_encoders_left_angle_value_data;
+
+typedef struct {
+	long timestamp;
+	front_wheels_encoders_left_angle_value_data value;
+} front_wheels_encoders_left_angle_data;
+
+typedef struct {
+	front_wheels_encoders_left_speed_data *speed;
+	int speed_count;
+	int speed_size;
+	front_wheels_encoders_left_speed_rads_data *speed_rads;
+	int speed_rads_count;
+	int speed_rads_size;
+	front_wheels_encoders_left_angle_data *angle;
+	int angle_count;
+	int angle_size;
 } front_wheels_encoders_left_data;
 
 typedef struct {
-	front_wheels_encoders_right_data *right;
-	int right_count;
-	int right_size;
-	front_wheels_encoders_left_data *left;
-	int left_count;
-	int left_size;
+	front_wheels_encoders_right_data right;
+	front_wheels_encoders_left_data left;
 } front_wheels_encoders_data;
 
 typedef struct {
@@ -326,18 +432,27 @@ typedef struct {
 typedef struct {
 	long timestamp;
 	int value;
-} throttle_data;
+} pedals_throttle_data;
 
 typedef struct {
 	int is_breaking;
-	int pressure_front;
-	int pressure_back;
-} brake_value_data;
+	float pressure_front;
+	float pressure_back;
+} pedals_brake_value_data;
 
 typedef struct {
 	long timestamp;
-	brake_value_data value;
-} brake_data;
+	pedals_brake_value_data value;
+} pedals_brake_data;
+
+typedef struct {
+	pedals_throttle_data *throttle;
+	int throttle_count;
+	int throttle_size;
+	pedals_brake_data *brake;
+	int brake_count;
+	int brake_size;
+} pedals_data;
 
 typedef struct {
 	long timestamp;
@@ -373,22 +488,13 @@ typedef struct {
 	bms_hv_data bms_hv;
 	bms_lv_data bms_lv;
 	gps_data gps;
-	imu_gyro_data *imu_gyro;
-	int imu_gyro_count;
-	int imu_gyro_size;
-	imu_accel_data *imu_accel;
-	int imu_accel_count;
-	int imu_accel_size;
+	imu_old_data imu_old;
+	imu_data imu;
 	front_wheels_encoders_data front_wheels_encoders;
 	distance_data *distance;
 	int distance_count;
 	int distance_size;
-	throttle_data *throttle;
-	int throttle_count;
-	int throttle_size;
-	brake_data *brake;
-	int brake_count;
-	int brake_size;
+	pedals_data pedals;
 	steering_wheel_data steering_wheel;
 } data_t;
 
