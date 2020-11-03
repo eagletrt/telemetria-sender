@@ -144,6 +144,7 @@ void structureToBson(data_t *data, bson_t** bson_document) {
 	{
 		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "0", &children[3]);
 		BSON_APPEND_INT64(&children[3], "timestamp", data->inverters.right.speed[i].timestamp);
+		BSON_APPEND_DOUBLE(&children[3], "value", data->inverters.right.speed[i].value);
 		bson_append_document_end(&children[2], &children[3]);
 		bson_destroy(&children[3]);
 	}
@@ -154,6 +155,7 @@ void structureToBson(data_t *data, bson_t** bson_document) {
 	{
 		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "0", &children[3]);
 		BSON_APPEND_INT64(&children[3], "timestamp", data->inverters.right.temperature_igbt[i].timestamp);
+		BSON_APPEND_DOUBLE(&children[3], "value", data->inverters.right.temperature_igbt[i].value);
 		bson_append_document_end(&children[2], &children[3]);
 		bson_destroy(&children[3]);
 	}
@@ -164,6 +166,7 @@ void structureToBson(data_t *data, bson_t** bson_document) {
 	{
 		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "0", &children[3]);
 		BSON_APPEND_INT64(&children[3], "timestamp", data->inverters.right.temperature_motors[i].timestamp);
+		BSON_APPEND_DOUBLE(&children[3], "value", data->inverters.right.temperature_motors[i].value);
 		bson_append_document_end(&children[2], &children[3]);
 		bson_destroy(&children[3]);
 	}
@@ -174,6 +177,7 @@ void structureToBson(data_t *data, bson_t** bson_document) {
 	{
 		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "0", &children[3]);
 		BSON_APPEND_INT64(&children[3], "timestamp", data->inverters.right.torque[i].timestamp);
+		BSON_APPEND_DOUBLE(&children[3], "value", data->inverters.right.torque[i].value);
 		bson_append_document_end(&children[2], &children[3]);
 		bson_destroy(&children[3]);
 	}
@@ -187,6 +191,7 @@ void structureToBson(data_t *data, bson_t** bson_document) {
 	{
 		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "0", &children[3]);
 		BSON_APPEND_INT64(&children[3], "timestamp", data->inverters.left.speed[i].timestamp);
+		BSON_APPEND_DOUBLE(&children[3], "value", data->inverters.left.speed[i].value);
 		bson_append_document_end(&children[2], &children[3]);
 		bson_destroy(&children[3]);
 	}
@@ -197,6 +202,7 @@ void structureToBson(data_t *data, bson_t** bson_document) {
 	{
 		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "0", &children[3]);
 		BSON_APPEND_INT64(&children[3], "timestamp", data->inverters.left.temperature_igbt[i].timestamp);
+		BSON_APPEND_DOUBLE(&children[3], "value", data->inverters.left.temperature_igbt[i].value);
 		bson_append_document_end(&children[2], &children[3]);
 		bson_destroy(&children[3]);
 	}
@@ -207,6 +213,7 @@ void structureToBson(data_t *data, bson_t** bson_document) {
 	{
 		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "0", &children[3]);
 		BSON_APPEND_INT64(&children[3], "timestamp", data->inverters.left.temperature_motors[i].timestamp);
+		BSON_APPEND_DOUBLE(&children[3], "value", data->inverters.left.temperature_motors[i].value);
 		bson_append_document_end(&children[2], &children[3]);
 		bson_destroy(&children[3]);
 	}
@@ -217,6 +224,7 @@ void structureToBson(data_t *data, bson_t** bson_document) {
 	{
 		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "0", &children[3]);
 		BSON_APPEND_INT64(&children[3], "timestamp", data->inverters.left.torque[i].timestamp);
+		BSON_APPEND_DOUBLE(&children[3], "value", data->inverters.left.torque[i].value);
 		bson_append_document_end(&children[2], &children[3]);
 		bson_destroy(&children[3]);
 	}
@@ -528,6 +536,9 @@ void structureToBson(data_t *data, bson_t** bson_document) {
 		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "0", &children[3]);
 		BSON_APPEND_INT64(&children[3], "timestamp", data->front_wheels_encoders.right.angle[i].timestamp);
 		BSON_APPEND_DOCUMENT_BEGIN(&children[3], "value", &children[4]);
+		BSON_APPEND_DOUBLE(&children[4], "angle_0", data->front_wheels_encoders.right.angle[i].value.angle_0);
+		BSON_APPEND_DOUBLE(&children[4], "angle_1", data->front_wheels_encoders.right.angle[i].value.angle_1);
+		BSON_APPEND_DOUBLE(&children[4], "angle_delta", data->front_wheels_encoders.right.angle[i].value.angle_delta);
 		bson_append_document_end(&children[3], &children[4]);
 		bson_destroy(&children[4]);
 		bson_append_document_end(&children[2], &children[3]);
@@ -570,6 +581,9 @@ void structureToBson(data_t *data, bson_t** bson_document) {
 		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "0", &children[3]);
 		BSON_APPEND_INT64(&children[3], "timestamp", data->front_wheels_encoders.left.angle[i].timestamp);
 		BSON_APPEND_DOCUMENT_BEGIN(&children[3], "value", &children[4]);
+		BSON_APPEND_DOUBLE(&children[4], "angle_0", data->front_wheels_encoders.left.angle[i].value.angle_0);
+		BSON_APPEND_DOUBLE(&children[4], "angle_1", data->front_wheels_encoders.left.angle[i].value.angle_1);
+		BSON_APPEND_DOUBLE(&children[4], "angle_delta", data->front_wheels_encoders.left.angle[i].value.angle_delta);
 		bson_append_document_end(&children[3], &children[4]);
 		bson_destroy(&children[4]);
 		bson_append_document_end(&children[2], &children[3]);
@@ -617,6 +631,8 @@ void structureToBson(data_t *data, bson_t** bson_document) {
 		BSON_APPEND_INT64(&children[2], "timestamp", data->pedals.brake[i].timestamp);
 		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "value", &children[3]);
 		BSON_APPEND_INT32(&children[3], "is_breaking", data->pedals.brake[i].value.is_breaking);
+		BSON_APPEND_DOUBLE(&children[3], "pressure_front", data->pedals.brake[i].value.pressure_front);
+		BSON_APPEND_DOUBLE(&children[3], "pressure_back", data->pedals.brake[i].value.pressure_back);
 		bson_append_document_end(&children[2], &children[3]);
 		bson_destroy(&children[3]);
 		bson_append_document_end(&children[1], &children[2]);
