@@ -1,0 +1,7 @@
+{
+    "this": "is",
+    "a": 10,
+    "random": false,
+    "json": [1,2,3,4],
+    "with": { "a": "object", "inside": 30, "it": false } 
+}

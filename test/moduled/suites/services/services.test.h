@@ -4,6 +4,8 @@
 /* IMPORTS */
 
 #include "../../libs/munit/munit.h"
+#include "../../../../state_machine/state_machine_condition.h"
+#include "./config_service/config_service.test.h"
 
 /* EXPORTED SUITE */
 

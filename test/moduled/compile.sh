@@ -9,6 +9,7 @@ gcc main.test.c -o test.out \
     ../../utils/misc_utils/misc_utils.c \
     ../../utils/config_utils/config_utils.c \
     ../../utils/config_utils/jsmn/jsmn.c \
+    ../../services/config_service/config_service.c \
     \
     \
     ./suites/utils/utils.test.c \
@@ -33,11 +34,19 @@ gcc main.test.c -o test.out \
     ./suites/utils/config_utils/print_config/print_config.test.c \
     ./suites/utils/config_utils/delete_config/delete_config.test.c \
     ./suites/utils/config_utils/parse_config_file/parse_config_file.test.c \
-    ./suites/utils/config_utils/new_config_and_delete_config/new_config_and_delete_config.test.c \
     \
     \
     ./suites/services/services.test.c \
     \
+    ./suites/services/config_service/config_service.test.c \
+    ./suites/services/config_service/handle_config/handle_config.test.c \
+    \
+    -I/usr/include/libbson-1.0 \
+    -I/usr/include/libmongoc-1.0 \
+    -lmongoc-1.0 \
+    -lbson-1.0 \
+    -lmosquitto \
+    -lpthread \
     -lm
 if [ $? -eq 0 ]; then
     echo "compiled :)"

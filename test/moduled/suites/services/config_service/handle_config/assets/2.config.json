@@ -1,0 +1,40 @@
+{
+  "sending_rate": 500,
+
+  "pilots": [
+    "default"
+  ],
+
+  "mongodb": {
+    "host": "localhost",
+    "port": 27017,
+    "db": "eagle_test",
+    "collection": "chimera"
+  },
+
+  "races": [
+      "default",
+      "Autocross"
+  ],
+
+  "circuits": [
+    "default",
+    "Vadena",
+    "Varano",
+    "Povo"
+  ],
+
+  "verbose": 0,
+
+  "mqtt": {
+    "host": "localhost",
+    "port": 2323,
+    "log_topic": "telemetria_log"
+  },
+
+  "gps": {
+    "plugged": 1,
+    "simulated": 1,
+    "interface": "/dev/pts/2"
+  }
+}
