@@ -49,6 +49,7 @@ static void *test_parse_config_file_setup(const MunitParameter params[], void *u
     test_parse_config_file_fixture *fixture = (test_parse_config_file_fixture *)malloc(sizeof(test_parse_config_file_fixture));
     config_t *config = newConfig();
     fixture->config = config;
+    return fixture;
 }
 
 static MunitResult test_parse_config_file(const MunitParameter params[], void *fixture)
@@ -63,8 +64,8 @@ static MunitResult test_parse_config_file(const MunitParameter params[], void *f
 
 static void test_parse_config_file_tear_down(void *fixture)
 {
-    test_parse_config_file_fixture *typed_fixture = (test_parse_config_file_fixture *)malloc(sizeof(test_parse_config_file_fixture));
+    test_parse_config_file_fixture *typed_fixture = (test_parse_config_file_fixture *)fixture;
     printf(typed_fixture->config->mqtt.log_topic);
-    //deleteConfig(typed_fixture->config); //TODO: fix
+    deleteConfig(typed_fixture->config);
     free(typed_fixture);
 }

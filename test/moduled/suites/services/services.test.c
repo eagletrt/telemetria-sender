@@ -1,7 +1,10 @@
 #include "services.test.h"
 
+condition_t condition;
+
 MunitSuite* get_services_suite() {
-    MunitSuite *sub_suites = (MunitSuite *)malloc(0 * sizeof(MunitSuite));
+    MunitSuite *sub_suites = (MunitSuite *)malloc(1 * sizeof(MunitSuite));
+    sub_suites[0] = *get_config_service_suite();
 
     MunitSuite* suite = (MunitSuite*) malloc(sizeof(MunitSuite));
     suite->prefix = "/services";
