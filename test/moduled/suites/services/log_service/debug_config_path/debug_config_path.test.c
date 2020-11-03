@@ -39,7 +39,7 @@ static char* test_debug_config_path_params_index[] = {
   "0", "1", "2", NULL
 };
 static MunitParameterEnum test_debug_config_path_params[] = {
-  { "str", test_debug_config_path_params_index },
+  { "index", test_debug_config_path_params_index },
   { NULL, NULL },
 };
 

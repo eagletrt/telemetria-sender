@@ -43,6 +43,8 @@ gcc main.test.c -o test.out \
     ./suites/services/log_service/log_service.test.c \
     ./suites/services/log_service/debug_config_path/debug_config_path.test.c \
     ./suites/services/log_service/debug_config_path/assets/debug_config_path.assets.c \
+    ./suites/services/log_service/debug_gps_port/debug_gps_port.test.c \
+    ./suites/services/log_service/debug_gps_port/assets/debug_gps_port.assets.c \
     \
     ./suites/services/config_service/config_service.test.c \
     ./suites/services/config_service/handle_config/handle_config.test.c \
