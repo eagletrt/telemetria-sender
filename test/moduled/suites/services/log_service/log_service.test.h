@@ -6,6 +6,7 @@
 #include "../../../libs/munit/munit.h"
 #include "./debug_config_path/debug_config_path.test.h"
 #include "./debug_gps_port/debug_gps_port.test.h"
+#include "./debug_generic/debug_generic.test.h"
 
 /* EXPORTED SUITE */
 

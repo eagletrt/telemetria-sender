@@ -22,7 +22,7 @@ static MunitTest tests_debug_gps_port[] = {
 };
 
 static MunitSuite log_service_debug_gps_port_suite = {
-  "/debug-config-path",
+  "/debug-gps-port",
   tests_debug_gps_port,
   NULL,
   1,
