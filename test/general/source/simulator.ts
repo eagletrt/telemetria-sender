@@ -1,7 +1,6 @@
 import { ChildProcessWithoutNullStreams, exec, ExecOptions, spawn } from 'child_process';
-import { pathToFileURL } from 'url';
 import * as path from 'path';
-import { resolve } from 'path';
+import { delay, execAsync, killProcess } from './test-utils';
 
 export default class Simulator {
     private readonly REPO_URL = 'https://github.com/eagletrt/eagletrt-telemetry-simulator';
@@ -11,60 +10,51 @@ export default class Simulator {
     private readonly COMPILE_SCRIPT_NAME = 'compile.sh';
     private readonly RUN_SCRIPT_NAME = 'run.sh';
     private readonly MOSQUITTO_PORT = 1883;
-    private readonly ENABLE_COMMAND = 'npm run enalble';
-    private readonly IDLE_COMMAND = 'npm run idle';
+    private readonly ENABLE_COMMAND = './enable_signal.sh';
+    private readonly IDLE_COMMAND = './idle_signal.sh';
 
     private simulatorProcess: ChildProcessWithoutNullStreams | null = null;
     private mosquittoProcess: ChildProcessWithoutNullStreams | null = null;
 
-    constructor() {
+    constructor(private log = false) {
     }
 
     public async start() {
-        await this.execAsync(`git clone ${this.REPO_URL}`, { cwd: this.WORKING_PATH });
-        await this.execAsync(`./${this.COMPILE_SCRIPT_NAME}`, { cwd: this.SIMULATOR_PATH });
+        await execAsync(`git clone ${this.REPO_URL}`, { cwd: this.WORKING_PATH });
+        await execAsync(`./${this.COMPILE_SCRIPT_NAME}`, { cwd: this.SIMULATOR_PATH });
 
         this.simulatorProcess = spawn(`./${this.RUN_SCRIPT_NAME}`, { cwd: this.SIMULATOR_PATH });
-        this.simulatorProcess.stdout.on('data', (data) => console.log(data.toString()));
-        this.simulatorProcess.stderr.on('data', (data) => console.log(data.toString()));
+        this.simulatorProcess.stdout.on('data', (data) => this.logWrapper(data.toString()));
+        this.simulatorProcess.stderr.on('data', (data) => this.logWrapper(data.toString()));
 
         this.mosquittoProcess = spawn('mosquitto', ['-p', `${this.MOSQUITTO_PORT}`]);
-        this.mosquittoProcess.stdout.on('data', (data) => console.log(data.toString()));
-        this.mosquittoProcess.stderr.on('data', (data) => console.log(data.toString()));
+        this.mosquittoProcess.stdout.on('data', (data) => this.logWrapper(data.toString()));
+        this.mosquittoProcess.stderr.on('data', (data) => this.logWrapper(data.toString()));
 
-        await this.delay(2000);
+        await delay(2000);
         console.log('SIMULATOR and MOSQUITTO started')
     }
 
     public async stop() {
-        this.simulatorProcess!.kill('SIGINT');
-        this.mosquittoProcess!.kill('SIGINT');
-        await this.execAsync(`rm -r ${this.SIMULATOR_FOLDER}`, { cwd: this.WORKING_PATH });
+        killProcess(this.simulatorProcess);
+        killProcess(this.mosquittoProcess);
+        await execAsync(`rm -r ${this.SIMULATOR_FOLDER}`, { cwd: this.WORKING_PATH });
 
-        await this.delay(2000);
+        await delay(2000);
         console.log('SIMULATOR and MOSQUITTO stopped')
     }
 
-    public enable() {
+    public async enable() {
         exec(this.ENABLE_COMMAND);
     }
 
-    public idle() {
+    public async idle() {
         exec(this.IDLE_COMMAND);
     }
 
-    private async delay(ms: number) {
-        await new Promise((resolve) => { setTimeout(resolve, ms); });
-    }
-
-    private async execAsync(cmd: string, options: ExecOptions = {}) {
-        return new Promise((resolve, reject) => {
-            exec(cmd, options, (err, stdout, stderr) => {
-                console.log(err);
-                console.log(stdout);
-                console.log(stderr);
-                resolve();
-            });
-        });
+    private logWrapper(data) {
+        if (this.log) {
+            console.log(data);
+        }
     }
 }
