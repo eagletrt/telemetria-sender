@@ -7,7 +7,7 @@ static MunitParameterEnum test_mongo_setup_params_wrong[];
 static void *test_mongo_setup(const MunitParameter params[], void *user_data);
 static MunitResult test_mongo_setup_correct(const MunitParameter params[], void *fixture);
 static MunitResult test_mongo_setup_wrong(const MunitParameter params[], void *fixture);
-static void test_mongo_setup_wrong_tear_down(void* fixture);
+static void test_mongo_setup_tear_down(void* fixture);
 
 /* EXPORTED SUITE */
 
@@ -16,7 +16,7 @@ static MunitTest tests_mongo_setup[] = {
         "/correct-file",
         test_mongo_setup_correct,
         test_mongo_setup,
-        test_mongo_setup_wrong_tear_down,
+        test_mongo_setup_tear_down,
         MUNIT_TEST_OPTION_NONE,
         test_mongo_setup_params_correct
     },
@@ -24,7 +24,7 @@ static MunitTest tests_mongo_setup[] = {
         "/wrong-file",
         test_mongo_setup_wrong,
         test_mongo_setup,
-        test_mongo_setup_wrong_tear_down,
+        test_mongo_setup_tear_down,
         MUNIT_TEST_OPTION_NONE,
         test_mongo_setup_params_wrong
     },
@@ -43,16 +43,16 @@ MunitSuite *get_mongo_services_mongo_setup_suite() {
 }
 
 /* HELPER FUNCTIONS DEFINITIONS */
-static char *test_mongo_setup_params_correct_n[] = {
+static char *test_mongo_setup_params_correct_mongo[] = {
     "localhost|27017|eagle_test|test",
     NULL
 };
 static MunitParameterEnum test_mongo_setup_params_correct[] = {
-    {"mongo", test_mongo_setup_params_correct_n},
+    {"mongo", test_mongo_setup_params_correct_mongo},
     {NULL, NULL},
 };
 
-static char *test_mongo_setup_params_wrong_n[] = {
+static char *test_mongo_setup_params_wrong_mongo[] = {
     "fakeurl|27017|eagle_test|test",
     "localhost|28123|eagle_test|test",
     "localhost|27017|wrong_db|test",
@@ -61,7 +61,7 @@ static char *test_mongo_setup_params_wrong_n[] = {
     NULL
 };
 static MunitParameterEnum test_mongo_setup_params_wrong[] = {
-    {"mongo", test_mongo_setup_params_wrong_n},
+    {"mongo", test_mongo_setup_params_wrong_mongo},
     {NULL, NULL},
 };
 
@@ -97,7 +97,7 @@ static MunitResult test_mongo_setup_wrong(const MunitParameter params[], void *f
     return MUNIT_OK;
 }
 
-static void test_mongo_setup_wrong_tear_down(void* fixture) {
+static void test_mongo_setup_tear_down(void* fixture) {
     free(condition.mongodb.host);
     free(condition.mongodb.db);
     free(condition.mongodb.collection);
