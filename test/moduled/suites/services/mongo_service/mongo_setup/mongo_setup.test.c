@@ -102,4 +102,3 @@ static void test_mongo_setup_wrong_tear_down(void* fixture) {
     free(condition.mongodb.db);
     free(condition.mongodb.collection);
 }
-
