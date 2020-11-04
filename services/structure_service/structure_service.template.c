@@ -296,6 +296,7 @@ static void* gatherCan(void *args) {
                     case IMU_GYRO_FB:
                         if (document->imu_old.gyro_count < document->imu_old.gyro_size) {
                             document->imu_old.gyro[document->imu_old.gyro_count].timestamp = getCurrentTimestamp();
+                            
                             document->imu_old.gyro[document->imu_old.gyro_count].value.x = (double)((data_left >> 8) & 0x0000FFFF);
                             document->imu_old.gyro[document->imu_old.gyro_count].value.y = (double)((data_left & 0x000000FF) * 0xFF) + ((data_right >> 24) & 0x000000FF);
                             document->imu_old.gyro[document->imu_old.gyro_count].value.z = (double)((data_right >> 8) & 0x0000FFFF);
@@ -358,7 +359,7 @@ static void* gatherCan(void *args) {
                     document->imu.gyro[document->imu.gyro_count].value.y *= (8 / 65536) * 100;
                     document->imu.gyro[document->imu.gyro_count].value.z *= (8 / 65536) * 100;
 
-                    document->imu_old.gyro_count++;
+                    document->imu.gyro_count++;
                 }
                 break;
 
@@ -378,7 +379,7 @@ static void* gatherCan(void *args) {
                     document->imu.accel[document->imu.accel_count].value.y *= (8 / 65536) * 100;
                     document->imu.accel[document->imu.accel_count].value.z *= (8 / 65536) * 100;
 
-                    document->imu_old.accel_count++;
+                    document->imu.accel_count++;
                 }
                 break;
 
