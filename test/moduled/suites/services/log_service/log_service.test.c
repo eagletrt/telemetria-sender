@@ -3,7 +3,7 @@
 /* EXPORTED SUITE */
 
 MunitSuite* get_log_service_suite() {
-  MunitSuite* sub_suites = (MunitSuite*) malloc(12 * sizeof(MunitSuite));
+  MunitSuite* sub_suites = (MunitSuite*) malloc(13 * sizeof(MunitSuite));
   sub_suites[0] = *get_log_service_debug_config_path_suite();
   sub_suites[1] = *get_log_service_debug_gps_port_suite();
   sub_suites[2] = *get_log_service_debug_generic_suite();
@@ -15,7 +15,8 @@ MunitSuite* get_log_service_suite() {
   sub_suites[8] = *get_log_service_success_started_up_suite();
   sub_suites[9] = *get_log_service_success_insertion_suite();
   sub_suites[10] = *get_log_service_success_quitting_suite();
-  sub_suites[11] = (MunitSuite) { NULL, NULL, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL };
+  sub_suites[11] = *get_log_service_error_parsing_config_suite();
+  sub_suites[12] = (MunitSuite) { NULL, NULL, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL };
 
   MunitSuite* suite = (MunitSuite*) malloc(sizeof(MunitSuite));
   suite->prefix = "/log-service";
