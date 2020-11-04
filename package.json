@@ -1,5 +1,5 @@
 {
-  "name": "fenice-telemetria-sender",
+  "name": "chimera-telemetria-sender",
   "version": "1.0.0",
   "description": "The telemetry of eagletrt",
   "scripts": {
@@ -10,12 +10,6 @@
     "serve": "npm run compile && npm run start",
     "enable": "./enable_signal.sh",
     "idle": "./idle_signal.sh",
-    "test:moduled:compile": "cd test/moduled && ./compile.sh",
-    "test:moduled:start": "./test/moduled/test.out",
-    "test:moduled": "npm run test:moduled:compile && npm run test:moduled:start",
-    "test:general:transpile": "cd test/general && tsc",
-    "test:general:start": "mocha ./test/general/dist/**/*.test.js",
-    "test:general:serve": "npm run test:general:transpile && npm run test:general:start",
     "commit": "git add . && cz"
   },
   "repository": {
@@ -31,13 +25,9 @@
   "devDependencies": {
     "@eagletrt/eagletrt-code-generator": "^2.7.0",
     "@types/chai": "^4.2.14",
-    "@types/mocha": "^8.0.3",
-    "@types/node": "^14.14.6",
     "ajv-cli": "^3.3.0",
-    "chai": "^4.2.0",
     "commitizen": "^4.2.2",
-    "cz-conventional-changelog": "^3.3.0",
-    "mocha": "^8.2.1"
+    "cz-conventional-changelog": "^3.3.0"
   },
   "config": {
     "commitizen": {
