@@ -12,6 +12,7 @@
 #include "./info_gps_plugged/info_gps_plugged.test.h"
 #include "./info_quitting/info_quitting.test.h"
 #include "./info_new_session/info_new_session.test.h"
+#include "./success_started_up/success_started_up.test.h"
 
 /* EXPORTED SUITE */
 
