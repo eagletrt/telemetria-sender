@@ -18,6 +18,7 @@
 #include "./error_parsing_config/error_parsing_config.test.h"
 #include "./error_opening_gps/error_opening_gps.test.h"
 #include "./error_gathering_data/error_gathering_data.test.h"
+#include "./error_generic/error_generic.test.h"
 
 /* EXPORTED SUITE */
 
