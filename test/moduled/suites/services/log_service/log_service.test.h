@@ -14,6 +14,7 @@
 #include "./info_new_session/info_new_session.test.h"
 #include "./success_started_up/success_started_up.test.h"
 #include "./success_insertion/success_insertion.test.h"
+#include "./success_quitting/success_quitting.test.h"
 
 /* EXPORTED SUITE */
 
