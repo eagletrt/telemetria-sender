@@ -10,6 +10,7 @@
 #include "./info_transition/info_transition.test.h"
 #include "./info_starting_up/info_starting_up.test.h"
 #include "./info_gps_plugged/info_gps_plugged.test.h"
+#include "./info_quitting/info_quitting.test.h"
 
 /* EXPORTED SUITE */
 

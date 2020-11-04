@@ -49,6 +49,7 @@ gcc main.test.c -o test.out \
     ./suites/services/log_service/info_transition/info_transition.test.c \
     ./suites/services/log_service/info_starting_up/info_starting_up.test.c \
     ./suites/services/log_service/info_gps_plugged/info_gps_plugged.test.c \
+    ./suites/services/log_service/info_quitting/info_quitting.test.c \
     \
     ./suites/services/config_service/config_service.test.c \
     ./suites/services/config_service/handle_config/handle_config.test.c \
