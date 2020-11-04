@@ -12,14 +12,19 @@ export default class Simulator {
     private readonly MOSQUITTO_PORT = 1883;
     private readonly ENABLE_COMMAND = './enable_signal.sh';
     private readonly IDLE_COMMAND = './idle_signal.sh';
+    private readonly INTERFACE_PATH = '/dev/pts';
 
     private simulatorProcess: ChildProcessWithoutNullStreams | null = null;
     private mosquittoProcess: ChildProcessWithoutNullStreams | null = null;
+    private interfacePath = "/dev/pts/2";
 
     constructor(private log = false) {
     }
 
-    public async start() {
+    public async start(): Promise<boolean> {
+        let result = true;
+        const originalInterface = await this.getInterfaceWIthLs();
+
         await execAsync(`git clone ${this.REPO_URL}`, { cwd: this.WORKING_PATH });
         await execAsync(`./${this.COMPILE_SCRIPT_NAME}`, { cwd: this.SIMULATOR_PATH });
 
@@ -32,7 +37,20 @@ export default class Simulator {
         this.mosquittoProcess.stderr.on('data', (data) => this.logWrapper(data.toString()));
 
         await delay(2000);
-        console.log('SIMULATOR and MOSQUITTO started')
+
+        const newInterface = await this.getInterfaceWIthLs();
+        let diff = newInterface.filter(x => !originalInterface.includes(x));
+        if (diff.length > 0) {
+            this.interfacePath = path.join(this.INTERFACE_PATH, `${diff[0]}`);
+        } else {
+            result = false;
+        }
+        if (result) {
+            console.log('SIMULATOR and MOSQUITTO started')
+        } else {
+            console.log('Error starting SIMULATOR and MOSQUITTO')
+        }
+        return result;
     }
 
     public async stop() {
@@ -52,9 +70,18 @@ export default class Simulator {
         exec(this.IDLE_COMMAND);
     }
 
+    public getInterfacePath(): string {
+        return this.interfacePath;
+    }
+
     private logWrapper(data) {
         if (this.log) {
             console.log(data);
         }
+    }
+
+    private async getInterfaceWIthLs(): Promise<string[]> {
+        return (await execAsync(`ls ${this.INTERFACE_PATH}`)).stdout.split('\n');
+
     }
 }
