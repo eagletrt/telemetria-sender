@@ -57,6 +57,7 @@ gcc main.test.c -o test.out \
     ./suites/services/log_service/success_quitting/success_quitting.test.c \
     ./suites/services/log_service/error_parsing_config/error_parsing_config.test.c \
     ./suites/services/log_service/error_parsing_config/assets/error_parsing_config.assets.c \
+    ./suites/services/log_service/error_opening_gps/error_opening_gps.test.c \
     \
     ./suites/services/config_service/config_service.test.c \
     ./suites/services/config_service/handle_config/handle_config.test.c \

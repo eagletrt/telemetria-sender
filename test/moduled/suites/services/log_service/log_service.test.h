@@ -16,6 +16,7 @@
 #include "./success_insertion/success_insertion.test.h"
 #include "./success_quitting/success_quitting.test.h"
 #include "./error_parsing_config/error_parsing_config.test.h"
+#include "./error_opening_gps/error_opening_gps.test.h"
 
 /* EXPORTED SUITE */
 
