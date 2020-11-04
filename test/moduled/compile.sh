@@ -53,6 +53,7 @@ gcc main.test.c -o test.out \
     ./suites/services/log_service/info_new_session/info_new_session.test.c \
     ./suites/services/log_service/info_new_session/assets/info_new_session.assets.c \
     ./suites/services/log_service/success_started_up/success_started_up.test.c \
+    ./suites/services/log_service/success_insertion/success_insertion.test.c \
     \
     ./suites/services/config_service/config_service.test.c \
     ./suites/services/config_service/handle_config/handle_config.test.c \
