@@ -43,7 +43,7 @@ MunitSuite *get_config_services_handle_config_suite() {
 }
 
 /* HELPER FUNCTIONS DEFINITIONS */
-static char *test_handle_config_params_correct_n[] = {
+static char *test_handle_config_params_correct_file_path[] = {
     "test/moduled/suites/services/config_service/handle_config/assets/0.config.json",
     "test/moduled/suites/services/config_service/handle_config/assets/1.config.json",
     "test/moduled/suites/services/config_service/handle_config/assets/2.config.json",
@@ -52,18 +52,18 @@ static char *test_handle_config_params_correct_n[] = {
     NULL
 };
 static MunitParameterEnum test_handle_config_params_correct[] = {
-    {"filename", test_handle_config_params_correct_n},
-    {NULL, NULL},
+    { "file_path", test_handle_config_params_correct_file_path },
+    { NULL, NULL },
 };
 
-static char *test_handle_config_params_wrong_n[] = {
+static char *test_handle_config_params_wrong_file_path[] = {
     "",
     "fake/path/to/file.txt",
     NULL
 };
 static MunitParameterEnum test_handle_config_params_wrong[] = {
-    {"filename", test_handle_config_params_wrong_n},
-    {NULL, NULL},
+    { "file_path", test_handle_config_params_wrong_file_path },
+    { NULL, NULL },
 };
 
 static void *test_handle_config_setup(const MunitParameter params[], void *user_data) {
