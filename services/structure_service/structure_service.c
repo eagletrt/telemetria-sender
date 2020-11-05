@@ -974,12 +974,7 @@ static void* gatherCan(void *args) {
                     case IMU_GYRO_FB:
                         if (document->imu_old.gyro_count < document->imu_old.gyro_size) {
                             document->imu_old.gyro[document->imu_old.gyro_count].timestamp = getCurrentTimestamp();
-                            if (document->imu_old.gyro[document->imu_old.gyro_count].timestamp == 0) puts("CIAO");
-                            // if (1604510000000 <= document->imu_old.gyro[document->imu_old.gyro_count].timestamp && document->imu_old.gyro[document->imu_old.gyro_count].timestamp <= 1604519999999)
-                            //     ;//puts("Dentro");;
-                            // else
-                            //     puts("Fuori");
-
+                            
                             document->imu_old.gyro[document->imu_old.gyro_count].value.x = (double)((data_left >> 8) & 0x0000FFFF);
                             document->imu_old.gyro[document->imu_old.gyro_count].value.y = (double)((data_left & 0x000000FF) * 0xFF) + ((data_right >> 24) & 0x000000FF);
                             document->imu_old.gyro[document->imu_old.gyro_count].value.z = (double)((data_right >> 8) & 0x0000FFFF);
