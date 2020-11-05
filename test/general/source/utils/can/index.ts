@@ -11,6 +11,7 @@ export class CanProcess {
             async: true,
             cwd: CanProcess.PROCESS_CWD
         });
+        console.log('canplayer', this.canplayerProcess.pid)
     }
 
     public stop() {

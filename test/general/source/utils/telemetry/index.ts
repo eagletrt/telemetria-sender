@@ -11,6 +11,7 @@ export class TelemetryProcess {
             async: true,
             cwd: TelemetryProcess.PROCESS_CWD
         });
+        console.log('telemetry id', this.telemetryProcess.pid)
     }
 
     public enable() {
@@ -29,7 +30,7 @@ export class TelemetryProcess {
     }
 
     public stop() {
-        this.telemetryProcess?.kill('SIGINT');
+        this.telemetryProcess?.kill('SIGABRT');
     }
 
     constructor(private configPath: string) { }
