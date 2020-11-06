@@ -23,21 +23,21 @@ export default async function () {
                 path.join(__dirname, 'mongo_start_session.test.out'),
                 [{
                     it: 'should inset start session record in chimera',
-                    args: ['pilotone', 'circuitone', MONGO_CONFIG.host, `${MONGO_CONFIG.port}`, MONGO_CONFIG.db, 'chimera'],
+                    args: [ MONGO_CONFIG.host, `${MONGO_CONFIG.port}`, MONGO_CONFIG.db, 'chimera', 'pilotone', 'circuitone'],
 
                 }, {
                     it: 'should inset start session record in random',
-                    args: ['pilot_one', 'circuit_one', MONGO_CONFIG.host, `${MONGO_CONFIG.port}`, MONGO_CONFIG.db, 'random'],
+                    args: [ MONGO_CONFIG.host, `${MONGO_CONFIG.port}`, MONGO_CONFIG.db, 'random', 'pilot_one', 'circuit_one' ],
 
                 }],
                 async (prop) => {
-                    const mongoConnection = await MongoClient.connect(getMongoUri(prop.args[2], +prop.args[3]), { useUnifiedTopology: true });
-                    const collection = mongoConnection.db(prop.args[4]).collection(prop.args[5]);
+                    const mongoConnection = await MongoClient.connect(getMongoUri(prop.args[0], +prop.args[1]), { useUnifiedTopology: true });
+                    const collection = mongoConnection.db(prop.args[2]).collection(prop.args[3]);
                     let coll = await collection.aggregate().toArray();
-                    mongoConnection.close();
+                    await mongoConnection.close();
                     assert(coll.length === 1);
-                    assert(coll[0].pilot === prop.args[0]);
-                    assert(coll[0].race === prop.args[1]);
+                    assert(coll[0].pilot === prop.args[4]);
+                    assert(coll[0].race === prop.args[5]);
                 }
             );
         });
