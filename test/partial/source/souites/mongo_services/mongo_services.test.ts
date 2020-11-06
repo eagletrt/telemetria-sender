@@ -71,16 +71,25 @@ export default async function () {
                     const collection = mongoConnection.db(prop.args[2]).collection(prop.args[3]);
                     let coll = await collection.aggregate().toArray();
                     await mongoConnection.close();
-                    console.log(coll);
                     assert(coll.length === 1);
                     expect(coll[0]).contain(parseCJSON(prop.args[4]));
                 }
             );
-        })
+        });
 
-
-
-
+        describe('mongo_quit', function () {
+            runTests(
+                path.join(__dirname, 'mongo_quit.test.out'),
+                [
+                    {
+                        it: 'should correctly close the connection',
+                        args: [MONGO_CONFIG.host, `${MONGO_CONFIG.port}`, MONGO_CONFIG.db, 'chimera' ],
+                    }
+                ],
+                async (prop) => {
+                }
+            );
+        });
 
     });
 }

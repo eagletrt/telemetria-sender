@@ -41,5 +41,25 @@ else
     exit 1
 fi
 
+# mongo_quit
+gcc ./source/souites/mongo_services/mongo_quit.test.c -o ./dist/souites/mongo_services/mongo_quit.test.out \
+    ../../utils/misc_utils/misc_utils.c \
+    ../../services/mongo_service/mongo_service.c \
+    -I/usr/include/libbson-1.0 \
+    -I/usr/include/libmongoc-1.0 \
+    -I/usr/include/libbson-1.0 \
+    -I/usr/include/libmongoc-1.0 \
+    -lmongoc-1.0 \
+    -lbson-1.0 \
+    -lmosquitto \
+    -lpthread \
+    -lm
+if [ $? -eq 0 ]; then
+    echo "mongo_quit compiled"
+else
+    echo "Error in mongo_quit"
+    exit 1
+fi
+
 echo "Everything compiled :)"
 exit 0
