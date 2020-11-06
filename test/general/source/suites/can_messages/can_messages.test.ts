@@ -4,11 +4,11 @@ import { expect } from 'chai';
 import { MongoClient } from 'mongodb';
 import { clean } from 'mongo-cleaner';
 import { join } from 'path';
+import { CanSimulatorInstance, simulateCan, virtualizeCan } from '@eagletrt/eagletrt-telemetria-simulator';
+
 import getConfiguration from '../../utils/config';
-import { startCanplayer, startTelemetry, stopCanplayer, stopTelemetry } from './to-be-removed';
 import { wait } from '../../utils/misc';
 import { TelemetryProcess } from '../../utils/telemetry';
-import { CanProcess } from '../../utils/can';
 
 const config = getConfiguration();
 const telemetryProcess = new TelemetryProcess(config.path);
@@ -42,7 +42,7 @@ function testMessageFolder(name: string, path: string, keys: string[]): void {
     const expectedJsonName = `${name}.expected.json`;
     const expectedJsonPath = join(path, expectedJsonName);
 
-    let canlogProcess: CanProcess, mongoConnection: MongoClient;
+    let canSimulatorInstance: CanSimulatorInstance, mongoConnection: MongoClient;
 
     describe(`Test ${name} message`, function () {
 
@@ -51,29 +51,18 @@ function testMessageFolder(name: string, path: string, keys: string[]): void {
                 'gps.plugged': 0
             });
 
-            // stopSimulator = simulateTelemetry({
-            //     simulateCan: true,
-            //     simulateGPS: false,
-            //     can: {
-            //         src: canLogPath,
-            //         interface: config.data.can_interface,
-            //         iterations: 1,
-            //         simulateTime: true,
-            //         delay: 1000
-            //     }
-            // });
-
             const mongoUri = `mongodb://${config.data.mongodb.host}:${config.data.mongodb.port}`;
             await clean(mongoUri, undefined, { keep: database => database !== config.data.mongodb.db });
             mongoConnection = await MongoClient.connect(mongoUri, { useUnifiedTopology: true } );
 
-            canlogProcess = new CanProcess(canLogPath);
-
+            await virtualizeCan(config.data.can_interface);
             telemetryProcess.start();
             await wait(1000);
             telemetryProcess.enable();
             await wait(1000);
-            canlogProcess.start();
+            canSimulatorInstance = await simulateCan(canLogPath, {
+                iterations: 1
+            });
             await wait(10000);
         });
 
@@ -96,7 +85,7 @@ function testMessageFolder(name: string, path: string, keys: string[]): void {
 
         afterEach(async function () {
             telemetryProcess.stop();
-            canlogProcess.stop();
+            await canSimulatorInstance.stop();
             await mongoConnection.close();
         });
 
