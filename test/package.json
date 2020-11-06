@@ -7,6 +7,9 @@
     "test:moduled:compile": "./compile.sh",
     "test:moduled:start": "./moduled/test.out",
     "test:moduled": "npm run test:moduled:compile && npm run test:moduled:start",
+    "test:partial:transpile": "tsc --project partial && cd partial && sh ./compile.sh",
+    "test:partial:start": "mocha ./partial/dist/main.test",
+    "test:partial": "npm run test:partial:transpile && npm run test:partial:start",
     "test:general:transpile": "tsc --project general",
     "test:general:start": "mocha ./general/dist/main.test",
     "test:general": "npm run test:general:transpile && npm run test:general:start"
