@@ -4,14 +4,13 @@ import { expect } from 'chai';
 import { MongoClient } from 'mongodb';
 import { clean } from 'mongo-cleaner';
 import { join } from 'path';
-import { CanSimulatorInstance, simulateCan, virtualizeCan } from '@eagletrt/eagletrt-telemetria-simulator';
+import { CanSimulatorInstance, GpsSimulatorInstance, simulateCan, simulateGps, virtualizeCan } from '@eagletrt/eagletrt-telemetria-simulator';
 
 import getConfiguration from '../../utils/config';
 import { wait } from '../../utils/misc';
-import { TelemetryProcess } from '../../utils/telemetry';
+import { startTelemetry, TelemetryProcessInstance } from '../../utils/telemetry';
 
 const config = getConfiguration();
-const telemetryProcess = new TelemetryProcess(config.path);
 
 export default async function () {
     describe('Test if can messages are correctly parsed, sent and saved', async function() {
@@ -42,32 +41,52 @@ function testMessageFolder(name: string, path: string, keys: string[]): void {
     const expectedJsonName = `${name}.expected.json`;
     const expectedJsonPath = join(path, expectedJsonName);
 
-    let canSimulatorInstance: CanSimulatorInstance, mongoConnection: MongoClient;
+    let 
+        canSimulatorInstance: CanSimulatorInstance, 
+        gpsSimulatorInstance: GpsSimulatorInstance, 
+        telemetryProcessInstane: TelemetryProcessInstance,
+        mongoConnection: MongoClient;
 
     describe(`Test ${name} message`, function () {
 
         beforeEach(async function () {
-            config.set({
-                'gps.plugged': 0
-            });
-
+            
+            // Connect to mongodb
             const mongoUri = `mongodb://${config.data.mongodb.host}:${config.data.mongodb.port}`;
             await clean(mongoUri, undefined, { keep: database => database !== config.data.mongodb.db });
             mongoConnection = await MongoClient.connect(mongoUri, { useUnifiedTopology: true } );
 
+            // Virtualize can if not already virtualized
             await virtualizeCan(config.data.can_interface);
-            telemetryProcess.start();
-            await wait(1000);
-            telemetryProcess.enable();
-            await wait(1000);
+            // Simulate gps and get its interface
+            gpsSimulatorInstance = await simulateGps();
+            const gpsInterface = await gpsSimulatorInstance.getGpsInterface();
+            
+            // Set telemetry config
+            config.set({
+                'gps.plugged': 1,
+                'gps.simulated': 1,
+                'gps.interface': gpsInterface
+            });
+
+            // Start telemetry
+            telemetryProcessInstane = await startTelemetry(config.path);
+            // Enable telemetry
+            await wait(500);
+            telemetryProcessInstane.enable();
+            
+            // Simulate can
+            await wait(config.data.sending_rate);
             canSimulatorInstance = await simulateCan(canLogPath, {
                 iterations: 1
             });
+
+            // Wait for a certain amount of time
             await wait(10000);
+            await telemetryProcessInstane.stop();
         });
 
         it(`Should parse the messages in ${canLogName} and save them in mongodb as in ${expectedJsonName}`, async function () {
-            telemetryProcess.stop();
             const collection = mongoConnection.db(config.data.mongodb.db).collection(config.data.mongodb.collection);
             const property = keys.join('.');
             const values = (await collection.aggregate([
@@ -84,7 +103,7 @@ function testMessageFolder(name: string, path: string, keys: string[]): void {
         });
 
         afterEach(async function () {
-            telemetryProcess.stop();
+            await gpsSimulatorInstance.stop();
             await canSimulatorInstance.stop();
             await mongoConnection.close();
         });
