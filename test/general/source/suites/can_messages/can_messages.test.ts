@@ -41,6 +41,9 @@ function testMessageFolder(name: string, path: string, keys: string[]): void {
     const expectedJsonName = `${name}.expected.json`;
     const expectedJsonPath = join(path, expectedJsonName);
 
+    const settingsPath = join(path, 'settings.json');
+    const settings = require(settingsPath);
+
     let 
         canSimulatorInstance: CanSimulatorInstance, 
         gpsSimulatorInstance: GpsSimulatorInstance, 
@@ -76,30 +79,36 @@ function testMessageFolder(name: string, path: string, keys: string[]): void {
             telemetryProcessInstane.enable();
             
             // Simulate can
-            await wait(config.data.sending_rate);
+            await wait(1000);
             canSimulatorInstance = await simulateCan(canLogPath, {
                 iterations: 1
             });
 
             // Wait for a certain amount of time
-            await wait(10000);
+            await wait(settings.time);
             await telemetryProcessInstane.stop();
         });
 
         it(`Should parse the messages in ${canLogName} and save them in mongodb as in ${expectedJsonName}`, async function () {
-            const collection = mongoConnection.db(config.data.mongodb.db).collection(config.data.mongodb.collection);
-            const property = keys.join('.');
-            const values = (await collection.aggregate([
-                { $sort: { id: 1 } },
-                { $match: { id: { $ne: undefined } } },
-                { $project: { [property]: 1 } },
-                { $unwind: { path: `$${property}`, preserveNullAndEmptyArrays: false } },
-                { $sort: { [`${property}.timestamp`]: 1 } },
-                { $project: { value: `$${property}.value` } } 
-            ]).toArray()).map(el => el.value);
-            const expected = JSON.parse(fs.readFileSync(expectedJsonPath, 'utf-8'));
+            const expectedDetails = JSON.parse(fs.readFileSync(expectedJsonPath, 'utf-8'));
 
-            expect(values).to.deep.equal(expected);
+            for (const expectedDetail of expectedDetails) {
+                const message = expectedDetail.message;
+                const expectedValues = expectedDetail.values;
+
+                const collection = mongoConnection.db(config.data.mongodb.db).collection(config.data.mongodb.collection);
+                const values = (await collection.aggregate([
+                    { $sort: { id: 1 } },
+                    { $match: { id: { $ne: undefined } } },
+                    { $project: { [message]: 1 } },
+                    { $unwind: { path: `$${message}`, preserveNullAndEmptyArrays: false } },
+                    { $sort: { [`${message}.timestamp`]: 1 } },
+                    { $project: { value: `$${message}.value` } } 
+                ]).toArray()).map(el => el.value);
+
+                expect(values).to.deep.equal(expectedValues);
+            }
+
         });
 
         afterEach(async function () {

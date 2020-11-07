@@ -10,7 +10,7 @@
     "test:partial:transpile": "tsc --project partial && cd partial && sh ./compile.sh",
     "test:partial:start": "mocha ./partial/dist/main.test",
     "test:partial": "npm run test:partial:transpile && npm run test:partial:start",
-    "test:general:transpile": "tsc --project general",
+    "test:general:transpile": "tsc --project general && copyfiles ./general/source/suites/can_messages/assets/**/*.json ./general/source/suites/can_messages/assets/**/*.log ./general/dist/suites/can_messages/assets",
     "test:general:start": "mocha ./general/dist/main.test",
     "test:general": "npm run test:general:transpile && npm run test:general:start"
   },
@@ -25,6 +25,7 @@
     "@types/mongodb": "^3.5.32",
     "@types/node": "^14.14.6",
     "@types/shelljs": "^0.8.8",
+    "copyfiles": "^2.4.0",
     "typescript": "^4.0.5"
   },
   "dependencies": {
