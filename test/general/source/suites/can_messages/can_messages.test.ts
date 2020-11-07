@@ -61,7 +61,7 @@ function testMessageFolder(name: string, path: string, keys: string[]): void {
 
             // Set telemetry config
             config.set({
-                'mongodb.database': 'telemetry_test',
+                'mongodb.db': 'telemetry_test',
                 'mongodb.collection': 'chimera_test',
             });
 

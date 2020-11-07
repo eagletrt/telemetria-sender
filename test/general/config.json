@@ -8,7 +8,7 @@
     "mongodb": {
         "host": "localhost",
         "port": 27017,
-        "db": "eagle_test",
+        "db": "telemetry_test",
         "collection": "chimera_test",
         "database": "telemetry_test"
     },

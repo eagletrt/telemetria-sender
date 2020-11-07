@@ -807,6 +807,10 @@ static void* gatherCan(void *args) {
     int lon_done = 0, lat_done = 0;
     int byte_left, byte_right, temp;
 
+    char msg[100];
+    sprintf(msg, "start %ld\n", getCurrentTimestamp());
+    logInfo(msg); 
+
     // Parse messages for x milliseconds
     do {
         // Read can
@@ -1348,6 +1352,10 @@ static void* gatherCan(void *args) {
         end = getMillisecondsFromTimespec(t_end);
     }
     while (end - start < condition.structure.sending_rate);
+
+    char msg2[100];
+    sprintf(msg2, "end %ld\n", getCurrentTimestamp());
+    logInfo(msg2); 
 
     // Return NULL
     return NULL;
