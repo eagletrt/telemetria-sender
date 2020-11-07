@@ -59,6 +59,12 @@ function testMessageFolder(name: string, path: string, keys: string[]): void {
 
         beforeEach(async function () {
 
+            // Set telemetry config
+            config.set({
+                'mongodb.database': 'telemetry_test',
+                'mongodb.collection': 'chimera_test',
+            });
+
             // Connect to mqtt
             mqttData = [];
             mqttClient = await connectAsync(`mqtt://${config.data.mqtt.host}:${config.data.mqtt.port}`);

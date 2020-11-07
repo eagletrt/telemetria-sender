@@ -9,7 +9,8 @@
         "host": "localhost",
         "port": 27017,
         "db": "eagle_test",
-        "collection": "chimera"
+        "collection": "chimera_test",
+        "database": "telemetry_test"
     },
     "gps": {
         "plugged": 1,
