@@ -62,7 +62,7 @@ static void *test_parse_config_file_setup(const MunitParameter params[], void *u
     test_parse_config_file_fixture *fixture = (test_parse_config_file_fixture*) malloc(sizeof(test_parse_config_file_fixture));
     fixture->config = newConfig();
     fixture->index = atoi(params[0].value);
-    asprintf(&fixture->path, "test/moduled/suites/utils/config_utils/parse_config_file/assets/%d.config.json", fixture->index);
+    asprintf(&fixture->path, "moduled/suites/utils/config_utils/parse_config_file/assets/%d.config.json", fixture->index);
     return fixture;
 }
 

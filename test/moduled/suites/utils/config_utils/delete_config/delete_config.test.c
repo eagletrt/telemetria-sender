@@ -43,9 +43,9 @@ MunitSuite *get_config_utils_delete_config_suite() {
 
 static char* test_delete_config_params_file_path[] = {
     "",
-    "test/moduled/suites/utils/config_utils/delete_config/assets/0.config.json",
-    "test/moduled/suites/utils/config_utils/delete_config/assets/1.config.json",
-    "test/moduled/suites/utils/config_utils/delete_config/assets/2.config.json",
+    "moduled/suites/utils/config_utils/delete_config/assets/0.config.json",
+    "moduled/suites/utils/config_utils/delete_config/assets/1.config.json",
+    "moduled/suites/utils/config_utils/delete_config/assets/2.config.json",
     NULL
 };
 

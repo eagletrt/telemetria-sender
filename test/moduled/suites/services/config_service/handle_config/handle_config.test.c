@@ -44,11 +44,11 @@ MunitSuite *get_config_services_handle_config_suite() {
 
 /* HELPER FUNCTIONS DEFINITIONS */
 static char *test_handle_config_params_correct_file_path[] = {
-    "test/moduled/suites/services/config_service/handle_config/assets/0.config.json",
-    "test/moduled/suites/services/config_service/handle_config/assets/1.config.json",
-    "test/moduled/suites/services/config_service/handle_config/assets/2.config.json",
-    "test/moduled/suites/services/config_service/handle_config/assets/random-file.txt",
-    "test/moduled/suites/services/config_service/handle_config/assets/wrong-config.json",
+    "moduled/suites/services/config_service/handle_config/assets/0.config.json",
+    "moduled/suites/services/config_service/handle_config/assets/1.config.json",
+    "moduled/suites/services/config_service/handle_config/assets/2.config.json",
+    "moduled/suites/services/config_service/handle_config/assets/random-file.txt",
+    "moduled/suites/services/config_service/handle_config/assets/wrong-config.json",
     NULL
 };
 static MunitParameterEnum test_handle_config_params_correct[] = {

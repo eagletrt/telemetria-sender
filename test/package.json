@@ -4,7 +4,7 @@
   "description": "The tests for the chimera-telemetria-sender of EagleTRT",
   "main": "index.js",
   "scripts": {
-    "test:moduled:compile": "./compile.sh",
+    "test:moduled:compile": "cd moduled && ./compile.sh",
     "test:moduled:start": "./moduled/test.out",
     "test:moduled": "npm run test:moduled:compile && npm run test:moduled:start",
     "test:partial:transpile": "tsc --project partial && cd partial && sh ./compile.sh",
@@ -12,7 +12,9 @@
     "test:partial": "npm run test:partial:transpile && npm run test:partial:start",
     "test:general:transpile": "tsc --project general && copyfiles ./general/source/suites/can_messages/assets/**/*.json ./general/source/suites/can_messages/assets/**/*.log ./general/dist/suites/can_messages/assets",
     "test:general:start": "mocha ./general/dist/main.test",
-    "test:general": "npm run test:general:transpile && npm run test:general:start"
+    "test:general": "npm run test:general:transpile && npm run test:general:start",
+    "test:quick": "npm run test:moduled:start && npm run test:partial:start && npm run test:general:start",
+    "test": "npm run test:moduled && npm run test:partial && npm run test:general"
   },
   "author": "Eugenio Vinicio Berretta <euberdeveloper@gmail.com>",
   "contributors": [
