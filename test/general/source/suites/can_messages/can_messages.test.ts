@@ -2,6 +2,8 @@ import * as dree from 'dree';
 import * as fs from 'fs';
 import { expect } from 'chai';
 import { MongoClient } from 'mongodb';
+import { deserialize } from 'bson';
+import { AsyncClient as MqttClient, connectAsync } from 'async-mqtt';
 import { clean } from 'mongo-cleaner';
 import { join } from 'path';
 import { CanSimulatorInstance, GpsSimulatorInstance, simulateCan, simulateGps, virtualizeCan } from '@eagletrt/eagletrt-telemetria-simulator';
@@ -9,6 +11,7 @@ import { CanSimulatorInstance, GpsSimulatorInstance, simulateCan, simulateGps, v
 import getConfiguration from '../../utils/config';
 import { wait } from '../../utils/misc';
 import { startTelemetry, TelemetryProcessInstance } from '../../utils/telemetry';
+import { getDeepProperty, parseRecords } from '../../utils/data';
 
 const config = getConfiguration();
 
@@ -48,11 +51,23 @@ function testMessageFolder(name: string, path: string, keys: string[]): void {
         canSimulatorInstance: CanSimulatorInstance, 
         gpsSimulatorInstance: GpsSimulatorInstance, 
         telemetryProcessInstane: TelemetryProcessInstance,
-        mongoConnection: MongoClient;
+        mongoConnection: MongoClient,
+        mqttClient: MqttClient,
+        mqttData: any;
 
     describe(`Test ${name} message`, function () {
 
         beforeEach(async function () {
+
+            // Connect to mqtt
+            mqttData = [];
+            mqttClient = await connectAsync(`mqtt://${config.data.mqtt.host}:${config.data.mqtt.port}`);
+            await mqttClient.subscribe(config.data.mqtt.data_topic);
+            mqttClient.on('message', (topic, message: Buffer) => {
+                if (topic === config.data.mqtt.data_topic) {
+                    mqttData.push(deserialize(message));
+                }
+            });
             
             // Connect to mongodb
             const mongoUri = `mongodb://${config.data.mongodb.host}:${config.data.mongodb.port}`;
@@ -111,10 +126,26 @@ function testMessageFolder(name: string, path: string, keys: string[]): void {
 
         });
 
+        it(`Should parse the messages in ${canLogName} and send them on mqtt as in ${expectedJsonName}`, async function () {
+            const expectedDetails = JSON.parse(fs.readFileSync(expectedJsonPath, 'utf-8'));
+
+            for (const expectedDetail of expectedDetails) {
+                const message = expectedDetail.message;
+                const expectedValues = expectedDetail.values;
+
+                mqttData = await parseRecords(mqttData);
+                const values = getDeepProperty(mqttData, message).map((el: any) => el.value);
+
+                expect(values).to.deep.equal(expectedValues);
+            }
+
+        });
+
         afterEach(async function () {
             await gpsSimulatorInstance.stop();
             await canSimulatorInstance.stop();
             await mongoConnection.close();
+            await mqttClient.end();
         });
 
     });

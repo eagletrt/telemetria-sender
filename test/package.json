@@ -32,6 +32,8 @@
   },
   "dependencies": {
     "@eagletrt/eagletrt-telemetria-simulator": "^1.0.2",
+    "async-mqtt": "^2.6.1",
+    "bson": "^4.2.0",
     "chai": "^4.2.0",
     "dree": "^2.5.0",
     "mocha": "^8.2.1",
