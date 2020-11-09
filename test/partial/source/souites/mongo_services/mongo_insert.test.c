@@ -28,5 +28,6 @@ int main(int argc, char *argv[]) {
 
     mongoSetup();
     int res = mongoInsert(b);
+    free(b);
     return res;
 }

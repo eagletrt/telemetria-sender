@@ -27,6 +27,7 @@ export function runTests(
     for (const p of testsProperties) {
         it(p.it, async function() {
             await beforeC(p);
+            console.log
             p.result = runCTest(cTestPath, p.args);
             await callback(p as TestPropertyResult);
         });
@@ -40,10 +41,18 @@ export function runTestsWithDone(
     beforeC: (properities: TestProperty, done: Mocha.Done) => void = ((p, d) => {})
 ) {
     for (const p of testsProperties) {
-        it(p.it, async function(done) {
+        it(p.it, function(done) {
+            this.timeout(5000);
             beforeC(p, done);
             p.result = runCTest(cTestPath, p.args);
             callback(p as TestPropertyResult, done);
         });
     }
+}
+
+export function stringifyCJSON(obj: any) {
+    return JSON.stringify(obj).replace(/\"/g, '\\"');
+}
+export function parseCJSON(s: string) {
+    return JSON.parse(s.replace(/\\\"/g, '"'));
 }

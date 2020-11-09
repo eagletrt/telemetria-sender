@@ -1,6 +1,6 @@
 import { clean } from 'mongo-cleaner';
 import * as path from 'path';
-import { runTests, getMongoUri } from "../../utils/misc"
+import { runTests, getMongoUri, stringifyCJSON, parseCJSON } from "../../utils/misc"
 import { MongoClient } from 'mongodb';
 import * as assert from 'assert';
 import { expect } from 'chai';
@@ -43,12 +43,6 @@ export default async function () {
         });
 
         describe('mongo_insert', function () {
-            let stringifyCJSON = (obj: any) => {
-                return JSON.stringify(obj).replace(/\"/g, '\\"');
-            }
-            let parseCJSON = (s: string) => {
-                return JSON.parse(s.replace(/\\\"/g, '"'));
-            }
 
             runTests(
                 path.join(__dirname, 'mongo_insert.test.out'),

@@ -76,9 +76,51 @@ gcc ./source/souites/mosquitto_service/mosquitto_setup.test.c -o ./dist/souites/
     -lpthread \
     -lm
 if [ $? -eq 0 ]; then
-    echo "mongo_quit compiled"
+    echo "mosquitto_setup compiled"
 else
-    echo "Error in mongo_quit"
+    echo "Error in mosquitto_setup"
+    exit 1
+fi
+
+# mosquitto_send
+gcc ./source/souites/mosquitto_service/mosquitto_send.test.c -o ./dist/souites/mosquitto_service/mosquitto_send.test.out \
+    ../../utils/misc_utils/misc_utils.c \
+    ../../utils/log_utils/log_utils.c \
+    ../../services/mosquitto_service/mosquitto_service.c \
+    -I/usr/include/libbson-1.0 \
+    -I/usr/include/libmongoc-1.0 \
+    -I/usr/include/libbson-1.0 \
+    -I/usr/include/libmongoc-1.0 \
+    -lmongoc-1.0 \
+    -lbson-1.0 \
+    -lmosquitto \
+    -lpthread \
+    -lm
+if [ $? -eq 0 ]; then
+    echo "mosquitto_send compiled"
+else
+    echo "Error in mosquitto_send"
+    exit 1
+fi
+
+# mosquitto_log
+gcc ./source/souites/mosquitto_service/mosquitto_log.test.c -o ./dist/souites/mosquitto_service/mosquitto_log.test.out \
+    ../../utils/misc_utils/misc_utils.c \
+    ../../utils/log_utils/log_utils.c \
+    ../../services/mosquitto_service/mosquitto_service.c \
+    -I/usr/include/libbson-1.0 \
+    -I/usr/include/libmongoc-1.0 \
+    -I/usr/include/libbson-1.0 \
+    -I/usr/include/libmongoc-1.0 \
+    -lmongoc-1.0 \
+    -lbson-1.0 \
+    -lmosquitto \
+    -lpthread \
+    -lm
+if [ $? -eq 0 ]; then
+    echo "mosquitto_send compiled"
+else
+    echo "Error in mosquitto_send"
     exit 1
 fi
 
