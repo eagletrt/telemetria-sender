@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # mongo_start_session
-gcc ./source/souites/mongo_services/mongo_start_session.test.c -o ./dist/souites/mongo_services/mongo_start_session.test.out \
+gcc ./source/suites/mongo_services/mongo_start_session.test.c -o ./dist/suites/mongo_services/mongo_start_session.test.out \
     ../../utils/misc_utils/misc_utils.c \
     ../../services/mongo_service/mongo_service.c \
     -I/usr/include/libbson-1.0 \
@@ -22,7 +22,7 @@ fi
 
 
 # mongo_insert
-gcc ./source/souites/mongo_services/mongo_insert.test.c -o ./dist/souites/mongo_services/mongo_insert.test.out \
+gcc ./source/suites/mongo_services/mongo_insert.test.c -o ./dist/suites/mongo_services/mongo_insert.test.out \
     ../../utils/misc_utils/misc_utils.c \
     ../../services/mongo_service/mongo_service.c \
     -I/usr/include/libbson-1.0 \
@@ -42,7 +42,7 @@ else
 fi
 
 # mongo_quit
-gcc ./source/souites/mongo_services/mongo_quit.test.c -o ./dist/souites/mongo_services/mongo_quit.test.out \
+gcc ./source/suites/mongo_services/mongo_quit.test.c -o ./dist/suites/mongo_services/mongo_quit.test.out \
     ../../utils/misc_utils/misc_utils.c \
     ../../services/mongo_service/mongo_service.c \
     -I/usr/include/libbson-1.0 \
@@ -62,7 +62,7 @@ else
 fi
 
 # mosquitto_setup
-gcc ./source/souites/mosquitto_service/mosquitto_setup.test.c -o ./dist/souites/mosquitto_service/mosquitto_setup.test.out \
+gcc ./source/suites/mosquitto_service/mosquitto_setup.test.c -o ./dist/suites/mosquitto_service/mosquitto_setup.test.out \
     ../../utils/misc_utils/misc_utils.c \
     ../../utils/log_utils/log_utils.c \
     ../../services/mosquitto_service/mosquitto_service.c \
@@ -83,7 +83,7 @@ else
 fi
 
 # mosquitto_send
-gcc ./source/souites/mosquitto_service/mosquitto_send.test.c -o ./dist/souites/mosquitto_service/mosquitto_send.test.out \
+gcc ./source/suites/mosquitto_service/mosquitto_send.test.c -o ./dist/suites/mosquitto_service/mosquitto_send.test.out \
     ../../utils/misc_utils/misc_utils.c \
     ../../utils/log_utils/log_utils.c \
     ../../services/mosquitto_service/mosquitto_service.c \
@@ -104,7 +104,7 @@ else
 fi
 
 # mosquitto_log
-gcc ./source/souites/mosquitto_service/mosquitto_log.test.c -o ./dist/souites/mosquitto_service/mosquitto_log.test.out \
+gcc ./source/suites/mosquitto_service/mosquitto_log.test.c -o ./dist/suites/mosquitto_service/mosquitto_log.test.out \
     ../../utils/misc_utils/misc_utils.c \
     ../../utils/log_utils/log_utils.c \
     ../../services/mosquitto_service/mosquitto_service.c \
