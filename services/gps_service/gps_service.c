@@ -231,7 +231,7 @@ static gps_rmc_struct* parseRMC(char *message) {
 	result->ew_indicator = (token == NULL ? "" : strdup(token));
 	token = skipTokens(1);
 	result->ground_speed_knots = (token == NULL ? 0.0 : atof(token));
-	token = skipTokens(1);
+	token = skipTokens(2);
 	result->date = (token == NULL ? "" : strdup(token));
 
 	return result;
