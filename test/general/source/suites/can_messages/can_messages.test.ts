@@ -105,8 +105,14 @@ function testMessageFolder(name: string, path: string, keys: string[]): void {
                 iterations: 1
             });
 
-            // Wait for a certain amount of time
+            // Wait for all the can messages to be sent
             await wait(settings.time);
+
+            // Disable the telemetry
+            telemetryProcessInstane.disable();
+
+            // Stop the telemetry
+            await wait(500);
             await telemetryProcessInstane.stop();
         });
 

@@ -35,20 +35,22 @@ function parseLine(line: string, timestamp: string): string {
     );
 }
 
-function parseFile(path: string, rate: Rate): string {
+function parseFile(path: string, rate: Rate): { parsedFile: string, milliseconds: number } {
     const text = fs.readFileSync(path, 'utf-8');
     const lines = text
         .split('\n')
         .filter(line => !!line);
     
     let milliseconds = 0;
-    return lines
+    const parsedFile = lines
         .map(line => {
             milliseconds += getDelta(rate);
             const timestamp = getTimestamp(milliseconds);
             return parseLine(line, timestamp);
         })
         .join('\n');
+
+    return { parsedFile, milliseconds };
 }
 
 function main(): void {
@@ -59,8 +61,10 @@ function main(): void {
         const dirname = file.path.replace(file.name, '');
         const settingsPath = path.join(dirname, 'settings.json');
         const settings = require(settingsPath);
-        const parsedFile = parseFile(file.path, settings.rate);
+        const { parsedFile, milliseconds } = parseFile(file.path, settings.rate);
         fs.writeFileSync(file.path, parsedFile);
+        settings.time = milliseconds + 1000;
+        fs.writeFileSync(settingsPath, JSON.stringify(settings, null, 2));
     });
 }
 main();
