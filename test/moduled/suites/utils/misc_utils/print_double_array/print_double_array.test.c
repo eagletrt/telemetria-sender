@@ -105,12 +105,12 @@ static MunitResult test_print_double_array_0(const MunitParameter params[], void
     double* array = typed_fixture->array;
     int n = typed_fixture->n;
 
-    redirect_config_t redirect_config = init_redirect_config();
-    redirect_stdout(&redirect_config);
+    redirect_config_t* redirect_config = init_redirect_config();
+    redirect_stdout(redirect_config);
     printDoubleArray(array, n);
-    recover_stdout(&redirect_config);
+    recover_stdout(redirect_config);
 
-    munit_assert_string_equal(redirect_config.buffer, expected);
+    munit_assert_string_equal(redirect_config->buffer, expected);
 
     return MUNIT_OK;
 }
@@ -171,12 +171,12 @@ static MunitResult test_print_double_array_1(const MunitParameter params[], void
     double* array = typed_fixture->array;
     int n = typed_fixture->n;
 
-    redirect_config_t redirect_config = init_redirect_config();
-    redirect_stdout(&redirect_config);
+    redirect_config_t* redirect_config = init_redirect_config();
+    redirect_stdout(redirect_config);
     printDoubleArray(array, n - 1);
-    recover_stdout(&redirect_config);
+    recover_stdout(redirect_config);
 
-    munit_assert_string_equal(redirect_config.buffer, expected);
+    munit_assert_string_equal(redirect_config->buffer, expected);
 
     return MUNIT_OK;
 }

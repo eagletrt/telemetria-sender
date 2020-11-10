@@ -64,12 +64,12 @@ static MunitResult test_log_info(const MunitParameter params[], void* fixture) {
     char* str = typed_fixture->str;
     char* expected = typed_fixture->expected;
 
-    redirect_config_t redirect_config = init_redirect_config();
-    redirect_stdout(&redirect_config);
+    redirect_config_t* redirect_config = init_redirect_config();
+    redirect_stdout(redirect_config);
     logInfo(str);
-    recover_stdout(&redirect_config);
+    recover_stdout(redirect_config);
 
-    munit_assert_string_equal(redirect_config.buffer, expected);
+    munit_assert_string_equal(redirect_config->buffer, expected);
 
     return MUNIT_OK;
 }

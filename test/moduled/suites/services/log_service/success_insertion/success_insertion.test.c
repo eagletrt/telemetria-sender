@@ -62,12 +62,12 @@ static MunitResult test_success_insertion(const MunitParameter params[], void* f
   int size = typed_fixture->size;
   char* expected = typed_fixture->expected;
 
-  redirect_config_t redirect_config = init_redirect_config();
-  redirect_stdout(&redirect_config);
+  redirect_config_t* redirect_config = init_redirect_config();
+  redirect_stdout(redirect_config);
   successInsertion(size);
-  recover_stdout(&redirect_config);
+  recover_stdout(redirect_config);
 
-  munit_assert_string_equal(redirect_config.buffer, expected);
+  munit_assert_string_equal(redirect_config->buffer, expected);
   return MUNIT_OK;
 }
 

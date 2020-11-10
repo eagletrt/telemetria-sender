@@ -47,10 +47,10 @@ static MunitResult test_info_new_session(const MunitParameter params[], void* fi
     int index = atoi(params[0].value);
     condition = log_service_info_new_session_assets_conditions[index];
     const char* expected = log_service_info_new_session_assets_results[index];
-    redirect_config_t redirect_config = init_redirect_config();
-    redirect_stdout(&redirect_config);
+    redirect_config_t* redirect_config = init_redirect_config();
+    redirect_stdout(redirect_config);
     infoNewSession();
-    recover_stdout(&redirect_config);
-    munit_assert_string_equal(redirect_config.buffer, expected);
+    recover_stdout(redirect_config);
+    munit_assert_string_equal(redirect_config->buffer, expected);
     return MUNIT_OK;
 }

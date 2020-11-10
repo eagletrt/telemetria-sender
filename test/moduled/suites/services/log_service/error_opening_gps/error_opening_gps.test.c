@@ -35,11 +35,11 @@ MunitSuite* get_log_service_error_opening_gps_suite() {
 static MunitResult test_error_opening_gps(const MunitParameter params[], void* fixture) {
   const char* expected = "\x1b[31m[ERROR]\x1b[0m\t\tError in opening GPS port\n";
 
-  redirect_config_t redirect_config = init_redirect_config();
-  redirect_stdout(&redirect_config);
+  redirect_config_t* redirect_config = init_redirect_config();
+  redirect_stdout(redirect_config);
   errorOpeningGPS();
-  recover_stdout(&redirect_config);
+  recover_stdout(redirect_config);
 
-  munit_assert_string_equal(redirect_config.buffer, expected);
+  munit_assert_string_equal(redirect_config->buffer, expected);
   return MUNIT_OK;
 }

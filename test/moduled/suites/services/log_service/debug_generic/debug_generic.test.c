@@ -79,12 +79,12 @@ static MunitResult test_debug_generic(const MunitParameter params[], void* fixtu
 
     condition.verbose = verbose;
 
-    redirect_config_t redirect_config = init_redirect_config();
-    redirect_stdout(&redirect_config);
+    redirect_config_t* redirect_config = init_redirect_config();
+    redirect_stdout(redirect_config);
     debugGeneric(message);
-    recover_stdout(&redirect_config);
+    recover_stdout(redirect_config);
 
-    munit_assert_string_equal(redirect_config.buffer, expected);
+    munit_assert_string_equal(redirect_config->buffer, expected);
 
     return MUNIT_OK;
 }

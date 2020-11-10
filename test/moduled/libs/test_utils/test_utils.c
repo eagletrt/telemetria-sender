@@ -6,8 +6,13 @@ static const int BUFFER_SIZE = 100;
 
 /* EXPORTED FUNCTIONS */
 
-redirect_config_t init_redirect_config() {
-    redirect_config_t redirect_config = {.buffer = {0}};
+redirect_config_t* init_redirect_config() {
+    redirect_config_t* redirect_config = (redirect_config_t*) malloc(sizeof(redirect_config_t));
+    
+    for (int i = 0; i < BUFFER_SIZE; i++) {
+        redirect_config->buffer[i] = '\0';
+    }
+
     return redirect_config;
 }
 

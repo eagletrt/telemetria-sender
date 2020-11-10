@@ -35,11 +35,11 @@ MunitSuite* get_log_service_success_quitting_suite() {
 static MunitResult test_success_quitting(const MunitParameter params[], void* fixture) {
   const char* expected = "\x1b[32m[SUCCESS]\x1b[0m\tQuitted telemetry\n";
 
-  redirect_config_t redirect_config = init_redirect_config();
-  redirect_stdout(&redirect_config);
+  redirect_config_t* redirect_config = init_redirect_config();
+  redirect_stdout(redirect_config);
   successQuitting();
-  recover_stdout(&redirect_config);
+  recover_stdout(redirect_config);
 
-  munit_assert_string_equal(redirect_config.buffer, expected);
+  munit_assert_string_equal(redirect_config->buffer, expected);
   return MUNIT_OK;
 }

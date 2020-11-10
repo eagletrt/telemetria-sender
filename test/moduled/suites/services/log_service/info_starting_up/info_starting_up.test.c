@@ -35,11 +35,11 @@ MunitSuite* get_log_service_info_starting_up_suite() {
 static MunitResult test_info_starting_up(const MunitParameter params[], void* fixture) {
   const char* expected = "\x1b[34m[INFO]\x1b[0m\t\tStarting telemetry up\n";
 
-  redirect_config_t redirect_config = init_redirect_config();
-  redirect_stdout(&redirect_config);
+  redirect_config_t* redirect_config = init_redirect_config();
+  redirect_stdout(redirect_config);
   infoStartingUp();
-  recover_stdout(&redirect_config);
+  recover_stdout(redirect_config);
 
-  munit_assert_string_equal(redirect_config.buffer, expected);
+  munit_assert_string_equal(redirect_config->buffer, expected);
   return MUNIT_OK;
 }

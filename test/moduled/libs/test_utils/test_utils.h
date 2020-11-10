@@ -13,14 +13,14 @@
 /* EXPORTED TYPES */
 
 typedef struct {
-    char* buffer[5 * TEST_UTILS_BUFFER_SIZE + 1];
+    char buffer[5 * TEST_UTILS_BUFFER_SIZE + 1];
     int out_pipe[2];
     int saved_stdout;
 } redirect_config_t;
 
 /* EXPORTED FUNCTIONS */
 
-redirect_config_t init_redirect_config();
+redirect_config_t* init_redirect_config();
 void redirect_stdout(redirect_config_t* config);
 void recover_stdout(redirect_config_t* config);
 

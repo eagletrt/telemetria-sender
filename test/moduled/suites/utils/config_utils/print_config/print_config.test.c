@@ -36,10 +36,10 @@ MunitSuite *get_config_utils_print_config_suite() {
 
 static MunitResult test_print_config(const MunitParameter params[], void *fixture) {
 	config_t *config = newConfig();
-	redirect_config_t redirect_config = init_redirect_config();
-	redirect_stdout(&redirect_config);
+	redirect_config_t* redirect_config = init_redirect_config();
+	redirect_stdout(redirect_config);
 	printConfig(config);
-	recover_stdout(&redirect_config);
+	recover_stdout(redirect_config);
 	munit_assert_not_null(config);
 	deleteConfig(config);
 	return MUNIT_OK;
