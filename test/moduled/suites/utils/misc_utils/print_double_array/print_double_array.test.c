@@ -154,7 +154,7 @@ static void* test_print_double_array_setup_1(const MunitParameter params[], void
         strcat(fixture->expected, "\n]\n");
     }
     else if (fixture->n == 1) {
-      fixture->array = (int*) malloc(fixture->n * sizeof(int));
+      fixture->array = (double*) malloc(fixture->n * sizeof(double));
       fixture->array[0] = 0;
       fixture->expected = strdup("[]\n");
     }
