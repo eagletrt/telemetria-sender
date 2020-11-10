@@ -19,7 +19,7 @@ MunitSuite* get_log_service_suite() {
   sub_suites[12] = *get_log_service_error_opening_gps_suite();
   sub_suites[13] = *get_log_service_error_gathering_data_suite();
   sub_suites[14] = *get_log_service_error_generic_suite();
-  sub_suites[15] = (MunitSuite) { NULL, NULL, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL };
+  sub_suites[15] = (MunitSuite) { NULL, NULL, NULL, 1, MUNIT_TEST_OPTION_NONE };
 
   MunitSuite* suite = (MunitSuite*) malloc(sizeof(MunitSuite));
   suite->prefix = "/log-service";

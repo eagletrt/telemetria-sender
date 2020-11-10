@@ -9,7 +9,7 @@ MunitSuite* get_log_utils_suite() {
   sub_suites[2] = *get_log_utils_log_debug_suite();
   sub_suites[3] = *get_log_utils_log_error_suite();
   sub_suites[4] = *get_log_utils_log_warning_suite();
-  sub_suites[5] = (MunitSuite) { NULL, NULL, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL };
+  sub_suites[5] = (MunitSuite) { NULL, NULL, NULL, 1, MUNIT_TEST_OPTION_NONE };
 
   MunitSuite* suite = (MunitSuite*) malloc(sizeof(MunitSuite));
   suite->prefix = "/log-utils";

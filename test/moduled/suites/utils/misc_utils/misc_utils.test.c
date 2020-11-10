@@ -10,7 +10,7 @@ MunitSuite* get_misc_utils_suite() {
   sub_suites[3] = *get_misc_utils_print_int_array_suite();
   sub_suites[4] = *get_misc_utils_print_double_array_suite();
   sub_suites[5] = *get_misc_utils_digit_counts_suite();
-  sub_suites[6] = (MunitSuite) { NULL, NULL, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL };
+  sub_suites[6] = (MunitSuite) { NULL, NULL, NULL, 1, MUNIT_TEST_OPTION_NONE };
 
   MunitSuite* suite = (MunitSuite*) malloc(sizeof(MunitSuite));
   suite->prefix = "/misc-utils";
