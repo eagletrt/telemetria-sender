@@ -42,11 +42,11 @@ MunitSuite* get_log_utils_log_success_suite() {
 
 /* HELPER FUNCTIONS DEFINITIONS */
 
-static char* test_log_success_params_n[] = {
+static char* test_log_success_params_str[] = {
   "Valdagno", "generic_string", "__#&aaaa", "", NULL
 };
 static MunitParameterEnum test_log_success_params[] = {
-  { "str", test_log_success_params_n },
+  { "str", test_log_success_params_str },
   { NULL, NULL },
 };
 static void* test_log_success_setup(const MunitParameter params[], void* user_data) {
