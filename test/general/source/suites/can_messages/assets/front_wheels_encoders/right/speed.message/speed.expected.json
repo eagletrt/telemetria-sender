@@ -1,0 +1,23 @@
+[
+    {
+        "message": "front_wheels_encoders.right.speed",
+        "values": [
+            {
+                "error_flag": 0,
+                "speed": 0
+            },
+            {
+                "error_flag": 0,
+                "speed": 0
+            },
+            {
+                "error_flag": 0,
+                "speed": 0
+            },
+            {
+                "error_flag": 0,
+                "speed": 0
+            }
+        ]
+    }
+]

@@ -1,0 +1,27 @@
+[
+    {
+        "message": "front_wheels_encoders.left.angle",
+        "values": [
+            {
+                "angle_0": 1,
+                "angle_1": 1,
+                "angle_delta": 0
+            },
+            {
+                "angle_0": 1,
+                "angle_1": 1,
+                "angle_delta": 0
+            },
+            {
+                "angle_0": 3,
+                "angle_1": 4,
+                "angle_delta": 0
+            },
+            {
+                "angle_0": 5,
+                "angle_1": 6,
+                "angle_delta": 0
+            }
+        ]
+    }
+]
