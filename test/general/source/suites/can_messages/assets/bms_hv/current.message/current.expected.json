@@ -1,0 +1,23 @@
+[
+    {
+        "message": "bms_hv.current",
+        "values": [
+            {
+                "current": 0.8,
+                "pow": 0
+            },
+            {
+                "current": 1,
+                "pow": 0
+            },
+            {
+                "current": 1.1,
+                "pow": 0
+            },
+            {
+                "current": 0.7,
+                "pow": 0
+            }
+        ]
+    }
+]
