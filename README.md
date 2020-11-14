@@ -1,6 +1,6 @@
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli)
 
-# fenice-telemetria-sender
+# chimera-telemetria-sender
 
 This is the telemetry repo of **[@eagletrt](https://www.github.com/eagletrt)**
 
