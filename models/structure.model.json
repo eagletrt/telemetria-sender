@@ -29,7 +29,8 @@
                 {
                     "timestamp": "long",
                     "value": "float"
-                }, 500
+                },
+                500
             ]
         },
         "left": {
@@ -58,7 +59,8 @@
                 {
                     "timestamp": "long",
                     "value": "float"
-                }, 500
+                },
+                500
             ]
         }
     },
@@ -136,36 +138,62 @@
         ]
     },
     "gps": {
-        "new": [
-            {
-                "timestamp": "long",
-                "value": {
-                    "latitude_GGA_safe": "double",
-                    "longitude_GGA_safe": "double",
-                    "latitude_GGA": "double",
-                    "longitude_GGA": "double",
-                    "altitude_GGA": "double",
-                    "ns_indicator_GGA": "char*",
-                    "ew_indicator_GGA": "char*",
-                    "utc_time_GGA": "char*",
-                    "latitude_GLL": "double",
-                    "longitude_GLL": "double",
-                    "ns_indicator_GLL": "char*",
-                    "ew_indicator_GLL": "char*",
-                    "utc_time_GLL": "char*",
-                    "ground_speed_knots_VTG": "double",
-                    "ground_speed_human_VTG": "double",
-                    "latitude_RMC": "double",
-                    "longitude_RMC": "double",
-                    "ns_indicator_RMC": "char*",
-                    "ew_indicator_RMC": "char*",
-                    "utc_time_RMC": "char*",
-                    "date_RMC": "char*",
-                    "ground_speed_knots_RMC": "double"
-                }
-            },
-            500
-        ],
+        "new": {
+            "gga": [
+                {
+                    "timestamp": "long",
+                    "value": {
+                        "latitude_safe": "double",
+                        "longitude_safe": "double",
+                        "latitude": "double",
+                        "longitude": "double",
+                        "altitude": "double",
+                        "ns_indicator": "char*",
+                        "ew_indicator": "char*",
+                        "utc_time": "char*"
+                    }
+                },
+                500
+            ],
+            "gll": [
+                {
+                    "timestamp": "long",
+                    "value": {
+                        "latitude": "double",
+                        "longitude": "double",
+                        "ns_indicator": "char*",
+                        "ew_indicator": "char*",
+                        "utc_time": "char*"
+                    }
+                },
+                500
+            ],
+            "vtg": [
+                {
+                    "timestamp": "long",
+                    "value": {
+                        "ground_speed_knots": "double",
+                        "ground_speed_human": "double"
+                    }
+                },
+                500
+            ],
+            "rmc": [
+                {
+                    "timestamp": "long",
+                    "value": {
+                        "latitude": "double",
+                        "longitude": "double",
+                        "ns_indicator": "char*",
+                        "ew_indicator": "char*",
+                        "utc_time": "char*",
+                        "date": "char*",
+                        "ground_speed_knots": "double"
+                    }
+                },
+                500
+            ]
+        },
         "old": {
             "location": [
                 {
@@ -211,7 +239,8 @@
                     "z": "double",
                     "scale": "double"
                 }
-            }, 500
+            },
+            500
         ],
         "accel": [
             {
@@ -222,7 +251,8 @@
                     "z": "double",
                     "scale": "double"
                 }
-            }, 500
+            },
+            500
         ]
     },
     "imu": {
@@ -234,7 +264,8 @@
                     "y": "double",
                     "z": "double"
                 }
-            }, 500
+            },
+            500
         ],
         "accel": [
             {
@@ -244,7 +275,8 @@
                     "y": "double",
                     "z": "double"
                 }
-            }, 500
+            },
+            500
         ]
     },
     "front_wheels_encoders": {
@@ -256,13 +288,15 @@
                         "speed": "double",
                         "error_flag": "int"
                     }
-                }, 500
+                },
+                500
             ],
             "speed_rads": [
                 {
                     "timestamp": "long",
                     "value": "double"
-                }, 500
+                },
+                500
             ],
             "angle": [
                 {
@@ -272,7 +306,8 @@
                         "angle_1": "float",
                         "angle_delta": "float"
                     }
-                }, 500
+                },
+                500
             ]
         },
         "left": {
@@ -283,13 +318,15 @@
                         "speed": "double",
                         "error_flag": "int"
                     }
-                }, 500
+                },
+                500
             ],
             "speed_rads": [
                 {
                     "timestamp": "long",
                     "value": "double"
-                }, 500
+                },
+                500
             ],
             "angle": [
                 {
@@ -299,7 +336,8 @@
                         "angle_1": "float",
                         "angle_delta": "float"
                     }
-                }, 500
+                },
+                500
             ]
         }
     },
@@ -320,7 +358,8 @@
             {
                 "timestamp": "long",
                 "value": "int"
-            }, 500
+            },
+            500
         ],
         "brake": [
             {
@@ -328,9 +367,10 @@
                 "value": {
                     "is_breaking": "int",
                     "pressure_front": "float",
-                    "pressure_back": "float" 
+                    "pressure_back": "float"
                 }
-            }, 500
+            },
+            500
         ]
     },
     "steering_wheel": {

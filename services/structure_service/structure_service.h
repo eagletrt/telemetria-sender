@@ -194,33 +194,72 @@ typedef struct {
 } bms_lv_data;
 
 typedef struct {
-	double latitude_GGA_safe;
-	double longitude_GGA_safe;
-	double latitude_GGA;
-	double longitude_GGA;
-	double altitude_GGA;
-	char* ns_indicator_GGA;
-	char* ew_indicator_GGA;
-	char* utc_time_GGA;
-	double latitude_GLL;
-	double longitude_GLL;
-	char* ns_indicator_GLL;
-	char* ew_indicator_GLL;
-	char* utc_time_GLL;
-	double ground_speed_knots_VTG;
-	double ground_speed_human_VTG;
-	double latitude_RMC;
-	double longitude_RMC;
-	char* ns_indicator_RMC;
-	char* ew_indicator_RMC;
-	char* utc_time_RMC;
-	char* date_RMC;
-	double ground_speed_knots_RMC;
-} gps_new_value_data;
+	double latitude_safe;
+	double longitude_safe;
+	double latitude;
+	double longitude;
+	double altitude;
+	char* ns_indicator;
+	char* ew_indicator;
+	char* utc_time;
+} gps_new_gga_value_data;
 
 typedef struct {
 	long timestamp;
-	gps_new_value_data value;
+	gps_new_gga_value_data value;
+} gps_new_gga_data;
+
+typedef struct {
+	double latitude;
+	double longitude;
+	char* ns_indicator;
+	char* ew_indicator;
+	char* utc_time;
+} gps_new_gll_value_data;
+
+typedef struct {
+	long timestamp;
+	gps_new_gll_value_data value;
+} gps_new_gll_data;
+
+typedef struct {
+	double ground_speed_knots;
+	double ground_speed_human;
+} gps_new_vtg_value_data;
+
+typedef struct {
+	long timestamp;
+	gps_new_vtg_value_data value;
+} gps_new_vtg_data;
+
+typedef struct {
+	double latitude;
+	double longitude;
+	char* ns_indicator;
+	char* ew_indicator;
+	char* utc_time;
+	char* date;
+	double ground_speed_knots;
+} gps_new_rmc_value_data;
+
+typedef struct {
+	long timestamp;
+	gps_new_rmc_value_data value;
+} gps_new_rmc_data;
+
+typedef struct {
+	gps_new_gga_data *gga;
+	int gga_count;
+	int gga_size;
+	gps_new_gll_data *gll;
+	int gll_count;
+	int gll_size;
+	gps_new_vtg_data *vtg;
+	int vtg_count;
+	int vtg_size;
+	gps_new_rmc_data *rmc;
+	int rmc_count;
+	int rmc_size;
 } gps_new_data;
 
 typedef struct {
@@ -266,9 +305,7 @@ typedef struct {
 } gps_old_data;
 
 typedef struct {
-	gps_new_data *new;
-	int new_count;
-	int new_size;
+	gps_new_data new;
 	gps_old_data old;
 } gps_data;
 
