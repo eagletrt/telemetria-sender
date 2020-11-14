@@ -10,7 +10,7 @@
     "test:partial:transpile": "tsc --project partial && cd partial && sh ./compile.sh",
     "test:partial:start": "mocha ./partial/dist/main.test",
     "test:partial": "npm run test:partial:transpile && npm run test:partial:start",
-    "test:general:transpile": "tsc --project general && copyfiles ./general/source/suites/can_messages/assets/**/*.json ./general/source/suites/can_messages/assets/**/*.log ./general/dist/suites/can_messages/assets",
+    "test:general:transpile": "tsc --project general && cp -r ./general/source/suites/can_messages/assets ./general/dist/suites/can_messages/assets",
     "test:general:timerize": "npm run test:general:transpile && node ./general/dist/scripts/canRate ./general/source/suites/can_messages/assets",
     "test:general:start": "mocha ./general/dist/main.test",
     "test:general": "npm run test:general:transpile && npm run test:general:start",
