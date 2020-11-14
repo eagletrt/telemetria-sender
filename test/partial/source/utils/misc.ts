@@ -1,4 +1,6 @@
-import * as child_process from 'child_process'
+import { execSync, exec } from 'child_process'
+import * as util from 'util'
+const execAsync = util.promisify(exec);
 
 interface TestProperty {
     it: string;
@@ -6,12 +8,7 @@ interface TestProperty {
     [key: string]: any
 }
 interface TestPropertyResult extends TestProperty {
-    result: number
-}
-
-function runCTest(path: string, args: string[]): number {
-    let res = child_process.execSync(`${path} ${args.join(' ')}`).toString();
-    return +res;
+    result: { stdout: string, stderr: string }
 }
 
 export function getMongoUri(host: string, port: number) {
@@ -21,15 +18,17 @@ export function getMongoUri(host: string, port: number) {
 export function runTests(
     cTestPath: string,
     testsProperties: TestProperty[],
-    callback: (properities: TestPropertyResult) => Promise<void> = (async (p) => {}),
-    beforeC: (properities: TestProperty) => Promise<void> = (async (p) => {})
+    afterCallback: (properities: TestPropertyResult) => Promise<void> = (async () => {}),
+    beforeCallback: (properities: TestProperty) => Promise<void> = (async () => {}),
+    togetherCallback: (properities: TestProperty) => Promise<void> = (async () => {})
 ) {
     for (const p of testsProperties) {
         it(p.it, async function() {
-            await beforeC(p);
-            console.log
-            p.result = runCTest(cTestPath, p.args);
-            await callback(p as TestPropertyResult);
+            await beforeCallback(p);
+            const testPromise = execAsync(`${cTestPath} ${p.args.join(' ')}`);
+            await togetherCallback(p);
+            p.result = (await testPromise);
+            await afterCallback(p as TestPropertyResult);
         });
     }
 }
@@ -37,18 +36,21 @@ export function runTests(
 export function runTestsWithDone(
     cTestPath: string,
     testsProperties: TestProperty[],
-    callback: (properities: TestPropertyResult, done: Mocha.Done) => void = ((p, d) => {}),
-    beforeC: (properities: TestProperty, done: Mocha.Done) => void = ((p, d) => {})
+    afterCallback: (properities: TestPropertyResult, done: Mocha.Done) => void = (() => {}),
+    beforeCallback: (properities: TestProperty, done: Mocha.Done) => void = (() => {})
 ) {
     for (const p of testsProperties) {
         it(p.it, function(done) {
-            this.timeout(5000);
-            beforeC(p, done);
-            p.result = runCTest(cTestPath, p.args);
-            callback(p as TestPropertyResult, done);
+            beforeCallback(p, done);
+            p.result = {
+                stdout: execSync(`${cTestPath} ${p.args.join(' ')}`).toString(),
+                stderr: undefined
+            }
+            afterCallback(p as TestPropertyResult, done);
         });
     }
 }
+
 
 export function stringifyCJSON(obj: any) {
     return JSON.stringify(obj).replace(/\"/g, '\\"');
