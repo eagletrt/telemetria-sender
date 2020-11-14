@@ -17,7 +17,8 @@ static gps_vtg_struct* parseVTG(char *message);
 static gps_rmc_struct* parseRMC(char *message);
 // Prints the given gps_struct object
 static void gpsPrint(gps_struct* data);
-
+// Formats latitude and longitude properly
+static double parseCoordinates(double raw);
 
 /* EXPORTED FUNCTIONS */
 
@@ -163,11 +164,11 @@ static gps_gga_struct* parseGGA(char *message) {
 	token = skipTokens(1);
 	result->utc_time = (token == NULL ? "" : strdup(token));
 	token = skipTokens(1);
-	result->latitude = (token == NULL ? 0.0 : atof(token));
+	result->latitude = (token == NULL ? 0.0 : parseCoordinates(atof(token)));
 	token = skipTokens(1);
 	result->ns_indicator = (token == NULL ? "" : strdup(token));
 	token = skipTokens(1);
-	result->longitude = (token == NULL ? 0.0 : atof(token));
+	result->longitude = (token == NULL ? 0.0 : parseCoordinates(atof(token)));
 	token = skipTokens(1);
 	result->ew_indicator = (token == NULL ? "" : strdup(token));
 	token = skipTokens(1);
@@ -184,11 +185,11 @@ static gps_gll_struct* parseGLL(char *message) {
 	char *token;
 	token = strtok(message,",");
 	token = skipTokens(1);
-	result->latitude = (token == NULL ? 0.0 : atof(token));
+	result->latitude = (token == NULL ? 0.0 : parseCoordinates(atof(token)));
 	token = skipTokens(1);
 	result->ns_indicator = (token == NULL ? "" : strdup(token));
 	token = skipTokens(1);
-	result->longitude = (token == NULL ? 0.0 : atof(token));
+	result->longitude = (token == NULL ? 0.0 : parseCoordinates(atof(token)));
 	token = skipTokens(1);
 	result->ew_indicator = (token == NULL ? "" : strdup(token));
 	token = skipTokens(1);
@@ -222,11 +223,11 @@ static gps_rmc_struct* parseRMC(char *message) {
 	token = skipTokens(1);
 	result->status = (token == NULL ? 0 : (strcmp("A", token) == 0));
 	token = skipTokens(1);
-	result->latitude = (token == NULL ? 0.0 : atof(token));
+	result->latitude = (token == NULL ? 0.0 : parseCoordinates(atof(token)));
 	token = skipTokens(1);
 	result->ns_indicator = (token == NULL ? "" : strdup(token));
 	token = skipTokens(1);
-	result->longitude = (token == NULL ? 0.0 : atof(token));
+	result->longitude = (token == NULL ? 0.0 : parseCoordinates(atof(token)));
 	token = skipTokens(1);
 	result->ew_indicator = (token == NULL ? "" : strdup(token));
 	token = skipTokens(1);
@@ -269,4 +270,11 @@ static void gpsPrint(gps_struct* data) {
 		printf("rmc->date\t%s\n", data->rmc->date);
 		printf("rmc->status\t%d\n", data->rmc->status);
 	}
+}
+
+static double parseCoordinates(double raw) {
+	double temp = raw / 100.;
+	double left = floor(temp);
+	double right = (temp - left) * (5./3.);
+	return (left + right) * 100;
 }
