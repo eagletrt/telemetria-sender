@@ -122,7 +122,7 @@ static void* gatherCan(void *args) {
                             temp = byte_left * 256 + byte_right;
                             document->inverters.right.speed[document->inverters.right.speed_count].timestamp = getCurrentTimestamp();
                             document->inverters.right.speed[document->inverters.right.speed_count].value = (temp >= 32768 ? temp - 65536 : temp);
-                            document->inverters.right.speed_count++;
+                            ++(document->inverters.right.speed_count);
                         }
                         break;
 
@@ -132,7 +132,8 @@ static void* gatherCan(void *args) {
                             byte_right = (data_left >> 16) & 0x000000FF;
                             temp = byte_left * 256 + byte_right;
                             document->inverters.right.temperature_igbt[document->inverters.right.temperature_igbt_count].timestamp = getCurrentTimestamp();
-                            document->inverters.right.temperature_igbt[document->inverters.right.temperature_igbt_count++].value = (temp >= 32768 ? temp - 65536 : temp);
+                            document->inverters.right.temperature_igbt[document->inverters.right.temperature_igbt_count].value = (temp >= 32768 ? temp - 65536 : temp);
+                            (document->inverters.right.temperature_igbt_count)++;
                         }
                         break;
 
@@ -142,7 +143,8 @@ static void* gatherCan(void *args) {
                             byte_right = (data_left >> 16) & 0x000000FF;
                             temp = byte_left * 256 + byte_right;
                             document->inverters.right.temperature_motors[document->inverters.right.temperature_motors_count].timestamp = getCurrentTimestamp();
-                            document->inverters.right.temperature_motors[document->inverters.right.temperature_motors_count++].value = (temp >= 32768 ? temp - 65536 : temp);
+                            document->inverters.right.temperature_motors[document->inverters.right.temperature_motors_count].value = (temp >= 32768 ? temp - 65536 : temp);
+                            ++(document->inverters.right.temperature_motors_count);
                         }
                         break;
                     case INVERTER_TORQUE_FB:
