@@ -40,6 +40,11 @@ async function testFolder(name: string, path: string, keys: string[]): Promise<v
 function testMessageFolder(name: string, path: string, keys: string[]): void {
     const canLogName = `${name}.can.log`;
     const canLogPath = join(path, canLogName);
+    const canLogExists = fs.existsSync(canLogPath);
+
+    const gpsLogName = `${name}.gps.log`;
+    const gpsLogPath = join(path, gpsLogName);
+    const gpsLogExists = fs.existsSync(gpsLogPath);
 
     const expectedJsonName = `${name}.expected.json`;
     const expectedJsonPath = join(path, expectedJsonName);
