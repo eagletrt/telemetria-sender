@@ -1,0 +1,27 @@
+[
+    {
+        "message": "pedals.brake",
+        "values": [
+            {
+                "is_breaking": 0,
+                "pressure_back": 4864,
+                "pressure_front": 4864
+            },
+            {
+                "is_breaking": 100,
+                "pressure_back": 5376,
+                "pressure_front": 5376
+            },
+            {
+                "is_breaking": 100,
+                "pressure_back": 4864,
+                "pressure_front": 5376
+            },
+            {
+                "is_breaking": 100,
+                "pressure_back": 4864,
+                "pressure_front": 5376
+            }
+        ]
+    }
+]
