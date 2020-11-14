@@ -346,18 +346,18 @@ static void* gatherCan(void *args) {
             case (IMU_GYRO_ID):
                 if (document->imu.gyro_count < document->imu.gyro_size) {
                     document->imu.gyro[document->imu.gyro_count].timestamp = getCurrentTimestamp();
-                    temp = (double)((data_left >> 16) & 0x0000FFFF); 
+                    temp = ((data_left >> 16) & 0x0000FFFF); 
                     document->imu.gyro[document->imu.gyro_count].value.x = (temp >= 32768 ? temp - 65536 : temp);
 
-                    temp = (double)(data_left & 0x0000FFFF);
+                    temp = (data_left & 0x0000FFFF);
                     document->imu.gyro[document->imu.gyro_count].value.y = (temp >= 32768 ? temp - 65536 : temp);
                     
-                    temp = (double)((data_right >> 16) & 0x0000FFFF);
+                    temp = ((data_right >> 16) & 0x0000FFFF);
                     document->imu.gyro[document->imu.gyro_count].value.z = (temp >= 32768 ? temp - 65536 : temp);
 
-                    document->imu.gyro[document->imu.gyro_count].value.x *= (8 / 65536) * 100;
-                    document->imu.gyro[document->imu.gyro_count].value.y *= (8 / 65536) * 100;
-                    document->imu.gyro[document->imu.gyro_count].value.z *= (8 / 65536) * 100;
+                    document->imu.gyro[document->imu.gyro_count].value.x *= (245.0 / 65536.0);
+                    document->imu.gyro[document->imu.gyro_count].value.y *= (245.0 / 65536.0);
+                    document->imu.gyro[document->imu.gyro_count].value.z *= (245.0 / 65536.0);
 
                     document->imu.gyro_count++;
                 }
@@ -366,18 +366,18 @@ static void* gatherCan(void *args) {
             case (IMU_ACCEL_ID):
                 if (document->imu.accel_count < document->imu.accel_size) {
                     document->imu.accel[document->imu.accel_count].timestamp = getCurrentTimestamp();
-                    temp = (double)((data_left >> 16) & 0x0000FFFF);
+                    temp = ((data_left >> 16) & 0x0000FFFF);
                     document->imu.accel[document->imu.accel_count].value.x = (temp >= 32768 ? temp - 65536 : temp);
 
-                    temp = (double)(data_left & 0x0000FFFF);
+                    temp = (data_left & 0x0000FFFF);
                     document->imu.accel[document->imu.accel_count].value.y = (temp >= 32768 ? temp - 65536 : temp);
                     
-                    temp = (double)((data_right >> 16) & 0x0000FFFF);
+                    temp = ((data_right >> 16) & 0x0000FFFF);
                     document->imu.accel[document->imu.accel_count].value.z = (temp >= 32768 ? temp - 65536 : temp);
 
-                    document->imu.accel[document->imu.accel_count].value.x *= (8 / 65536) * 100;
-                    document->imu.accel[document->imu.accel_count].value.y *= (8 / 65536) * 100;
-                    document->imu.accel[document->imu.accel_count].value.z *= (8 / 65536) * 100;
+                    document->imu.accel[document->imu.accel_count].value.x *= (8.0 / 65536.0) * 100;
+                    document->imu.accel[document->imu.accel_count].value.y *= (8.0 / 65536.0) * 100;
+                    document->imu.accel[document->imu.accel_count].value.z *= (8.0 / 65536.0) * 100;
 
                     document->imu.accel_count++;
                 }
