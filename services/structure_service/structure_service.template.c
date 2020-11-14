@@ -147,7 +147,8 @@ static void* gatherCan(void *args) {
                             byte_right = (data_left >> 16) & 0x000000FF;
                             temp = byte_left * 256 + byte_right;
                             document->inverters.right.speed[document->inverters.right.speed_count].timestamp = getCurrentTimestamp();
-                            document->inverters.right.speed[document->inverters.right.speed_count++].value = (temp >= 32768 ? temp - 65536 : temp);
+                            document->inverters.right.speed[document->inverters.right.speed_count].value = (temp >= 32768 ? temp - 65536 : temp);
+                            document->inverters.right.speed_count++;
                         }
                         break;
 
