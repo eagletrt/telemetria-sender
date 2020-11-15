@@ -260,8 +260,8 @@ static void* gatherCan(void *args) {
                 else if (first_byte == BRAKE_FB && document->pedals.brake_count < document->pedals.brake_size) {
                     document->pedals.brake[document->pedals.brake_count].timestamp = getCurrentTimestamp();
                     document->pedals.brake[document->pedals.brake_count].value.is_breaking = ((data_left >> 16) & 0x000000FF);
-                    document->pedals.brake[document->pedals.brake_count].value.pressure_front = (data_left & 0x0000FF00) + ((data_right >> 24) & 0x000000FF) / 500;
-                    document->pedals.brake[document->pedals.brake_count].value.pressure_back = ((data_right >> 8) & 0x0000FF00) + (data_right & 0x000000FF) / 500;
+                    document->pedals.brake[document->pedals.brake_count].value.pressure_front = ((data_left & 0x0000FF00) + ((data_right >> 24) & 0x000000FF)) / 500;
+                    document->pedals.brake[document->pedals.brake_count].value.pressure_back = (((data_right >> 8) & 0x0000FF00) + (data_right & 0x000000FF)) / 500;
 
                     document->pedals.brake_count++;
                 }
