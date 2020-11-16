@@ -20,6 +20,8 @@ let
 
 export default async function () {
     describe('Test if can messages are sent with the right id', async function () {
+        this.timeout(0);
+
         beforeEach(async function () {
             // Set telemetry config
             config.set({
@@ -64,7 +66,7 @@ export default async function () {
             canSimulatorInstance = await simulateCan();
         })
 
-        it('Should log all ids as 0 when in idle status', async function () {
+        it('Should set all ids as 0 when in idle status', async function () {
             await wait(4 * config.data.sending_rate);
             await telemetryProcessInstance.stop();
             const ids = mqttData.map(el => el.id);
@@ -74,7 +76,7 @@ export default async function () {
             });
         });
 
-        it('Should log all ids incremental and starting by 1 when in enabled status', async function () {
+        it('Should set all ids incremental and starting by 1 when in enabled status', async function () {
             telemetryProcessInstance.enable();
             await wait(config.data.sending_rate);
             mqttData = [];
