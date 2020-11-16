@@ -11,7 +11,6 @@
     "test:partial:start": "mocha ./partial/dist/main.test",
     "test:partial": "npm run test:partial:transpile && npm run test:partial:start",
     "test:general:transpile": "tsc --project general && cp -r ./general/source/suites/can_messages/assets ./general/dist/suites/can_messages/assets",
-    "test:general:timerize": "npm run test:general:transpile && node ./general/dist/scripts/canRate ./general/source/suites/can_messages/assets",
     "test:general:start": "mocha ./general/dist/main.test",
     "test:general": "npm run test:general:transpile && npm run test:general:start",
     "test:quick": "npm run test:moduled:start && npm run test:partial:start && npm run test:general:start",
