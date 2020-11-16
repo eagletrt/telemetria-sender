@@ -1,4 +1,6 @@
 {
   "time": 1030,
-  "rate": 10
+  "rate": 10,
+  "setTotalTime": true,
+  "timerize": true
 }

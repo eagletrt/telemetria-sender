@@ -12,6 +12,7 @@ import getConfiguration from '../../utils/config';
 import { wait } from '../../utils/misc';
 import { startTelemetry, TelemetryProcessInstance } from '../../utils/telemetry';
 import { getDeepProperty, parseRecords } from '../../utils/data';
+import { timerize } from '../../utils/timerize';
 
 const config = getConfiguration();
 
@@ -51,6 +52,8 @@ function testMessageFolder(name: string, path: string, keys: string[]): void {
 
     const settingsPath = join(path, 'settings.json');
     const settings = require(settingsPath);
+
+    timerize(canLogPath, settingsPath);
 
     let 
         canSimulatorInstance: CanSimulatorInstance, 
