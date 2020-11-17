@@ -1,6 +1,3 @@
-#include <bson.h>
-#include <mongoc.h>
-
 #include "../../../../../services/can_service/can_service.h"
 #include "../../../../../utils/can_utils/can_utils.h"
 

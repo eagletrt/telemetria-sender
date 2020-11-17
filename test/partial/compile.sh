@@ -196,5 +196,28 @@ else
     exit 1
 fi
 
+### --- CONFIG ---
+# config_service
+gcc ./source/suites/config_service/handle_config.test.c -o ./dist/suites/config_service/handle_config.test.out \
+    ../../services/config_service/config_service.c \
+    ../../utils/config_utils/config_utils.c \
+    ../../utils/config_utils/jsmn/jsmn.c \
+    ../../utils/misc_utils/misc_utils.c \
+    -I/usr/include/libbson-1.0 \
+    -I/usr/include/libmongoc-1.0 \
+    -I/usr/include/libbson-1.0 \
+    -I/usr/include/libmongoc-1.0 \
+    -lmongoc-1.0 \
+    -lbson-1.0 \
+    -lmosquitto \
+    -lpthread \
+    -lm
+if [ $? -eq 0 ]; then
+    echo "can_answer_wheel compiled"
+else
+    echo "Error in can_answer_wheel"
+    exit 1
+fi
+
 echo "Everything compiled :)"
 exit 0

@@ -2,7 +2,7 @@ import { virtualizeCan, VirtualizeCanResult } from '@eagletrt/eagletrt-telemetri
 import * as path from 'path';
 import { runTests } from "../../utils/misc"
 import { execSync, exec } from 'child_process'
-import { assert } from 'console';
+import { assert } from 'chai';
 import * as util from 'util'
 const execAsync = util.promisify(exec);
 
@@ -30,7 +30,6 @@ export default async function () {
                     args: [CAN_CONFIG.can_interface],
                 }],
                 async (prop) => {
-                    console.log(JSON.stringify(prop.result));
                 }
             );
         });
