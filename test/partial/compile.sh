@@ -174,6 +174,27 @@ else
     exit 1
 fi
 
+# can_answer_wheel
+gcc ./source/suites/can_service/can_answer_wheel.test.c -o ./dist/suites/can_service/can_answer_wheel.test.out \
+    ../../utils/misc_utils/misc_utils.c \
+    ../../utils/log_utils/log_utils.c \
+    ../../utils/can_utils/can_utils.c \
+    ../../services/can_service/can_service.c \
+    -I/usr/include/libbson-1.0 \
+    -I/usr/include/libmongoc-1.0 \
+    -I/usr/include/libbson-1.0 \
+    -I/usr/include/libmongoc-1.0 \
+    -lmongoc-1.0 \
+    -lbson-1.0 \
+    -lmosquitto \
+    -lpthread \
+    -lm
+if [ $? -eq 0 ]; then
+    echo "can_answer_wheel compiled"
+else
+    echo "Error in can_answer_wheel"
+    exit 1
+fi
 
 echo "Everything compiled :)"
 exit 0

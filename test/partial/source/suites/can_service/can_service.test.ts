@@ -1,8 +1,10 @@
 import { virtualizeCan, VirtualizeCanResult } from '@eagletrt/eagletrt-telemetria-simulator';
 import * as path from 'path';
 import { runTests } from "../../utils/misc"
-import { execSync } from 'child_process'
+import { execSync, exec } from 'child_process'
 import { assert } from 'console';
+import * as util from 'util'
+const execAsync = util.promisify(exec);
 
 const CAN_CONFIG = {
     can_interface: 'can0'
@@ -14,9 +16,9 @@ export default async function () {
         beforeEach(async function () {
             const vRes = await virtualizeCan(CAN_CONFIG.can_interface);
             if (vRes === VirtualizeCanResult.VIRTUALIZED) {
-                console.log('Can virtualized')
+                // console.log('Can virtualized')
             } else if (vRes === VirtualizeCanResult.ALREADY_VIRTUALIZED) {
-                console.log('Can already virtualized')
+                // console.log('Can already virtualized')
             }
         });
 
@@ -40,11 +42,11 @@ export default async function () {
                     it: 'should read the can interface with right and left',
                     args: [CAN_CONFIG.can_interface],
                     canMessage: [10, 10, 10]
-                },{
+                }, {
                     it: 'should read the can interface with only left',
                     args: [CAN_CONFIG.can_interface],
                     canMessage: [10, 10]
-                },{
+                }, {
                     it: 'should read the can interface with right and left',
                     args: [CAN_CONFIG.can_interface],
                     canMessage: [200, 1921681002, 123456789]
@@ -68,6 +70,21 @@ export default async function () {
                         p1 += (prop.canMessage[2] as number).toString(16).padStart(8, '0').toLocaleUpperCase();
                     }
                     execSync(`cansend can0 ${p0}#${p1}`);
+                }
+            );
+        });
+
+        describe('can_answer_wheel', function () {
+            runTests(
+                path.join(__dirname, 'can_answer_wheel.test.out'),
+                [{
+                    it: 'should setup the can interface',
+                    args: [CAN_CONFIG.can_interface, '1', '1', '0']
+                }],
+                async (prop) => {
+                },
+                async (prop) => {
+                    //prop['readerPromise'] = execAsync(`${path.join(__dirname, 'can_read.test.out')} ${CAN_CONFIG.can_interface}`)
                 }
             );
         });

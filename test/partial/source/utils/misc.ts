@@ -18,12 +18,13 @@ export function getMongoUri(host: string, port: number) {
 export function runTests(
     cTestPath: string,
     testsProperties: TestProperty[],
-    afterCallback: (properities: TestPropertyResult) => Promise<void> = (async () => {}),
-    beforeCallback: (properities: TestProperty) => Promise<void> = (async () => {}),
-    togetherCallback: (properities: TestProperty) => Promise<void> = (async () => {})
+    afterCallback: (properities: TestPropertyResult) => Promise<void> = (async () => { }),
+    beforeCallback: (properities: TestProperty) => Promise<void> = (async () => { }),
+    togetherCallback: (properities: TestProperty) => Promise<void> = (async () => { })
 ) {
     for (const p of testsProperties) {
-        it(p.it, async function() {
+        it(p.it, async function () {
+            this.timeout(10000);
             await beforeCallback(p);
             const testPromise = execAsync(`${cTestPath} ${p.args.join(' ')}`);
             await togetherCallback(p);
@@ -36,11 +37,11 @@ export function runTests(
 export function runTestsWithDone(
     cTestPath: string,
     testsProperties: TestProperty[],
-    afterCallback: (properities: TestPropertyResult, done: Mocha.Done) => void = (() => {}),
-    beforeCallback: (properities: TestProperty, done: Mocha.Done) => void = (() => {})
+    afterCallback: (properities: TestPropertyResult, done: Mocha.Done) => void = (() => { }),
+    beforeCallback: (properities: TestProperty, done: Mocha.Done) => void = (() => { })
 ) {
     for (const p of testsProperties) {
-        it(p.it, function(done) {
+        it(p.it, function (done) {
             beforeCallback(p, done);
             p.result = {
                 stdout: execSync(`${cTestPath} ${p.args.join(' ')}`).toString(),
