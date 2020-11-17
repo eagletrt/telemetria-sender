@@ -163,6 +163,38 @@ export default async function () {
             });
         });
 
+        it('Should save all messages timestamps with attendible values on mongodb', async function () {
+            telemetryProcessInstance.enable();
+            await wait(config.data.sending_rate);
+            await wait(5 * config.data.sending_rate);
+            await telemetryProcessInstance.stop();
+
+            const mezzora = 30 * 60 * 1000;
+            const from = Date.now() - mezzora;
+            const to = Date.now() + mezzora;
+            function analyzeObject(obj: any): void {
+                for (const key in obj) {
+                    if (Array.isArray(obj[key])) {
+                        const messages = obj[key];
+                        messages.forEach(message => {
+                            expect(message.timestamp).to.be.a('number');
+                            expect(message.timestamp).to.be.within(from, to);
+                        });
+                    }
+                    else if (typeof obj[key] === 'object') {
+                        analyzeObject(obj[key]);
+                    }
+                }
+            }
+
+            const collection = mongoConnection.db(config.data.mongodb.db).collection(config.data.mongodb.collection);
+            const documents = (await collection.find({ id: { $gt: 1 } }).toArray()).map(el => el.timestamp);
+            
+            for (const document of documents) {
+                analyzeObject(document);
+            }
+        });
+
         afterEach(async function () {
             await gpsSimulatorInstance.stop();
             await canSimulatorInstance.stop();
