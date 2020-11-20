@@ -5,8 +5,6 @@
 
 // Allocates and returns a new gps_structure
 static gps_struct* gpsNew();
-// Skip n times a comma-token and returns the last one
-static char* skipTokens(int n);
 // Parses the given GGA message and returns it as an object
 static gps_gga_struct* parseGGA(char *message);
 // Parses the given GLL message and returns it as an object
@@ -146,14 +144,6 @@ static gps_struct* gpsNew() {
 	result->rmc = NULL;
 
 	return result;
-}
-
-static char* skipTokens(int n) {
-	--n;
-	for (int i = 0; i < n; ++i) {
-		strtok(NULL,",");
-	}
-	return strtok(NULL,",");
 }
 
 static gps_gga_struct* parseGGA(char *message) {
