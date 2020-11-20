@@ -91,7 +91,7 @@ int prepareSimulatedPort() {
 
 gps_struct* readGPS() { 
 	// Instantiate and fill the buffer
-	char read_buf[1024];
+	char read_buf[2048];
 	memset(&read_buf,'\0',sizeof(read_buf));
 	
 	// Get size in bytes and handle errors;
@@ -101,25 +101,25 @@ gps_struct* readGPS() {
 		return NULL;
 	}
 
-	// Initialize token
-	char *token;
-	token = strtok(read_buf,"\n");
-	// Initialize the gps_struct and initialize it parsing the message
+	char* block = strdup(read_buf);
+
 	gps_struct *result = gpsNew();
-	while (token != NULL) {
-		if (strstr(token, "GGA")){
-			result->gga = parseGGA(token);
+	int i = 0;
+	while (block != NULL) {
+		char* line = strsep(&block, "\n");
+
+		if (strstr(line, "GGA")){
+			result->gga = parseGGA(line);
 		}
-		else if (strstr(token, "GLL")){
-			result->gll = parseGLL(token);
+		else if (strstr(line, "GLL")){
+			result->gll = parseGLL(line);
 		}
-		else if (strstr(token, "VTG")){
-			result->vtg = parseVTG(token);
+		else if (strstr(line, "VTG")){
+			result->vtg = parseVTG(line);
 		}
-		else if (strstr(token, "RMC")){
-			result->rmc = parseRMC(token);
+		else if (strstr(line, "RMC")){
+			result->rmc = parseRMC(line);
 		}
-		token = strtok(NULL,"\n");
 	}
 
 	// gpsPrint(result);
@@ -159,22 +159,47 @@ static char* skipTokens(int n) {
 static gps_gga_struct* parseGGA(char *message) {
 	gps_gga_struct* result = (gps_gga_struct*) malloc(sizeof(gps_gga_struct));
 
-	char *token;
-	token = strtok(message,",");
-	token = skipTokens(1);
-	result->utc_time = (token == NULL ? "" : strdup(token));
-	token = skipTokens(1);
-	result->latitude = (token == NULL ? 0.0 : parseCoordinates(atof(token)));
-	token = skipTokens(1);
-	result->ns_indicator = (token == NULL ? "" : strdup(token));
-	token = skipTokens(1);
-	result->longitude = (token == NULL ? 0.0 : parseCoordinates(atof(token)));
-	token = skipTokens(1);
-	result->ew_indicator = (token == NULL ? "" : strdup(token));
-	token = skipTokens(1);
-	result->status = (token == NULL ? 0 : atoi(token));
-	token = skipTokens(3);
-	result->altitude = (token == NULL ? 0.0 : atof(token));
+	int i = 0;
+	
+	while (message != NULL && *message) {
+		char* value = strsep(&message, ",");
+
+		switch (i)
+		{
+			case 1:
+				result->utc_time = (value == NULL ? "" : strdup(value));
+				break;
+
+			case 2:
+				result->latitude = (value == NULL ? 0.0 : parseCoordinates(atof(value)));
+				break;
+
+			case 3:
+				result->ns_indicator = (value == NULL ? "" : strdup(value));
+				break;
+			
+			case 4:
+				result->longitude = (value == NULL ? 0.0 : parseCoordinates(atof(value)));
+				break;
+
+			case 5:
+				result->ew_indicator = (value == NULL ? "" : strdup(value));
+				break;
+
+			case 6:
+				result->status = (value == NULL ? 0 : atoi(value));
+				break;
+
+			case 11:
+				result->altitude = (value == NULL ? 0.0 : atof(value));
+				break;
+			
+			default:
+				break;
+		}
+
+		i++;
+	}
 
 	return result;
 }
@@ -182,33 +207,71 @@ static gps_gga_struct* parseGGA(char *message) {
 static gps_gll_struct* parseGLL(char *message) {
 	gps_gll_struct* result = (gps_gll_struct*) malloc(sizeof(gps_gll_struct));
 
-	char *token;
-	token = strtok(message,",");
-	token = skipTokens(1);
-	result->latitude = (token == NULL ? 0.0 : parseCoordinates(atof(token)));
-	token = skipTokens(1);
-	result->ns_indicator = (token == NULL ? "" : strdup(token));
-	token = skipTokens(1);
-	result->longitude = (token == NULL ? 0.0 : parseCoordinates(atof(token)));
-	token = skipTokens(1);
-	result->ew_indicator = (token == NULL ? "" : strdup(token));
-	token = skipTokens(1);
-	result->utc_time = (token == NULL ? "" : strdup(token));
-	token = skipTokens(1);
-	result->status = (token == NULL ? 0 : (strcmp("A", token) == 0));
+	int i = 0;
 	
+	while (message != NULL && *message) {
+		char* value = strsep(&message, ",");
+		
+		switch (i)
+		{
+			case 1:
+				result->latitude = (value == NULL ? 0.0 : parseCoordinates(atof(value)));
+				break;
+
+			case 2:
+				result->ns_indicator = (value == NULL ? "" : strdup(value));
+				break;
+
+			case 3:
+				result->longitude = (value == NULL ? 0.0 : parseCoordinates(atof(value)));
+				break;
+			
+			case 4:
+				result->ew_indicator = (value == NULL ? "" : strdup(value));
+				break;
+
+			case 5:
+				result->utc_time = (value == NULL ? "" : strdup(value));
+				break;
+
+			case 6:
+				result->status = (value == NULL ? 0 : (strcmp("A", value) == 0));
+				break;
+			
+			default:
+				break;
+		}
+
+		i++;
+	}
+
 	return result;
 }
 
 static gps_vtg_struct* parseVTG(char *message) {
 	gps_vtg_struct* result = (gps_vtg_struct*) malloc(sizeof(gps_vtg_struct));
 
-	char *token;
-	token = strtok(message,",");
-	token = skipTokens(3);
-	result->ground_speed_knots = (token == NULL ? 0.0 : atof(token));
-	token = skipTokens(2);
-	result->ground_speed_human = (token == NULL ? 0.0 : atof(token));
+	int i = 0;
+	
+	while (message != NULL && *message) {
+		char* value = strsep(&message, ",");
+	
+		switch (i)
+		{
+			case 5:
+				result->ground_speed_knots = (value == NULL ? 0.0 : atof(value));
+				break;
+
+			case 7:
+				result->ground_speed_human = (value == NULL ? 0.0 : atof(value));
+				break;
+
+			default:
+				break;
+		}
+
+		i++;
+	}
 	
 	return result;
 }
@@ -216,24 +279,51 @@ static gps_vtg_struct* parseVTG(char *message) {
 static gps_rmc_struct* parseRMC(char *message) {
 	gps_rmc_struct* result = (gps_rmc_struct*) malloc(sizeof(gps_rmc_struct));
 
-	char *token;
-	token = strtok(message,",");
-	token = skipTokens(1);
-	result->utc_time = (token == NULL ? "" : strdup(token));
-	token = skipTokens(1);
-	result->status = (token == NULL ? 0 : (strcmp("A", token) == 0));
-	token = skipTokens(1);
-	result->latitude = (token == NULL ? 0.0 : parseCoordinates(atof(token)));
-	token = skipTokens(1);
-	result->ns_indicator = (token == NULL ? "" : strdup(token));
-	token = skipTokens(1);
-	result->longitude = (token == NULL ? 0.0 : parseCoordinates(atof(token)));
-	token = skipTokens(1);
-	result->ew_indicator = (token == NULL ? "" : strdup(token));
-	token = skipTokens(1);
-	result->ground_speed_knots = (token == NULL ? 0.0 : atof(token));
-	token = skipTokens(2);
-	result->date = (token == NULL ? "" : strdup(token));
+	int i = 0;
+	
+	while (message != NULL && *message) {
+		char* value = strsep(&message, ",");
+		
+		switch (i)
+		{
+			case 1:
+				result->utc_time = (value == NULL ? "" : strdup(value));
+				break;
+
+			case 2:
+				result->status = (value == NULL ? 0 : (strcmp("A", value) == 0));
+				break;
+
+			case 3:
+				result->latitude = (value == NULL ? 0.0 : parseCoordinates(atof(value)));
+				break;
+			
+			case 4:
+				result->ns_indicator = (value == NULL ? "" : strdup(value));
+				break;
+
+			case 5:
+				result->longitude = (value == NULL ? 0.0 : parseCoordinates(atof(value)));
+				break;
+
+			case 6:
+				result->ew_indicator = (value == NULL ? "" : strdup(value));
+				break;
+
+			case 7:
+				result->ground_speed_knots = (value == NULL ? 0.0 : atof(value));
+				break;
+
+			case 9:
+				result->date = (value == NULL ? "" : strdup(value));
+				break;
+			
+			default:
+				break;
+		}
+
+		i++;
+	}
 
 	return result;
 }
