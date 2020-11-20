@@ -18,10 +18,6 @@ static void gpsPrint(gps_struct* data);
 // Formats latitude and longitude properly
 static double parseCoordinates(double raw);
 
-/* INTERNAL VARIABLES */
-
-static char* gps_last_line_cache = NULL;
-
 /* EXPORTED FUNCTIONS */
 
 int openGPSPort() {
@@ -103,19 +99,7 @@ gps_struct* readGPS() {
 		return NULL;
 	}
 
-	char* block;
-	
-	if (gps_last_line_cache == NULL) {
-		block = strdup(read_buf);
-	}
-	// else {
-	// 	asprintf(&block, "%s%s", gps_last_line_cache, read_buf);
-	// 	printf("LINE\n %s\n", gps_last_line_cache);
-	// 	printf("BUF\n %s\n", read_buf);
-	// 	printf("BLOCK\n %s\n", block);
-	// 	free(gps_last_line_cache);
-	// 	gps_last_line_cache = NULL;
-	// }
+	char* block = strdup(read_buf);
 
 	gps_struct *result = gpsNew();
 	int i = 0;
@@ -127,39 +111,27 @@ gps_struct* readGPS() {
 			if (obj != NULL) {
 				result->gga = obj;
 			}
-			// else {
-			// 	gps_last_line_cache = strdup(line);
-			// }
 		}
 		else if (strstr(line, "GLL")){
 			gps_gll_struct* obj = parseGLL(line);
 			if (obj != NULL) {
 				result->gll = obj;
 			}
-			// else {
-			// 	gps_last_line_cache = strdup(line);
-			// }
 		}
 		else if (strstr(line, "VTG")){
 			gps_vtg_struct* obj = parseVTG(line);
 			if (obj != NULL) {
 				result->vtg = obj;
 			}
-			// else {
-			// 	gps_last_line_cache = strdup(line);
-			// }
 		}
 		else if (strstr(line, "RMC")){
 			gps_rmc_struct* obj = parseRMC(line);
 			if (obj != NULL) {
 				result->rmc = obj;
 			}
-			// else {
-			// 	gps_last_line_cache = strdup(line);
-			// }
 		}
 	}
-
+	
 	// gpsPrint(result);
 
 	return result;
