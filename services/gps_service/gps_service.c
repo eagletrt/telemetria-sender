@@ -18,6 +18,10 @@ static void gpsPrint(gps_struct* data);
 // Formats latitude and longitude properly
 static double parseCoordinates(double raw);
 
+/* INTERNAL VARIABLES */
+
+static char* gps_last_line_cache = NULL;
+
 /* EXPORTED FUNCTIONS */
 
 int openGPSPort() {
@@ -99,7 +103,19 @@ gps_struct* readGPS() {
 		return NULL;
 	}
 
-	char* block = strdup(read_buf);
+	char* block;
+	
+	if (gps_last_line_cache == NULL) {
+		block = strdup(read_buf);
+	}
+	// else {
+	// 	asprintf(&block, "%s%s", gps_last_line_cache, read_buf);
+	// 	printf("LINE\n %s\n", gps_last_line_cache);
+	// 	printf("BUF\n %s\n", read_buf);
+	// 	printf("BLOCK\n %s\n", block);
+	// 	free(gps_last_line_cache);
+	// 	gps_last_line_cache = NULL;
+	// }
 
 	gps_struct *result = gpsNew();
 	int i = 0;
@@ -107,16 +123,40 @@ gps_struct* readGPS() {
 		char* line = strsep(&block, "\n");
 
 		if (strstr(line, "GGA")){
-			result->gga = parseGGA(line);
+			gps_gga_struct* obj = parseGGA(line);
+			if (obj != NULL) {
+				result->gga = obj;
+			}
+			// else {
+			// 	gps_last_line_cache = strdup(line);
+			// }
 		}
 		else if (strstr(line, "GLL")){
-			result->gll = parseGLL(line);
+			gps_gll_struct* obj = parseGLL(line);
+			if (obj != NULL) {
+				result->gll = obj;
+			}
+			// else {
+			// 	gps_last_line_cache = strdup(line);
+			// }
 		}
 		else if (strstr(line, "VTG")){
-			result->vtg = parseVTG(line);
+			gps_vtg_struct* obj = parseVTG(line);
+			if (obj != NULL) {
+				result->vtg = obj;
+			}
+			// else {
+			// 	gps_last_line_cache = strdup(line);
+			// }
 		}
 		else if (strstr(line, "RMC")){
-			result->rmc = parseRMC(line);
+			gps_rmc_struct* obj = parseRMC(line);
+			if (obj != NULL) {
+				result->rmc = obj;
+			}
+			// else {
+			// 	gps_last_line_cache = strdup(line);
+			// }
 		}
 	}
 
@@ -191,7 +231,7 @@ static gps_gga_struct* parseGGA(char *message) {
 		i++;
 	}
 
-	return result;
+	return (i < 15) ? NULL : result;
 }
 
 static gps_gll_struct* parseGLL(char *message) {
@@ -235,7 +275,7 @@ static gps_gll_struct* parseGLL(char *message) {
 		i++;
 	}
 
-	return result;
+	return (i < 8) ? NULL : result;
 }
 
 static gps_vtg_struct* parseVTG(char *message) {
@@ -263,7 +303,7 @@ static gps_vtg_struct* parseVTG(char *message) {
 		i++;
 	}
 	
-	return result;
+	return (i < 10) ? NULL : result;
 }
 
 static gps_rmc_struct* parseRMC(char *message) {
@@ -315,7 +355,7 @@ static gps_rmc_struct* parseRMC(char *message) {
 		i++;
 	}
 
-	return result;
+	return (i < 14) ? NULL : result;
 }
 
 static void gpsPrint(gps_struct* data) {
