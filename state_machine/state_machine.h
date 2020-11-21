@@ -12,7 +12,7 @@
 #include "../services/gps_service/gps_service.h"
 #include "../services/mongo_service/mongo_service.h"
 #include "../services/mosquitto_service/mosquitto_service.h"
-#include "../services/structure_service/structure_service.h"
+#include "../services/gather_service/gather_service.h"
 #include "state_machine_condition.h"
 
 /* EXTERN */
@@ -20,10 +20,11 @@
 extern condition_t condition;
 
 /* MACHINE */
-typedef enum { INIT, IDLE, ENABLED, EXIT } state_codes;
-typedef enum { ERROR, INITIALIZED, REPEAT, TOGGLE } result_codes;
+typedef enum { INIT, RESTART, IDLE, ENABLED, EXIT } state_codes;
+typedef enum { ERROR, INITIALIZED, REPEAT, TOGGLE, DISABLE, ENABLE } result_codes;
 
 result_codes init_state();
+result_codes restart_state();
 result_codes idle_state();
 result_codes enabled_state();
 result_codes exit_state();

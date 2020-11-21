@@ -1,17 +1,21 @@
 #include "state_machine.h"
 
-result_codes (*state[])() = { init_state, idle_state, enabled_state, exit_state };
+result_codes (*state[])() = { init_state, restart_state, idle_state, enabled_state, exit_state };
 
 transition_t state_transitions[] = {
     {   INIT,       INITIALIZED,    IDLE },
     {   INIT,       ERROR,          EXIT },
     {   IDLE,       REPEAT,         IDLE },
-    {   IDLE,       TOGGLE,         ENABLED },
+    {   IDLE,       TOGGLE,         RESTART },
     {   IDLE,       ERROR,          EXIT },
     {   ENABLED,    REPEAT,         ENABLED },
-    {   ENABLED,    TOGGLE,         IDLE },
-    {   ENABLED,    ERROR,          EXIT }
+    {   ENABLED,    TOGGLE,         RESTART },
+    {   ENABLED,    ERROR,          EXIT },
+    {   RESTART,    DISABLE,        IDLE },
+    {   RESTART,    ENABLE,         ENABLED },
+    {   RESTART,    ERROR,          EXIT }
 };
+
 
 result_codes init_state() {
     infoStartingUp();
@@ -60,6 +64,11 @@ result_codes init_state() {
         }
         debugGpsPort();
     }
+
+    gatherSetup();
+    gatherCanStartThread(0);
+    gatherGpsStartThread();
+    gatherSenderStartThread(0);
     
     successStartedUp();
     mosquittoLogStartup();
@@ -67,89 +76,71 @@ result_codes init_state() {
     return INITIALIZED;
 }
 
-result_codes idle_state() {
-    debugGeneric("Resetting structure id");
-    resetStructureId();
+result_codes restart_state() {
+    gatherCanStopThread();
+    gatherGpsStopThread();
+    gatherSenderStopThread();
 
-    debugGeneric("Creating empty structure");
-    data_t *document = structureCreate();
+    gatherSetupRestart();
 
-    debugGeneric("Gathering data");
-    gather_code gather_outcome = gatherStructure(document);
+    gatherCanStartThread(condition.structure.enabled);
+    gatherGpsStartThread();
+    gatherSenderStartThread(condition.structure.enabled);
 
-    debugGeneric("Transforming document to bson");
-    bson_t *bson_document;
-    structureToBson(document, &bson_document);
+    return condition.structure.enabled ? ENABLE : DISABLE;
+}
 
-    debugGeneric("Sending to mqtt");
-    mosquittoSend(bson_document);
+result_codes idle_state() { 
+    debugGeneric("{MASTER} Resetting structure id");
+    gatherResetDataId();
 
-    debugGeneric("Deallocating structure");
-    structureDelete(document);
+    debugGeneric("{MASTER} Waiting the milliseconds");
+    gatherMasterWait();
 
-    debugGeneric("Deallocating bson message");
-    bson_destroy(bson_document);
+    debugGeneric("{MASTER} Swapping data head and data tail");
+    gatherMasterSwap();
 
-    switch (gather_outcome) {
-        case GATHER_KEEP:
-        case GATHER_IDLE:
-            return REPEAT;
+    debugGeneric("{MASTER} Resetting toilet flushed");
+    gatherMasterResetToiletFlushed();
 
-        case GATHER_ENABLE:
-            debugGeneric("Starting new session");
-            mongoStartSession();
-            infoNewSession();
-            mosquittoLogSession();
+    debugGeneric("{MASTER} Enabling flush toilet");
+    gatherMasterEnableFlushToilet();
 
-            debugGeneric("Answering to the wheel");
-            canAnswerWheel(1);
-            return TOGGLE;
-
-        case GATHER_ERROR:
-            errorGatheringData();
-            return ERROR;
+    if (condition.structure.toggle_state) {
+        debugGeneric("{MASTER} Waiting for toilet to be flushed");
+        gatherMasterWaitToiletFlushed();
+        debugGeneric("{MASTER} Set telemetry enabled to true");
+        condition.structure.enabled = 1;
+        gatherStartNewSession(1);
+        gatherAnswerWheel(1);
+        return TOGGLE;
+    }
+    else {
+        return REPEAT;
     }
 }
 
 result_codes enabled_state() {
-    debugGeneric("Creating empty structure");
-    data_t *document = structureCreate();
+    debugGeneric("{MASTER} Waiting the milliseconds");
+    gatherMasterWait();
 
-    debugGeneric("Gathering data from can");
-    gather_code gather_outcome = gatherStructure(document);
+    debugGeneric("{MASTER} Swapping data head and data tail");
+    gatherMasterSwap();
 
-    debugGeneric("Transforming document to bson");
-    bson_t *bson_document;
-    structureToBson(document, &bson_document);
+    debugGeneric("{MASTER} Resetting toilet flushed");
+    gatherMasterResetToiletFlushed();
 
-    debugGeneric("Sending to mqtt");
-    mosquittoSend(bson_document);
+    debugGeneric("{MASTER} Enabling flush toilet");
+    gatherMasterEnableFlushToilet();
 
-    debugGeneric("Inserting to mongo");
-    mongoInsert(bson_document);
-    size_t size; bson_as_relaxed_extended_json(bson_document, &size);
-    successInsertion(size);
-    mosquittoLogInsertion(size);
-
-    debugGeneric("Deallocating structure");
-    structureDelete(document);
-
-    debugGeneric("Deallocating bson message");
-    bson_destroy(bson_document);
-
-    switch (gather_outcome) {
-        case GATHER_IDLE:
-            debugGeneric("Answering to the wheel");
-            canAnswerWheel(0);
-            return TOGGLE;
-
-        case GATHER_KEEP:
-        case GATHER_ENABLE:
-            return REPEAT;
-            
-        case GATHER_ERROR:
-            errorGatheringData();
-            return ERROR;
+    if (condition.structure.toggle_state) {
+        gatherMasterWaitToiletFlushed();
+        condition.structure.enabled = 0;
+        gatherAnswerWheel(0);
+        return TOGGLE;
+    }
+    else {
+        return REPEAT;
     }
 }
 
@@ -163,7 +154,7 @@ result_codes exit_state() {
 
 state_codes lookup_transitions(state_codes current_state, result_codes result_code) {
     int n = sizeof(state_transitions) / sizeof(transition_t);
-    char* state_labels[4] = { "INIT", "IDLE", "ENABLED", "EXIT" }; 
+    char* state_labels[5] = { "INIT", "RESTART", "IDLE", "ENABLED", "EXIT" }; 
     
     transition_t transition;
     for (int i = 0; i < n; ++i) {

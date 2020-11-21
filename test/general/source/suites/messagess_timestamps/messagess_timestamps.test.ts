@@ -189,6 +189,8 @@ export default async function () {
 
             const collection = mongoConnection.db(config.data.mongodb.db).collection(config.data.mongodb.collection);
             const documents = (await collection.find({ id: { $gt: 1 } }).toArray()).map(el => el.timestamp);
+
+            expect(documents).not.to.be.empty;
             
             for (const document of documents) {
                 analyzeObject(document);

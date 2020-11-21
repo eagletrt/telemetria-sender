@@ -67,6 +67,7 @@ export default async function () {
         })
 
         it('Should set all ids as 0 when in idle status', async function () {
+            mqttData = [];
             await wait(4 * config.data.sending_rate);
             await telemetryProcessInstance.stop();
             const ids = mqttData.map(el => el.id);

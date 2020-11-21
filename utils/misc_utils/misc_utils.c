@@ -62,3 +62,9 @@ void printDoubleArray(double* array, int n) {
 int digitsCount(int n) {
     return (n == 0 ? 1 : floor(log10(abs(n))) + 1);
 }
+
+void swapPointers(void** x, void** y) {
+    void* temp = *x;
+    *x = *y;
+    *y = temp;
+}

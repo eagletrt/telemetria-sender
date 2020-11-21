@@ -3,8 +3,10 @@
 
 /* IMPORTS */
 
+#include <pthread.h>
 #include <mosquitto.h>
 #include <mongoc.h>
+#include "../utils/gather_utils/data_structure.h"
 
 /* STRUCTURES */
 
@@ -57,8 +59,26 @@ typedef struct {
 } session_condition_t;
 
 typedef struct {
+    pthread_mutex_t data_head_mutex;
+    pthread_mutex_t data_tail_mutex;
+    pthread_mutex_t flush_toilet_mutex;
+    pthread_mutex_t toilet_flushed_mutex;
+    pthread_mutex_t toggle_state_mutex;
+    pthread_cond_t flush_toilet_cond;
+    pthread_cond_t toilet_flushed_cond;
+} structure_threads_condition_t;
+
+typedef struct {
     int sending_rate;
     int id;
+    data_t* data_head;
+    data_t* data_tail;
+    int flush_toilet;
+    int toilet_flushed;
+    int toggle_state;
+    int enabled;
+
+    structure_threads_condition_t threads;
 } structure_condition_t;
 
 /**

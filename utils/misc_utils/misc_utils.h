@@ -57,4 +57,12 @@ void printDoubleArray(double* array, int n);
 */
 int digitsCount(int n);
 
+/**
+ * Swaps two pointers
+ * 
+ * @param x The first pointer that needs to be swapped
+ * @param y The second pointer that needs to be swapped
+*/
+void swapPointers(void** x, void** y);
+
 #endif
