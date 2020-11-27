@@ -77,13 +77,30 @@ export default async function () {
             runTests(
                 path.join(__dirname, 'can_answer_wheel.test.out'),
                 [{
-                    it: 'should setup the can interface',
-                    args: [CAN_CONFIG.can_interface, '1', '1', '0']
+                    it: 'should answer wheel enable',
+                    args: [CAN_CONFIG.can_interface, '0', '0', '0'],
+                    expected: ['171', '1694498816']
+                },{
+                    it: 'should answer wheel disable',
+                    args: [CAN_CONFIG.can_interface, '0', '0', '1'],
+                    expected: ['171', '1694564352']
+                },{
+                    it: 'should answer wheel enable with another pilot',
+                    args: [CAN_CONFIG.can_interface, '1', '0', '0'],
+                    expected: ['171', '1694499072']
+                },{
+                    it: 'should answer wheel disable with another race',
+                    args: [CAN_CONFIG.can_interface, '0', '1', '1'],
+                    expected: ['171', '1694564353']
                 }],
                 async (prop) => {
+                    const res = ((await prop['readerPromise']).stdout as string).split(' ');
+                    assert.equal(res[0], prop.expected[0]);
+                    assert.equal(res[1], prop.expected[1]);
                 },
                 async (prop) => {
-                    //prop['readerPromise'] = execAsync(`${path.join(__dirname, 'can_read.test.out')} ${CAN_CONFIG.can_interface}`)
+                    prop['readerPromise'] = execAsync(`${path.join(__dirname, 'can_read.test.out')} ${CAN_CONFIG.can_interface}`);
+
                 }
             );
         });
