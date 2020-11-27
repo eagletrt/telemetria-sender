@@ -33,11 +33,11 @@ jobs:
         run: sudo DEBIAN_FRONTEND='noninteractive' apt install -y build-essential git sudo curl wget nano can-utils gnupg screen libmongoc-dev libbson-dev libmosquitto-dev
 
       - name: Install node dependencies
-        run: sudo npm install && cd test && sudo npm install
+        run: npm install && cd test && npm install
       
       - name: Compile C
         run: npm run compile
       
       - name: Test
-        run: cd test && sudo npm test
+        run: sudo cd test && npm test
         timeout-minutes: 6
