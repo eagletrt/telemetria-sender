@@ -71,6 +71,7 @@ static void* parseCanMessages(void *args) {
 							byte_right = (data_left >> 16) & 0x000000FF;
 							temp = byte_left * 256 + byte_right;
 							document->inverters.right.temperature_igbt[document->inverters.right.temperature_igbt_count].timestamp = gatherGetCurrentTimestamp();
+							//TODO: very different uguale a python
 							document->inverters.right.temperature_igbt[document->inverters.right.temperature_igbt_count].value = (temp >= 32768 ? temp - 65536 : temp);
 							++(document->inverters.right.temperature_igbt_count);
 						}
@@ -82,6 +83,7 @@ static void* parseCanMessages(void *args) {
 							byte_right = (data_left >> 16) & 0x000000FF;
 							temp = byte_left * 256 + byte_right;
 							document->inverters.right.temperature_motors[document->inverters.right.temperature_motors_count].timestamp = gatherGetCurrentTimestamp();
+							//TODO: very different uguale a python
 							document->inverters.right.temperature_motors[document->inverters.right.temperature_motors_count].value = (temp >= 32768 ? temp - 65536 : temp);
 							++(document->inverters.right.temperature_motors_count);
 						}
@@ -118,6 +120,7 @@ static void* parseCanMessages(void *args) {
 							byte_right = (data_left >> 16) & 0x000000FF;
 							temp = byte_left * 256 + byte_right;
 							document->inverters.left.temperature_igbt[document->inverters.left.temperature_igbt_count].timestamp = gatherGetCurrentTimestamp();
+							//TODO: very different uguale a python
 							document->inverters.left.temperature_igbt[document->inverters.left.temperature_igbt_count].value = (temp >= 32768 ? temp - 65536 : temp);
 							++(document->inverters.left.temperature_igbt_count);
 						}
@@ -129,6 +132,7 @@ static void* parseCanMessages(void *args) {
 							byte_right = (data_left >> 16) & 0x000000FF;
 							temp = byte_left * 256 + byte_right;
 							document->inverters.left.temperature_motors[document->inverters.left.temperature_motors_count].timestamp = gatherGetCurrentTimestamp();
+							//TODO: very different uguale a python
 							document->inverters.left.temperature_motors[document->inverters.left.temperature_motors_count].value = (temp >= 32768 ? temp - 65536 : temp);
 							++(document->inverters.left.temperature_motors_count);
 						}
@@ -259,7 +263,9 @@ static void* parseCanMessages(void *args) {
 					case SWE_FB:
 						if (document->steering_wheel.encoder_count < document->steering_wheel.encoder_size) {
 							document->steering_wheel.encoder[document->steering_wheel.encoder_count].timestamp = gatherGetCurrentTimestamp();
-							document->steering_wheel.encoder[document->steering_wheel.encoder_count].value = ((data_left >> 16) & 255);
+							//TODO: to change canlog
+							//document->steering_wheel.encoder[document->steering_wheel.encoder_count].value = ((data_left >> 16) & 0x000000FF);
+							document->steering_wheel.encoder[document->steering_wheel.encoder_count].value = ((data_left >> 8) & 0x0000FFFF) / 100.0;
 							++(document->steering_wheel.encoder_count);
 						}
 						break;
@@ -450,7 +456,8 @@ static void* parseCanMessages(void *args) {
 					case FRONT_WHEELS_FB_SPEED_FB:
 						if (document->front_wheels_encoders.right.speed_count < document->front_wheels_encoders.right.speed_size) {
 							document->front_wheels_encoders.right.speed[document->front_wheels_encoders.right.speed_count].timestamp = gatherGetCurrentTimestamp();
-							document->front_wheels_encoders.right.speed[document->front_wheels_encoders.right.speed_count].value.speed = ((data_left >> 8) & 0x0000FFFF) * ((data_left & 0x000000FF) == 0 ? 1 : -1);
+							//TODO: important check / 1
+							document->front_wheels_encoders.right.speed[document->front_wheels_encoders.right.speed_count].value.speed = ((data_left >> 8) & 0x0000FFFF) * ((data_left & 0x000000FF) == 0 ? 1.0 : -1.0);
 							document->front_wheels_encoders.right.speed[document->front_wheels_encoders.right.speed_count].value.error_flag = (data_right >> 8) & 0x000000FF;
 							++(document->front_wheels_encoders.right.speed_count);
 						}
@@ -459,7 +466,8 @@ static void* parseCanMessages(void *args) {
 					case FRONT_WHEELS_FB_SPEED_RADS_FB:
 						if (document->front_wheels_encoders.right.speed_rads_count < document->front_wheels_encoders.right.speed_rads_size) {
 							document->front_wheels_encoders.right.speed_rads[document->front_wheels_encoders.right.speed_rads_count].timestamp = gatherGetCurrentTimestamp();
-							document->front_wheels_encoders.right.speed_rads[document->front_wheels_encoders.right.speed_rads_count].value = (data_left & 0x00FFFFFF) / 10000;
+							//TODO: check / 1000.0 and not / 1000 and negative
+							document->front_wheels_encoders.right.speed_rads[document->front_wheels_encoders.right.speed_rads_count].value = (data_left & 0x00FFFFFF) / (((data_right & 0x000000FF) == 1) ? -10000.0 : 10000.0);
 							++(document->front_wheels_encoders.right.speed_rads_count);
 						}
 						break;
@@ -467,9 +475,10 @@ static void* parseCanMessages(void *args) {
 					case FRONT_WHEELS_FB_SPEED_ANGLE_FB:
 						if (document->front_wheels_encoders.right.angle_count < document->front_wheels_encoders.right.angle_size) {
 							document->front_wheels_encoders.right.angle[document->front_wheels_encoders.right.angle_count].timestamp = gatherGetCurrentTimestamp();
-							document->front_wheels_encoders.right.angle[document->front_wheels_encoders.right.angle_count].value.angle_0 = ((data_left >> 8) & 0x0000FFFF) / 100;
-							document->front_wheels_encoders.right.angle[document->front_wheels_encoders.right.angle_count].value.angle_1 = (((data_left & 0x000000FF) * 0xFF) + ((data_right >> 24) & 0x000000FF)) / 100;
-							document->front_wheels_encoders.right.angle[document->front_wheels_encoders.right.angle_count].value.angle_delta = ((data_right >> 8) & 0x0000FFFF) / 100;
+							//TODO: check / 100.0 and not / 100
+							document->front_wheels_encoders.right.angle[document->front_wheels_encoders.right.angle_count].value.angle_0 = ((data_left >> 8) & 0x0000FFFF) / 100.0;
+							document->front_wheels_encoders.right.angle[document->front_wheels_encoders.right.angle_count].value.angle_1 = (((data_left & 0x000000FF) * 0xFF) + ((data_right >> 24) & 0x000000FF)) / 100.0;
+							document->front_wheels_encoders.right.angle[document->front_wheels_encoders.right.angle_count].value.angle_delta = ((data_right >> 8) & 0x0000FFFF) / 100.0;
 							++(document->front_wheels_encoders.right.angle_count);
 						}
 						break;
@@ -492,6 +501,7 @@ static void* parseCanMessages(void *args) {
 					case FRONT_WHEELS_FB_SPEED_FB:
 						if (document->front_wheels_encoders.left.speed_count < document->front_wheels_encoders.left.speed_size) {
 							document->front_wheels_encoders.left.speed[document->front_wheels_encoders.left.speed_count].timestamp = gatherGetCurrentTimestamp();
+							//TODO: IMPORTANT check double
 							document->front_wheels_encoders.left.speed[document->front_wheels_encoders.left.speed_count].value.speed = ((data_left >> 8) & 0x0000FFFF) * ((data_left & 0x000000FF) == 0 ? 1 : -1);
 							document->front_wheels_encoders.left.speed[document->front_wheels_encoders.left.speed_count].value.error_flag = (data_right >> 8) & 0x000000FF;
 							++(document->front_wheels_encoders.left.speed_count);
@@ -501,7 +511,8 @@ static void* parseCanMessages(void *args) {
 					case FRONT_WHEELS_FB_SPEED_RADS_FB:
 						if (document->front_wheels_encoders.left.speed_rads_count < document->front_wheels_encoders.left.speed_rads_size) {
 							document->front_wheels_encoders.left.speed_rads[document->front_wheels_encoders.left.speed_rads_count].timestamp = gatherGetCurrentTimestamp();
-							document->front_wheels_encoders.left.speed_rads[document->front_wheels_encoders.left.speed_rads_count].value = (data_left & 0x00FFFFFF) / 10000;
+							//TODO: check / 1000.0 and not / 1000 and negative
+							document->front_wheels_encoders.left.speed_rads[document->front_wheels_encoders.left.speed_rads_count].value = (data_left & 0x00FFFFFF) / (((data_right & 0x000000FF) == 1) ? -10000.0 : 10000.0);
 							++(document->front_wheels_encoders.left.speed_rads_count);
 						}
 						break;
@@ -509,9 +520,10 @@ static void* parseCanMessages(void *args) {
 					case FRONT_WHEELS_FB_SPEED_ANGLE_FB:
 						if (document->front_wheels_encoders.left.angle_count < document->front_wheels_encoders.left.angle_size) {
 							document->front_wheels_encoders.left.angle[document->front_wheels_encoders.left.angle_count].timestamp = gatherGetCurrentTimestamp();
-							document->front_wheels_encoders.left.angle[document->front_wheels_encoders.left.angle_count].value.angle_0 = ((data_left >> 8) & 0x0000FFFF) / 100;
-							document->front_wheels_encoders.left.angle[document->front_wheels_encoders.left.angle_count].value.angle_1 = (((data_left & 0x000000FF) * 0xFF) + ((data_right >> 24) & 0x000000FF)) / 100;
-							document->front_wheels_encoders.left.angle[document->front_wheels_encoders.left.angle_count].value.angle_delta = ((data_right >> 8) & 0x0000FFFF) / 100;
+							//TODO: check / 100.0 and not / 100
+							document->front_wheels_encoders.left.angle[document->front_wheels_encoders.left.angle_count].value.angle_0 = ((data_left >> 8) & 0x0000FFFF) / 100.0;
+							document->front_wheels_encoders.left.angle[document->front_wheels_encoders.left.angle_count].value.angle_1 = (((data_left & 0x000000FF) * 0xFF) + ((data_right >> 24) & 0x000000FF)) / 100.0;
+							document->front_wheels_encoders.left.angle[document->front_wheels_encoders.left.angle_count].value.angle_delta = ((data_right >> 8) & 0x0000FFFF) / 100.0;
 							++(document->front_wheels_encoders.left.angle_count);
 						}
 						break;

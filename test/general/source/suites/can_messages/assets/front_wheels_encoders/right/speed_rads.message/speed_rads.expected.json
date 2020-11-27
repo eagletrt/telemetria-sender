@@ -3,8 +3,8 @@
         "message": "front_wheels_encoders.right.speed_rads",
         "values": [
             0,
-            0,
-            0
+            0.0076,
+            -0.0076
         ]
     }
 ]
