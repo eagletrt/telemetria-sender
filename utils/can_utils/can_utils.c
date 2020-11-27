@@ -55,7 +55,7 @@ int canSend(int socket, int id, int length, const char* data) {
 		frame.data[i] = data[i];
 	}
 
-	return write(socket, &frame, length);
+	return write(socket, &frame, sizeof(frame));
 }
 
 int canReceiveSimple(int socket, char** data) {
