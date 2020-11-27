@@ -33,12 +33,12 @@ int canSendSimple(int socket, const char* data) {
 	struct can_frame frame;
 	frame.can_id = 0x7FF;
 	frame.can_dlc = length;
-	
+
 	for (int i = 0; i < length; ++i) {
 		frame.data[i] = data[i];
 	}
 
-	return write(socket, &frame, length);
+	return write(socket, &frame, sizeof(frame));
 }
 
 int canSend(int socket, int id, int length, const char* data) {
