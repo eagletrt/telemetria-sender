@@ -58,7 +58,7 @@ function testMessageFolder(name: string, path: string, keys: string[]): void {
     let 
         canSimulatorInstance: CanSimulatorInstance, 
         gpsSimulatorInstance: GpsSimulatorInstance, 
-        telemetryProcessInstane: TelemetryProcessInstance,
+        telemetryProcessInstance: TelemetryProcessInstance,
         mongoConnection: MongoClient,
         mqttClient: MqttClient,
         mqttData: any;
@@ -90,8 +90,14 @@ function testMessageFolder(name: string, path: string, keys: string[]): void {
 
             // Virtualize can if not already virtualized
             await virtualizeCan(config.data.can_interface);
+
             // Simulate gps and get its interface
-            gpsSimulatorInstance = await simulateGps();
+            if (gpsLogExists) {
+                gpsSimulatorInstance = await simulateGps(gpsLogPath, { delay: 2000 });
+            }
+            else {
+                gpsSimulatorInstance = await simulateGps();
+            }
             const gpsInterface = await gpsSimulatorInstance.getGpsInterface();
             
             // Set telemetry config
@@ -102,29 +108,34 @@ function testMessageFolder(name: string, path: string, keys: string[]): void {
             });
 
             // Start telemetry
-            telemetryProcessInstane = await startTelemetry(config.path);
+            telemetryProcessInstance = await startTelemetry(config.path);
             // Enable telemetry
             await wait(500);
-            telemetryProcessInstane.enable();
+            telemetryProcessInstance.enable();
             
             // Simulate can
             await wait(1000);
-            canSimulatorInstance = await simulateCan(canLogPath, {
-                iterations: 1
-            });
+            if (canLogExists) {
+                canSimulatorInstance = await simulateCan(canLogPath, {
+                    iterations: 1
+                });
+            }
+            else {
+                canSimulatorInstance = await simulateCan();
+            }
 
             // Wait for all the can messages to be sent
             await wait(settings.time);
 
             // Disable the telemetry
-            telemetryProcessInstane.disable();
+            telemetryProcessInstance.disable();
 
             // Stop the telemetry
             await wait(500);
-            await telemetryProcessInstane.stop();
+            await telemetryProcessInstance.stop();
         });
 
-        it(`Should parse the messages in ${canLogName} and save them in mongodb as in ${expectedJsonName}`, async function () {
+        it(`Should parse the messages in either ${canLogName} or ${gpsLogName} and save them in mongodb as in ${expectedJsonName}`, async function () {
             const expectedDetails = JSON.parse(fs.readFileSync(expectedJsonPath, 'utf-8'));
 
             for (const expectedDetail of expectedDetails) {
@@ -146,7 +157,7 @@ function testMessageFolder(name: string, path: string, keys: string[]): void {
 
         });
 
-        it(`Should parse the messages in ${canLogName} and send them on mqtt as in ${expectedJsonName}`, async function () {
+        it(`Should parse the messages in either ${canLogName} or ${gpsLogName} and send them on mqtt as in ${expectedJsonName}`, async function () {
             const expectedDetails = JSON.parse(fs.readFileSync(expectedJsonPath, 'utf-8'));
 
             for (const expectedDetail of expectedDetails) {
