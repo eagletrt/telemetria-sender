@@ -53,7 +53,9 @@ function testMessageFolder(name: string, path: string, keys: string[]): void {
     const settingsPath = join(path, 'settings.json');
     const settings = require(settingsPath);
 
-    timerize(canLogPath, settingsPath);
+    if (canLogExists) {
+        timerize(canLogPath, settingsPath);
+    }
 
     let 
         canSimulatorInstance: CanSimulatorInstance, 
@@ -93,7 +95,7 @@ function testMessageFolder(name: string, path: string, keys: string[]): void {
 
             // Simulate gps and get its interface
             if (gpsLogExists) {
-                gpsSimulatorInstance = await simulateGps(gpsLogPath, { delay: 2000 });
+                gpsSimulatorInstance = await simulateGps(gpsLogPath, { delay: 3000, iterations: 1, keepAlive: true });
             }
             else {
                 gpsSimulatorInstance = await simulateGps();
