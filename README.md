@@ -2,7 +2,7 @@
 
 # eagletrt-telemetria-sender
 
-This is the telemetry repo of **[@eagletrt](https://www.github.com/eagletrt)**
+This is the telemetry repo of **[@eagletrt](https://www.github.com/eagletrt)**.
 
 ## Project purpose
 
