@@ -18,15 +18,9 @@ int main(int argc, char *argv[]) {
 
 	can_code res = canSetup();
 	printf("%d\n", res);
-	if (res != 0)
+	if (res < 0)
 		return res;
 
-	//canAnswerWheel(enabled);
-
-	int outcome = canSendSimple(condition.can.socket, "1234567");
-	printf("%d\n", outcome);
-
-
-	free(condition.can.can_interface);
-	return 0;
+	int outcome = canAnswerWheel(enabled);
+	return outcome;
 }
