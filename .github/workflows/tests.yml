@@ -1,0 +1,46 @@
+name: Tests
+on: [push]
+
+jobs:
+  test:
+    runs-on: self-hosted
+
+    strategy:
+      matrix:
+        node-version: [15.x]
+        mongodb-version: [4.4]
+        mosquitto-version: [1.6]
+
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Use MongoDB ${{ matrix.mongodb-version }}
+        uses: supercharge/mongodb-github-action@1.3.0
+        with:
+          mongodb-version: ${{ matrix.mongodb-version }}
+
+      - name: Use Mosquitto ${{ matrix.mosquitto-version }}
+        uses: namoshek/mosquitto-github-action@v0.1.0
+        with:
+          version: ${{ matrix.mosquitto-version }}
+
+      - name: Install dependecies
+        run: sudo DEBIAN_FRONTEND='noninteractive' apt install -y build-essential git sudo curl wget nano can-utils gnupg screen libmongoc-dev libbson-dev libmosquitto-dev
+
+      - name: Open can
+        run: sudo modprobe vcan && sudo ip link add dev can0 type vcan && sudo ip link set up can0 && ifconfig
+
+      - name: Install node dependencies
+        run: sudo npm install && cd test && sudo npm install
+      
+      - name: Compile C
+        run: npm run compile
+      
+      - name: Test
+        run: cd test && sudo npm test
+        timeout-minutes: 6
