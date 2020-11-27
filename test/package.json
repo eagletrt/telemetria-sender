@@ -7,7 +7,7 @@
     "test:moduled:compile": "cd moduled && ./compile.sh",
     "test:moduled:start": "./moduled/test.out",
     "test:moduled": "npm run test:moduled:compile && npm run test:moduled:start",
-    "test:partial:transpile": "tsc --project partial && cd partial && sh ./compile.sh",
+    "test:partial:transpile": "shx rm -rf ./partial/dist && tsc --project partial && cd partial && sh ./compile.sh",
     "test:partial:start": "mocha ./partial/dist/main.test",
     "test:partial": "npm run test:partial:transpile && npm run test:partial:start",
     "test:general:transpile": "shx rm -rf ./general/dist && tsc --project general && shx cp -r ./general/source/suites/messages_parsing/assets ./general/dist/suites/messages_parsing/assets",
@@ -33,7 +33,7 @@
     "typescript": "^4.1.2"
   },
   "dependencies": {
-    "@eagletrt/eagletrt-telemetria-simulator": "^1.4.0",
+    "@eagletrt/eagletrt-telemetria-simulator": "^2.0.1",
     "async-mqtt": "^2.6.1",
     "bson": "^4.2.0",
     "chai": "^4.2.0",
