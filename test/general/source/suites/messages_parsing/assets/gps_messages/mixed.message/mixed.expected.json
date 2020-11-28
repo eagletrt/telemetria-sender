@@ -1,0 +1,234 @@
+[
+    {
+        "message": "gps.new.gga",
+        "values": [
+            {
+                "altitude": 46.1,
+                "ew_indicator": "E",
+                "latitude": 46.06703333333333,
+                "latitude_safe": 4606.703333333333,
+                "longitude": 11.149027666666665,
+                "longitude_safe": 1114.9027666666666,
+                "ns_indicator": "N",
+                "utc_time": "164926.82"
+            },
+            {
+                "altitude": 46.1,
+                "ew_indicator": "E",
+                "latitude": 46.067033166666675,
+                "latitude_safe": 4606.703316666668,
+                "longitude": 11.149027666666665,
+                "longitude_safe": 1114.9027666666666,
+                "ns_indicator": "N",
+                "utc_time": "164930.54"
+            },
+            {
+                "altitude": 46.1,
+                "ew_indicator": "E",
+                "latitude": 46.06703333333333,
+                "latitude_safe": 4606.703333333333,
+                "longitude": 11.149027333333333,
+                "longitude_safe": 1114.9027333333333,
+                "ns_indicator": "N",
+                "utc_time": "164933.24"
+            },
+            {
+                "altitude": 46.1,
+                "ew_indicator": "E",
+                "latitude": 46.06703366666667,
+                "latitude_safe": 4606.703366666667,
+                "longitude": 11.149026833333334,
+                "longitude_safe": 1114.9026833333335,
+                "ns_indicator": "N",
+                "utc_time": "164935.16"
+            },
+            {
+                "altitude": 46.1,
+                "ew_indicator": "E",
+                "latitude": 46.06703283333332,
+                "latitude_safe": 4606.703283333332,
+                "longitude": 11.149016666666668,
+                "longitude_safe": 1114.9016666666669,
+                "ns_indicator": "N",
+                "utc_time": "164936.84"
+            },
+            {
+                "altitude": 46.1,
+                "ew_indicator": "E",
+                "latitude": 46.06703200000001,
+                "latitude_safe": 4606.703200000001,
+                "longitude": 11.1490045,
+                "longitude_safe": 1114.90045,
+                "ns_indicator": "N",
+                "utc_time": "164938.22"
+            },
+            {
+                "altitude": 46.1,
+                "ew_indicator": "E",
+                "latitude": 46.06703216666667,
+                "latitude_safe": 4606.703216666667,
+                "longitude": 11.149040666666668,
+                "longitude_safe": 1114.9040666666667,
+                "ns_indicator": "N",
+                "utc_time": "165131.02"
+            }
+        ]
+    },
+    {
+        "message": "gps.new.gll",
+        "values": [
+            {
+                "ew_indicator": "E",
+                "latitude": 46.06703216666667,
+                "longitude": 11.149040666666668,
+                "ns_indicator": "N",
+                "utc_time": "165131.02"
+            },
+            {
+                "ew_indicator": "E",
+                "latitude": 46.06703333333333,
+                "longitude": 11.149027666666665,
+                "ns_indicator": "N",
+                "utc_time": "164926.82"
+            },
+            {
+                "ew_indicator": "E",
+                "latitude": 46.06703333333333,
+                "longitude": 11.149027499999999,
+                "ns_indicator": "N",
+                "utc_time": "164927.84"
+            },
+            {
+                "ew_indicator": "E",
+                "latitude": 46.06703333333333,
+                "longitude": 11.149027499999999,
+                "ns_indicator": "N",
+                "utc_time": "164928.68"
+            },
+            {
+                "ew_indicator": "E",
+                "latitude": 46.066790833333336,
+                "longitude": 11.149119,
+                "ns_indicator": "N",
+                "utc_time": "165102.64"
+            },
+            {
+                "ew_indicator": "E",
+                "latitude": 46.066931999999994,
+                "longitude": 11.149125499999995,
+                "ns_indicator": "N",
+                "utc_time": "165117.64"
+            }
+        ]
+    },
+    {
+        "message": "gps.new.rmc",
+        "values": [
+            {
+                "date": "230220",
+                "ew_indicator": "E",
+                "ground_speed_knots": 0.103,
+                "latitude": 46.06703333333333,
+                "longitude": 11.149027666666665,
+                "ns_indicator": "N",
+                "utc_time": "164926.94"
+            },
+            {
+                "date": "230220",
+                "ew_indicator": "E",
+                "ground_speed_knots": 0.273,
+                "latitude": 46.06703333333333,
+                "longitude": 11.149027499999999,
+                "ns_indicator": "N",
+                "utc_time": "164927.72"
+            },
+            {
+                "date": "230220",
+                "ew_indicator": "E",
+                "ground_speed_knots": 0.128,
+                "latitude": 46.06703333333333,
+                "longitude": 11.149027499999999,
+                "ns_indicator": "N",
+                "utc_time": "164927.96"
+            },
+            {
+                "date": "230220",
+                "ew_indicator": "E",
+                "ground_speed_knots": 0.072,
+                "latitude": 46.06703333333333,
+                "longitude": 11.149027666666665,
+                "ns_indicator": "N",
+                "utc_time": "164928.56"
+            },
+            {
+                "date": "230220",
+                "ew_indicator": "E",
+                "ground_speed_knots": 0.248,
+                "latitude": 46.06703333333333,
+                "longitude": 11.149027499999999,
+                "ns_indicator": "N",
+                "utc_time": "164933.42"
+            },
+            {
+                "date": "230220",
+                "ew_indicator": "E",
+                "ground_speed_knots": 1.653,
+                "latitude": 46.066836166666654,
+                "longitude": 11.14896966666667,
+                "ns_indicator": "N",
+                "utc_time": "165015.48"
+            },
+            {
+                "date": "230220",
+                "ew_indicator": "E",
+                "ground_speed_knots": 1.976,
+                "latitude": 46.06668783333333,
+                "longitude": 11.149099000000001,
+                "ns_indicator": "N",
+                "utc_time": "165051.90"
+            },
+            {
+                "date": "230220",
+                "ew_indicator": "E",
+                "ground_speed_knots": 2.194,
+                "latitude": 46.06698333333334,
+                "longitude": 11.149120833333335,
+                "ns_indicator": "N",
+                "utc_time": "165122.98"
+            }
+        ]
+    },
+    {
+        "message": "gps.new.vtg",
+        "values": [
+            {
+                "ground_speed_human": 0.19,
+                "ground_speed_knots": 0.103
+            },
+            {
+                "ground_speed_human": 0.342,
+                "ground_speed_knots": 0.185
+            },
+            {
+                "ground_speed_human": 1.994,
+                "ground_speed_knots": 1.077
+            },
+            {
+                "ground_speed_human": 2.786,
+                "ground_speed_knots": 1.504
+            },
+            {
+                "ground_speed_human": 3.225,
+                "ground_speed_knots": 1.741
+            },
+            {
+                "ground_speed_human": 4.031,
+                "ground_speed_knots": 2.177
+            },
+            {
+                "ground_speed_human": 3.774,
+                "ground_speed_knots": 2.038
+            }
+        ]
+    }
+]
