@@ -162,11 +162,11 @@ function testMessageFolder(name: string, path: string, keys: string[]): void {
         it(`Should parse the messages in either ${canLogName} or ${gpsLogName} and send them on mqtt as in ${expectedJsonName}`, async function () {
             const expectedDetails = JSON.parse(fs.readFileSync(expectedJsonPath, 'utf-8'));
 
+            mqttData = await parseRecords(mqttData);
+
             for (const expectedDetail of expectedDetails) {
                 const message = expectedDetail.message;
-                const expectedValues = expectedDetail.values;
-
-                mqttData = await parseRecords(mqttData);
+                const expectedValues = expectedDetail.values;    
                 const values = getDeepProperty(mqttData, message).map((el: any) => el.value);
 
                 expect(values).to.deep.equal(expectedValues);
