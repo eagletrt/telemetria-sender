@@ -1,0 +1,35 @@
+[
+    {
+        "message": "gps.new.vtg",
+        "values": [
+            {
+                "ground_speed_human": 0.19,
+                "ground_speed_knots": 0.103
+            },
+            {
+                "ground_speed_human": 0.342,
+                "ground_speed_knots": 0.185
+            },
+            {
+                "ground_speed_human": 1.994,
+                "ground_speed_knots": 1.077
+            },
+            {
+                "ground_speed_human": 2.786,
+                "ground_speed_knots": 1.504
+            },
+            {
+                "ground_speed_human": 3.225,
+                "ground_speed_knots": 1.741
+            },
+            {
+                "ground_speed_human": 4.031,
+                "ground_speed_knots": 2.177
+            },
+            {
+                "ground_speed_human": 3.774,
+                "ground_speed_knots": 2.038
+            }
+        ]
+    }
+]
