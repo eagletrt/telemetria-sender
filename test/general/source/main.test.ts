@@ -5,6 +5,6 @@ import messagesTimestamps from './suites/messagess_timestamps/messagess_timestam
 describe('EagleTRT Telemetria General Tests', async function() {
     this.timeout(0);
     await messagesParsing();
-    // await messagesIds();
-    // await messagesTimestamps();
+    await messagesIds();
+    await messagesTimestamps();
 });
