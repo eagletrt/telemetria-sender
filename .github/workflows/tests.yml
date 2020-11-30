@@ -3,8 +3,6 @@ on: [push]
 
 jobs:
   test:
-    runs-on: self-hosted
-
     strategy:
       matrix:
         node-version: [15.x]
