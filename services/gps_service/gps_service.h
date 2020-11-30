@@ -71,10 +71,14 @@ typedef struct {
  * The struct that contains all the gps messages that will be stored in a single document
 */ 
 typedef struct {
-	gps_gga_struct *gga;
-	gps_gll_struct *gll;
-	gps_vtg_struct *vtg;
-	gps_rmc_struct *rmc;
+	gps_gga_struct **gga;
+	int gga_count;
+	gps_gll_struct **gll;
+	int gll_count;
+	gps_vtg_struct **vtg;
+	int vtg_count;
+	gps_rmc_struct **rmc;
+	int rmc_count;
 } gps_struct;
 
 /* FUNCTIONS */
