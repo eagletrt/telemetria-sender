@@ -39,5 +39,5 @@ jobs:
         run: npm run compile
       
       - name: Test
-        run: sudo cd test && npm test
+        run: cd test && npm test
         timeout-minutes: 6
