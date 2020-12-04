@@ -95,15 +95,21 @@ int prepareSimulatedPort() {
 
 gps_struct* readGPS() { 
 	// Instantiate and fill the buffer
+	int index = 0;
 	char read_buf[2048];
+	char temp_buf[1];
 	memset(&read_buf,'\0',sizeof(read_buf));
 	
 	// Get size in bytes and handle errors;
-	int num_bytes = read(condition.gps.port, &read_buf, sizeof(read_buf));
-	if(num_bytes < 0){
-		logWarning("GPS not reading");
-		return NULL;
-	}
+	do {
+		int num_bytes = read(condition.gps.port, &temp_buf, sizeof(temp_buf));
+		if(num_bytes < 0){
+			logWarning("GPS not reading");
+			return NULL;
+		}
+		read_buf[index] = temp_buf[0];
+		index++;
+	} while (temp_buf[0] != '\n');
 
 	char* block = strdup(read_buf);
 

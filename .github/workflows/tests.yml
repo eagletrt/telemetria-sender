@@ -38,6 +38,12 @@ jobs:
       - name: Compile C
         run: npm run compile
       
-      - name: Test
-        run: cd test && npm test
+      - name: Test moduled
+        run: cd test && npm run test:moduled
+
+      - name: Test partial
+        run: cd test && npm run test:partial
+
+      - name: Test general
+        run: cd test && npm run test:general
         timeout-minutes: 6
