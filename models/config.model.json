@@ -43,6 +43,7 @@
       "Povo"
     ],
   
+    "model_version": "0.0.0",
     "can_interface": "can0",
     "sending_rate": 500,
     "verbose": 0

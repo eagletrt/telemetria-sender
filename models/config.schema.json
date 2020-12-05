@@ -142,6 +142,11 @@
             ],
             "$ref": "#/definitions/strings-set"
         },
+        "model_version": {
+            "description": "Version of the data structure model",
+            "default": "0.0.0",
+            "type": "string"
+        },
         "can_interface": {
             "description": "Name of the can interface",
             "default": "can0",
