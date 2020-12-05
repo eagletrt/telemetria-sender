@@ -102,8 +102,9 @@ static void* parseGpsMessages(void *args) {
 
 				++(document->gps.new.rmc_count);
 			} 
+			
+			gpsFree(gps_data);
 		}
-		gpsFree(gps_data);
 
 		// Unlock document
         pthread_mutex_unlock(&condition.structure.threads.data_head_mutex);
