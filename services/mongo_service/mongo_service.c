@@ -10,7 +10,7 @@ static mongodb_instance_t* getInstance(char* uri, char* db, char* collection);
 static char* itostr(int value);
 static char* getFormattedTimestamp(int timestamp);
 static char* getSessionName(const char* formatted_timestamp, const char* pilot, const char* race, const char* model_version);
-static bson_t* sessionDocumentBson(const char* formatted_timestamp, const char* pilot, const char* race, int timestamp, const char* session_name);
+static bson_t* sessionDocumentBson(const char* formatted_timestamp, const char* pilot, const char* race, int timestamp, const char* session_name, const char* model_version);
 
 static char* getStringPort(int port) {
 	int length = digitsCount(port) + 1;
@@ -121,14 +121,15 @@ static char* getSessionName(const char* formatted_timestamp, const char* pilot, 
 	return session_name;
 }
 
-static bson_t* sessionDocumentBson(const char* formatted_timestamp, const char* pilot, const char* race, int timestamp, const char* session_name) {
+static bson_t* sessionDocumentBson(const char* formatted_timestamp, const char* pilot, const char* race, int timestamp, const char* session_name, const char* model_version) {
 	bson_t* document = bson_new();
 
-	BSON_APPEND_UTF8 (document, "sessionName", session_name);
+	BSON_APPEND_UTF8(document, "sessionName", session_name);
 	BSON_APPEND_INT32(document, "timestamp", timestamp);
-	BSON_APPEND_UTF8 (document, "formatted_timestamp", formatted_timestamp);
-	BSON_APPEND_UTF8 (document, "pilot", pilot);
-	BSON_APPEND_UTF8 (document, "race", race);
+	BSON_APPEND_UTF8(document, "formatted_timestamp", formatted_timestamp);
+	BSON_APPEND_UTF8(document, "pilot", pilot);
+	BSON_APPEND_UTF8(document, "race", race);
+	BSON_APPEND_UTF8(document, "model_version", model_version);
 
 	return document;
 }
@@ -160,7 +161,7 @@ mongo_code mongoStartSession() {
 	char* session_name = getSessionName(formatted_timestamp, pilot, race, model_version);
 	condition.mongodb.instance->session_name = session_name;
 	
-	bson_t* session_document = sessionDocumentBson(formatted_timestamp, pilot, race, timestamp, session_name);
+	bson_t* session_document = sessionDocumentBson(formatted_timestamp, pilot, race, timestamp, session_name, model_version);
 	return mongoInsert(session_document);
 }
 

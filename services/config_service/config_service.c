@@ -50,7 +50,7 @@ static void updateCondition(const config_t* config) {
 
     // Update structure attributes
     condition.structure.sending_rate = config->sending_rate;
-    condition.structure.model_version = config->model_version;
+    condition.structure.model_version = strdup(config->model_version);
 
     // Update can attributes
     condition.can.can_interface = strdup(config->can_interface);
