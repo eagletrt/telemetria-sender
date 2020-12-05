@@ -16,7 +16,7 @@
   "gps": {
     "plugged": 1,
     "simulated": 1,
-    "interface": "/dev/pts/3"
+    "interface": "/dev/pts/2"
   },
 
   "pilots": [

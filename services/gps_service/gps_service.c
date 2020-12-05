@@ -5,14 +5,8 @@
 
 // Allocates and returns a new gps_structure
 static gps_struct* gpsNew();
-// Adds a GGA message to a result object
-static void pushGGA(gps_struct* data, gps_gga_struct* gga);
-// Adds a GLL message to a result object
-static void pushGLL(gps_struct* data, gps_gll_struct* gll);
-// Adds a VTG message to a result object
-static void pushVTG(gps_struct* data, gps_vtg_struct* vtg);
-// Adds a RMC message to a result object
-static void pushRMC(gps_struct* data, gps_rmc_struct* rmc);
+// Parses a line
+static void parseLine(gps_struct* gps_obj, char* line);
 // Parses the given GGA message and returns it as an object
 static gps_gga_struct* parseGGA(char *message);
 // Parses the given GLL message and returns it as an object
@@ -94,56 +88,30 @@ int prepareSimulatedPort() {
 }
 
 gps_struct* readGPS() { 
-	// Instantiate and fill the buffer
-	int index = 0;
-	char read_buf[2048];
-	char temp_buf[1];
-	memset(&read_buf,'\0',sizeof(read_buf));
+	// Instantiate the line
+	char line[512];
+	int line_index = 0;
+	char ch;
 	
-	// Get size in bytes and handle errors;
+	// Read the line and handle errors;
 	do {
-		int num_bytes = read(condition.gps.port, &temp_buf, sizeof(temp_buf));
-		if(num_bytes < 0){
+		int read_bytes = read(condition.gps.port, &ch, sizeof(char));
+		if(read_bytes < 0){
 			logWarning("GPS not reading");
 			return NULL;
 		}
-		read_buf[index] = temp_buf[0];
-		index++;
-	} while (temp_buf[0] != '\n');
+		line[line_index] = ch;
+		line_index++;
+	} while (ch != '\n');
 
-	char* block = strdup(read_buf);
 
+	// Instantiate the gps object
 	gps_struct *result = gpsNew();
-	int i = 0;
-	while (block != NULL) {
-		char* line = strsep(&block, "\n");
 
-		if (strstr(line, "GGA")) {
-			gps_gga_struct* obj = parseGGA(line);
-			if (obj != NULL) {
-				pushGGA(result, obj);
-			}
-		}
-		else if (strstr(line, "GLL")) {
-			gps_gll_struct* obj = parseGLL(line);
-			if (obj != NULL) {
-				pushGLL(result, obj);
-			}
-		}
-		else if (strstr(line, "VTG")) {
-			gps_vtg_struct* obj = parseVTG(line);
-			if (obj != NULL) {
-				pushVTG(result, obj);
-			}
-		}
-		else if (strstr(line, "RMC")) {
-			gps_rmc_struct* obj = parseRMC(line);
-			if (obj != NULL) {
-				pushRMC(result, obj);
-			}
-		}
-	}
-	
+	// Parse the line
+	parseLine(result, line);
+
+	// Return the result
 	return result;
 }
 
@@ -161,86 +129,37 @@ static gps_struct* gpsNew() {
 	gps_struct* result = (gps_struct*) malloc(sizeof(gps_struct));
 	
 	result->gga = NULL;
-	result->gga_count = 0;
 	result->gll = NULL;
-	result->gll_count = 0;
 	result->vtg = NULL;
-	result->vtg_count = 0;
 	result->rmc = NULL;
-	result->rmc_count = 0;
 
 	return result;
 }
 
-static void pushGGA(gps_struct* data, gps_gga_struct* gga) {
-	if (data->gga == NULL) {
-		data->gga_count = 1;
-		data->gga = (gps_gga_struct**) malloc(sizeof(gps_gga_struct*));
-		data->gga[0] = gga;
-	}
-	else {
-		gps_gga_struct** temp = data->gga;
-		data->gga_count++;
-		data->gga = (gps_gga_struct**) malloc(sizeof(gps_gga_struct*) * data->gga_count);
-		for (int i = 0; i < data->gga_count - 1; i++) {
-			data->gga[i] = temp[i];
+static void parseLine(gps_struct* gps_obj, char* line) {
+	if (strstr(line, "GGA")) {
+		gps_gga_struct* obj = parseGGA(line);
+		if (obj != NULL) {
+			gps_obj->gga = obj;
 		}
-		data->gga[data->gga_count - 1] = gga;
-		free(temp);
 	}
-}
-
-static void pushGLL(gps_struct* data, gps_gll_struct* gll) {
-	if (data->gll == NULL) {
-		data->gll_count = 1;
-		data->gll = (gps_gll_struct**) malloc(sizeof(gps_gll_struct*));
-		data->gll[0] = gll;
-	}
-	else {
-		gps_gll_struct** temp = data->gll;
-		data->gll_count++;
-		data->gll = (gps_gll_struct**) malloc(sizeof(gps_gll_struct*) * data->gll_count);
-		for (int i = 0; i < data->gll_count - 1; i++) {
-			data->gll[i] = temp[i];
+	else if (strstr(line, "GLL")) {
+		gps_gll_struct* obj = parseGLL(line);
+		if (obj != NULL) {
+			gps_obj->gll = obj;
 		}
-		data->gll[data->gll_count - 1] = gll;
-		free(temp);
 	}
-}
-
-static void pushVTG(gps_struct* data, gps_vtg_struct* vtg) {
-	if (data->vtg == NULL) {
-		data->vtg_count = 1;
-		data->vtg = (gps_vtg_struct**) malloc(sizeof(gps_vtg_struct*));
-		data->vtg[0] = vtg;
-	}
-	else {
-		gps_vtg_struct** temp = data->vtg;
-		data->vtg_count++;
-		data->vtg = (gps_vtg_struct**) malloc(sizeof(gps_vtg_struct*) * data->vtg_count);
-		for (int i = 0; i < data->vtg_count - 1; i++) {
-			data->vtg[i] = temp[i];
+	else if (strstr(line, "VTG")) {
+		gps_vtg_struct* obj = parseVTG(line);
+		if (obj != NULL) {
+			gps_obj->vtg = obj;
 		}
-		data->vtg[data->vtg_count - 1] = vtg;
-		free(temp);
 	}
-}
-
-static void pushRMC(gps_struct* data, gps_rmc_struct* rmc) {
-	if (data->rmc == NULL) {
-		data->rmc_count = 1;
-		data->rmc = (gps_rmc_struct**) malloc(sizeof(gps_rmc_struct*));
-		data->rmc[0] = rmc;
-	}
-	else {
-		gps_rmc_struct** temp = data->rmc;
-		data->rmc_count++;
-		data->rmc = (gps_rmc_struct**) malloc(sizeof(gps_rmc_struct*) * data->rmc_count);
-		for (int i = 0; i < data->rmc_count - 1; i++) {
-			data->rmc[i] = temp[i];
+	else if (strstr(line, "RMC")) {
+		gps_rmc_struct* obj = parseRMC(line);
+		if (obj != NULL) {
+			gps_obj->rmc = obj;
 		}
-		data->rmc[data->rmc_count - 1] = rmc;
-		free(temp);
 	}
 }
 
