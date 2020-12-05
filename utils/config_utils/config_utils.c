@@ -52,6 +52,7 @@ config_t* newConfig() {
     config->circuits[1] = strdup("Vadena");
     config->circuits[2] = strdup("Varano");
     config->circuits[3] = strdup("Povo");
+    config->model_version = strdup("0.0.0");
     config->can_interface = strdup("can0");
     config->sending_rate = 500;
     config->verbose = 0;
@@ -88,6 +89,7 @@ void deleteConfig(config_t *config) {
     freeStringsArray(config->pilots, &config->pilots_count);
     freeStringsArray(config->races, &config->races_count);
     freeStringsArray(config->circuits, &config->circuits_count);
+    free(config->model_version);
     free(config->can_interface);
     
 }
@@ -110,6 +112,7 @@ void printConfig(const config_t* config) {
     printStringsArray(config->races, config->races_count);
     printf("config->circuits: ");
     printStringsArray(config->circuits, config->circuits_count);
+    printf("config->model_version:\t%s\n", config->model_version);
     printf("config->can_interface:\t%s\n", config->can_interface);
     printf("config->sending_rate:\t%d\n", config->sending_rate);
     printf("config->verbose:\t%d\n", config->verbose);
@@ -349,6 +352,10 @@ static void parseJsonTokens(const jsmntok_t *json_tokens, int tokens_length, con
 		else if (strcmp(key, "circuits") == 0) {
 			freeStringsArray(config->circuits, &config->circuits_count);
 			config->circuits = getStringArrayValue(json_tokens, json_string, &config->circuits_count, i);
+		}
+		else if (strcmp(key, "model_version") == 0) {
+			free(config->model_version);
+			config->model_version = getStringValue(json_tokens, json_string, i);
 		}
 		else if (strcmp(key, "can_interface") == 0) {
 			free(config->can_interface);

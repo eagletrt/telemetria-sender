@@ -50,11 +50,16 @@ static void updateCondition(const config_t* config) {
 
     // Update structure attributes
     condition.structure.sending_rate = config->sending_rate;
+    condition.structure.model_version = config->model_version;
 
-    // Update other attributes
+    // Update can attributes
     condition.can.can_interface = strdup(config->can_interface);
+
+    // Update gps attributes
     condition.gps.plugged = config->gps.plugged;
     condition.gps.simulated = config->gps.simulated;
     condition.gps.interface = strdup(config->gps.interface);
+
+    // Update other attributes
     condition.verbose = config->verbose;
 }

@@ -69,6 +69,7 @@ typedef struct {
 } structure_threads_condition_t;
 
 typedef struct {
+    char* model_version;
     int sending_rate;
     int id;
     data_t* data_head;

@@ -41,6 +41,7 @@ typedef struct {
 	int races_count;
 	char** circuits;
 	int circuits_count;
+	char* model_version;
 	char* can_interface;
 	int sending_rate;
 	int verbose;
