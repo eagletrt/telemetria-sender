@@ -15,6 +15,12 @@ static gps_gll_struct* parseGLL(char *message);
 static gps_vtg_struct* parseVTG(char *message);
 // Parses the given RMC message and returns it as an object
 static gps_rmc_struct* parseRMC(char *message);
+// Frees the given GGA message
+static void freeGGA(gps_gga_struct *message);
+// Frees the given GLL message
+static void freeGLL(gps_gll_struct *message);
+// Frees the given RMC message
+static void freeRMC(gps_rmc_struct *message);
 // Formats latitude and longitude properly
 static double parseCoordinates(double raw);
 
@@ -116,10 +122,21 @@ gps_struct* readGPS() {
 }
 
 void gpsFree(gps_struct* gps_data) {
-	free(gps_data->gga);
-	free(gps_data->gll);
-	free(gps_data->vtg);
-	free(gps_data->rmc);
+	if (gps_data->gga != NULL) {
+		freeGGA(gps_data->gga);
+		free(gps_data->gga);
+	}
+	if (gps_data->gll != NULL) {
+		freeGLL(gps_data->gll);
+		free(gps_data->gll);
+	}
+	if (gps_data->vtg != NULL) {
+		free(gps_data->vtg);
+	}
+	if (gps_data->rmc != NULL) {
+		freeRMC(gps_data->rmc);
+		free(gps_data->rmc);
+	}
 	free(gps_data);
 }
 
@@ -208,7 +225,24 @@ static gps_gga_struct* parseGGA(char *message) {
 		i++;
 	}
 
-	return (i < 15) ? NULL : result;
+	if (i < 15) {
+		if (i >= 5) {
+			free(result->ew_indicator);
+		}
+		
+		if (i >= 3) {
+			free(result->ns_indicator);
+		}
+
+		if (i >= 1) {
+			free(result->utc_time);
+		}
+
+		return NULL;
+	}
+	else {
+		return result;
+	}
 }
 
 static gps_gll_struct* parseGLL(char *message) {
@@ -252,7 +286,24 @@ static gps_gll_struct* parseGLL(char *message) {
 		i++;
 	}
 
-	return (i < 8) ? NULL : result;
+	if (i < 8) {
+		if (i >= 5) {
+			free(result->utc_time);
+		}
+		
+		if (i >= 4) {
+			free(result->ew_indicator);
+		}
+
+		if (i >= 2) {
+			free(result->ns_indicator);
+		}
+
+		return NULL;
+	}
+	else {
+		return result;
+	}
 }
 
 static gps_vtg_struct* parseVTG(char *message) {
@@ -332,7 +383,47 @@ static gps_rmc_struct* parseRMC(char *message) {
 		i++;
 	}
 
-	return (i < 14) ? NULL : result;
+	if (i < 14) {
+		if (i >= 9) {
+			free(result->date);
+		}
+		
+		if (i >= 6) {
+			free(result->ew_indicator);
+		}
+
+		if (i >= 4) {
+			free(result->ns_indicator);
+		}
+
+		if (i >= 1) {
+			free(result->utc_time);
+		}
+
+		return NULL;
+	}
+	else {
+		return result;
+	}
+}
+
+static void freeGGA(gps_gga_struct *message) {
+	free(message->ns_indicator);
+	free(message->ew_indicator);
+	free(message->utc_time);
+}
+
+static void freeGLL(gps_gll_struct *message) {
+	free(message->ns_indicator);
+	free(message->ew_indicator);
+	free(message->utc_time);
+}
+
+static void freeRMC(gps_rmc_struct *message) {
+	free(message->ns_indicator);
+	free(message->ew_indicator);
+	free(message->utc_time);
+	free(message->date);
 }
 
 static double parseCoordinates(double raw) {
