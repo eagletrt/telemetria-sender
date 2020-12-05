@@ -2,14 +2,13 @@ import { clean } from 'mongo-cleaner';
 import * as path from 'path';
 import { runTests, getMongoUri, stringifyCJSON, parseCJSON } from "../../utils/misc"
 import { MongoClient } from 'mongodb';
-import * as assert from 'assert';
 import { expect } from 'chai';
 
 const MONGO_CONFIG = {
     host: 'localhost',
     port: 27017,
-    db: 'eagle_test'
-}
+    db: 'telemetry_test'
+};
 
 export default async function () {
     describe('mongo_services', function () {
@@ -22,22 +21,26 @@ export default async function () {
             runTests(
                 path.join(__dirname, 'mongo_start_session.test.out'),
                 [{
-                    it: 'should inset start session record in chimera',
-                    args: [MONGO_CONFIG.host, `${MONGO_CONFIG.port}`, MONGO_CONFIG.db, 'chimera', 'pilotone', 'circuitone'],
-
+                    it: 'should insert start session record in chimera',
+                    args: [MONGO_CONFIG.host, `${MONGO_CONFIG.port}`, MONGO_CONFIG.db, 'chimera', 'pilotone', 'tipo_prova', '0.0.0'],
                 }, {
-                    it: 'should inset start session record in random',
-                    args: [MONGO_CONFIG.host, `${MONGO_CONFIG.port}`, MONGO_CONFIG.db, 'random', 'pilot_one', 'circuit_one'],
-
+                    it: 'should insert start session record in random',
+                    args: [MONGO_CONFIG.host, `${MONGO_CONFIG.port}`, MONGO_CONFIG.db, 'random', 'pilot_one', 'tipoProva', '1.0.0'],
                 }],
                 async (prop) => {
                     const mongoConnection = await MongoClient.connect(getMongoUri(prop.args[0], +prop.args[1]), { useUnifiedTopology: true });
                     const collection = mongoConnection.db(prop.args[2]).collection(prop.args[3]);
-                    let coll = await collection.aggregate().toArray();
+                    const coll = await collection.find().toArray();
                     await mongoConnection.close();
-                    assert(coll.length === 1);
-                    assert(coll[0].pilot === prop.args[4]);
-                    assert(coll[0].race === prop.args[5]);
+
+                    const expectedSessionNamePattern = `^\\d{8}_\\d{6}_${prop.args[4]}_${prop.args[5]}_v${prop.args[6]}$`;
+                    expect(coll).to.have.length(1);
+                    expect(coll[0].sessionName).to.match(new RegExp(expectedSessionNamePattern));
+                    expect(coll[0].formatted_timestamp).to.match(/^\d{8}_\d{6}$/);
+                    expect(coll[0].timestamp).within(Date.now() - 30 * 1000, Date.now() + 30 * 1000);
+                    expect(coll[0].pilot).equals(prop.args[4]);
+                    expect(coll[0].race).equals(prop.args[5]);
+                    expect(coll[0].model_version).equals(prop.args[6]);
                 }
             );
         });
@@ -48,24 +51,24 @@ export default async function () {
                 path.join(__dirname, 'mongo_insert.test.out'),
                 [
                     {
-                        it: 'should inset a simple number json',
+                        it: 'should insert a simple number json',
                         args: [MONGO_CONFIG.host, `${MONGO_CONFIG.port}`, MONGO_CONFIG.db, 'chimera', stringifyCJSON({ pippo: 1 })],
                     },
                     {
-                        it: 'should inset a simple string json',
+                        it: 'should insert a simple string json',
                         args: [MONGO_CONFIG.host, `${MONGO_CONFIG.port}`, MONGO_CONFIG.db, 'chimera', stringifyCJSON({ pippo: 'goofy' })],
                     },
                     //{
-                    //    it: 'should inset a simple complex object',
+                    //    it: 'should insert a simple complex object',
                     //    args: [MONGO_CONFIG.host, `${MONGO_CONFIG.port}`, MONGO_CONFIG.db, 'chimera', stringifyCJSON({ obj: { with: "properties", inside: 3 } })],
                     //}
                 ],
                 async (prop) => {
                     const mongoConnection = await MongoClient.connect(getMongoUri(prop.args[0], +prop.args[1]), { useUnifiedTopology: true });
                     const collection = mongoConnection.db(prop.args[2]).collection(prop.args[3]);
-                    let coll = await collection.aggregate().toArray();
+                    let coll = await collection.find().toArray();
                     await mongoConnection.close();
-                    assert(coll.length === 1);
+                    expect(coll).to.have.length(1);
                     expect(coll[0]).contain(parseCJSON(prop.args[4]));
                 }
             );

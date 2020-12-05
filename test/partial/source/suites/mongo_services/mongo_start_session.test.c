@@ -5,12 +5,13 @@
 condition_t condition;
 
 /*
-    0 selected_pilot
-    1 selected_race
-    2 host
-    3 port
-    4 db
-    5 collection
+    1 host
+    2 port
+    3 db
+    4 collection
+    5 pilot
+    6 race
+    7 model_version
 */
 int main(int argc, char *argv[]) {
     condition.session.pilots = (char **)malloc(1 * sizeof(char *));
@@ -25,6 +26,8 @@ int main(int argc, char *argv[]) {
     condition.session.selected_pilot = 0;
     condition.session.races_count = 1;
     condition.session.selected_race = 0;
+
+    condition.structure.model_version = strdup(argv[7]);
 
     condition.mongodb.host = (char *)malloc((strlen(argv[1]) + 1) * sizeof(char));
     condition.mongodb.db = (char *)malloc((strlen(argv[3]) + 1) * sizeof(char));
