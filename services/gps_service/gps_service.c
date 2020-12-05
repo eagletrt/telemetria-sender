@@ -118,6 +118,8 @@ gps_struct* readGPS() {
 
 	// Parse the line
 	parseLine(result, line);
+	
+	//gpsPrint(result);
 
 	// Return the result
 	return result;
