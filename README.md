@@ -1,3 +1,4 @@
+[![Github Actions](https://github.com/eagletrt/eagletrt-telemetria-sender/workflows/Tests/badge.svg)](https://github.com/eagletrt/eagletrt-telemetria-sender/actions)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli)
 
 # eagletrt-telemetria-sender
