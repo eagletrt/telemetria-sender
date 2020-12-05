@@ -109,7 +109,7 @@ gps_struct* readGPS() {
 		line[line_index] = ch;
 		line_index++;
 	} while (ch != '\n');
-
+	line[line_index] = '\0';
 
 	// Instantiate the gps object
 	gps_struct *result = gpsNew();
