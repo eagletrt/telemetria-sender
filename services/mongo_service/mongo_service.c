@@ -9,7 +9,7 @@ static char* getUri(char* host, char* port);
 static mongodb_instance_t* getInstance(char* uri, char* db, char* collection);
 static char* itostr(int value);
 static char* getFormattedTimestamp(int timestamp);
-static char* getSessionName(const char* formatted_timestamp, const char* pilot, const char* race);
+static char* getSessionName(const char* formatted_timestamp, const char* pilot, const char* race, const char* model_version);
 static bson_t* sessionDocumentBson(const char* formatted_timestamp, const char* pilot, const char* race, int timestamp, const char* session_name);
 
 static char* getStringPort(int port) {
@@ -106,15 +106,17 @@ static char* getFormattedTimestamp(int timestamp) {
 	return result;
 }
 
-static char* getSessionName(const char* formatted_timestamp, const char* pilot, const char* race) {
-	const int length = strlen(formatted_timestamp) + 1 + strlen(pilot) + 1 + strlen(race) + 1;
-	char* session_name = (char*) malloc(sizeof(char) * length);
+static char* getSessionName(const char* formatted_timestamp, const char* pilot, const char* race, const char* model_version) {
+	const int length = strlen(formatted_timestamp) + 1 + strlen(pilot) + 1 + strlen(race) + 2 + strlen(model_version) + 1;
+	char* session_name = (char*) calloc(length, sizeof(char));
 
 	strcpy(session_name, formatted_timestamp);
 	strcat(session_name, "_");
 	strcat(session_name, pilot);
 	strcat(session_name, "_");
 	strcat(session_name, race);
+	strcat(session_name, "_v");
+	strcat(session_name, model_version);
 
 	return session_name;
 }
@@ -154,7 +156,8 @@ mongo_code mongoStartSession() {
 	const char* formatted_timestamp = getFormattedTimestamp(timestamp);
 	const char* pilot = condition.session.pilots[condition.session.selected_pilot];
 	const char* race = condition.session.races[condition.session.selected_race];
-	char* session_name = getSessionName(formatted_timestamp, pilot, race);
+	const char* model_version = condition.structure.model_version;
+	char* session_name = getSessionName(formatted_timestamp, pilot, race, model_version);
 	condition.mongodb.instance->session_name = session_name;
 	
 	bson_t* session_document = sessionDocumentBson(formatted_timestamp, pilot, race, timestamp, session_name);
