@@ -24,6 +24,7 @@ gcc main.test.c -o test.out \
     ./suites/utils/log_utils/log_warning/log_warning.test.c \
     \
     ./suites/utils/misc_utils/misc_utils.test.c \
+    ./suites/utils/misc_utils/get_current_timestamp/get_current_timestamp.test.c \
     ./suites/utils/misc_utils/digit_counts/digit_counts.test.c \
     ./suites/utils/misc_utils/print_int_array/print_int_array.test.c \
     ./suites/utils/misc_utils/print_double_array/print_double_array.test.c \
