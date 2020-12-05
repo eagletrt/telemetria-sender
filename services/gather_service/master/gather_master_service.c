@@ -25,7 +25,7 @@ void gatherMasterSwap() {
     pthread_mutex_lock(&condition.structure.threads.data_head_mutex);
     pthread_mutex_lock(&condition.structure.threads.data_tail_mutex);
 
-    condition.structure.data_head->timestamp = gatherGetCurrentTimestamp();
+    condition.structure.data_head->timestamp = getCurrentTimestamp();
     condition.structure.data_head->sessionName = condition.mongodb.instance->session_name;
     condition.structure.data_head->id = condition.structure.id++;
 

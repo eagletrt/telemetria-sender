@@ -68,3 +68,14 @@ void swapPointers(void** x, void** y) {
     *x = *y;
     *y = temp;
 }
+
+
+long long int getCurrentTimestamp() {
+	struct timeb timer_msec;
+	if(!ftime(&timer_msec)) {
+		return ((long long int) timer_msec.time) * 1000ll + ((long long int) timer_msec.millitm);
+	}
+	else {
+		return -1;
+	}
+}

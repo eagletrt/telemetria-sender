@@ -57,7 +57,7 @@ static void* parseGpsMessages(void *args) {
 		if (gps_data != NULL) {
 
 			if (gps_data->gga && gps_data->gga->status && document->gps.new.gga_count < document->gps.new.gga_size) {
-				document->gps.new.gga[document->gps.new.gga_count].timestamp = gatherGetCurrentTimestamp();
+				document->gps.new.gga[document->gps.new.gga_count].timestamp = getCurrentTimestamp();
 
 				document->gps.new.gga[document->gps.new.gga_count].value.latitude_safe = gps_data->gga->latitude;
 				document->gps.new.gga[document->gps.new.gga_count].value.longitude_safe = gps_data->gga->longitude;
@@ -71,7 +71,7 @@ static void* parseGpsMessages(void *args) {
 				++(document->gps.new.gga_count);
 			}
 			else if (gps_data->gll && gps_data->gll->status && document->gps.new.gll_count < document->gps.new.gll_size) {
-				document->gps.new.gll[document->gps.new.gll_count].timestamp = gatherGetCurrentTimestamp();
+				document->gps.new.gll[document->gps.new.gll_count].timestamp = getCurrentTimestamp();
 
 				document->gps.new.gll[document->gps.new.gll_count].value.latitude = parseNmeaCoord(gps_data->gll->latitude);
 				document->gps.new.gll[document->gps.new.gll_count].value.longitude = parseNmeaCoord(gps_data->gll->longitude);
@@ -82,7 +82,7 @@ static void* parseGpsMessages(void *args) {
 				++(document->gps.new.gll_count);
 			}
 			else if (gps_data->vtg && document->gps.new.vtg_count < document->gps.new.vtg_size) {
-				document->gps.new.vtg[document->gps.new.vtg_count].timestamp = gatherGetCurrentTimestamp();
+				document->gps.new.vtg[document->gps.new.vtg_count].timestamp = getCurrentTimestamp();
 
 				document->gps.new.vtg[document->gps.new.vtg_count].value.ground_speed_knots = gps_data->vtg->ground_speed_knots;
 				document->gps.new.vtg[document->gps.new.vtg_count].value.ground_speed_human = gps_data->vtg->ground_speed_human;
@@ -90,7 +90,7 @@ static void* parseGpsMessages(void *args) {
 				++(document->gps.new.vtg_count);
 			}
 			else if (gps_data->rmc && gps_data->rmc->status && document->gps.new.rmc_count < document->gps.new.rmc_size) {
-				document->gps.new.rmc[document->gps.new.rmc_count].timestamp = gatherGetCurrentTimestamp();
+				document->gps.new.rmc[document->gps.new.rmc_count].timestamp = getCurrentTimestamp();
 
 				document->gps.new.rmc[document->gps.new.rmc_count].value.latitude = parseNmeaCoord(gps_data->rmc->latitude);
 				document->gps.new.rmc[document->gps.new.rmc_count].value.longitude = parseNmeaCoord(gps_data->rmc->longitude);

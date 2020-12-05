@@ -7,6 +7,10 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
+#include <time.h>
+#include <sys/timeb.h>
+#include <sys/sysinfo.h>
+
 
 /* FUNCTIONS */
 
@@ -64,5 +68,11 @@ int digitsCount(int n);
  * @param y The second pointer that needs to be swapped
 */
 void swapPointers(void** x, void** y);
+
+/**
+ * Gets the current timestamp in milliseconds
+ * @return The current timestamp in milliseconds
+*/
+long long int getCurrentTimestamp();
 
 #endif

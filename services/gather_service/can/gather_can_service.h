@@ -10,6 +10,7 @@
 #include <pthread.h>
 #include "../../../services/log_service/log_service.h"
 #include "../../../utils/gather_utils/gather_utils.h"
+#include "../../../utils/misc_utils/misc_utils.h"
 #include "../../../state_machine/state_machine_condition.h"
 #include "../../can_service/can_service.h"
 #include "can_messages_identifiers.h"

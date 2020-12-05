@@ -8,9 +8,9 @@ static char* getStringPort(int port);
 static char* getUri(char* host, char* port);
 static mongodb_instance_t* getInstance(char* uri, char* db, char* collection);
 static char* itostr(int value);
-static char* getFormattedTimestamp(int timestamp);
+static char* getFormattedTimestamp(long long int timestamp);
 static char* getSessionName(const char* formatted_timestamp, const char* pilot, const char* race, const char* model_version);
-static bson_t* sessionDocumentBson(const char* formatted_timestamp, const char* pilot, const char* race, int timestamp, const char* session_name, const char* model_version);
+static bson_t* sessionDocumentBson(const char* formatted_timestamp, const char* pilot, const char* race, long long int timestamp, const char* session_name, const char* model_version);
 
 static char* getStringPort(int port) {
 	int length = digitsCount(port) + 1;
@@ -82,10 +82,10 @@ static char* itostr(int value) {
 	return toRtn;
 }
 
-static char* getFormattedTimestamp(int timestamp) {
+static char* getFormattedTimestamp(long long int timestamp) {
 	char* result;
 
-	time_t t = timestamp;
+	time_t t = (timestamp / 1000);
 	struct tm *formatted = localtime(&t);
 
 	int date = formatted->tm_mday + (formatted->tm_mon + 1) * 100 + (formatted->tm_year + 1900) * 10000;
@@ -121,11 +121,11 @@ static char* getSessionName(const char* formatted_timestamp, const char* pilot, 
 	return session_name;
 }
 
-static bson_t* sessionDocumentBson(const char* formatted_timestamp, const char* pilot, const char* race, int timestamp, const char* session_name, const char* model_version) {
+static bson_t* sessionDocumentBson(const char* formatted_timestamp, const char* pilot, const char* race, long long int timestamp, const char* session_name, const char* model_version) {
 	bson_t* document = bson_new();
 
 	BSON_APPEND_UTF8(document, "sessionName", session_name);
-	BSON_APPEND_INT32(document, "timestamp", timestamp);
+	BSON_APPEND_INT64(document, "timestamp", timestamp);
 	BSON_APPEND_UTF8(document, "formatted_timestamp", formatted_timestamp);
 	BSON_APPEND_UTF8(document, "pilot", pilot);
 	BSON_APPEND_UTF8(document, "race", race);
@@ -153,7 +153,7 @@ mongo_code mongoSetup() {
 }
 
 mongo_code mongoStartSession() {
-	int timestamp = time(NULL);
+	long long int timestamp = getCurrentTimestamp();
 	const char* formatted_timestamp = getFormattedTimestamp(timestamp);
 	const char* pilot = condition.session.pilots[condition.session.selected_pilot];
 	const char* race = condition.session.races[condition.session.selected_race];
