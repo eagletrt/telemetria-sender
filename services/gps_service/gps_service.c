@@ -23,6 +23,8 @@ static void freeGLL(gps_gll_struct *message);
 static void freeRMC(gps_rmc_struct *message);
 // Formats latitude and longitude properly
 static double parseCoordinates(double raw);
+// Prints the given gps_struct object
+static void gpsPrint(gps_struct* data);
 
 /* EXPORTED FUNCTIONS */
 
@@ -431,4 +433,38 @@ static double parseCoordinates(double raw) {
 	double left = floor(temp);
 	double right = (temp - left) * (5./3.);
 	return (left + right) * 100;
+}
+
+static void gpsPrint(gps_struct* data) {
+	if (data->gga != NULL) {
+		printf("gga->latitude\t%f\n", data->gga->latitude);
+		printf("gga->longitude\t%f\n", data->gga->longitude);
+		printf("gga->altitude\t%f\n", data->gga->altitude);
+		printf("gga->ns_indicator\t%s\n", data->gga->ns_indicator);
+		printf("gga->ew_indicator\t%s\n", data->gga->ew_indicator);
+		printf("gga->utc_time\t%s\n", data->gga->utc_time);
+		printf("gga->status\t%d\n", data->gga->status);
+	}
+	if (data->gll != NULL) {
+		printf("gll->latitude\t%f\n", data->gll->latitude);
+		printf("gll->longitude\t%f\n", data->gll->longitude);
+		printf("gll->ns_indicator\t%s\n", data->gll->ns_indicator);
+		printf("gll->ew_indicator\t%s\n", data->gll->ew_indicator);
+		printf("gll->utc_time\t%s\n", data->gll->utc_time);
+		printf("gll->status\t%d\n", data->gll->status);
+	}
+	if (data->vtg != NULL) {
+		printf("vtg->ground_speed_knots\t%f\n", data->vtg->ground_speed_knots);
+		printf("vtg->ground_speed_human\t%f\n", data->vtg->ground_speed_human);
+	}
+	if (data->rmc != NULL) {
+		printf("rmc->latitude\t%f\n", data->rmc->latitude);
+		printf("rmc->longitude\t%f\n", data->rmc->longitude);
+		printf("rmc->ground_speed_knots\t%f\n", data->rmc->ground_speed_knots);
+		printf("rmc->ns_indicator\t%s\n", data->rmc->ns_indicator);
+		printf("rmc->ew_indicator\t%s\n", data->rmc->ew_indicator);
+		printf("rmc->utc_time\t%s\n", data->rmc->utc_time);
+		printf("rmc->date\t%s\n", data->rmc->date);
+		printf("rmc->status\t%d\n", data->rmc->status);
+	}
 }
