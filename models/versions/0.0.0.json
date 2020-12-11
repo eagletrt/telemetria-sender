@@ -1,4 +1,6 @@
 {
+    "version": "v0.0.0",
+    
     "INVERTER_RIGHT_SPEED": "inverters.right.speed",
     "INVERTER_RIGHT_TEMPERATURE_IGBT": "inverters.right.temperature_igbt",
     "INVERTER_RIGHT_TEMPERATURE_MOTORS": "inverters.right.temperature_motors",
