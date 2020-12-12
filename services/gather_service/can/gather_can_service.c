@@ -31,14 +31,11 @@ static void* parseCanMessages(void *args) {
     // Declare used variables
     data_t* document;
     int id = 0, data_left, data_right, first_byte;
-    int lon_done = 0, lat_done = 0;
     int byte_left, byte_right, temp;
 
 	while (1) {
 		// Assign used variables
         id = 0;
-        lon_done = 0;
-        lat_done = 0;
 
 		// Read can
 		canRead(&id, &data_left, &data_right);
@@ -314,145 +311,6 @@ static void* parseCanMessages(void *args) {
 
 			case (FRONT_WHEELS_ENCODER_RIGHT_ID):
 				switch (first_byte) {
-					case LATSPD_FB:
-						if (lat_done) {
-							++(document->gps.old.location_count);
-
-							if (document->gps.old.location_count < document->gps.old.location_size) {
-								document->gps.old.location[document->gps.old.location_count].timestamp = getCurrentTimestamp();
-								document->gps.old.location[document->gps.old.location_count].value.latitude_m = (double)(((((data_left >> 8) & 0x0000FFFF) << 8) * 10000) + (((data_left & 0x000000FF) * 0xFF) << 8) + ((data_right >> 24) & 0x000000FF)) / 10000.0;
-								document->gps.old.location[document->gps.old.location_count].value.latitude_o = (data_right >> 16) & 0x000000FF;
-								document->gps.old.location[document->gps.old.location_count].value.speed = data_right & 0x0000FFFF;
-
-								document->gps.old.location[document->gps.old.location_count].value.longitude_m = 0;
-								document->gps.old.location[document->gps.old.location_count].value.longitude_o = 0;
-								document->gps.old.location[document->gps.old.location_count].value.altitude = 0;
-								lat_done = 1;
-								lon_done = 0;
-							}
-						} else if (lon_done) {
-							if (abs(document->gps.old.location[document->gps.old.location_count].timestamp - getCurrentTimestamp()) < 25) {
-								document->gps.old.location[document->gps.old.location_count].value.latitude_m = (double)(((((data_left >> 8) & 0x0000FFFF) << 8) * 10000) + (((data_left & 0x000000FF) * 0xFF) << 8) + ((data_right >> 24) & 0x000000FF)) / 10000.0;
-								document->gps.old.location[document->gps.old.location_count].value.latitude_o = (data_right >> 16) & 0x000000FF;
-								document->gps.old.location[document->gps.old.location_count].value.speed = data_right & 0x0000FFFF;
-
-								++(document->gps.old.location_count);
-
-								lat_done = 0;
-								lon_done = 0;
-							} else {
-								++(document->gps.old.location_count);
-
-								if (document->gps.old.location_count < document->gps.old.location_size) {
-									document->gps.old.location[document->gps.old.location_count].timestamp = getCurrentTimestamp();
-									document->gps.old.location[document->gps.old.location_count].value.latitude_m = (double)(((((data_left >> 8) & 0x0000FFFF) << 8) * 10000) + (((data_left & 0x000000FF) * 0xFF) << 8) + ((data_right >> 24) & 0x000000FF)) / 10000.0;
-									document->gps.old.location[document->gps.old.location_count].value.latitude_o = (data_right >> 16) & 0x000000FF;
-									document->gps.old.location[document->gps.old.location_count].value.speed = data_right & 0x0000FFFF;
-
-									document->gps.old.location[document->gps.old.location_count].value.longitude_m = 0;
-									document->gps.old.location[document->gps.old.location_count].value.longitude_o = 0;
-									document->gps.old.location[document->gps.old.location_count].value.altitude = 0;
-
-									lat_done = 1;
-									lon_done = 0;
-								}
-							}
-						} else {
-							if (document->gps.old.location_count < document->gps.old.location_size) {
-								document->gps.old.location[document->gps.old.location_count].timestamp = getCurrentTimestamp();
-								document->gps.old.location[document->gps.old.location_count].value.latitude_m = (double)(((((data_left >> 8) & 0x0000FFFF) << 8) * 10000) + (((data_left & 0x000000FF) * 0xFF) << 8) + ((data_right >> 24) & 0x000000FF)) / 10000.0;
-								document->gps.old.location[document->gps.old.location_count].value.latitude_o = (data_right >> 16) & 0x000000FF;
-								document->gps.old.location[document->gps.old.location_count].value.speed = data_right & 0x0000FFFF;
-
-								document->gps.old.location[document->gps.old.location_count].value.longitude_m = 0;
-								document->gps.old.location[document->gps.old.location_count].value.longitude_o = 0;
-								document->gps.old.location[document->gps.old.location_count].value.altitude = 0;
-
-								lat_done = 1;
-								lon_done = 0;
-							}
-						}
-						break;
-
-					case LONALT_FB:
-						if (lon_done) {
-							++(document->gps.old.location_count);
-
-							if (document->gps.old.location_count < document->gps.old.location_size) {
-								document->gps.old.location[document->gps.old.location_count].timestamp = getCurrentTimestamp();
-								document->gps.old.location[document->gps.old.location_count].value.longitude_m = (double)(((((data_left >> 8) & 0x0000FFFF) << 8) * 10000) + (((data_left & 0x000000FF) * 0xFF) << 8) + ((data_right >> 24) & 0x000000FF)) / 10000.0;
-								document->gps.old.location[document->gps.old.location_count].value.longitude_o = (data_right >> 16) & 0x000000FF;
-								document->gps.old.location[document->gps.old.location_count].value.altitude = data_right & 0x0000FFFF;
-
-								document->gps.old.location[document->gps.old.location_count].value.latitude_m = 0;
-								document->gps.old.location[document->gps.old.location_count].value.latitude_o = 0;
-								document->gps.old.location[document->gps.old.location_count].value.speed = 0;
-
-								lat_done = 0;
-								lon_done = 1;
-							}
-						} else if (lat_done) {
-							if (abs(document->gps.old.location[document->gps.old.location_count].timestamp - getCurrentTimestamp()) < 25) {
-								document->gps.old.location[document->gps.old.location_count].value.longitude_m = (double)(((((data_left >> 8) & 0x0000FFFF) << 8) * 10000) + (((data_left & 0x000000FF) * 0xFF) << 8) + ((data_right >> 24) & 0x000000FF)) / 10000.0;
-								document->gps.old.location[document->gps.old.location_count].value.longitude_o = (data_right >> 16) & 0x000000FF;
-								document->gps.old.location[document->gps.old.location_count].value.altitude = data_right & 0x0000FFFF;
-
-								++(document->gps.old.location_count);
-
-								lat_done = 0;
-								lon_done = 0;
-							} else {
-								++(document->gps.old.location_count);
-
-								if (document->gps.old.location_count < document->gps.old.location_size) {
-									document->gps.old.location[document->gps.old.location_count].timestamp = getCurrentTimestamp();
-									document->gps.old.location[document->gps.old.location_count].value.longitude_m = (double)(((((data_left >> 8) & 0x0000FFFF) << 8) * 10000) + (((data_left & 0x000000FF) * 0xFF) << 8) + ((data_right >> 24) & 0x000000FF)) / 10000.0;
-									document->gps.old.location[document->gps.old.location_count].value.longitude_o = (data_right >> 16) & 0x000000FF;
-									document->gps.old.location[document->gps.old.location_count].value.altitude = data_right & 0x0000FFFF;
-
-									document->gps.old.location[document->gps.old.location_count].value.latitude_m = 0;
-									document->gps.old.location[document->gps.old.location_count].value.latitude_o = 0;
-									document->gps.old.location[document->gps.old.location_count].value.speed = 0;
-
-									lon_done = 1;
-									lat_done = 0;
-								}
-							}
-						} else {
-							if (document->gps.old.location_count < document->gps.old.location_size) {
-								document->gps.old.location[document->gps.old.location_count].timestamp = getCurrentTimestamp();
-								document->gps.old.location[document->gps.old.location_count].value.longitude_m = (double)(((((data_left >> 8) & 0x0000FFFF) << 8) * 10000) + (((data_left & 0x000000FF) * 0xFF) << 8) + ((data_right >> 24) & 0x000000FF)) / 10000.0;
-								document->gps.old.location[document->gps.old.location_count].value.longitude_o = (data_right >> 16) & 0x000000FF;
-								document->gps.old.location[document->gps.old.location_count].value.altitude = data_right & 0x0000FFFF;
-
-								document->gps.old.location[document->gps.old.location_count].value.latitude_m = 0;
-								document->gps.old.location[document->gps.old.location_count].value.latitude_o = 0;
-								document->gps.old.location[document->gps.old.location_count].value.speed = 0;
-
-								lon_done = 1;
-								lat_done = 0;
-							}
-						}
-						break;
-
-					case TIME_FB:
-						if (document->gps.old.time_count < document->gps.old.time_size) {
-							document->gps.old.time[document->gps.old.time_count].timestamp = getCurrentTimestamp();
-							document->gps.old.time[document->gps.old.time_count].value.hours = ((((data_left >> 16) & 0x000000FF) - 48) * 10) + (((data_left >> 8) & 0x000000FF) - 48);
-							document->gps.old.time[document->gps.old.time_count].value.minutes = (((data_left & 0x000000FF) - 48) * 10) + (((data_right >> 24) & 0x000000FF) - 48);
-							document->gps.old.time[document->gps.old.time_count].value.seconds = ((((data_right >> 16) & 0x000000FF) - 48) * 10) + (((data_right >> 8) & 0x000000FF) - 48);
-							++(document->gps.old.time_count);
-						}
-						break;
-
-					case TTM_FB:
-						if (document->gps.old.true_track_mode_count < document->gps.old.true_track_mode_size) {
-							document->gps.old.true_track_mode[document->gps.old.true_track_mode_count].timestamp = getCurrentTimestamp();
-							document->gps.old.true_track_mode[document->gps.old.true_track_mode_count].value = (data_left >> 8) & 0x0000FFFF;
-							++(document->gps.old.true_track_mode_count);
-						}
-						break;
-
 					case FRONT_WHEELS_FB_SPEED_FB:
 						if (document->front_wheels_encoders.right.speed_count < document->front_wheels_encoders.right.speed_size) {
 							document->front_wheels_encoders.right.speed[document->front_wheels_encoders.right.speed_count].timestamp = getCurrentTimestamp();

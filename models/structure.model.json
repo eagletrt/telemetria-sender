@@ -138,96 +138,60 @@
         ]
     },
     "gps": {
-        "new": {
-            "gga": [
-                {
-                    "timestamp": "long",
-                    "value": {
-                        "latitude_safe": "double",
-                        "longitude_safe": "double",
-                        "latitude": "double",
-                        "longitude": "double",
-                        "altitude": "double",
-                        "ns_indicator": "char*",
-                        "ew_indicator": "char*",
-                        "utc_time": "char*"
-                    }
-                },
-                500
-            ],
-            "gll": [
-                {
-                    "timestamp": "long",
-                    "value": {
-                        "latitude": "double",
-                        "longitude": "double",
-                        "ns_indicator": "char*",
-                        "ew_indicator": "char*",
-                        "utc_time": "char*"
-                    }
-                },
-                500
-            ],
-            "vtg": [
-                {
-                    "timestamp": "long",
-                    "value": {
-                        "ground_speed_knots": "double",
-                        "ground_speed_human": "double"
-                    }
-                },
-                500
-            ],
-            "rmc": [
-                {
-                    "timestamp": "long",
-                    "value": {
-                        "latitude": "double",
-                        "longitude": "double",
-                        "ns_indicator": "char*",
-                        "ew_indicator": "char*",
-                        "utc_time": "char*",
-                        "date": "char*",
-                        "ground_speed_knots": "double"
-                    }
-                },
-                500
-            ]
-        },
-        "old": {
-            "location": [
-                {
-                    "timestamp": "long",
-                    "value": {
-                        "latitude_m": "double",
-                        "latitude_o": "int",
-                        "longitude_m": "double",
-                        "longitude_o": "int",
-                        "speed": "double",
-                        "altitude": "double"
-                    }
-                },
-                500
-            ],
-            "time": [
-                {
-                    "timestamp": "long",
-                    "value": {
-                        "hours": "int",
-                        "minutes": "int",
-                        "seconds": "int"
-                    }
-                },
-                500
-            ],
-            "true_track_mode": [
-                {
-                    "timestamp": "long",
-                    "value": "int"
-                },
-                500
-            ]
-        }
+        "gga": [
+            {
+                "timestamp": "long",
+                "value": {
+                    "latitude_safe": "double",
+                    "longitude_safe": "double",
+                    "latitude": "double",
+                    "longitude": "double",
+                    "altitude": "double",
+                    "ns_indicator": "char*",
+                    "ew_indicator": "char*",
+                    "utc_time": "char*"
+                }
+            },
+            500
+        ],
+        "gll": [
+            {
+                "timestamp": "long",
+                "value": {
+                    "latitude": "double",
+                    "longitude": "double",
+                    "ns_indicator": "char*",
+                    "ew_indicator": "char*",
+                    "utc_time": "char*"
+                }
+            },
+            500
+        ],
+        "vtg": [
+            {
+                "timestamp": "long",
+                "value": {
+                    "ground_speed_knots": "double",
+                    "ground_speed_human": "double"
+                }
+            },
+            500
+        ],
+        "rmc": [
+            {
+                "timestamp": "long",
+                "value": {
+                    "latitude": "double",
+                    "longitude": "double",
+                    "ns_indicator": "char*",
+                    "ew_indicator": "char*",
+                    "utc_time": "char*",
+                    "date": "char*",
+                    "ground_speed_knots": "double"
+                }
+            },
+            500
+        ]
     },
     "imu_old": {
         "gyro": [
