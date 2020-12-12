@@ -1,6 +1,6 @@
 [
     {
-        "message": "gps.new.gga",
+        "message": "gps.gga",
         "values": [
             {
                 "altitude": 46.1,
@@ -75,7 +75,7 @@
         ]
     },
     {
-        "message": "gps.new.gll",
+        "message": "gps.gll",
         "values": [
             {
                 "ew_indicator": "E",
@@ -122,7 +122,7 @@
         ]
     },
     {
-        "message": "gps.new.rmc",
+        "message": "gps.rmc",
         "values": [
             {
                 "date": "230220",
@@ -199,7 +199,7 @@
         ]
     },
     {
-        "message": "gps.new.vtg",
+        "message": "gps.vtg",
         "values": [
             {
                 "ground_speed_human": 0.19,

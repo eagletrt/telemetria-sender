@@ -1,6 +1,6 @@
 [
     {
-        "message": "gps.new.gga",
+        "message": "gps.gga",
         "values": [
             {
                 "altitude": 46.1,

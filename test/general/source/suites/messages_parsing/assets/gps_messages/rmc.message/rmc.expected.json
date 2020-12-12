@@ -1,6 +1,6 @@
 [
     {
-        "message": "gps.new.rmc",
+        "message": "gps.rmc",
         "values": [
             {
                 "date": "230220",
