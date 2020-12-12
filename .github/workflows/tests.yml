@@ -46,4 +46,3 @@ jobs:
 
       - name: Test general
         run: cd test && npm run test:general
-        timeout-minutes: 6
