@@ -56,51 +56,51 @@ static void* parseGpsMessages(void *args) {
 		// Parse gps message
 		if (gps_data != NULL) {
 
-			if (gps_data->gga && gps_data->gga->status && document->gps.new.gga_count < document->gps.new.gga_size) {
-				document->gps.new.gga[document->gps.new.gga_count].timestamp = getCurrentTimestamp();
+			if (gps_data->gga && gps_data->gga->status && document->gps.gga_count < document->gps.gga_size) {
+				document->gps.gga[document->gps.gga_count].timestamp = getCurrentTimestamp();
 
-				document->gps.new.gga[document->gps.new.gga_count].value.latitude_safe = gps_data->gga->latitude;
-				document->gps.new.gga[document->gps.new.gga_count].value.longitude_safe = gps_data->gga->longitude;
-				document->gps.new.gga[document->gps.new.gga_count].value.latitude = parseNmeaCoord(gps_data->gga->latitude);
-				document->gps.new.gga[document->gps.new.gga_count].value.longitude = parseNmeaCoord(gps_data->gga->longitude);
-				document->gps.new.gga[document->gps.new.gga_count].value.altitude = gps_data->gga->altitude;
-				document->gps.new.gga[document->gps.new.gga_count].value.ns_indicator = strdup(gps_data->gga->ns_indicator);
-				document->gps.new.gga[document->gps.new.gga_count].value.ew_indicator = strdup(gps_data->gga->ew_indicator);
-				document->gps.new.gga[document->gps.new.gga_count].value.utc_time = strdup(gps_data->gga->utc_time);
+				document->gps.gga[document->gps.gga_count].value.latitude_safe = gps_data->gga->latitude;
+				document->gps.gga[document->gps.gga_count].value.longitude_safe = gps_data->gga->longitude;
+				document->gps.gga[document->gps.gga_count].value.latitude = parseNmeaCoord(gps_data->gga->latitude);
+				document->gps.gga[document->gps.gga_count].value.longitude = parseNmeaCoord(gps_data->gga->longitude);
+				document->gps.gga[document->gps.gga_count].value.altitude = gps_data->gga->altitude;
+				document->gps.gga[document->gps.gga_count].value.ns_indicator = strdup(gps_data->gga->ns_indicator);
+				document->gps.gga[document->gps.gga_count].value.ew_indicator = strdup(gps_data->gga->ew_indicator);
+				document->gps.gga[document->gps.gga_count].value.utc_time = strdup(gps_data->gga->utc_time);
 
-				++(document->gps.new.gga_count);
+				++(document->gps.gga_count);
 			}
-			else if (gps_data->gll && gps_data->gll->status && document->gps.new.gll_count < document->gps.new.gll_size) {
-				document->gps.new.gll[document->gps.new.gll_count].timestamp = getCurrentTimestamp();
+			else if (gps_data->gll && gps_data->gll->status && document->gps.gll_count < document->gps.gll_size) {
+				document->gps.gll[document->gps.gll_count].timestamp = getCurrentTimestamp();
 
-				document->gps.new.gll[document->gps.new.gll_count].value.latitude = parseNmeaCoord(gps_data->gll->latitude);
-				document->gps.new.gll[document->gps.new.gll_count].value.longitude = parseNmeaCoord(gps_data->gll->longitude);
-				document->gps.new.gll[document->gps.new.gll_count].value.ns_indicator = strdup(gps_data->gll->ns_indicator);
-				document->gps.new.gll[document->gps.new.gll_count].value.ew_indicator = strdup(gps_data->gll->ew_indicator);
-				document->gps.new.gll[document->gps.new.gll_count].value.utc_time = strdup(gps_data->gll->utc_time);
+				document->gps.gll[document->gps.gll_count].value.latitude = parseNmeaCoord(gps_data->gll->latitude);
+				document->gps.gll[document->gps.gll_count].value.longitude = parseNmeaCoord(gps_data->gll->longitude);
+				document->gps.gll[document->gps.gll_count].value.ns_indicator = strdup(gps_data->gll->ns_indicator);
+				document->gps.gll[document->gps.gll_count].value.ew_indicator = strdup(gps_data->gll->ew_indicator);
+				document->gps.gll[document->gps.gll_count].value.utc_time = strdup(gps_data->gll->utc_time);
 
-				++(document->gps.new.gll_count);
+				++(document->gps.gll_count);
 			}
-			else if (gps_data->vtg && document->gps.new.vtg_count < document->gps.new.vtg_size) {
-				document->gps.new.vtg[document->gps.new.vtg_count].timestamp = getCurrentTimestamp();
+			else if (gps_data->vtg && document->gps.vtg_count < document->gps.vtg_size) {
+				document->gps.vtg[document->gps.vtg_count].timestamp = getCurrentTimestamp();
 
-				document->gps.new.vtg[document->gps.new.vtg_count].value.ground_speed_knots = gps_data->vtg->ground_speed_knots;
-				document->gps.new.vtg[document->gps.new.vtg_count].value.ground_speed_human = gps_data->vtg->ground_speed_human;
+				document->gps.vtg[document->gps.vtg_count].value.ground_speed_knots = gps_data->vtg->ground_speed_knots;
+				document->gps.vtg[document->gps.vtg_count].value.ground_speed_human = gps_data->vtg->ground_speed_human;
 
-				++(document->gps.new.vtg_count);
+				++(document->gps.vtg_count);
 			}
-			else if (gps_data->rmc && gps_data->rmc->status && document->gps.new.rmc_count < document->gps.new.rmc_size) {
-				document->gps.new.rmc[document->gps.new.rmc_count].timestamp = getCurrentTimestamp();
+			else if (gps_data->rmc && gps_data->rmc->status && document->gps.rmc_count < document->gps.rmc_size) {
+				document->gps.rmc[document->gps.rmc_count].timestamp = getCurrentTimestamp();
 
-				document->gps.new.rmc[document->gps.new.rmc_count].value.latitude = parseNmeaCoord(gps_data->rmc->latitude);
-				document->gps.new.rmc[document->gps.new.rmc_count].value.longitude = parseNmeaCoord(gps_data->rmc->longitude);
-				document->gps.new.rmc[document->gps.new.rmc_count].value.ns_indicator = strdup(gps_data->rmc->ns_indicator);
-				document->gps.new.rmc[document->gps.new.rmc_count].value.ew_indicator = strdup(gps_data->rmc->ew_indicator);
-				document->gps.new.rmc[document->gps.new.rmc_count].value.utc_time = strdup(gps_data->rmc->utc_time);
-				document->gps.new.rmc[document->gps.new.rmc_count].value.date = strdup(gps_data->rmc->date);
-				document->gps.new.rmc[document->gps.new.rmc_count].value.ground_speed_knots = gps_data->rmc->ground_speed_knots;
+				document->gps.rmc[document->gps.rmc_count].value.latitude = parseNmeaCoord(gps_data->rmc->latitude);
+				document->gps.rmc[document->gps.rmc_count].value.longitude = parseNmeaCoord(gps_data->rmc->longitude);
+				document->gps.rmc[document->gps.rmc_count].value.ns_indicator = strdup(gps_data->rmc->ns_indicator);
+				document->gps.rmc[document->gps.rmc_count].value.ew_indicator = strdup(gps_data->rmc->ew_indicator);
+				document->gps.rmc[document->gps.rmc_count].value.utc_time = strdup(gps_data->rmc->utc_time);
+				document->gps.rmc[document->gps.rmc_count].value.date = strdup(gps_data->rmc->date);
+				document->gps.rmc[document->gps.rmc_count].value.ground_speed_knots = gps_data->rmc->ground_speed_knots;
 
-				++(document->gps.new.rmc_count);
+				++(document->gps.rmc_count);
 			} 
 			
 			gpsFree(gps_data);

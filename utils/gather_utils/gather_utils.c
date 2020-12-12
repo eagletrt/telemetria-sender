@@ -48,27 +48,18 @@ data_t* gatherCreateData() {
 	data->bms_lv.errors_size = 500;
 	data->bms_lv.errors = (bms_lv_errors_data*) malloc(sizeof(bms_lv_errors_data) * data->bms_lv.errors_size);
 	data->bms_lv.errors_count = 0;
-	data->gps.new.gga_size = 500;
-	data->gps.new.gga = (gps_new_gga_data*) malloc(sizeof(gps_new_gga_data) * data->gps.new.gga_size);
-	data->gps.new.gga_count = 0;
-	data->gps.new.gll_size = 500;
-	data->gps.new.gll = (gps_new_gll_data*) malloc(sizeof(gps_new_gll_data) * data->gps.new.gll_size);
-	data->gps.new.gll_count = 0;
-	data->gps.new.vtg_size = 500;
-	data->gps.new.vtg = (gps_new_vtg_data*) malloc(sizeof(gps_new_vtg_data) * data->gps.new.vtg_size);
-	data->gps.new.vtg_count = 0;
-	data->gps.new.rmc_size = 500;
-	data->gps.new.rmc = (gps_new_rmc_data*) malloc(sizeof(gps_new_rmc_data) * data->gps.new.rmc_size);
-	data->gps.new.rmc_count = 0;
-	data->gps.old.location_size = 500;
-	data->gps.old.location = (gps_old_location_data*) malloc(sizeof(gps_old_location_data) * data->gps.old.location_size);
-	data->gps.old.location_count = 0;
-	data->gps.old.time_size = 500;
-	data->gps.old.time = (gps_old_time_data*) malloc(sizeof(gps_old_time_data) * data->gps.old.time_size);
-	data->gps.old.time_count = 0;
-	data->gps.old.true_track_mode_size = 500;
-	data->gps.old.true_track_mode = (gps_old_true_track_mode_data*) malloc(sizeof(gps_old_true_track_mode_data) * data->gps.old.true_track_mode_size);
-	data->gps.old.true_track_mode_count = 0;
+	data->gps.gga_size = 500;
+	data->gps.gga = (gps_gga_data*) malloc(sizeof(gps_gga_data) * data->gps.gga_size);
+	data->gps.gga_count = 0;
+	data->gps.gll_size = 500;
+	data->gps.gll = (gps_gll_data*) malloc(sizeof(gps_gll_data) * data->gps.gll_size);
+	data->gps.gll_count = 0;
+	data->gps.vtg_size = 500;
+	data->gps.vtg = (gps_vtg_data*) malloc(sizeof(gps_vtg_data) * data->gps.vtg_size);
+	data->gps.vtg_count = 0;
+	data->gps.rmc_size = 500;
+	data->gps.rmc = (gps_rmc_data*) malloc(sizeof(gps_rmc_data) * data->gps.rmc_size);
+	data->gps.rmc_count = 0;
 	data->imu_old.gyro_size = 500;
 	data->imu_old.gyro = (imu_old_gyro_data*) malloc(sizeof(imu_old_gyro_data) * data->imu_old.gyro_size);
 	data->imu_old.gyro_count = 0;
@@ -134,13 +125,10 @@ void gatherDeleteData(data_t *data) {
 	free(data->bms_hv.warnings);
 	free(data->bms_lv.values);
 	free(data->bms_lv.errors);
-	free(data->gps.new.gga);
-	free(data->gps.new.gll);
-	free(data->gps.new.vtg);
-	free(data->gps.new.rmc);
-	free(data->gps.old.location);
-	free(data->gps.old.time);
-	free(data->gps.old.true_track_mode);
+	free(data->gps.gga);
+	free(data->gps.gll);
+	free(data->gps.vtg);
+	free(data->gps.rmc);
 	free(data->imu_old.gyro);
 	free(data->imu_old.accel);
 	free(data->imu.gyro);
@@ -373,131 +361,79 @@ void gatherDataToBson(data_t *data, bson_t** bson_document) {
 	bson_append_document_end(*bson_document, &children[0]);
 	bson_destroy(&children[0]);
 	BSON_APPEND_DOCUMENT_BEGIN(*bson_document, "gps", &children[0]);
-	BSON_APPEND_DOCUMENT_BEGIN(&children[0], "new", &children[1]);
-	BSON_APPEND_ARRAY_BEGIN(&children[1], "gga", &children[2]);
-	for (int i = 0; i < (data->gps.new.gga_count); i++)
+	BSON_APPEND_ARRAY_BEGIN(&children[0], "gga", &children[1]);
+	for (int i = 0; i < (data->gps.gga_count); i++)
 	{
-		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "0", &children[3]);
-		BSON_APPEND_INT64(&children[3], "timestamp", data->gps.new.gga[i].timestamp);
-		BSON_APPEND_DOCUMENT_BEGIN(&children[3], "value", &children[4]);
-		BSON_APPEND_DOUBLE(&children[4], "latitude_safe", data->gps.new.gga[i].value.latitude_safe);
-		BSON_APPEND_DOUBLE(&children[4], "longitude_safe", data->gps.new.gga[i].value.longitude_safe);
-		BSON_APPEND_DOUBLE(&children[4], "latitude", data->gps.new.gga[i].value.latitude);
-		BSON_APPEND_DOUBLE(&children[4], "longitude", data->gps.new.gga[i].value.longitude);
-		BSON_APPEND_DOUBLE(&children[4], "altitude", data->gps.new.gga[i].value.altitude);
-		BSON_APPEND_UTF8(&children[4], "ns_indicator", data->gps.new.gga[i].value.ns_indicator);
-		BSON_APPEND_UTF8(&children[4], "ew_indicator", data->gps.new.gga[i].value.ew_indicator);
-		BSON_APPEND_UTF8(&children[4], "utc_time", data->gps.new.gga[i].value.utc_time);
-		bson_append_document_end(&children[3], &children[4]);
-		bson_destroy(&children[4]);
+		BSON_APPEND_DOCUMENT_BEGIN(&children[1], "0", &children[2]);
+		BSON_APPEND_INT64(&children[2], "timestamp", data->gps.gga[i].timestamp);
+		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "value", &children[3]);
+		BSON_APPEND_DOUBLE(&children[3], "latitude_safe", data->gps.gga[i].value.latitude_safe);
+		BSON_APPEND_DOUBLE(&children[3], "longitude_safe", data->gps.gga[i].value.longitude_safe);
+		BSON_APPEND_DOUBLE(&children[3], "latitude", data->gps.gga[i].value.latitude);
+		BSON_APPEND_DOUBLE(&children[3], "longitude", data->gps.gga[i].value.longitude);
+		BSON_APPEND_DOUBLE(&children[3], "altitude", data->gps.gga[i].value.altitude);
+		BSON_APPEND_UTF8(&children[3], "ns_indicator", data->gps.gga[i].value.ns_indicator);
+		BSON_APPEND_UTF8(&children[3], "ew_indicator", data->gps.gga[i].value.ew_indicator);
+		BSON_APPEND_UTF8(&children[3], "utc_time", data->gps.gga[i].value.utc_time);
 		bson_append_document_end(&children[2], &children[3]);
 		bson_destroy(&children[3]);
+		bson_append_document_end(&children[1], &children[2]);
+		bson_destroy(&children[2]);
 	}
-	bson_append_array_end(&children[1], &children[2]);
-	bson_destroy(&children[2]);
-	BSON_APPEND_ARRAY_BEGIN(&children[1], "gll", &children[2]);
-	for (int i = 0; i < (data->gps.new.gll_count); i++)
-	{
-		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "0", &children[3]);
-		BSON_APPEND_INT64(&children[3], "timestamp", data->gps.new.gll[i].timestamp);
-		BSON_APPEND_DOCUMENT_BEGIN(&children[3], "value", &children[4]);
-		BSON_APPEND_DOUBLE(&children[4], "latitude", data->gps.new.gll[i].value.latitude);
-		BSON_APPEND_DOUBLE(&children[4], "longitude", data->gps.new.gll[i].value.longitude);
-		BSON_APPEND_UTF8(&children[4], "ns_indicator", data->gps.new.gll[i].value.ns_indicator);
-		BSON_APPEND_UTF8(&children[4], "ew_indicator", data->gps.new.gll[i].value.ew_indicator);
-		BSON_APPEND_UTF8(&children[4], "utc_time", data->gps.new.gll[i].value.utc_time);
-		bson_append_document_end(&children[3], &children[4]);
-		bson_destroy(&children[4]);
-		bson_append_document_end(&children[2], &children[3]);
-		bson_destroy(&children[3]);
-	}
-	bson_append_array_end(&children[1], &children[2]);
-	bson_destroy(&children[2]);
-	BSON_APPEND_ARRAY_BEGIN(&children[1], "vtg", &children[2]);
-	for (int i = 0; i < (data->gps.new.vtg_count); i++)
-	{
-		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "0", &children[3]);
-		BSON_APPEND_INT64(&children[3], "timestamp", data->gps.new.vtg[i].timestamp);
-		BSON_APPEND_DOCUMENT_BEGIN(&children[3], "value", &children[4]);
-		BSON_APPEND_DOUBLE(&children[4], "ground_speed_knots", data->gps.new.vtg[i].value.ground_speed_knots);
-		BSON_APPEND_DOUBLE(&children[4], "ground_speed_human", data->gps.new.vtg[i].value.ground_speed_human);
-		bson_append_document_end(&children[3], &children[4]);
-		bson_destroy(&children[4]);
-		bson_append_document_end(&children[2], &children[3]);
-		bson_destroy(&children[3]);
-	}
-	bson_append_array_end(&children[1], &children[2]);
-	bson_destroy(&children[2]);
-	BSON_APPEND_ARRAY_BEGIN(&children[1], "rmc", &children[2]);
-	for (int i = 0; i < (data->gps.new.rmc_count); i++)
-	{
-		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "0", &children[3]);
-		BSON_APPEND_INT64(&children[3], "timestamp", data->gps.new.rmc[i].timestamp);
-		BSON_APPEND_DOCUMENT_BEGIN(&children[3], "value", &children[4]);
-		BSON_APPEND_DOUBLE(&children[4], "latitude", data->gps.new.rmc[i].value.latitude);
-		BSON_APPEND_DOUBLE(&children[4], "longitude", data->gps.new.rmc[i].value.longitude);
-		BSON_APPEND_UTF8(&children[4], "ns_indicator", data->gps.new.rmc[i].value.ns_indicator);
-		BSON_APPEND_UTF8(&children[4], "ew_indicator", data->gps.new.rmc[i].value.ew_indicator);
-		BSON_APPEND_UTF8(&children[4], "utc_time", data->gps.new.rmc[i].value.utc_time);
-		BSON_APPEND_UTF8(&children[4], "date", data->gps.new.rmc[i].value.date);
-		BSON_APPEND_DOUBLE(&children[4], "ground_speed_knots", data->gps.new.rmc[i].value.ground_speed_knots);
-		bson_append_document_end(&children[3], &children[4]);
-		bson_destroy(&children[4]);
-		bson_append_document_end(&children[2], &children[3]);
-		bson_destroy(&children[3]);
-	}
-	bson_append_array_end(&children[1], &children[2]);
-	bson_destroy(&children[2]);
-	bson_append_document_end(&children[0], &children[1]);
+	bson_append_array_end(&children[0], &children[1]);
 	bson_destroy(&children[1]);
-	BSON_APPEND_DOCUMENT_BEGIN(&children[0], "old", &children[1]);
-	BSON_APPEND_ARRAY_BEGIN(&children[1], "location", &children[2]);
-	for (int i = 0; i < (data->gps.old.location_count); i++)
+	BSON_APPEND_ARRAY_BEGIN(&children[0], "gll", &children[1]);
+	for (int i = 0; i < (data->gps.gll_count); i++)
 	{
-		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "0", &children[3]);
-		BSON_APPEND_INT64(&children[3], "timestamp", data->gps.old.location[i].timestamp);
-		BSON_APPEND_DOCUMENT_BEGIN(&children[3], "value", &children[4]);
-		BSON_APPEND_DOUBLE(&children[4], "latitude_m", data->gps.old.location[i].value.latitude_m);
-		BSON_APPEND_INT32(&children[4], "latitude_o", data->gps.old.location[i].value.latitude_o);
-		BSON_APPEND_DOUBLE(&children[4], "longitude_m", data->gps.old.location[i].value.longitude_m);
-		BSON_APPEND_INT32(&children[4], "longitude_o", data->gps.old.location[i].value.longitude_o);
-		BSON_APPEND_DOUBLE(&children[4], "speed", data->gps.old.location[i].value.speed);
-		BSON_APPEND_DOUBLE(&children[4], "altitude", data->gps.old.location[i].value.altitude);
-		bson_append_document_end(&children[3], &children[4]);
-		bson_destroy(&children[4]);
+		BSON_APPEND_DOCUMENT_BEGIN(&children[1], "0", &children[2]);
+		BSON_APPEND_INT64(&children[2], "timestamp", data->gps.gll[i].timestamp);
+		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "value", &children[3]);
+		BSON_APPEND_DOUBLE(&children[3], "latitude", data->gps.gll[i].value.latitude);
+		BSON_APPEND_DOUBLE(&children[3], "longitude", data->gps.gll[i].value.longitude);
+		BSON_APPEND_UTF8(&children[3], "ns_indicator", data->gps.gll[i].value.ns_indicator);
+		BSON_APPEND_UTF8(&children[3], "ew_indicator", data->gps.gll[i].value.ew_indicator);
+		BSON_APPEND_UTF8(&children[3], "utc_time", data->gps.gll[i].value.utc_time);
 		bson_append_document_end(&children[2], &children[3]);
 		bson_destroy(&children[3]);
+		bson_append_document_end(&children[1], &children[2]);
+		bson_destroy(&children[2]);
 	}
-	bson_append_array_end(&children[1], &children[2]);
-	bson_destroy(&children[2]);
-	BSON_APPEND_ARRAY_BEGIN(&children[1], "time", &children[2]);
-	for (int i = 0; i < (data->gps.old.time_count); i++)
+	bson_append_array_end(&children[0], &children[1]);
+	bson_destroy(&children[1]);
+	BSON_APPEND_ARRAY_BEGIN(&children[0], "vtg", &children[1]);
+	for (int i = 0; i < (data->gps.vtg_count); i++)
 	{
-		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "0", &children[3]);
-		BSON_APPEND_INT64(&children[3], "timestamp", data->gps.old.time[i].timestamp);
-		BSON_APPEND_DOCUMENT_BEGIN(&children[3], "value", &children[4]);
-		BSON_APPEND_INT32(&children[4], "hours", data->gps.old.time[i].value.hours);
-		BSON_APPEND_INT32(&children[4], "minutes", data->gps.old.time[i].value.minutes);
-		BSON_APPEND_INT32(&children[4], "seconds", data->gps.old.time[i].value.seconds);
-		bson_append_document_end(&children[3], &children[4]);
-		bson_destroy(&children[4]);
+		BSON_APPEND_DOCUMENT_BEGIN(&children[1], "0", &children[2]);
+		BSON_APPEND_INT64(&children[2], "timestamp", data->gps.vtg[i].timestamp);
+		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "value", &children[3]);
+		BSON_APPEND_DOUBLE(&children[3], "ground_speed_knots", data->gps.vtg[i].value.ground_speed_knots);
+		BSON_APPEND_DOUBLE(&children[3], "ground_speed_human", data->gps.vtg[i].value.ground_speed_human);
 		bson_append_document_end(&children[2], &children[3]);
 		bson_destroy(&children[3]);
+		bson_append_document_end(&children[1], &children[2]);
+		bson_destroy(&children[2]);
 	}
-	bson_append_array_end(&children[1], &children[2]);
-	bson_destroy(&children[2]);
-	BSON_APPEND_ARRAY_BEGIN(&children[1], "true_track_mode", &children[2]);
-	for (int i = 0; i < (data->gps.old.true_track_mode_count); i++)
+	bson_append_array_end(&children[0], &children[1]);
+	bson_destroy(&children[1]);
+	BSON_APPEND_ARRAY_BEGIN(&children[0], "rmc", &children[1]);
+	for (int i = 0; i < (data->gps.rmc_count); i++)
 	{
-		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "0", &children[3]);
-		BSON_APPEND_INT64(&children[3], "timestamp", data->gps.old.true_track_mode[i].timestamp);
-		BSON_APPEND_INT32(&children[3], "value", data->gps.old.true_track_mode[i].value);
+		BSON_APPEND_DOCUMENT_BEGIN(&children[1], "0", &children[2]);
+		BSON_APPEND_INT64(&children[2], "timestamp", data->gps.rmc[i].timestamp);
+		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "value", &children[3]);
+		BSON_APPEND_DOUBLE(&children[3], "latitude", data->gps.rmc[i].value.latitude);
+		BSON_APPEND_DOUBLE(&children[3], "longitude", data->gps.rmc[i].value.longitude);
+		BSON_APPEND_UTF8(&children[3], "ns_indicator", data->gps.rmc[i].value.ns_indicator);
+		BSON_APPEND_UTF8(&children[3], "ew_indicator", data->gps.rmc[i].value.ew_indicator);
+		BSON_APPEND_UTF8(&children[3], "utc_time", data->gps.rmc[i].value.utc_time);
+		BSON_APPEND_UTF8(&children[3], "date", data->gps.rmc[i].value.date);
+		BSON_APPEND_DOUBLE(&children[3], "ground_speed_knots", data->gps.rmc[i].value.ground_speed_knots);
 		bson_append_document_end(&children[2], &children[3]);
 		bson_destroy(&children[3]);
+		bson_append_document_end(&children[1], &children[2]);
+		bson_destroy(&children[2]);
 	}
-	bson_append_array_end(&children[1], &children[2]);
-	bson_destroy(&children[2]);
-	bson_append_document_end(&children[0], &children[1]);
+	bson_append_array_end(&children[0], &children[1]);
 	bson_destroy(&children[1]);
 	bson_append_document_end(*bson_document, &children[0]);
 	bson_destroy(&children[0]);

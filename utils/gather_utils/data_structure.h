@@ -179,12 +179,12 @@ typedef struct {
 	char* ns_indicator;
 	char* ew_indicator;
 	char* utc_time;
-} gps_new_gga_value_data;
+} gps_gga_value_data;
 
 typedef struct {
 	long timestamp;
-	gps_new_gga_value_data value;
-} gps_new_gga_data;
+	gps_gga_value_data value;
+} gps_gga_data;
 
 typedef struct {
 	double latitude;
@@ -192,22 +192,22 @@ typedef struct {
 	char* ns_indicator;
 	char* ew_indicator;
 	char* utc_time;
-} gps_new_gll_value_data;
+} gps_gll_value_data;
 
 typedef struct {
 	long timestamp;
-	gps_new_gll_value_data value;
-} gps_new_gll_data;
+	gps_gll_value_data value;
+} gps_gll_data;
 
 typedef struct {
 	double ground_speed_knots;
 	double ground_speed_human;
-} gps_new_vtg_value_data;
+} gps_vtg_value_data;
 
 typedef struct {
 	long timestamp;
-	gps_new_vtg_value_data value;
-} gps_new_vtg_data;
+	gps_vtg_value_data value;
+} gps_vtg_data;
 
 typedef struct {
 	double latitude;
@@ -217,73 +217,26 @@ typedef struct {
 	char* utc_time;
 	char* date;
 	double ground_speed_knots;
-} gps_new_rmc_value_data;
+} gps_rmc_value_data;
 
 typedef struct {
 	long timestamp;
-	gps_new_rmc_value_data value;
-} gps_new_rmc_data;
+	gps_rmc_value_data value;
+} gps_rmc_data;
 
 typedef struct {
-	gps_new_gga_data *gga;
+	gps_gga_data *gga;
 	int gga_count;
 	int gga_size;
-	gps_new_gll_data *gll;
+	gps_gll_data *gll;
 	int gll_count;
 	int gll_size;
-	gps_new_vtg_data *vtg;
+	gps_vtg_data *vtg;
 	int vtg_count;
 	int vtg_size;
-	gps_new_rmc_data *rmc;
+	gps_rmc_data *rmc;
 	int rmc_count;
 	int rmc_size;
-} gps_new_data;
-
-typedef struct {
-	double latitude_m;
-	int latitude_o;
-	double longitude_m;
-	int longitude_o;
-	double speed;
-	double altitude;
-} gps_old_location_value_data;
-
-typedef struct {
-	long timestamp;
-	gps_old_location_value_data value;
-} gps_old_location_data;
-
-typedef struct {
-	int hours;
-	int minutes;
-	int seconds;
-} gps_old_time_value_data;
-
-typedef struct {
-	long timestamp;
-	gps_old_time_value_data value;
-} gps_old_time_data;
-
-typedef struct {
-	long timestamp;
-	int value;
-} gps_old_true_track_mode_data;
-
-typedef struct {
-	gps_old_location_data *location;
-	int location_count;
-	int location_size;
-	gps_old_time_data *time;
-	int time_count;
-	int time_size;
-	gps_old_true_track_mode_data *true_track_mode;
-	int true_track_mode_count;
-	int true_track_mode_size;
-} gps_old_data;
-
-typedef struct {
-	gps_new_data new;
-	gps_old_data old;
 } gps_data;
 
 typedef struct {
