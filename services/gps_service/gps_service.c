@@ -433,7 +433,7 @@ static void freeRMC(gps_rmc_struct *message) {
 static double parseCoordinates(double raw) {
 	double temp = raw / 100.;
 	double left = floor(temp);
-	double right = (temp - left) * (5./3.);
+	double right = (temp - left) * (5.0 / 3.0);
 	return (left + right) * 100;
 }
 
