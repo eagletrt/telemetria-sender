@@ -137,27 +137,27 @@ function testMessageFolder(name: string, path: string, keys: string[]): void {
             await telemetryProcessInstance.stop();
         });
 
-        it(`Should parse the messages in either ${canLogName} or ${gpsLogName} and save them in mongodb as in ${expectedJsonName}`, async function () {
-            const expectedDetails = JSON.parse(fs.readFileSync(expectedJsonPath, 'utf-8'));
+        // it(`Should parse the messages in either ${canLogName} or ${gpsLogName} and save them in mongodb as in ${expectedJsonName}`, async function () {
+        //     const expectedDetails = JSON.parse(fs.readFileSync(expectedJsonPath, 'utf-8'));
 
-            for (const expectedDetail of expectedDetails) {
-                const message = expectedDetail.message;
-                const expectedValues = expectedDetail.values;
+        //     for (const expectedDetail of expectedDetails) {
+        //         const message = expectedDetail.message;
+        //         const expectedValues = expectedDetail.values;
 
-                const collection = mongoConnection.db(config.data.mongodb.db).collection(config.data.mongodb.collection);
-                const values = (await collection.aggregate([
-                    { $sort: { id: 1 } },
-                    { $match: { id: { $ne: undefined } } },
-                    { $project: { [message]: 1 } },
-                    { $unwind: { path: `$${message}`, preserveNullAndEmptyArrays: false } },
-                    { $sort: { [`${message}.timestamp`]: 1 } },
-                    { $project: { value: `$${message}.value` } } 
-                ]).toArray()).map(el => el.value);
+        //         const collection = mongoConnection.db(config.data.mongodb.db).collection(config.data.mongodb.collection);
+        //         const values = (await collection.aggregate([
+        //             { $sort: { id: 1 } },
+        //             { $match: { id: { $ne: undefined } } },
+        //             { $project: { [message]: 1 } },
+        //             { $unwind: { path: `$${message}`, preserveNullAndEmptyArrays: false } },
+        //             { $sort: { [`${message}.timestamp`]: 1 } },
+        //             { $project: { value: `$${message}.value` } } 
+        //         ]).toArray()).map(el => el.value);
 
-                expect(values).to.deep.equal(expectedValues);
-            }
+        //         expect(values).to.deep.equal(expectedValues);
+        //     }
 
-        });
+        // });
 
         it(`Should parse the messages in either ${canLogName} or ${gpsLogName} and send them on mqtt as in ${expectedJsonName}`, async function () {
             const expectedDetails = JSON.parse(fs.readFileSync(expectedJsonPath, 'utf-8'));

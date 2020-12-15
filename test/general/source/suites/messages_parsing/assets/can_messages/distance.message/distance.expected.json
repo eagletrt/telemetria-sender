@@ -3,22 +3,22 @@
         "message": "distance",
         "values": [
             {
-                "angle": 0,
-                "clock_period": 0,
                 "meters": 93,
-                "rotations": 75
+                "rotations": 75,
+                "angle": 0,
+                "clock_period": 0
             },
             {
-                "angle": 0,
-                "clock_period": 0,
                 "meters": 106,
-                "rotations": 86
+                "rotations": 86,
+                "angle": 0,
+                "clock_period": 0
             },
             {
-                "angle": 0,
-                "clock_period": 0,
                 "meters": 0,
-                "rotations": 0
+                "rotations": 0,
+                "angle": 0,
+                "clock_period": 0
             }
         ]
     }

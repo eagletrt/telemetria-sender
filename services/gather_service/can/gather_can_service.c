@@ -68,8 +68,7 @@ static void* parseCanMessages(void *args) {
 							byte_right = (data_left >> 16) & 0x000000FF;
 							temp = byte_left * 256 + byte_right;
 							document->inverters.right.temperature_igbt[document->inverters.right.temperature_igbt_count].timestamp = getCurrentTimestamp();
-							//TODO: very different uguale a python
-							document->inverters.right.temperature_igbt[document->inverters.right.temperature_igbt_count].value = (temp >= 32768 ? temp - 65536 : temp);
+							document->inverters.right.temperature_igbt[document->inverters.right.temperature_igbt_count].value = (temp - 15797) / 112.1182;
 							++(document->inverters.right.temperature_igbt_count);
 						}
 						break;
@@ -80,8 +79,7 @@ static void* parseCanMessages(void *args) {
 							byte_right = (data_left >> 16) & 0x000000FF;
 							temp = byte_left * 256 + byte_right;
 							document->inverters.right.temperature_motors[document->inverters.right.temperature_motors_count].timestamp = getCurrentTimestamp();
-							//TODO: very different uguale a python
-							document->inverters.right.temperature_motors[document->inverters.right.temperature_motors_count].value = (temp >= 32768 ? temp - 65536 : temp);
+							document->inverters.right.temperature_motors[document->inverters.right.temperature_motors_count].value = (temp - 9393.9) / 55.1;
 							++(document->inverters.right.temperature_motors_count);
 						}
 						break;
@@ -91,7 +89,7 @@ static void* parseCanMessages(void *args) {
 							byte_right = (data_left >> 16) & 0x000000FF;
 							temp = byte_left * 256 + byte_right;
 							document->inverters.right.torque[document->inverters.right.torque_count].timestamp = getCurrentTimestamp();
-							document->inverters.right.torque[document->inverters.right.torque_count].value = (temp >= 32768 ? temp - 65536 : temp);
+							document->inverters.right.torque[document->inverters.right.torque_count].value = (temp - 9393.9) / 55.1;
 							++(document->inverters.right.torque_count);
 						}
 						break;
@@ -117,8 +115,7 @@ static void* parseCanMessages(void *args) {
 							byte_right = (data_left >> 16) & 0x000000FF;
 							temp = byte_left * 256 + byte_right;
 							document->inverters.left.temperature_igbt[document->inverters.left.temperature_igbt_count].timestamp = getCurrentTimestamp();
-							//TODO: very different uguale a python
-							document->inverters.left.temperature_igbt[document->inverters.left.temperature_igbt_count].value = (temp >= 32768 ? temp - 65536 : temp);
+							document->inverters.left.temperature_igbt[document->inverters.left.temperature_igbt_count].value = (temp - 15797) / 112.1182;
 							++(document->inverters.left.temperature_igbt_count);
 						}
 						break;
@@ -129,8 +126,7 @@ static void* parseCanMessages(void *args) {
 							byte_right = (data_left >> 16) & 0x000000FF;
 							temp = byte_left * 256 + byte_right;
 							document->inverters.left.temperature_motors[document->inverters.left.temperature_motors_count].timestamp = getCurrentTimestamp();
-							//TODO: very different uguale a python
-							document->inverters.left.temperature_motors[document->inverters.left.temperature_motors_count].value = (temp >= 32768 ? temp - 65536 : temp);
+							document->inverters.left.temperature_motors[document->inverters.left.temperature_motors_count].value = (temp - 9393.9) / 55.1;
 							++(document->inverters.left.temperature_motors_count);
 						}
 						break;
@@ -140,7 +136,7 @@ static void* parseCanMessages(void *args) {
 							byte_right = (data_left >> 16) & 0x000000FF;
 							temp = byte_left * 256 + byte_right;
 							document->inverters.left.torque[document->inverters.left.torque_count].timestamp = getCurrentTimestamp();
-							document->inverters.left.torque[document->inverters.left.torque_count].value = (temp >= 32768 ? temp - 65536 : temp);
+							document->inverters.left.torque[document->inverters.left.torque_count].value = (temp - 9393.9) / 55.1;
 							++(document->inverters.left.torque_count);
 						}
 						break;
@@ -152,9 +148,9 @@ static void* parseCanMessages(void *args) {
 					case VOLTAGE_FB:
 						if (document->bms_hv.voltage_count < document->bms_hv.voltage_size) {
 							document->bms_hv.voltage[document->bms_hv.voltage_count].timestamp = getCurrentTimestamp();
-							document->bms_hv.voltage[document->bms_hv.voltage_count].value.total = (double)(data_left & 0x00FFFFFF) / 10000;
-							document->bms_hv.voltage[document->bms_hv.voltage_count].value.max = (double)((data_right >> 16) & 0x0000FFFF) / 10000;
-							document->bms_hv.voltage[document->bms_hv.voltage_count].value.min = (double)(data_right & 0x0000FFFF) / 10000;
+							document->bms_hv.voltage[document->bms_hv.voltage_count].value.total = (double)(data_left & 0x00FFFFFF) / 10000.0;
+							document->bms_hv.voltage[document->bms_hv.voltage_count].value.max = (double)((data_right >> 16) & 0x0000FFFF) / 10000.0;
+							document->bms_hv.voltage[document->bms_hv.voltage_count].value.min = (double)(data_right & 0x0000FFFF) / 10000.0;
 							++(document->bms_hv.voltage_count);
 						}
 						break;
@@ -162,9 +158,9 @@ static void* parseCanMessages(void *args) {
 					case TEMPERATURE_FB:
 						if (document->bms_hv.temperature_count < document->bms_hv.temperature_size) {
 							document->bms_hv.temperature[document->bms_hv.temperature_count].timestamp = getCurrentTimestamp();
-							document->bms_hv.temperature[document->bms_hv.temperature_count].value.average = ((data_left >> 8) & 0x0000FFFF) / 100;
-							document->bms_hv.temperature[document->bms_hv.temperature_count].value.max = (((data_left & 0x000000FF) * 256 + ((data_right >> 24) & 0x000000FF))) / 100;
-							document->bms_hv.temperature[document->bms_hv.temperature_count].value.min = ((data_right >> 8) & 0x0000FFFF) / 100;
+							document->bms_hv.temperature[document->bms_hv.temperature_count].value.average = ((data_left >> 8) & 0x0000FFFF) / 100.0;
+							document->bms_hv.temperature[document->bms_hv.temperature_count].value.max = (((data_left & 0x000000FF) * 256.0 + ((data_right >> 24) & 0x000000FF))) / 100.0;
+							document->bms_hv.temperature[document->bms_hv.temperature_count].value.min = ((data_right >> 8) & 0x0000FFFF) / 100.0;
 							++(document->bms_hv.temperature_count);
 						}
 						break;
@@ -172,8 +168,8 @@ static void* parseCanMessages(void *args) {
 					case CURRENT_FB:
 						if (document->bms_hv.current_count < document->bms_hv.current_size) {
 							document->bms_hv.current[document->bms_hv.current_count].timestamp = getCurrentTimestamp();
-							document->bms_hv.current[document->bms_hv.current_count].value.current = (double)((data_left >> 8) & 0x0000FFFF) / 10;
-							document->bms_hv.current[document->bms_hv.current_count].value.pow = (double)((data_left & 0x000000FF) * 256 + ((data_right >> 24) & 0x000000FF));
+							document->bms_hv.current[document->bms_hv.current_count].value.current = (double)((data_left >> 8) & 0x0000FFFF) / 10.0;
+							document->bms_hv.current[document->bms_hv.current_count].value.pow = (double)((data_left & 0x000000FF) * 256.0 + ((data_right >> 24) & 0x000000FF));
 							++(document->bms_hv.current_count);
 						}
 						break;
@@ -207,8 +203,8 @@ static void* parseCanMessages(void *args) {
 				} else if (first_byte == BRAKE_FB && document->pedals.brake_count < document->pedals.brake_size) {
 					document->pedals.brake[document->pedals.brake_count].timestamp = getCurrentTimestamp();
 					document->pedals.brake[document->pedals.brake_count].value.is_breaking = ((data_left >> 16) & 0x000000FF);
-					document->pedals.brake[document->pedals.brake_count].value.pressure_front = ((data_left & 0x0000FF00) + ((data_right >> 24) & 0x000000FF)) / 500;
-					document->pedals.brake[document->pedals.brake_count].value.pressure_back = (((data_right >> 8) & 0x0000FF00) + (data_right & 0x000000FF)) / 500;
+					document->pedals.brake[document->pedals.brake_count].value.pressure_front = ((data_left & 0x0000FF00) + ((data_right >> 24) & 0x000000FF)) / 500.0;
+					document->pedals.brake[document->pedals.brake_count].value.pressure_back = (((data_right >> 8) & 0x0000FF00) + (data_right & 0x000000FF)) / 500.0;
 
 					++(document->pedals.brake_count);
 				}
@@ -223,7 +219,7 @@ static void* parseCanMessages(void *args) {
 							document->imu_old.gyro[document->imu_old.gyro_count].value.x = (double)((data_left >> 8) & 0x0000FFFF);
 							document->imu_old.gyro[document->imu_old.gyro_count].value.y = (double)(((data_left & 0x000000FF) << 8) + ((data_right >> 24) & 0x000000FF));
 							document->imu_old.gyro[document->imu_old.gyro_count].value.z = (double)((data_right >> 8) & 0x0000FFFF);
-							document->imu_old.gyro[document->imu_old.gyro_count].value.scale = ((data_right)&0x000000FF) * 10;
+							document->imu_old.gyro[document->imu_old.gyro_count].value.scale = ((data_right) & 0x000000FF) * 10.0;
 
 							document->imu_old.gyro[document->imu_old.gyro_count].value.x /= 10.0;
 							document->imu_old.gyro[document->imu_old.gyro_count].value.y /= 10.0;
@@ -243,7 +239,7 @@ static void* parseCanMessages(void *args) {
 							document->imu_old.accel[document->imu_old.accel_count].value.x = (double)((data_left >> 8) & 0x0000FFFF);
 							document->imu_old.accel[document->imu_old.accel_count].value.y = (double)(((data_left & 0x000000FF) << 8) + ((data_right >> 24) & 0x000000FF));
 							document->imu_old.accel[document->imu_old.accel_count].value.z = (double)((data_right >> 8) & 0x0000FFFF);
-							document->imu_old.accel[document->imu_old.accel_count].value.scale = (data_right)&0x000000FF;
+							document->imu_old.accel[document->imu_old.accel_count].value.scale = (data_right) & 0x000000FF;
 
 							document->imu_old.accel[document->imu_old.accel_count].value.x /= 100.0;
 							document->imu_old.accel[document->imu_old.accel_count].value.y /= 100.0;
@@ -281,9 +277,9 @@ static void* parseCanMessages(void *args) {
 					temp = ((data_right >> 16) & 0x0000FFFF);
 					document->imu.gyro[document->imu.gyro_count].value.z = (temp > 32768 ? temp - 65536 : temp);
 
-					document->imu.gyro[document->imu.gyro_count].value.x /= 100;
-					document->imu.gyro[document->imu.gyro_count].value.y /= 100;
-					document->imu.gyro[document->imu.gyro_count].value.z /= 100;
+					document->imu.gyro[document->imu.gyro_count].value.x /= 100.0;
+					document->imu.gyro[document->imu.gyro_count].value.y /= 100.0;
+					document->imu.gyro[document->imu.gyro_count].value.z /= 100.0;
 
 					++(document->imu.gyro_count);
 				}
@@ -301,9 +297,9 @@ static void* parseCanMessages(void *args) {
 					temp = ((data_right >> 16) & 0x0000FFFF);
 					document->imu.accel[document->imu.accel_count].value.z = (temp > 32768 ? temp - 65536 : temp);
 
-					document->imu.accel[document->imu.accel_count].value.x /= 100;
-					document->imu.accel[document->imu.accel_count].value.y /= 100;
-					document->imu.accel[document->imu.accel_count].value.z /= 100;
+					document->imu.accel[document->imu.accel_count].value.x /= 100.0;
+					document->imu.accel[document->imu.accel_count].value.y /= 100.0;
+					document->imu.accel[document->imu.accel_count].value.z /= 100.0;
 
 					++(document->imu.accel_count);
 				}
@@ -403,7 +399,7 @@ static void* parseCanMessages(void *args) {
 						document->steering_wheel.gears[document->steering_wheel.gears_count].timestamp = getCurrentTimestamp();
 						document->steering_wheel.gears[document->steering_wheel.gears_count].value.control = (data_left >> 16) & 0xFF;
 						document->steering_wheel.gears[document->steering_wheel.gears_count].value.cooling = (data_left >> 8) & 0xFF;
-						document->steering_wheel.gears[document->steering_wheel.gears_count].value.map = (data_left)&0xFF;
+						document->steering_wheel.gears[document->steering_wheel.gears_count].value.map = (data_left) & 0xFF;
 					}
 				} else if (first_byte == MARKER_FB) {
 					document->steering_wheel.marker = 1;

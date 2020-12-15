@@ -3,34 +3,34 @@
         "message": "bms_hv.temperature",
         "values": [
             {
-                "average": 13,
-                "max": 14,
-                "min": 11
+                "average": 13.06,
+                "max": 14.45,
+                "min": 11.45
             },
             {
-                "average": 13,
-                "max": 14,
-                "min": 11
+                "average": 13.06,
+                "max": 14.45,
+                "min": 11.45
             },
             {
-                "average": 13,
-                "max": 14,
-                "min": 11
+                "average": 13.07,
+                "max": 14.45,
+                "min": 11.62
             },
             {
-                "average": 13,
-                "max": 14,
-                "min": 11
+                "average": 13.08,
+                "max": 14.45,
+                "min": 11.56
             },
             {
-                "average": 13,
-                "max": 14,
-                "min": 11
+                "average": 13.06,
+                "max": 14.19,
+                "min": 11.61
             },
             {
-                "average": 13,
-                "max": 14,
-                "min": 11
+                "average": 13.07,
+                "max": 14.2,
+                "min": 11.58
             }
         ]
     }
