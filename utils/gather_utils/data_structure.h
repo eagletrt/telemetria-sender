@@ -3,22 +3,22 @@
 
 typedef struct {
 	long timestamp;
-	float value;
+	double value;
 } inverters_right_speed_data;
 
 typedef struct {
 	long timestamp;
-	float value;
+	double value;
 } inverters_right_temperature_igbt_data;
 
 typedef struct {
 	long timestamp;
-	float value;
+	double value;
 } inverters_right_temperature_motors_data;
 
 typedef struct {
 	long timestamp;
-	float value;
+	double value;
 } inverters_right_torque_data;
 
 typedef struct {
@@ -38,22 +38,22 @@ typedef struct {
 
 typedef struct {
 	long timestamp;
-	float value;
+	double value;
 } inverters_left_speed_data;
 
 typedef struct {
 	long timestamp;
-	float value;
+	double value;
 } inverters_left_temperature_igbt_data;
 
 typedef struct {
 	long timestamp;
-	float value;
+	double value;
 } inverters_left_temperature_motors_data;
 
 typedef struct {
 	long timestamp;
-	float value;
+	double value;
 } inverters_left_torque_data;
 
 typedef struct {

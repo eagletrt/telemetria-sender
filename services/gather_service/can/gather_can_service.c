@@ -53,9 +53,9 @@ static void* parseCanMessages(void *args) {
 				switch (first_byte) {
 					case INVERTER_SPEED_FB:
 						if (document->inverters.right.speed_count < document->inverters.right.speed_size) {
-							byte_left = (data_left >> 8) & 0x000000FF;
+							byte_left = data_left & 0x0000FF00;
 							byte_right = (data_left >> 16) & 0x000000FF;
-							temp = byte_left * 256 + byte_right;
+							temp = byte_left + byte_right;
 							document->inverters.right.speed[document->inverters.right.speed_count].timestamp = getCurrentTimestamp();
 							document->inverters.right.speed[document->inverters.right.speed_count].value = (temp >= 32768 ? temp - 65536 : temp);
 							++(document->inverters.right.speed_count);
@@ -64,20 +64,20 @@ static void* parseCanMessages(void *args) {
 
 					case INVERTER_TEMPERATURE_IGBT_FB:
 						if (document->inverters.right.temperature_igbt_count < document->inverters.right.temperature_igbt_size) {
-							byte_left = (data_left >> 8) & 0x000000FF;
+							byte_left = data_left & 0x0000FF00;
 							byte_right = (data_left >> 16) & 0x000000FF;
-							temp = byte_left * 256 + byte_right;
+							temp = byte_left + byte_right;
 							document->inverters.right.temperature_igbt[document->inverters.right.temperature_igbt_count].timestamp = getCurrentTimestamp();
-							document->inverters.right.temperature_igbt[document->inverters.right.temperature_igbt_count].value = (temp - 15797) / 112.1182;
+							document->inverters.right.temperature_igbt[document->inverters.right.temperature_igbt_count].value = (temp - 15797.0) / 112.1182;
 							++(document->inverters.right.temperature_igbt_count);
 						}
 						break;
 
 					case INVERTER_TEMPERATURE_MOTORS_FB:
 						if (document->inverters.right.temperature_motors_count < document->inverters.right.temperature_motors_size) {
-							byte_left = (data_left >> 8) & 0x000000FF;
+							byte_left = data_left & 0x0000FF00;
 							byte_right = (data_left >> 16) & 0x000000FF;
-							temp = byte_left * 256 + byte_right;
+							temp = byte_left + byte_right;
 							document->inverters.right.temperature_motors[document->inverters.right.temperature_motors_count].timestamp = getCurrentTimestamp();
 							document->inverters.right.temperature_motors[document->inverters.right.temperature_motors_count].value = (temp - 9393.9) / 55.1;
 							++(document->inverters.right.temperature_motors_count);
@@ -85,9 +85,9 @@ static void* parseCanMessages(void *args) {
 						break;
 					case INVERTER_TORQUE_FB:
 						if (document->inverters.right.torque_count < document->inverters.right.torque_size) {
-							byte_left = (data_left >> 8) & 0x000000FF;
+							byte_left = data_left & 0x0000FF00;
 							byte_right = (data_left >> 16) & 0x000000FF;
-							temp = byte_left * 256 + byte_right;
+							temp = byte_left + byte_right;
 							document->inverters.right.torque[document->inverters.right.torque_count].timestamp = getCurrentTimestamp();
 							document->inverters.right.torque[document->inverters.right.torque_count].value = (temp - 9393.9) / 55.1;
 							++(document->inverters.right.torque_count);
@@ -100,9 +100,9 @@ static void* parseCanMessages(void *args) {
 				switch (first_byte) {
 					case INVERTER_SPEED_FB:
 						if (document->inverters.left.speed_count < document->inverters.left.speed_size) {
-							byte_left = (data_left >> 8) & 0x000000FF;
+							byte_left = data_left & 0x0000FF00;
 							byte_right = (data_left >> 16) & 0x000000FF;
-							temp = byte_left * 256 + byte_right;
+							temp = byte_left + byte_right;
 							document->inverters.left.speed[document->inverters.left.speed_count].timestamp = getCurrentTimestamp();
 							document->inverters.left.speed[document->inverters.left.speed_count].value = (temp >= 32768 ? temp - 65536 : temp);
 							++(document->inverters.left.speed_count);
@@ -111,9 +111,9 @@ static void* parseCanMessages(void *args) {
 
 					case INVERTER_TEMPERATURE_IGBT_FB:
 						if (document->inverters.left.temperature_igbt_count < document->inverters.left.temperature_igbt_size) {
-							byte_left = (data_left >> 8) & 0x000000FF;
+							byte_left = data_left & 0x0000FF00;
 							byte_right = (data_left >> 16) & 0x000000FF;
-							temp = byte_left * 256 + byte_right;
+							temp = byte_left + byte_right;
 							document->inverters.left.temperature_igbt[document->inverters.left.temperature_igbt_count].timestamp = getCurrentTimestamp();
 							document->inverters.left.temperature_igbt[document->inverters.left.temperature_igbt_count].value = (temp - 15797) / 112.1182;
 							++(document->inverters.left.temperature_igbt_count);
@@ -122,9 +122,9 @@ static void* parseCanMessages(void *args) {
 
 					case INVERTER_TEMPERATURE_MOTORS_FB:
 						if (document->inverters.left.temperature_motors_count < document->inverters.left.temperature_motors_size) {
-							byte_left = (data_left >> 8) & 0x000000FF;
+							byte_left = data_left & 0x0000FF00;
 							byte_right = (data_left >> 16) & 0x000000FF;
-							temp = byte_left * 256 + byte_right;
+							temp = byte_left + byte_right;
 							document->inverters.left.temperature_motors[document->inverters.left.temperature_motors_count].timestamp = getCurrentTimestamp();
 							document->inverters.left.temperature_motors[document->inverters.left.temperature_motors_count].value = (temp - 9393.9) / 55.1;
 							++(document->inverters.left.temperature_motors_count);
@@ -132,9 +132,9 @@ static void* parseCanMessages(void *args) {
 						break;
 					case INVERTER_TORQUE_FB:
 						if (document->inverters.left.torque_count < document->inverters.left.torque_size) {
-							byte_left = (data_left >> 8) & 0x000000FF;
+							byte_left = data_left & 0x0000FF00;
 							byte_right = (data_left >> 16) & 0x000000FF;
-							temp = byte_left * 256 + byte_right;
+							temp = byte_left + byte_right;
 							document->inverters.left.torque[document->inverters.left.torque_count].timestamp = getCurrentTimestamp();
 							document->inverters.left.torque[document->inverters.left.torque_count].value = (temp - 9393.9) / 55.1;
 							++(document->inverters.left.torque_count);

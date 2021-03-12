@@ -7,28 +7,28 @@
             "speed": [
                 {
                     "timestamp": "long",
-                    "value": "float"
+                    "value": "double"
                 },
                 500
             ],
             "temperature_igbt": [
                 {
                     "timestamp": "long",
-                    "value": "float"
+                    "value": "double"
                 },
                 500
             ],
             "temperature_motors": [
                 {
                     "timestamp": "long",
-                    "value": "float"
+                    "value": "double"
                 },
                 500
             ],
             "torque": [
                 {
                     "timestamp": "long",
-                    "value": "float"
+                    "value": "double"
                 },
                 500
             ]
@@ -37,28 +37,28 @@
             "speed": [
                 {
                     "timestamp": "long",
-                    "value": "float"
+                    "value": "double"
                 },
                 500
             ],
             "temperature_igbt": [
                 {
                     "timestamp": "long",
-                    "value": "float"
+                    "value": "double"
                 },
                 500
             ],
             "temperature_motors": [
                 {
                     "timestamp": "long",
-                    "value": "float"
+                    "value": "double"
                 },
                 500
             ],
             "torque": [
                 {
                     "timestamp": "long",
-                    "value": "float"
+                    "value": "double"
                 },
                 500
             ]
