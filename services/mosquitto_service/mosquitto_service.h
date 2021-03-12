@@ -37,7 +37,7 @@ typedef enum {
 
 /**
  * Setups mosquitto, creating a mosquitto instance with the connection options in the condition and adding them to the condition itself.
- * @* @return The result of the mosquitto operation.
+ * @return The result of the mosquitto operation.
 */
 mosquitto_code mosquittoSetup();
 /**
