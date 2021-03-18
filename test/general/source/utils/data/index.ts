@@ -46,3 +46,13 @@ export function getDeepProperty(object: any, key: string): any {
 
     return result;
 }
+
+export function removeNegativeZeros(obj: any) {
+    for (const prop in obj) {
+        if (typeof obj[prop] == "object") {
+            removeNegativeZeros(obj[prop])
+        } else if (obj[prop] === 0) {
+            obj[prop] = 0
+        }
+    }
+}

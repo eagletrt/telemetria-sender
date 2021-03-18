@@ -11,7 +11,7 @@ import { CanSimulatorInstance, GpsSimulatorInstance, simulateCan, simulateGps, v
 import getConfiguration from '../../utils/config';
 import { wait } from '../../utils/misc';
 import { startTelemetry, TelemetryProcessInstance } from '../../utils/telemetry';
-import { getDeepProperty, parseRecords } from '../../utils/data';
+import { getDeepProperty, parseRecords, removeNegativeZeros } from '../../utils/data';
 import { timerize } from '../../utils/timerize';
 
 const config = getConfiguration();
@@ -81,7 +81,9 @@ function testMessageFolder(name: string, path: string, keys: string[]): void {
             await mqttClient.subscribe(config.data.mqtt.data_topic);
             mqttClient.on('message', (topic, message: Buffer) => {
                 if (topic === config.data.mqtt.data_topic) {
-                    mqttData.push(deserialize(message));
+                    const obj = deserialize(message)
+                    removeNegativeZeros(obj)
+                    mqttData.push(obj);
                 }
             });
             
@@ -154,7 +156,7 @@ function testMessageFolder(name: string, path: string, keys: string[]): void {
                     { $project: { value: `$${message}.value` } } 
                 ]).toArray()).map(el => el.value);
 
-                expect(values).to.deep.equal(expectedValues);
+                    expect(values).to.deep.equal(expectedValues);
             }
 
         });
@@ -166,7 +168,7 @@ function testMessageFolder(name: string, path: string, keys: string[]): void {
 
             for (const expectedDetail of expectedDetails) {
                 const message = expectedDetail.message;
-                const expectedValues = expectedDetail.values;    
+                const expectedValues = expectedDetail.values;
                 const values = getDeepProperty(mqttData, message).map((el: any) => el.value);
 
                 expect(values).to.deep.equal(expectedValues);

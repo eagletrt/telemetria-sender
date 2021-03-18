@@ -319,9 +319,9 @@ typedef struct {
 } front_wheels_encoders_right_speed_rads_data;
 
 typedef struct {
-	float angle_0;
-	float angle_1;
-	float angle_delta;
+	double angle_0;
+	double angle_1;
+	double angle_delta;
 } front_wheels_encoders_right_angle_value_data;
 
 typedef struct {
@@ -357,9 +357,9 @@ typedef struct {
 } front_wheels_encoders_left_speed_rads_data;
 
 typedef struct {
-	float angle_0;
-	float angle_1;
-	float angle_delta;
+	double angle_0;
+	double angle_1;
+	double angle_delta;
 } front_wheels_encoders_left_angle_value_data;
 
 typedef struct {
@@ -403,8 +403,8 @@ typedef struct {
 
 typedef struct {
 	int is_breaking;
-	float pressure_front;
-	float pressure_back;
+	double pressure_front;
+	double pressure_back;
 } pedals_brake_value_data;
 
 typedef struct {
