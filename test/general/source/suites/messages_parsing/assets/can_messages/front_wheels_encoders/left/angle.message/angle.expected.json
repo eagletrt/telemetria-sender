@@ -3,24 +3,24 @@
         "message": "front_wheels_encoders.left.angle",
         "values": [
             {
-                "angle_0": 1.2999999523162842,
-                "angle_1": 1.2999999523162842,
+                "angle_0": 1.3,
+                "angle_1": 1.3,
                 "angle_delta": 0
             },
             {
-                "angle_0": 1.2999999523162842,
-                "angle_1": 1.2999999523162842,
+                "angle_0": 1.3,
+                "angle_1": 1.3,
                 "angle_delta": 0
             },
             {
-                "angle_0": 3.6600000858306885,
-                "angle_1": 4.099999904632568,
-                "angle_delta": 0.44999998807907104
+                "angle_0": 3.66,
+                "angle_1": 4.1,
+                "angle_delta": 0.45
             },
             {
-                "angle_0": 5.710000038146973,
-                "angle_1": 6.139999866485596,
-                "angle_delta": 0.44999998807907104
+                "angle_0": 5.71,
+                "angle_1": 6.14,
+                "angle_delta": 0.45
             }
         ]
     }
