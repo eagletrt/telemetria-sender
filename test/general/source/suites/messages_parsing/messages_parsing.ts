@@ -82,8 +82,7 @@ function testMessageFolder(name: string, path: string, keys: string[]): void {
             mqttClient.on('message', (topic, message: Buffer) => {
                 if (topic === config.data.mqtt.data_topic) {
                     const obj = deserialize(message)
-                    removeNegativeZeros(obj)
-                    mqttData.push(obj);
+                    mqttData.push(removeNegativeZeros(obj));
                 }
             });
             
@@ -141,7 +140,6 @@ function testMessageFolder(name: string, path: string, keys: string[]): void {
 
         it(`Should parse the messages in either ${canLogName} or ${gpsLogName} and save them in mongodb as in ${expectedJsonName}`, async function () {
             const expectedDetails = JSON.parse(fs.readFileSync(expectedJsonPath, 'utf-8'));
-
             for (const expectedDetail of expectedDetails) {
                 const message = expectedDetail.message;
                 const expectedValues = expectedDetail.values;
@@ -154,9 +152,9 @@ function testMessageFolder(name: string, path: string, keys: string[]): void {
                     { $unwind: { path: `$${message}`, preserveNullAndEmptyArrays: false } },
                     { $sort: { [`${message}.timestamp`]: 1 } },
                     { $project: { value: `$${message}.value` } } 
-                ]).toArray()).map(el => el.value);
+                ]).toArray()).map(el => removeNegativeZeros(el.value) );
 
-                    expect(values).to.deep.equal(expectedValues);
+                expect(values).to.deep.equal(expectedValues);
             }
 
         });

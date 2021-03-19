@@ -70,4 +70,5 @@ export function removeNegativeZeros(obj: any) {
         }
 
     }
+    return obj;
 }
