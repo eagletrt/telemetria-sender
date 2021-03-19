@@ -113,11 +113,11 @@ function testMessageFolder(name: string, path: string, keys: string[]): void {
             // Start telemetry
             telemetryProcessInstance = await startTelemetry(config.path);
             // Enable telemetry
-            await wait(1000);
+            await wait(700);
             telemetryProcessInstance.enable();
             
             // Simulate can
-            await wait(2000);
+            await wait(1500);
             if (canLogExists) {
                 canSimulatorInstance = await simulateCan(canLogPath, {
                     iterations: 1
@@ -129,13 +129,15 @@ function testMessageFolder(name: string, path: string, keys: string[]): void {
 
             // Wait for all the can messages to be sent
             await wait(settings.time);
+            await wait(500);
 
             // Disable the telemetry
             telemetryProcessInstance.disable();
+            await wait(1000);
 
             // Stop the telemetry
-            await wait(1000);
             await telemetryProcessInstance.stop();
+            await wait(1000);
         });
 
         it(`Should parse the messages in either ${canLogName} or ${gpsLogName} and save them in mongodb as in ${expectedJsonName}`, async function () {
