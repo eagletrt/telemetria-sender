@@ -2,7 +2,17 @@
     "C_Cpp.default.cStandard": "c11",
     "C_Cpp.clang_format_fallbackStyle": "{BasedOnStyle: Google, UseTab: true, IndentWidth: 4, TabWidth: 4, ColumnLimit: 0, AllowShortIfStatementsOnASingleLine: false}",
     "files.associations": {
-        "functional": "c"
+        "functional": "c",
+        "gather_can_service.h": "c",
+        "can_messages_identifiers.h": "c",
+        "gather_utils.h": "c",
+        "misc_utils.h": "c",
+        "can_service.h": "c",
+        "state_machine_condition.h": "c",
+        "ids.h": "c",
+        "schema_reader.h": "c",
+        "schema_builder.h": "c",
+        "log_service.h": "c"
     },
     "workbench.colorCustomizations": {
         "activityBar.activeBackground": "#420080",

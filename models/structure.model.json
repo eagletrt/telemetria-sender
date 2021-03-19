@@ -2,76 +2,14 @@
     "id": "int",
     "timestamp": "long",
     "sessionName": "char*",
-    "inverters": {
-        "right": {
-            "speed": [
-                {
-                    "timestamp": "long",
-                    "value": "double"
-                },
-                500
-            ],
-            "temperature_igbt": [
-                {
-                    "timestamp": "long",
-                    "value": "double"
-                },
-                500
-            ],
-            "temperature_motors": [
-                {
-                    "timestamp": "long",
-                    "value": "double"
-                },
-                500
-            ],
-            "torque": [
-                {
-                    "timestamp": "long",
-                    "value": "double"
-                },
-                500
-            ]
-        },
-        "left": {
-            "speed": [
-                {
-                    "timestamp": "long",
-                    "value": "double"
-                },
-                500
-            ],
-            "temperature_igbt": [
-                {
-                    "timestamp": "long",
-                    "value": "double"
-                },
-                500
-            ],
-            "temperature_motors": [
-                {
-                    "timestamp": "long",
-                    "value": "double"
-                },
-                500
-            ],
-            "torque": [
-                {
-                    "timestamp": "long",
-                    "value": "double"
-                },
-                500
-            ]
-        }
-    },
     "bms_hv": {
         "temperature": [
             {
                 "timestamp": "long",
                 "value": {
-                    "max": "double",
-                    "min": "double",
-                    "average": "double"
+                    "average_temp": "int",
+                    "max_temp": "int",
+                    "min_temp": "int"
                 }
             },
             500
@@ -80,9 +18,10 @@
             {
                 "timestamp": "long",
                 "value": {
-                    "max": "double",
-                    "min": "double",
-                    "total": "double"
+                    "pack_voltage": "int",
+                    "bus_voltage": "int",
+                    "min_cell_voltage": "int",
+                    "max_cell_voltage": "int"
                 }
             },
             500
@@ -91,8 +30,8 @@
             {
                 "timestamp": "long",
                 "value": {
-                    "current": "double",
-                    "pow": "double"
+                    "current": "int",
+                    "power": "int"
                 }
             },
             500
@@ -101,38 +40,10 @@
             {
                 "timestamp": "long",
                 "value": {
-                    "fault_id": "int",
-                    "fault_index": "int"
+                    "error_code": "int",
+                    "error_index": "int",
+                    "active": "int"
                 }
-            },
-            500
-        ],
-        "warnings": [
-            {
-                "timestamp": "long",
-                "value": {
-                    "fault_id": "int",
-                    "fault_index": "int"
-                }
-            },
-            500
-        ]
-    },
-    "bms_lv": {
-        "values": [
-            {
-                "timestamp": "long",
-                "value": {
-                    "voltage": "double",
-                    "temperature": "double"
-                }
-            },
-            500
-        ],
-        "errors": [
-            {
-                "timestamp": "long",
-                "value": "int"
             },
             500
         ]
@@ -192,170 +103,5 @@
             },
             500
         ]
-    },
-    "imu_old": {
-        "gyro": [
-            {
-                "timestamp": "long",
-                "value": {
-                    "x": "double",
-                    "y": "double",
-                    "z": "double",
-                    "scale": "double"
-                }
-            },
-            500
-        ],
-        "accel": [
-            {
-                "timestamp": "long",
-                "value": {
-                    "x": "double",
-                    "y": "double",
-                    "z": "double",
-                    "scale": "double"
-                }
-            },
-            500
-        ]
-    },
-    "imu": {
-        "gyro": [
-            {
-                "timestamp": "long",
-                "value": {
-                    "x": "double",
-                    "y": "double",
-                    "z": "double"
-                }
-            },
-            500
-        ],
-        "accel": [
-            {
-                "timestamp": "long",
-                "value": {
-                    "x": "double",
-                    "y": "double",
-                    "z": "double"
-                }
-            },
-            500
-        ]
-    },
-    "front_wheels_encoders": {
-        "right": {
-            "speed": [
-                {
-                    "timestamp": "long",
-                    "value": {
-                        "speed": "double",
-                        "error_flag": "int"
-                    }
-                },
-                500
-            ],
-            "speed_rads": [
-                {
-                    "timestamp": "long",
-                    "value": "double"
-                },
-                500
-            ],
-            "angle": [
-                {
-                    "timestamp": "long",
-                    "value": {
-                        "angle_0": "double",
-                        "angle_1": "double",
-                        "angle_delta": "double"
-                    }
-                },
-                500
-            ]
-        },
-        "left": {
-            "speed": [
-                {
-                    "timestamp": "long",
-                    "value": {
-                        "speed": "double",
-                        "error_flag": "int"
-                    }
-                },
-                500
-            ],
-            "speed_rads": [
-                {
-                    "timestamp": "long",
-                    "value": "double"
-                },
-                500
-            ],
-            "angle": [
-                {
-                    "timestamp": "long",
-                    "value": {
-                        "angle_0": "double",
-                        "angle_1": "double",
-                        "angle_delta": "double"
-                    }
-                },
-                500
-            ]
-        }
-    },
-    "distance": [
-        {
-            "timestamp": "long",
-            "value": {
-                "meters": "double",
-                "rotations": "double",
-                "angle": "double",
-                "clock_period": "double"
-            }
-        },
-        500
-    ],
-    "pedals": {
-        "throttle": [
-            {
-                "timestamp": "long",
-                "value": "int"
-            },
-            500
-        ],
-        "brake": [
-            {
-                "timestamp": "long",
-                "value": {
-                    "is_breaking": "int",
-                    "pressure_front": "double",
-                    "pressure_back": "double"
-                }
-            },
-            500
-        ]
-    },
-    "steering_wheel": {
-        "encoder": [
-            {
-                "timestamp": "long",
-                "value": "double"
-            },
-            500
-        ],
-        "gears": [
-            {
-                "timestamp": "long",
-                "value": {
-                    "control": "int",
-                    "cooling": "int",
-                    "map": "int"
-                }
-            },
-            500
-        ],
-        "marker": "int"
     }
 }

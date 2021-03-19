@@ -23,8 +23,8 @@ can_code canSetup() {
     return result;
 }
 
-int canRead(int *id, int *data_left, int *data_right) {
-    return canReceiveCompact(condition.can.socket, id, data_left, data_right);
+int canRead(int *id, char **data) {
+    return canReceive(condition.can.socket, id, data);
 }
 
 can_code canAnswerWheel(int enabled) {

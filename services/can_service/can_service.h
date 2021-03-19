@@ -36,11 +36,10 @@ can_code canSetup();
 /**
  * Reads data as compact from can
  * @param id The id of the read message will be saved here
- * @param data_left The first four bytes of the read message will be saved here
- * @param data_right The last four bytes of the read message will be saved here
+ * @param data The data (in bytes) of the message will be saved here
  * @return The result of the operation
 */
-int canRead(int *id, int *data_left, int *data_right);
+int canRead(int *id, char **data);
 
 /**
  * Sends a can message to the volante to answer when it receives a enable or idle message
