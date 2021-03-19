@@ -341,7 +341,7 @@ static void* parseCanMessages(void *args) {
 						if (document->distance_count < document->distance_size) {
 							document->distance[document->distance_count].timestamp = getCurrentTimestamp();
 							document->distance[document->distance_count].value.meters = (data_left >> 8) & 0x0000FFFF;
-							document->distance[document->distance_count].value.rotations = ((data_left & 0x000000FF) * 0xFF) + ((data_right >> 24) & 0x000000FF);
+							document->distance[document->distance_count].value.rotations = ((data_left & 0x000000FF) << 8) + ((data_right >> 24) & 0x000000FF);
 							document->distance[document->distance_count].value.angle = (data_right >> 16) & 0x000000F;
 							document->distance[document->distance_count].value.clock_period = (data_right >> 8) & 0x000000F;
 							++(document->distance_count);
@@ -376,7 +376,7 @@ static void* parseCanMessages(void *args) {
 							document->front_wheels_encoders.left.angle[document->front_wheels_encoders.left.angle_count].timestamp = getCurrentTimestamp();
 							//TODO: check / 100.0 and not / 100
 							document->front_wheels_encoders.left.angle[document->front_wheels_encoders.left.angle_count].value.angle_0 = ((data_left >> 8) & 0x0000FFFF) / 100.0;
-							document->front_wheels_encoders.left.angle[document->front_wheels_encoders.left.angle_count].value.angle_1 = (((data_left & 0x000000FF) * 0xFF) + ((data_right >> 24) & 0x000000FF)) / 100.0;
+							document->front_wheels_encoders.left.angle[document->front_wheels_encoders.left.angle_count].value.angle_1 = (((data_left & 0x000000FF) << 8) + ((data_right >> 24) & 0x000000FF)) / 100.0;
 							document->front_wheels_encoders.left.angle[document->front_wheels_encoders.left.angle_count].value.angle_delta = ((data_right >> 8) & 0x0000FFFF) / 100.0;
 							++(document->front_wheels_encoders.left.angle_count);
 						}
