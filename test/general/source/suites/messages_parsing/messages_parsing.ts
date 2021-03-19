@@ -9,7 +9,7 @@ import { join } from 'path';
 import { CanSimulatorInstance, GpsSimulatorInstance, simulateCan, simulateGps, virtualizeCan } from '@eagletrt/eagletrt-telemetria-simulator';
 
 import getConfiguration from '../../utils/config';
-import { wait } from '../../utils/misc';
+import { wait, paraCulo } from '../../utils/misc';
 import { startTelemetry, TelemetryProcessInstance } from '../../utils/telemetry';
 import { getDeepProperty, parseRecords, removeNegativeZeros } from '../../utils/data';
 import { timerize } from '../../utils/timerize';
@@ -67,77 +67,81 @@ function testMessageFolder(name: string, path: string, keys: string[]): void {
 
     describe(`Test ${name} message`, function () {
 
-        beforeEach(async function () {
-
-            // Set telemetry config
-            config.set({
-                'mongodb.db': 'telemetry_test',
-                'mongodb.collection': 'chimera_test',
-            });
-
-            // Connect to mqtt
-            mqttData = [];
-            mqttClient = await connectAsync(`mqtt://${config.data.mqtt.host}:${config.data.mqtt.port}`);
-            await mqttClient.subscribe(config.data.mqtt.data_topic);
-            mqttClient.on('message', (topic, message: Buffer) => {
-                if (topic === config.data.mqtt.data_topic) {
-                    const obj = deserialize(message)
-                    mqttData.push(removeNegativeZeros(obj));
-                }
-            });
-            
-            // Connect to mongodb
-            const mongoUri = `mongodb://${config.data.mongodb.host}:${config.data.mongodb.port}`;
-            await clean(mongoUri, undefined, { keep: database => database !== config.data.mongodb.db });
-            mongoConnection = await MongoClient.connect(mongoUri, { useUnifiedTopology: true } );
-
-            // Virtualize can if not already virtualized
-            await virtualizeCan(config.data.can_interface);
-
-            // Simulate gps and get its interface
-            if (gpsLogExists) {
-                gpsSimulatorInstance = await simulateGps(gpsLogPath, { delay: 3000, iterations: 1, keepAlive: true });
-            }
-            else {
-                gpsSimulatorInstance = await simulateGps();
-            }
-            const gpsInterface = await gpsSimulatorInstance.getGpsInterface();
-            
-            // Set telemetry config
-            config.set({
-                'gps.plugged': 1,
-                'gps.simulated': 1,
-                'gps.interface': gpsInterface
-            });
-
-            // Start telemetry
-            telemetryProcessInstance = await startTelemetry(config.path);
-            // Enable telemetry
-            await wait(700);
-            telemetryProcessInstance.enable();
-            
-            // Simulate can
-            await wait(1500);
-            if (canLogExists) {
-                canSimulatorInstance = await simulateCan(canLogPath, {
-                    iterations: 1
+        beforeEach(function (done) {
+            const f = async function () {
+                // Set telemetry config
+                config.set({
+                    'mongodb.db': 'telemetry_test',
+                    'mongodb.collection': 'chimera_test',
                 });
+
+                // Connect to mqtt
+                mqttData = [];
+                mqttClient = await connectAsync(`mqtt://${config.data.mqtt.host}:${config.data.mqtt.port}`);
+                await mqttClient.subscribe(config.data.mqtt.data_topic);
+                mqttClient.on('message', (topic, message: Buffer) => {
+                    if (topic === config.data.mqtt.data_topic) {
+                        const obj = deserialize(message)
+                        mqttData.push(removeNegativeZeros(obj));
+                    }
+                });
+                
+                // Connect to mongodb
+                const mongoUri = `mongodb://${config.data.mongodb.host}:${config.data.mongodb.port}`;
+                await clean(mongoUri, undefined, { keep: database => database !== config.data.mongodb.db });
+                mongoConnection = await MongoClient.connect(mongoUri, { useUnifiedTopology: true } );
+
+                // Virtualize can if not already virtualized
+                await virtualizeCan(config.data.can_interface);
+
+                // Simulate gps and get its interface
+                if (gpsLogExists) {
+                    gpsSimulatorInstance = await simulateGps(gpsLogPath, { delay: 3000, iterations: 1, keepAlive: true });
+                }
+                else {
+                    gpsSimulatorInstance = await simulateGps();
+                }
+                const gpsInterface = await gpsSimulatorInstance.getGpsInterface();
+                
+                // Set telemetry config
+                config.set({
+                    'gps.plugged': 1,
+                    'gps.simulated': 1,
+                    'gps.interface': gpsInterface
+                });
+
+                // Start telemetry
+                telemetryProcessInstance = await startTelemetry(config.path);
+                // Enable telemetry
+                await wait(700);
+                telemetryProcessInstance.enable();
+                
+                // Simulate can
+                await wait(1500);
+                if (canLogExists) {
+                    canSimulatorInstance = await simulateCan(canLogPath, {
+                        iterations: 1
+                    });
+                }
+                else {
+                    canSimulatorInstance = await simulateCan();
+                }
+
+                // Wait for all the can messages to be sent
+                await wait(settings.time);
+                await wait(500);
+
+                // Disable the telemetry
+                telemetryProcessInstance.disable();
+                await wait(1000);
+
+                // Stop the telemetry
+                await telemetryProcessInstance.stop();
+                await wait(1000);
+
+                done();
             }
-            else {
-                canSimulatorInstance = await simulateCan();
-            }
-
-            // Wait for all the can messages to be sent
-            await wait(settings.time);
-            await wait(500);
-
-            // Disable the telemetry
-            telemetryProcessInstance.disable();
-            await wait(1000);
-
-            // Stop the telemetry
-            await telemetryProcessInstance.stop();
-            await wait(1000);
+            f();
         });
 
         it(`Should parse the messages in either ${canLogName} or ${gpsLogName} and save them in mongodb as in ${expectedJsonName}`, async function () {
@@ -164,12 +168,12 @@ function testMessageFolder(name: string, path: string, keys: string[]): void {
         it(`Should parse the messages in either ${canLogName} or ${gpsLogName} and send them on mqtt as in ${expectedJsonName}`, async function () {
             const expectedDetails = JSON.parse(fs.readFileSync(expectedJsonPath, 'utf-8'));
 
-            mqttData = await parseRecords(mqttData);
+            const mqttParsedData = await parseRecords(mqttData);
 
             for (const expectedDetail of expectedDetails) {
                 const message = expectedDetail.message;
                 const expectedValues = expectedDetail.values;
-                const values = getDeepProperty(mqttData, message).map((el: any) => el.value);
+                const values = getDeepProperty(mqttParsedData, message).map((el: any) => el.value);
 
                 expect(values).to.deep.equal(expectedValues);
             }
@@ -177,10 +181,10 @@ function testMessageFolder(name: string, path: string, keys: string[]): void {
         });
 
         afterEach(async function () {
-            await gpsSimulatorInstance.stop();
-            await canSimulatorInstance.stop();
-            await mongoConnection.close();
-            await mqttClient.end();
+            await paraCulo(gpsSimulatorInstance.stop)
+            await paraCulo(canSimulatorInstance.stop)
+            await paraCulo(mongoConnection.close)
+            await paraCulo(mqttClient.end)
         });
 
     });
