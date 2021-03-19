@@ -113,11 +113,11 @@ function testMessageFolder(name: string, path: string, keys: string[]): void {
                 // Start telemetry
                 telemetryProcessInstance = await startTelemetry(config.path);
                 // Enable telemetry
-                await wait(700);
+                await wait(500);
                 telemetryProcessInstance.enable();
                 
                 // Simulate can
-                await wait(1500);
+                await wait(1000);
                 if (canLogExists) {
                     canSimulatorInstance = await simulateCan(canLogPath, {
                         iterations: 1
@@ -133,11 +133,11 @@ function testMessageFolder(name: string, path: string, keys: string[]): void {
 
                 // Disable the telemetry
                 telemetryProcessInstance.disable();
-                await wait(1000);
+                await wait(500);
 
                 // Stop the telemetry
                 await telemetryProcessInstance.stop();
-                await wait(1000);
+                await wait(500);
 
                 done();
             }
@@ -181,10 +181,11 @@ function testMessageFolder(name: string, path: string, keys: string[]): void {
         });
 
         afterEach(async function () {
-            await paraCulo(gpsSimulatorInstance.stop)
-            await paraCulo(canSimulatorInstance.stop)
-            await paraCulo(mongoConnection.close)
-            await paraCulo(mqttClient.end)
+            await paraCulo(async () => { await gpsSimulatorInstance.stop() })
+            await paraCulo(async () => { await canSimulatorInstance.stop() })
+            await paraCulo(async () => { await mongoConnection.close() })
+            await paraCulo(async () => { await mqttClient.end() })
+            await wait(500);
         });
 
     });
