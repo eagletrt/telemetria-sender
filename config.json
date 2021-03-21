@@ -12,7 +12,7 @@
     "collection": "chimera"
   },
   "gps": {
-    "plugged": 1,
+    "plugged": 0,
     "simulated": 1,
     "interface": "/dev/pts/6"
   },

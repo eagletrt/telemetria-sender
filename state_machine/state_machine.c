@@ -106,7 +106,8 @@ result_codes idle_state() {
     debugGeneric("{MASTER} Enabling flush toilet");
     gatherMasterEnableFlushToilet();
 
-    if (condition.structure.toggle_state) {
+    //if (condition.structure.toggle_state) {
+    if (true) {  
         debugGeneric("{MASTER} Waiting for toilet to be flushed");
         gatherMasterWaitToiletFlushed();
         debugGeneric("{MASTER} Set telemetry enabled to true");

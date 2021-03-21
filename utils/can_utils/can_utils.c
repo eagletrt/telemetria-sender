@@ -75,8 +75,8 @@ int canReceive(int socket, int* id, char** data) {
 	struct can_frame frame_read;
 	int result = read(socket, &frame_read, 16);
 
-	*data = (char*) malloc(frame_read.can_dlc * sizeof(char));
 	*id = frame_read.can_id;
+	*data = (char*) malloc(frame_read.can_dlc * sizeof(char));
 
 	for (int i = 0; i < frame_read.can_dlc; ++i) {
 		(*data)[i] = frame_read.data[i];

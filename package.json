@@ -10,7 +10,9 @@
     "serve": "npm run compile && npm run start",
     "enable": "./enable_signal.sh",
     "idle": "./idle_signal.sh",
-    "commit": "git add . && cz"
+    "commit": "git add . && cz",
+    "cicd:add": "cd utils && git submodule add -b build https://github.com/eagletrt/can-cicd",
+    "cicd:parse": "shx rm -rf utils/can-cicd-parsed && cp -r utils/can-cicd utils/can-cicd-parsed && python einsteinify.py utils/can-cicd-parsed/external/flatcc"
   },
   "repository": {
     "type": "git",
@@ -27,7 +29,8 @@
     "@types/chai": "^4.2.14",
     "ajv-cli": "^3.3.0",
     "commitizen": "^4.2.2",
-    "cz-conventional-changelog": "^3.3.0"
+    "cz-conventional-changelog": "^3.3.0",
+    "shx": "^0.3.3"
   },
   "config": {
     "commitizen": {
