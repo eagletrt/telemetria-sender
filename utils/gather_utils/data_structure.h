@@ -61,6 +61,23 @@ typedef struct {
 } bms_hv_data;
 
 typedef struct {
+	int accel_x;
+	int accel_y;
+	int accel_z;
+} imu_acceleration_value_data;
+
+typedef struct {
+	long timestamp;
+	imu_acceleration_value_data value;
+} imu_acceleration_data;
+
+typedef struct {
+	imu_acceleration_data *acceleration;
+	int acceleration_count;
+	int acceleration_size;
+} imu_data;
+
+typedef struct {
 	double latitude_safe;
 	double longitude_safe;
 	double latitude;
@@ -134,6 +151,7 @@ typedef struct {
 	long timestamp;
 	char* sessionName;
 	bms_hv_data bms_hv;
+	imu_data imu;
 	gps_data gps;
 } data_t;
 

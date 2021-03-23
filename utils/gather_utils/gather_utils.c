@@ -14,6 +14,9 @@ data_t* gatherCreateData() {
 	data->bms_hv.errors_size = 500;
 	data->bms_hv.errors = (bms_hv_errors_data*) malloc(sizeof(bms_hv_errors_data) * data->bms_hv.errors_size);
 	data->bms_hv.errors_count = 0;
+	data->imu.acceleration_size = 500;
+	data->imu.acceleration = (imu_acceleration_data*) malloc(sizeof(imu_acceleration_data) * data->imu.acceleration_size);
+	data->imu.acceleration_count = 0;
 	data->gps.gga_size = 500;
 	data->gps.gga = (gps_gga_data*) malloc(sizeof(gps_gga_data) * data->gps.gga_size);
 	data->gps.gga_count = 0;
@@ -35,6 +38,7 @@ void gatherDeleteData(data_t *data) {
 	free(data->bms_hv.voltage);
 	free(data->bms_hv.current);
 	free(data->bms_hv.errors);
+	free(data->imu.acceleration);
 	free(data->gps.gga);
 	free(data->gps.gll);
 	free(data->gps.vtg);
@@ -107,6 +111,25 @@ void gatherDataToBson(data_t *data, bson_t** bson_document) {
 		BSON_APPEND_INT32(&children[3], "error_code", data->bms_hv.errors[i].value.error_code);
 		BSON_APPEND_INT32(&children[3], "error_index", data->bms_hv.errors[i].value.error_index);
 		BSON_APPEND_INT32(&children[3], "active", data->bms_hv.errors[i].value.active);
+		bson_append_document_end(&children[2], &children[3]);
+		bson_destroy(&children[3]);
+		bson_append_document_end(&children[1], &children[2]);
+		bson_destroy(&children[2]);
+	}
+	bson_append_array_end(&children[0], &children[1]);
+	bson_destroy(&children[1]);
+	bson_append_document_end(*bson_document, &children[0]);
+	bson_destroy(&children[0]);
+	BSON_APPEND_DOCUMENT_BEGIN(*bson_document, "imu", &children[0]);
+	BSON_APPEND_ARRAY_BEGIN(&children[0], "acceleration", &children[1]);
+	for (int i = 0; i < (data->imu.acceleration_count); i++)
+	{
+		BSON_APPEND_DOCUMENT_BEGIN(&children[1], "0", &children[2]);
+		BSON_APPEND_INT64(&children[2], "timestamp", data->imu.acceleration[i].timestamp);
+		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "value", &children[3]);
+		BSON_APPEND_INT32(&children[3], "accel_x", data->imu.acceleration[i].value.accel_x);
+		BSON_APPEND_INT32(&children[3], "accel_y", data->imu.acceleration[i].value.accel_y);
+		BSON_APPEND_INT32(&children[3], "accel_z", data->imu.acceleration[i].value.accel_z);
 		bson_append_document_end(&children[2], &children[3]);
 		bson_destroy(&children[3]);
 		bson_append_document_end(&children[1], &children[2]);

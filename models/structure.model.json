@@ -48,6 +48,19 @@
             500
         ]
     },
+    "imu": {
+        "acceleration": [
+            {
+                "timestamp": "long",
+                "value": {
+                    "accel_x": "int",
+                    "accel_y": "int",
+                    "accel_z": "int"
+                }
+            },
+            500
+        ]
+    },
     "gps": {
         "gga": [
             {
