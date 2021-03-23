@@ -147,9 +147,14 @@
             "default": "0.0.0",
             "type": "string"
         },
-        "can_interface": {
-            "description": "Name of the can interface",
+        "can_primary": {
+            "description": "Name of the primary can interface",
             "default": "can0",
+            "type": "string"
+        },
+        "can_secondary": {
+            "description": "Name of the secondary can interface",
+            "default": "can1",
             "type": "string"
         },
         "sending_rate": {

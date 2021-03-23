@@ -44,7 +44,8 @@
     ],
   
     "model_version": "0.0.0",
-    "can_interface": "can0",
+    "can_primary": "can0",
+    "can_secondary": "can1",
     "sending_rate": 500,
     "verbose": 0
   }
