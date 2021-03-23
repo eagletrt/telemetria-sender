@@ -28,18 +28,32 @@ typedef enum {
 /* FUNCTIONS */
 
 /**
- *  Opens the can socket, by looking and updating the condition
+ *  Opens the primary can socket, by looking and updating the condition
  *  @return The outcome of the function as a can_code
 */ 
-can_code canSetup();
+can_code canSetupPrimary();
 
 /**
- * Reads data from can
+ *  Opens the secondary can socket, by looking and updating the condition
+ *  @return The outcome of the function as a can_code
+*/ 
+can_code canSetupSecondary();
+
+/**
+ * Reads data from the primary can
  * @param id The id of the read message will be saved here
  * @param data The array of eight bytes that will be filled
  * @return The result of the operation
 */
-int canRead(int *id, char** data);
+int canReadPrimary(int *id, char** data);
+
+/**
+ * Reads data from the secondary can
+ * @param id The id of the read message will be saved here
+ * @param data The array of eight bytes that will be filled
+ * @return The result of the operation
+*/
+int canReadSecondary(int *id, char** data);
 
 /**
  * Sends a can message to the volante to answer when it receives a enable or idle message

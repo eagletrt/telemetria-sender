@@ -19,7 +19,7 @@ extern condition_t condition;
 
 /* FUNCTIONS */
 
-void gatherSenderStartThread();
+void gatherSenderStartThread(int enabled);
 void gatherSenderStopThread();
 
 #endif

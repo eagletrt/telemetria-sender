@@ -27,9 +27,16 @@ result_codes init_state() {
         return ERROR;
     }
 
-    can_code can_outcome = canSetup();
-    if (can_outcome != CAN_SERVICE_OK) {
-        char* message = canErrorMessage(can_outcome);
+    can_code can_primary_outcome = canSetupPrimary();
+    if (can_primary_outcome != CAN_SERVICE_OK) {
+        char* message = canErrorMessage(can_primary_outcome);
+        errorGeneric(message);
+        return ERROR;
+    }
+
+    can_code can_secondary_outcome = canSetupSecondary();
+    if (can_secondary_outcome != CAN_SERVICE_OK) {
+        char* message = canErrorMessage(can_secondary_outcome);
         errorGeneric(message);
         return ERROR;
     }
@@ -66,7 +73,8 @@ result_codes init_state() {
     }
 
     gatherSetup();
-    gatherCanStartThread(0);
+    gatherCanPrimaryStartThread(0);
+    gatherCanSecondaryStartThread(0);
     gatherGpsStartThread();
     gatherSenderStartThread(0);
     
@@ -77,13 +85,15 @@ result_codes init_state() {
 }
 
 result_codes restart_state() {
-    gatherCanStopThread();
+    gatherCanPrimaryStopThread();
+    gatherCanSecondaryStopThread();
     gatherGpsStopThread();
     gatherSenderStopThread();
 
     gatherSetupRestart();
 
-    gatherCanStartThread(condition.structure.enabled);
+    gatherCanPrimaryStartThread(condition.structure.enabled);
+    gatherCanSecondaryStartThread(condition.structure.enabled);
     gatherGpsStartThread();
     gatherSenderStartThread(condition.structure.enabled);
 

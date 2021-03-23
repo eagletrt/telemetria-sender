@@ -53,7 +53,8 @@ config_t* newConfig() {
     config->circuits[2] = strdup("Varano");
     config->circuits[3] = strdup("Povo");
     config->model_version = strdup("0.0.0");
-    config->can_interface = strdup("can0");
+    config->can_primary = strdup("can0");
+    config->can_secondary = strdup("can1");
     config->sending_rate = 500;
     config->verbose = 0;
     
@@ -90,7 +91,8 @@ void deleteConfig(config_t *config) {
     freeStringsArray(config->races, &config->races_count);
     freeStringsArray(config->circuits, &config->circuits_count);
     free(config->model_version);
-    free(config->can_interface);
+    free(config->can_primary);
+    free(config->can_secondary);
     
 }
 
@@ -113,7 +115,8 @@ void printConfig(const config_t* config) {
     printf("config->circuits: ");
     printStringsArray(config->circuits, config->circuits_count);
     printf("config->model_version:\t%s\n", config->model_version);
-    printf("config->can_interface:\t%s\n", config->can_interface);
+    printf("config->can_primary:\t%s\n", config->can_primary);
+    printf("config->can_secondary:\t%s\n", config->can_secondary);
     printf("config->sending_rate:\t%d\n", config->sending_rate);
     printf("config->verbose:\t%d\n", config->verbose);
     
@@ -357,9 +360,13 @@ static void parseJsonTokens(const jsmntok_t *json_tokens, int tokens_length, con
 			free(config->model_version);
 			config->model_version = getStringValue(json_tokens, json_string, i);
 		}
-		else if (strcmp(key, "can_interface") == 0) {
-			free(config->can_interface);
-			config->can_interface = getStringValue(json_tokens, json_string, i);
+		else if (strcmp(key, "can_primary") == 0) {
+			free(config->can_primary);
+			config->can_primary = getStringValue(json_tokens, json_string, i);
+		}
+		else if (strcmp(key, "can_secondary") == 0) {
+			free(config->can_secondary);
+			config->can_secondary = getStringValue(json_tokens, json_string, i);
 		}
 		else if (strcmp(key, "sending_rate") == 0) {
 			config->sending_rate = getIntValue(json_tokens, json_string, i);

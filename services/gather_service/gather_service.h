@@ -15,7 +15,8 @@
 #include "../../utils/gather_utils/gather_utils.h"
 #include "../../state_machine/state_machine_condition.h"
 
-#include "./can/gather_can_service.h"
+#include "./can/gather_can_primary_service.h"
+#include "./can/gather_can_secondary_service.h"
 #include "./gps/gather_gps_service.h"
 #include "./master/gather_master_service.h"
 #include "./sender/gather_sender_service.h"
@@ -31,6 +32,9 @@ extern condition_t condition;
 */
 void gatherSetup();
 
+/**
+ * When there is a change between idle and enabled, reinitializes the structure object of the condition
+ */
 void gatherSetupRestart();
 
 /**

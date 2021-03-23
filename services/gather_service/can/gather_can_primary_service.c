@@ -1,30 +1,30 @@
-#include "gather_can_service.h"
+#include "gather_can_primary_service.h"
 
 /* INTERNAL VARIABLES AND STRUCTS */
 
-pthread_t gather_can_thread;
-pthread_attr_t gather_can_thread_attr;
+static pthread_t _gather_can_thread;
+static pthread_attr_t _gather_can_thread_attr;
 
 /* INTERNAL FUNCTIONS SIGNATURES */
 
-static void* parseCanMessages(void* args);
+static void* _parseCanMessages(void* args);
 
 /* EXPORTED FUNCTIONS */
 
-void gatherCanStartThread(int enabled) {
-	pthread_attr_init(&gather_can_thread_attr);
-	pthread_attr_setdetachstate(&gather_can_thread_attr, PTHREAD_CREATE_JOINABLE);
-	pthread_create(&gather_can_thread, &gather_can_thread_attr, &parseCanMessages, (void*)((long)enabled));
-	pthread_attr_destroy(&gather_can_thread_attr);
+void gatherCanPrimaryStartThread(int enabled) {
+	pthread_attr_init(&_gather_can_thread_attr);
+	pthread_attr_setdetachstate(&_gather_can_thread_attr, PTHREAD_CREATE_JOINABLE);
+	pthread_create(&_gather_can_thread, &_gather_can_thread_attr, &_parseCanMessages, (void*)((long)enabled));
+	pthread_attr_destroy(&_gather_can_thread_attr);
 }
 
-void gatherCanStopThread() {
-	pthread_cancel(gather_can_thread);
+void gatherCanPrimaryStopThread() {
+	pthread_cancel(_gather_can_thread);
 }
 
 /* INTERNAL FUNCTIONS DEFINITIONS */
 
-static void* parseCanMessages(void* args) {
+static void* _parseCanMessages(void* args) {
 	// Getting enabled arg
 	int enabled = (int)((long)args);
 
@@ -35,7 +35,7 @@ static void* parseCanMessages(void* args) {
 
 	while (1) {
 		// Read can
-		canRead(&id, &data);
+		canReadPrimary(&id, &data);
 
 		// Lock document
 		pthread_mutex_lock(&condition.structure.threads.data_head_mutex);

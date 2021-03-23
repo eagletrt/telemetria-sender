@@ -12,7 +12,7 @@
     "idle": "./idle_signal.sh",
     "commit": "git add . && cz",
     "cicd:add": "cd utils && git submodule add -b build https://github.com/eagletrt/can-cicd",
-    "cicd:parse": "shx rm -rf utils/can-cicd-parsed && cp -r utils/can-cicd utils/can-cicd-parsed && python einsteinify.py utils/can-cicd-parsed/external/flatcc"
+    "cicd:update": "git submodule foreach git pull"
   },
   "repository": {
     "type": "git",

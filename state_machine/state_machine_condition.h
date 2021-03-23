@@ -88,7 +88,8 @@ typedef struct {
 typedef struct {
     mqtt_condition_t mqtt;
     mongodb_condition_t mongodb;
-    can_condition_t can;
+    can_condition_t can_primary;
+    can_condition_t can_secondary;
     gps_condition_t gps;
     session_condition_t session;
     structure_condition_t structure;
