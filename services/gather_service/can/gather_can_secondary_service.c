@@ -44,16 +44,7 @@ static void* _parseCanMessages(void* args) {
 		document = condition.structure.data_head;
 
 		switch (id) { 
-			case (ID_IMU_ACCELERATION):
-				if (document->imu.acceleration_count < document->imu.acceleration_size) {
-					IMU_ACCELERATION_struct_t parsed = IMU_ACCELERATION_as_root(data);
-					document->imu.acceleration[document->imu.acceleration_count].timestamp = getCurrentTimestamp();
-					document->imu.acceleration[document->imu.acceleration_count].value.accel_x = parsed->accel_x;
-					document->imu.acceleration[document->imu.acceleration_count].value.accel_y = parsed->accel_y;
-					document->imu.acceleration[document->imu.acceleration_count].value.accel_z = parsed->accel_z;
-					++(document->imu.acceleration_count);
-				}
-				break;
+			
 		}
 
 		// Unlock document

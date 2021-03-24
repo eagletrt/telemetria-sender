@@ -1,5 +1,44 @@
 #include "gather_can_primary_service.h"
 
+#ifndef IDS_H
+#define IDS_H
+
+#define NETWORK_VERSION 1.2f
+
+/* TOPIC ACU */
+#define TOPIC_ACU_MASK 0b00000011111
+#define TOPIC_ACU_FILTER 0b00000000000
+#define ID_TS_STATUS 0b00000000000
+#define ID_STEER_STATUS 0b00000100000
+#define ID_SET_CAR_STATUS 0b00001000000
+#define ID_GET_CAR_STATUS 0b00001100000
+
+/* TOPIC ACUnSTEER */
+#define TOPIC_ACUnSTEER_MASK 0b00000011111
+#define TOPIC_ACUnSTEER_FILTER 0b00000000001
+#define ID_HV_VOLTAGE 0b01100000001
+#define ID_HV_CURRENT 0b01100100001
+#define ID_HV_TEMP 0b01101000001
+#define ID_HV_ERROR 0b00100000001
+
+/* TOPIC BMS_HV */
+#define TOPIC_BMS_HV_MASK 0b00000011111
+#define TOPIC_BMS_HV_FILTER 0b00000000010
+#define ID_SET_TS_STATUS 0b00000000010
+
+/* TOPIC STEER */
+#define TOPIC_STEER_MASK 0b00000011111
+#define TOPIC_STEER_FILTER 0b00000000011
+#define ID_TLM_STATUS 0b00100000011
+#define ID_CAR_STATUS 0b00000000011
+
+/* TOPIC TLM */
+#define TOPIC_TLM_MASK 0b00000011111
+#define TOPIC_TLM_FILTER 0b00000000100
+#define ID_SET_TLM_STATUS 0b00100000100
+
+#endif
+
 /* INTERNAL VARIABLES AND STRUCTS */
 
 static pthread_t _gather_can_thread;
@@ -46,45 +85,14 @@ static void* _parseCanMessages(void* args) {
 		switch (id) {
 			case (ID_HV_VOLTAGE):
 				if (document->bms_hv.voltage_count < document->bms_hv.voltage_size) {
-					HV_VOLTAGE_struct_t parsed = HV_VOLTAGE_as_root(data);
+					HV_VOLTAGE* value = (HV_VOLTAGE*) malloc(sizeof(HV_VOLTAGE));
+					deserialize_HV_VOLTAGE(data, 8, value);
 					document->bms_hv.voltage[document->bms_hv.voltage_count].timestamp = getCurrentTimestamp();
-					document->bms_hv.voltage[document->bms_hv.voltage_count].value.bus_voltage = parsed->bus_voltage;
-					document->bms_hv.voltage[document->bms_hv.voltage_count].value.pack_voltage = parsed->pack_voltage;
-					document->bms_hv.voltage[document->bms_hv.voltage_count].value.max_cell_voltage = parsed->max_cell_voltage;
-					document->bms_hv.voltage[document->bms_hv.voltage_count].value.min_cell_voltage = parsed->min_cell_voltage;
+					document->bms_hv.voltage[document->bms_hv.voltage_count].value.bus_voltage = value->bus_voltage;
+					document->bms_hv.voltage[document->bms_hv.voltage_count].value.pack_voltage = value->pack_voltage;
+					document->bms_hv.voltage[document->bms_hv.voltage_count].value.max_cell_voltage = value->max_cell_voltage;
+					document->bms_hv.voltage[document->bms_hv.voltage_count].value.min_cell_voltage = value->min_cell_voltage;
 					++(document->bms_hv.voltage_count);
-				}
-				break;
-
-			case (ID_HV_TEMP):
-				if (document->bms_hv.temperature_count < document->bms_hv.temperature_size) {
-					HV_TEMP_struct_t parsed = HV_TEMP_as_root(data);
-					document->bms_hv.temperature[document->bms_hv.temperature_count].timestamp = getCurrentTimestamp();
-					document->bms_hv.temperature[document->bms_hv.temperature_count].value.average_temp = parsed->average_temp;
-					document->bms_hv.temperature[document->bms_hv.temperature_count].value.max_temp = parsed->max_temp;
-					document->bms_hv.temperature[document->bms_hv.temperature_count].value.min_temp = parsed->min_temp;
-					++(document->bms_hv.temperature_count);
-				}
-				break;
-
-			case (ID_HV_CURRENT):
-				if (document->bms_hv.current_count < document->bms_hv.current_size) {
-					HV_CURRENT_struct_t parsed = HV_CURRENT_as_root(data);
-					document->bms_hv.current[document->bms_hv.current_count].timestamp = getCurrentTimestamp();
-					document->bms_hv.current[document->bms_hv.current_count].value.current = parsed->current;
-					document->bms_hv.current[document->bms_hv.current_count].value.power = parsed->power;
-					++(document->bms_hv.current_count);
-				}
-				break;
-
-			case (ID_HV_ERROR):
-				if (document->bms_hv.errors_count < document->bms_hv.errors_size) {
-					HV_ERROR_struct_t parsed = HV_ERROR_as_root(data);
-					document->bms_hv.errors[document->bms_hv.errors_count].timestamp = getCurrentTimestamp();
-					document->bms_hv.errors[document->bms_hv.errors_count].value.active = parsed->active;
-					document->bms_hv.errors[document->bms_hv.errors_count].value.error_code = parsed->error_code;
-					document->bms_hv.errors[document->bms_hv.errors_count].value.error_index = parsed->error_index;
-					++(document->bms_hv.errors_count);
 				}
 				break;
 		}

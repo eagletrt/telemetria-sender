@@ -19,6 +19,7 @@ gcc main.c -o sender.out \
     ./services/gather_service/master/gather_master_service.c \
     ./services/gather_service/can/gather_can_primary_service.c \
     ./services/gather_service/can/gather_can_secondary_service.c \
+    ./utils/can-cicd/acunsteer.c \
     ./services/gather_service/gps/gather_gps_service.c \
     ./services/gather_service/sender/gather_sender_service.c \
     ./state_machine/state_machine.c \

@@ -3,7 +3,19 @@
     "C_Cpp.clang_format_fallbackStyle": "{BasedOnStyle: Google, UseTab: true, IndentWidth: 4, TabWidth: 4, ColumnLimit: 0, AllowShortIfStatementsOnASingleLine: false}",
     "files.associations": {
         "functional": "c",
-        "can_service.h": "c"
+        "can_service.h": "c",
+        "acunsteer.h": "c",
+        "can_utils.h": "c",
+        "*.tcc": "c",
+        "optional": "c",
+        "istream": "c",
+        "ostream": "c",
+        "ratio": "c",
+        "system_error": "c",
+        "array": "c",
+        "tuple": "c",
+        "type_traits": "c",
+        "utility": "c"
     },
     "workbench.colorCustomizations": {
         "activityBar.activeBackground": "#420080",
