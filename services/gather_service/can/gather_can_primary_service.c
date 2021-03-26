@@ -46,44 +46,56 @@ static void* _parseCanMessages(void* args) {
 		switch (id) {
 			case (ID_HV_VOLTAGE):
 				if (document->bms_hv.voltage_count < document->bms_hv.voltage_size) {
-					HV_VOLTAGE_struct_t parsed = HV_VOLTAGE_as_root(data);
+					int bus_voltage = HV_VOLTAGE_bus_voltage(data);
+					int pack_voltage = HV_VOLTAGE_pack_voltage(data);
+					int max_cell_voltage = HV_VOLTAGE_max_cell_voltage(data);
+					int min_cell_voltage = HV_VOLTAGE_min_cell_voltage(data);
+
 					document->bms_hv.voltage[document->bms_hv.voltage_count].timestamp = getCurrentTimestamp();
-					document->bms_hv.voltage[document->bms_hv.voltage_count].value.bus_voltage = parsed->bus_voltage;
-					document->bms_hv.voltage[document->bms_hv.voltage_count].value.pack_voltage = parsed->pack_voltage;
-					document->bms_hv.voltage[document->bms_hv.voltage_count].value.max_cell_voltage = parsed->max_cell_voltage;
-					document->bms_hv.voltage[document->bms_hv.voltage_count].value.min_cell_voltage = parsed->min_cell_voltage;
+					document->bms_hv.voltage[document->bms_hv.voltage_count].value.bus_voltage = bus_voltage;
+					document->bms_hv.voltage[document->bms_hv.voltage_count].value.pack_voltage = pack_voltage;
+					document->bms_hv.voltage[document->bms_hv.voltage_count].value.max_cell_voltage = max_cell_voltage;
+					document->bms_hv.voltage[document->bms_hv.voltage_count].value.min_cell_voltage = min_cell_voltage;
 					++(document->bms_hv.voltage_count);
 				}
 				break;
 
 			case (ID_HV_TEMP):
 				if (document->bms_hv.temperature_count < document->bms_hv.temperature_size) {
-					HV_TEMP_struct_t parsed = HV_TEMP_as_root(data);
+					int average_temp = HV_TEMP_average_temp(data);
+					int min_temp = HV_TEMP_max_temp(data);
+					int max_temp = HV_TEMP_min_temp(data);
+
 					document->bms_hv.temperature[document->bms_hv.temperature_count].timestamp = getCurrentTimestamp();
-					document->bms_hv.temperature[document->bms_hv.temperature_count].value.average_temp = parsed->average_temp;
-					document->bms_hv.temperature[document->bms_hv.temperature_count].value.max_temp = parsed->max_temp;
-					document->bms_hv.temperature[document->bms_hv.temperature_count].value.min_temp = parsed->min_temp;
+					document->bms_hv.temperature[document->bms_hv.temperature_count].value.average_temp = average_temp;
+					document->bms_hv.temperature[document->bms_hv.temperature_count].value.max_temp = max_temp;
+					document->bms_hv.temperature[document->bms_hv.temperature_count].value.min_temp = min_temp;
 					++(document->bms_hv.temperature_count);
 				}
 				break;
 
 			case (ID_HV_CURRENT):
 				if (document->bms_hv.current_count < document->bms_hv.current_size) {
-					HV_CURRENT_struct_t parsed = HV_CURRENT_as_root(data);
+					int current = HV_CURRENT_current(data);
+					int power = HV_CURRENT_power(data);
+
 					document->bms_hv.current[document->bms_hv.current_count].timestamp = getCurrentTimestamp();
-					document->bms_hv.current[document->bms_hv.current_count].value.current = parsed->current;
-					document->bms_hv.current[document->bms_hv.current_count].value.power = parsed->power;
+					document->bms_hv.current[document->bms_hv.current_count].value.current = current;
+					document->bms_hv.current[document->bms_hv.current_count].value.power = power;
 					++(document->bms_hv.current_count);
 				}
 				break;
 
 			case (ID_HV_ERROR):
 				if (document->bms_hv.errors_count < document->bms_hv.errors_size) {
-					HV_ERROR_struct_t parsed = HV_ERROR_as_root(data);
+					int active = HV_ERROR_active(data);
+					int error_code = HV_ERROR_error_code(data);
+					int error_index = HV_ERROR_error_index(data);
+
 					document->bms_hv.errors[document->bms_hv.errors_count].timestamp = getCurrentTimestamp();
-					document->bms_hv.errors[document->bms_hv.errors_count].value.active = parsed->active;
-					document->bms_hv.errors[document->bms_hv.errors_count].value.error_code = parsed->error_code;
-					document->bms_hv.errors[document->bms_hv.errors_count].value.error_index = parsed->error_index;
+					document->bms_hv.errors[document->bms_hv.errors_count].value.active = active;
+					document->bms_hv.errors[document->bms_hv.errors_count].value.error_code = error_code;
+					document->bms_hv.errors[document->bms_hv.errors_count].value.error_index = error_index;
 					++(document->bms_hv.errors_count);
 				}
 				break;

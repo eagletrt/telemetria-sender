@@ -3,7 +3,10 @@
     "C_Cpp.clang_format_fallbackStyle": "{BasedOnStyle: Google, UseTab: true, IndentWidth: 4, TabWidth: 4, ColumnLimit: 0, AllowShortIfStatementsOnASingleLine: false}",
     "files.associations": {
         "functional": "c",
-        "can_service.h": "c"
+        "can_service.h": "c",
+        "flatbuffers_common_builder.h": "c",
+        "schema_builder.h": "c",
+        "ids.h": "c"
     },
     "workbench.colorCustomizations": {
         "activityBar.activeBackground": "#420080",
