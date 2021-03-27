@@ -11,7 +11,8 @@
                     "max_temp": "int",
                     "min_temp": "int"
                 }
-            }
+            },
+            500
         ],
         "voltage": [
             {
