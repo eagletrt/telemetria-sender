@@ -5,15 +5,10 @@
     "bms_hv": {
         "temperature": [
             {
-                "id": "HV_TEMP",
-                "max_count": 500,
                 "timestamp": "long",
-                "defines": {
-                    "var": "$average * 2"
-                },
                 "value": {
-                    "average_temp": ["int", "$val * 2 + $var"],
-                    "max_temp": ["int", "$val + $var"],
+                    "average_temp": "int",
+                    "max_temp": "int",
                     "min_temp": "int"
                 }
             }
