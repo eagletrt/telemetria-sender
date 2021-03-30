@@ -1,0 +1,13 @@
+.. _exhale_function_gather__utils_8c_1a687271e885feacd742b4cb110b9d8f94:
+
+Function gatherCreateData()
+===========================
+
+- Defined in :ref:`file_utils_gather_utils_gather_utils.c`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: gatherCreateData()

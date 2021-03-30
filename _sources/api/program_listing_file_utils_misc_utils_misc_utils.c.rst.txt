@@ -1,0 +1,93 @@
+
+.. _program_listing_file_utils_misc_utils_misc_utils.c:
+
+Program Listing for File misc_utils.c
+=====================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_utils_misc_utils_misc_utils.c>` (``utils/misc_utils/misc_utils.c``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   #include "misc_utils.h"
+   
+   char** cloneStringsArray(char** array, int n) {
+       char** clone = n > 0 
+           ? (char**) malloc(sizeof(char*) * n) 
+           : NULL;
+   
+       for (int i = 0; i < n; ++i) {
+           clone[i] = strdup(array[i]);
+       }
+   
+       return clone;
+   }
+   
+   void freeStringsArray(char** array, int* n) {
+       for (int i = 0; i < *n; ++i) {
+           free(array[i]);
+       }
+       free(array);
+       *n = 0;
+   }
+   
+   void printStringsArray(char** array, int n) {
+       if (n <= 0) {
+           printf("[]\n");
+       }
+       else {
+           printf("[\n");
+           for (int i = 0; i < n; ++i) {
+               printf("\t%s\n", array[i]);
+           }
+           printf("]\n");
+       }
+   }
+   
+   void printIntArray(int* array, int n) {
+       if (n <= 0) {
+           printf("[]\n");
+       }
+       else {
+           printf("[\n");
+           for (int i = 0; i < n; ++i) {
+               printf("\t%d\n", array[i]);
+           }
+           printf("]\n");
+       }
+   }
+   
+   void printDoubleArray(double* array, int n) {
+       if (n <= 0) {
+           printf("[]\n");
+       }
+       else {
+           printf("[\n");
+           for (int i = 0; i < n; ++i) {
+               printf("\t%f\n", array[i]);
+           }
+           printf("]\n");
+       }
+   }
+   
+   int digitsCount(int n) {
+       return (n == 0 ? 1 : floor(log10(abs(n))) + 1);
+   }
+   
+   void swapPointers(void** x, void** y) {
+       void* temp = *x;
+       *x = *y;
+       *y = temp;
+   }
+   
+   
+   long long int getCurrentTimestamp() {
+       struct timeb timer_msec;
+       if(!ftime(&timer_msec)) {
+           return ((long long int) timer_msec.time) * 1000ll + ((long long int) timer_msec.millitm);
+       }
+       else {
+           return -1;
+       }
+   }

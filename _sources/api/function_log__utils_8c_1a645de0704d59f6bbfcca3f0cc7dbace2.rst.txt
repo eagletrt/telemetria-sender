@@ -1,0 +1,13 @@
+.. _exhale_function_log__utils_8c_1a645de0704d59f6bbfcca3f0cc7dbace2:
+
+Function logError(const char \*)
+================================
+
+- Defined in :ref:`file_utils_log_utils_log_utils.c`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: logError(const char *)

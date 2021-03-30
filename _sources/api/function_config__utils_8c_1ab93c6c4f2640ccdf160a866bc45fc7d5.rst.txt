@@ -1,0 +1,13 @@
+.. _exhale_function_config__utils_8c_1ab93c6c4f2640ccdf160a866bc45fc7d5:
+
+Function parseMongodbObject(const jsmntok_t \*, const char \*, config_t \*, int \*)
+===================================================================================
+
+- Defined in :ref:`file_utils_config_utils_config_utils.c`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: parseMongodbObject(const jsmntok_t *, const char *, config_t *, int *)

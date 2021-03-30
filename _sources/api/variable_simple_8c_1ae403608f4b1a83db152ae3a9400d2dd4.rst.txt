@@ -1,0 +1,13 @@
+.. _exhale_variable_simple_8c_1ae403608f4b1a83db152ae3a9400d2dd4:
+
+Variable JSON_STRING
+====================
+
+- Defined in :ref:`file_utils_config_utils_jsmn_example_simple.c`
+
+
+Variable Documentation
+----------------------
+
+
+.. doxygenvariable:: JSON_STRING

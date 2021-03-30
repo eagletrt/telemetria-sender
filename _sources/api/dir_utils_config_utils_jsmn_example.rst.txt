@@ -1,0 +1,21 @@
+.. _dir_utils_config_utils_jsmn_example:
+
+
+Directory example
+=================
+
+
+|exhale_lsh| :ref:`Parent directory <dir_utils_config_utils_jsmn>` (``utils/config_utils/jsmn``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+*Directory path:* ``utils/config_utils/jsmn/example``
+
+
+Files
+-----
+
+- :ref:`file_utils_config_utils_jsmn_example_jsondump.c`
+- :ref:`file_utils_config_utils_jsmn_example_simple.c`
+
+

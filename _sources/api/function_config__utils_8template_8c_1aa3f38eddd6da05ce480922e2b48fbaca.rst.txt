@@ -1,0 +1,13 @@
+.. _exhale_function_config__utils_8template_8c_1aa3f38eddd6da05ce480922e2b48fbaca:
+
+Function deleteConfig(config_t \*)
+==================================
+
+- Defined in :ref:`file_utils_config_utils_config_utils.template.c`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: deleteConfig(config_t *)

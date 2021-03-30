@@ -1,0 +1,48 @@
+
+.. _file_utils_gather_utils_gather_utils.template.c:
+
+File gather_utils.template.c
+============================
+
+|exhale_lsh| :ref:`Parent directory <dir_utils_gather_utils>` (``utils/gather_utils``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``utils/gather_utils/gather_utils.template.c``)
+-----------------------------------------------------------
+
+
+.. toctree::
+   :maxdepth: 1
+
+   program_listing_file_utils_gather_utils_gather_utils.template.c.rst
+
+
+
+
+
+Includes
+--------
+
+
+- ``gather_utils.h`` (:ref:`file_utils_gather_utils_gather_utils.h`)
+
+
+
+
+
+
+Functions
+---------
+
+
+- :ref:`exhale_function_gather__utils_8template_8c_1a687271e885feacd742b4cb110b9d8f94`
+
+- :ref:`exhale_function_gather__utils_8template_8c_1af0cc0c1459af5983ebe2240d193dc68b`
+
+- :ref:`exhale_function_gather__utils_8template_8c_1a585aab6d7a061c6be7f95d61a1dddb23`
+

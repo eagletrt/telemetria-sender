@@ -1,0 +1,13 @@
+.. _exhale_function_jsmn__test_8c_1ad3754da91a829f3ddf29acad8654c177:
+
+Function test_objects_arrays
+============================
+
+- Defined in :ref:`file_utils_config_utils_jsmn_jsmn_test.c`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: test_objects_arrays()

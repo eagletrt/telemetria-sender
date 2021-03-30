@@ -1,0 +1,13 @@
+.. _exhale_function_config__utils_8template_8c_1a7955081949e2710813ab532d81522e34:
+
+Function getIntValue(const jsmntok_t \*, const char \*, int \*)
+===============================================================
+
+- Defined in :ref:`file_utils_config_utils_config_utils.template.c`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: getIntValue(const jsmntok_t *, const char *, int *)

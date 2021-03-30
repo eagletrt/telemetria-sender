@@ -1,0 +1,13 @@
+.. _exhale_function_config__utils_8template_8c_1a874c64e0eebacc3ec1c83143f31a3609:
+
+Function extractString(jsmntok_t, const char \*)
+================================================
+
+- Defined in :ref:`file_utils_config_utils_config_utils.template.c`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: extractString(jsmntok_t, const char *)

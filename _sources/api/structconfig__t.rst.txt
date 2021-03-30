@@ -1,0 +1,16 @@
+.. _exhale_struct_structconfig__t:
+
+Struct config_t
+===============
+
+- Defined in :ref:`file_utils_config_utils_config_utils.h`
+
+
+Struct Documentation
+--------------------
+
+
+.. doxygenstruct:: config_t
+   :members:
+   :protected-members:
+   :undoc-members:

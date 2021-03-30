@@ -1,0 +1,2353 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Title &mdash; Eagletrt Project 1.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script type="text/javascript" src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Struct bms_hv_current_data" href="structbms__hv__current__data.html" />
+    <link rel="prev" title="Welcome to Eagletrt ubx parser master’s documentation!" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Eagletrt Project
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Title</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#full-api">Full API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#classes-and-structs">Classes and Structs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="structbms__hv__current__data.html">Struct bms_hv_current_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structbms__hv__current__value__data.html">Struct bms_hv_current_value_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structbms__hv__data.html">Struct bms_hv_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structbms__hv__errors__data.html">Struct bms_hv_errors_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structbms__hv__errors__value__data.html">Struct bms_hv_errors_value_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structbms__hv__temperature__data.html">Struct bms_hv_temperature_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structbms__hv__temperature__value__data.html">Struct bms_hv_temperature_value_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structbms__hv__voltage__data.html">Struct bms_hv_voltage_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structbms__hv__voltage__value__data.html">Struct bms_hv_voltage_value_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structbms__hv__warnings__data.html">Struct bms_hv_warnings_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structbms__hv__warnings__value__data.html">Struct bms_hv_warnings_value_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structbms__lv__data.html">Struct bms_lv_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structbms__lv__errors__data.html">Struct bms_lv_errors_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structbms__lv__values__data.html">Struct bms_lv_values_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structbms__lv__values__value__data.html">Struct bms_lv_values_value_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structconfig__t.html">Struct config_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structdata__t.html">Struct data_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structdistance__data.html">Struct distance_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structdistance__value__data.html">Struct distance_value_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structfront__wheels__encoders__data.html">Struct front_wheels_encoders_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structfront__wheels__encoders__left__angle__data.html">Struct front_wheels_encoders_left_angle_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structfront__wheels__encoders__left__angle__value__data.html">Struct front_wheels_encoders_left_angle_value_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structfront__wheels__encoders__left__data.html">Struct front_wheels_encoders_left_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structfront__wheels__encoders__left__speed__data.html">Struct front_wheels_encoders_left_speed_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structfront__wheels__encoders__left__speed__rads__data.html">Struct front_wheels_encoders_left_speed_rads_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structfront__wheels__encoders__left__speed__value__data.html">Struct front_wheels_encoders_left_speed_value_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structfront__wheels__encoders__right__angle__data.html">Struct front_wheels_encoders_right_angle_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structfront__wheels__encoders__right__angle__value__data.html">Struct front_wheels_encoders_right_angle_value_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structfront__wheels__encoders__right__data.html">Struct front_wheels_encoders_right_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structfront__wheels__encoders__right__speed__data.html">Struct front_wheels_encoders_right_speed_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structfront__wheels__encoders__right__speed__rads__data.html">Struct front_wheels_encoders_right_speed_rads_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structfront__wheels__encoders__right__speed__value__data.html">Struct front_wheels_encoders_right_speed_value_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structgps__config__t.html">Struct gps_config_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structgps__data.html">Struct gps_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structgps__gga__data.html">Struct gps_gga_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structgps__gga__value__data.html">Struct gps_gga_value_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structgps__gll__data.html">Struct gps_gll_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structgps__gll__value__data.html">Struct gps_gll_value_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structgps__rmc__data.html">Struct gps_rmc_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structgps__rmc__value__data.html">Struct gps_rmc_value_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structgps__vtg__data.html">Struct gps_vtg_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structgps__vtg__value__data.html">Struct gps_vtg_value_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structimu__accel__data.html">Struct imu_accel_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structimu__accel__value__data.html">Struct imu_accel_value_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structimu__data.html">Struct imu_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structimu__gyro__data.html">Struct imu_gyro_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structimu__gyro__value__data.html">Struct imu_gyro_value_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structimu__old__accel__data.html">Struct imu_old_accel_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structimu__old__accel__value__data.html">Struct imu_old_accel_value_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structimu__old__data.html">Struct imu_old_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structimu__old__gyro__data.html">Struct imu_old_gyro_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structimu__old__gyro__value__data.html">Struct imu_old_gyro_value_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structinverters__data.html">Struct inverters_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structinverters__left__data.html">Struct inverters_left_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structinverters__left__speed__data.html">Struct inverters_left_speed_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structinverters__left__temperature__igbt__data.html">Struct inverters_left_temperature_igbt_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structinverters__left__temperature__motors__data.html">Struct inverters_left_temperature_motors_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structinverters__left__torque__data.html">Struct inverters_left_torque_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structinverters__right__data.html">Struct inverters_right_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structinverters__right__speed__data.html">Struct inverters_right_speed_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structinverters__right__temperature__igbt__data.html">Struct inverters_right_temperature_igbt_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structinverters__right__temperature__motors__data.html">Struct inverters_right_temperature_motors_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structinverters__right__torque__data.html">Struct inverters_right_torque_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structjsmn__parser.html">Struct jsmn_parser</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structjsmntok__t.html">Struct jsmntok_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structmongodb__config__t.html">Struct mongodb_config_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structmqtt__config__t.html">Struct mqtt_config_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structpedals__brake__data.html">Struct pedals_brake_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structpedals__brake__value__data.html">Struct pedals_brake_value_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structpedals__data.html">Struct pedals_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structpedals__throttle__data.html">Struct pedals_throttle_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structsteering__wheel__data.html">Struct steering_wheel_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structsteering__wheel__encoder__data.html">Struct steering_wheel_encoder_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structsteering__wheel__gears__data.html">Struct steering_wheel_gears_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structsteering__wheel__gears__value__data.html">Struct steering_wheel_gears_value_data</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#enums">Enums</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="enum_jsmn_8h_1ad30df3d9e174dcb6060160f486f2772f.html">Enum jsmnerr_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="enum_jsmn_8h_1a065320719769f9dc1fbe30094e52802f.html">Enum jsmntype_t</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#functions">Functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="function_can__utils_8c_1a511005e4cb027db07cdbcfb3c32342ff.html">Function canOpenSocket(const char *, struct sockaddr_can *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_can__utils_8h_1a511005e4cb027db07cdbcfb3c32342ff.html">Function canOpenSocket(const char *, struct sockaddr_can *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_can__utils_8c_1ac5488a3b4d4b754c9dc07f58af5b84c2.html">Function canReceive(int, int *, char **)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_can__utils_8h_1ac5488a3b4d4b754c9dc07f58af5b84c2.html">Function canReceive(int, int *, char **)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_can__utils_8c_1a8796f5bee2fe9a0446531c7ca355a416.html">Function canReceiveCompact(int, int *, int *, int *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_can__utils_8h_1a8796f5bee2fe9a0446531c7ca355a416.html">Function canReceiveCompact(int, int *, int *, int *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_can__utils_8c_1ab8ef5d4c913bc0fbf069e3cc723dd8ed.html">Function canReceiveSimple(int, char **)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_can__utils_8h_1ab8ef5d4c913bc0fbf069e3cc723dd8ed.html">Function canReceiveSimple(int, char **)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_can__utils_8c_1ab86be082c2e50660788fc72c3ac674ae.html">Function canSend(int, int, int, const char *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_can__utils_8h_1ab86be082c2e50660788fc72c3ac674ae.html">Function canSend(int, int, int, const char *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_can__utils_8c_1a2c592e0db2b5f124ff86c947e8e6e79a.html">Function canSendSimple(int, const char *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_can__utils_8h_1a2c592e0db2b5f124ff86c947e8e6e79a.html">Function canSendSimple(int, const char *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_misc__utils_8c_1a3ae73ef89febc41a3e538cfd795b0954.html">Function cloneStringsArray(char **, int)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_misc__utils_8h_1a3ae73ef89febc41a3e538cfd795b0954.html">Function cloneStringsArray(char **, int)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_config__utils_8c_1aa3f38eddd6da05ce480922e2b48fbaca.html">Function deleteConfig(config_t *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_config__utils_8h_1aa3f38eddd6da05ce480922e2b48fbaca.html">Function deleteConfig(config_t *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_config__utils_8template_8c_1aa3f38eddd6da05ce480922e2b48fbaca.html">Function deleteConfig(config_t *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_config__utils_8template_8h_1aa3f38eddd6da05ce480922e2b48fbaca.html">Function deleteConfig(config_t *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_misc__utils_8c_1a1bc70acf5dbd4ffac31ec18b2485dafb.html">Function digitsCount(int)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_misc__utils_8h_1a1bc70acf5dbd4ffac31ec18b2485dafb.html">Function digitsCount(int)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_jsondump_8c_1a90066587586ada4bf6a046f954f22c9d.html">Function dump</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_config__utils_8c_1a874c64e0eebacc3ec1c83143f31a3609.html">Function extractString(jsmntok_t, const char *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_config__utils_8template_8c_1a874c64e0eebacc3ec1c83143f31a3609.html">Function extractString(jsmntok_t, const char *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_misc__utils_8c_1a93a91bd58090c1e8fbdc06e834491318.html">Function freeStringsArray(char **, int *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_misc__utils_8h_1a93a91bd58090c1e8fbdc06e834491318.html">Function freeStringsArray(char **, int *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_gather__utils_8c_1a687271e885feacd742b4cb110b9d8f94.html">Function gatherCreateData()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_gather__utils_8h_1a687271e885feacd742b4cb110b9d8f94.html">Function gatherCreateData()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_gather__utils_8template_8c_1a687271e885feacd742b4cb110b9d8f94.html">Function gatherCreateData()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_gather__utils_8c_1af0cc0c1459af5983ebe2240d193dc68b.html">Function gatherDataToBson(data_t *, bson_t **)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_gather__utils_8h_1af0cc0c1459af5983ebe2240d193dc68b.html">Function gatherDataToBson(data_t *, bson_t **)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_gather__utils_8template_8c_1af0cc0c1459af5983ebe2240d193dc68b.html">Function gatherDataToBson(data_t *, bson_t **)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_gather__utils_8c_1a585aab6d7a061c6be7f95d61a1dddb23.html">Function gatherDeleteData(data_t *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_gather__utils_8h_1a9b52209d0a330080ea37332b3b140730.html">Function gatherDeleteData(data_t *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_gather__utils_8template_8c_1a585aab6d7a061c6be7f95d61a1dddb23.html">Function gatherDeleteData(data_t *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_misc__utils_8c_1a252e39171b12cc131cbec5e725a3c978.html">Function getCurrentTimestamp()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_misc__utils_8h_1a252e39171b12cc131cbec5e725a3c978.html">Function getCurrentTimestamp()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_config__utils_8c_1aa70f8f3fb7c1a275bfcc7991dfcbc514.html">Function getDoubleArrayValue(const jsmntok_t *, const char *, int *, int *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_config__utils_8template_8c_1aa70f8f3fb7c1a275bfcc7991dfcbc514.html">Function getDoubleArrayValue(const jsmntok_t *, const char *, int *, int *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_config__utils_8c_1ab56a7b92c62b48c71bb5ffe4415448a0.html">Function getDoubleValue(const jsmntok_t *, const char *, int *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_config__utils_8template_8c_1ab56a7b92c62b48c71bb5ffe4415448a0.html">Function getDoubleValue(const jsmntok_t *, const char *, int *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_config__utils_8c_1a44823d436aba4855383f66fc4286aa1f.html">Function getIntArrayValue(const jsmntok_t *, const char *, int *, int *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_config__utils_8template_8c_1a44823d436aba4855383f66fc4286aa1f.html">Function getIntArrayValue(const jsmntok_t *, const char *, int *, int *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_config__utils_8c_1a7955081949e2710813ab532d81522e34.html">Function getIntValue(const jsmntok_t *, const char *, int *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_config__utils_8template_8c_1a7955081949e2710813ab532d81522e34.html">Function getIntValue(const jsmntok_t *, const char *, int *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_config__utils_8c_1a3986f58a97f858b7cdaa946cc6d52b49.html">Function getJsonString(FILE *, char **)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_config__utils_8template_8c_1a3986f58a97f858b7cdaa946cc6d52b49.html">Function getJsonString(FILE *, char **)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_config__utils_8c_1a01482edfb23a6a39480e39decca0af74.html">Function getJsonTokens(const char *, int, jsmntok_t **)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_config__utils_8template_8c_1a01482edfb23a6a39480e39decca0af74.html">Function getJsonTokens(const char *, int, jsmntok_t **)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_config__utils_8c_1a1c8de5808b33845d00b19df3ab590a8b.html">Function getStringArrayValue(const jsmntok_t *, const char *, int *, int *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_config__utils_8template_8c_1a1c8de5808b33845d00b19df3ab590a8b.html">Function getStringArrayValue(const jsmntok_t *, const char *, int *, int *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_config__utils_8c_1a14de4a67845250dd6b898ec8f84ef1a8.html">Function getStringValue(const jsmntok_t *, const char *, int *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_config__utils_8template_8c_1a14de4a67845250dd6b898ec8f84ef1a8.html">Function getStringValue(const jsmntok_t *, const char *, int *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_jsmn_8c_1a0d7a964b95b65cd16699a355ede80394.html">Function jsmn_alloc_token</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_jsmn_8c_1a20b875e37a2a5c88888c6d80068715be.html">Function jsmn_fill_token</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_jsmn_8c_1a8d4a8b3ce5c3d600feea38615b5f9aa6.html">Function jsmn_init(jsmn_parser *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_jsmn_8h_1a8d4a8b3ce5c3d600feea38615b5f9aa6.html">Function jsmn_init(jsmn_parser *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_jsmn_8c_1a64734cb1fc006fba5fd237e80a58ef40.html">Function jsmn_parse(jsmn_parser *, const char *, size_t, jsmntok_t *, unsigned int)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_jsmn_8h_1a64734cb1fc006fba5fd237e80a58ef40.html">Function jsmn_parse(jsmn_parser *, const char *, size_t, jsmntok_t *, unsigned int)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_jsmn_8c_1a095d91050319b21ff068389b85091764.html">Function jsmn_parse_primitive</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_jsmn_8c_1a0fe4b35d45560e530ac7402a73bcf564.html">Function jsmn_parse_string</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_simple_8c_1a66a4118cf6fedab06aa795581935fd03.html">Function jsoneq</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_log__utils_8c_1a7d8ff0e26b7d1428c8b8177770a9e05f.html">Function logDebug(const char *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_log__utils_8h_1a7d8ff0e26b7d1428c8b8177770a9e05f.html">Function logDebug(const char *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_log__utils_8c_1a645de0704d59f6bbfcca3f0cc7dbace2.html">Function logError(const char *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_log__utils_8h_1a645de0704d59f6bbfcca3f0cc7dbace2.html">Function logError(const char *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_log__utils_8c_1a837fc549bf5c2e058aa2e1e5aa0ed67c.html">Function logInfo(const char *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_log__utils_8h_1a837fc549bf5c2e058aa2e1e5aa0ed67c.html">Function logInfo(const char *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_log__utils_8c_1a171b91332e4c15080a4f7c45d6f0b7de.html">Function logSuccess(const char *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_log__utils_8h_1a171b91332e4c15080a4f7c45d6f0b7de.html">Function logSuccess(const char *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_log__utils_8c_1a3fd9e91eb8bda4afbb2e38ae5f954c5c.html">Function logWarning(const char *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_log__utils_8h_1a3fd9e91eb8bda4afbb2e38ae5f954c5c.html">Function logWarning(const char *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_main_8c_1a0ddf1224851353fc92bfbff6f499fa97.html">Function main(int, char *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_jsondump_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4.html">Function main()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_simple_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4.html">Function main()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_config__utils_8c_1a66bb2060e7b6c8361134473a2d3981aa.html">Function newConfig()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_config__utils_8h_1a66bb2060e7b6c8361134473a2d3981aa.html">Function newConfig()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_config__utils_8template_8c_1a66bb2060e7b6c8361134473a2d3981aa.html">Function newConfig()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_config__utils_8template_8h_1a66bb2060e7b6c8361134473a2d3981aa.html">Function newConfig()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_config__utils_8c_1a1b47e2fca6322c3a0c82eff692d151d4.html">Function parseConfigFile(const char *, config_t **)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_config__utils_8h_1a1b47e2fca6322c3a0c82eff692d151d4.html">Function parseConfigFile(const char *, config_t **)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_config__utils_8template_8c_1a1b47e2fca6322c3a0c82eff692d151d4.html">Function parseConfigFile(const char *, config_t **)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_config__utils_8template_8h_1a1b47e2fca6322c3a0c82eff692d151d4.html">Function parseConfigFile(const char *, config_t **)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_config__utils_8c_1a64615c329d1e4d9f478235f17bee892e.html">Function parseGpsObject</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_config__utils_8c_1a9163f2f9b207c23992e3a266fea0c50d.html">Function parseJsonTokens(const jsmntok_t *, int, const char *, config_t *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_config__utils_8template_8c_1a9163f2f9b207c23992e3a266fea0c50d.html">Function parseJsonTokens(const jsmntok_t *, int, const char *, config_t *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_config__utils_8c_1ab93c6c4f2640ccdf160a866bc45fc7d5.html">Function parseMongodbObject(const jsmntok_t *, const char *, config_t *, int *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_config__utils_8template_8c_1ab93c6c4f2640ccdf160a866bc45fc7d5.html">Function parseMongodbObject(const jsmntok_t *, const char *, config_t *, int *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_config__utils_8c_1afb31a5f7b2aefb725a64049a964290d9.html">Function parseMqttObject(const jsmntok_t *, const char *, config_t *, int *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_config__utils_8template_8c_1afb31a5f7b2aefb725a64049a964290d9.html">Function parseMqttObject(const jsmntok_t *, const char *, config_t *, int *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_config__utils_8c_1a6bc865b692f56d2f37ee4136c41de765.html">Function printConfig(const config_t *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_config__utils_8h_1a6bc865b692f56d2f37ee4136c41de765.html">Function printConfig(const config_t *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_config__utils_8template_8c_1a6bc865b692f56d2f37ee4136c41de765.html">Function printConfig(const config_t *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_config__utils_8template_8h_1a6bc865b692f56d2f37ee4136c41de765.html">Function printConfig(const config_t *)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_misc__utils_8c_1a696f8e4109d95c48131f0345839c5b93.html">Function printDoubleArray(double *, int)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_misc__utils_8h_1a696f8e4109d95c48131f0345839c5b93.html">Function printDoubleArray(double *, int)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_misc__utils_8c_1a28bf4bbddfeeab9fc9c5c7d75ae7b87b.html">Function printIntArray(int *, int)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_misc__utils_8h_1a28bf4bbddfeeab9fc9c5c7d75ae7b87b.html">Function printIntArray(int *, int)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_misc__utils_8c_1a1da449f0ce22aa68d7a60c58f11657fc.html">Function printStringsArray(char **, int)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_misc__utils_8h_1a1da449f0ce22aa68d7a60c58f11657fc.html">Function printStringsArray(char **, int)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_misc__utils_8c_1a308ff7fab67f9ed07c35abb82a57a8f4.html">Function swapPointers(void **, void **)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_misc__utils_8h_1a308ff7fab67f9ed07c35abb82a57a8f4.html">Function swapPointers(void **, void **)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_jsmn__test_8c_1a55cc16d7b9979340e22e32928a979788.html">Function test</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_jsmn__test_8c_1a65098ef4d0359f3f6e8b6bd279aee3fb.html">Function test_array_nomem</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_jsmn__test_8c_1a163b278887480ecc9db1f582fd0b10ba.html">Function test_count</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_jsmn__test_8c_1a61dfc9918289fc65ee42995ca0c926ad.html">Function test_empty</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_jsmn__test_8c_1a9711a07d9e5f94b868a829338c6fdd9e.html">Function test_input_length</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_jsmn__test_8c_1a126d58774391fb7369bc05b0887772b7.html">Function test_issue_22</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_jsmn__test_8c_1ad3754da91a829f3ddf29acad8654c177.html">Function test_objects_arrays</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_jsmn__test_8c_1af2a8c84ace3eaeb72a6ad337cbfa8c4c.html">Function test_partial_array</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_jsmn__test_8c_1a535ada6219623d2b1cca500f59a96b8f.html">Function test_partial_string</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_jsmn__test_8c_1a5b5ad5866292ac7bd170be55dc844438.html">Function test_primitive</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_jsmn__test_8c_1ade55f0f689e1ddc2ed56c62b3a2452c3.html">Function test_simple</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_jsmn__test_8c_1a5e7535140ec876502bbea202769af296.html">Function test_string</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_jsmn__test_8c_1a33887e2d91dc8c7830a7598bd4b4c9d1.html">Function test_unicode_characters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_jsmn__test_8c_1ae299f9189096da05de141bc7663b8af8.html">Function test_unquoted_keys</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#variables">Variables</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="variable_main_8c_1accfd06683048794bbd23d2eb5bba72c8.html">Variable condition</a></li>
+<li class="toctree-l4"><a class="reference internal" href="variable_main_8c_1acaf254db67d7b96b6e56a90d9e5130e4.html">Variable ENTRY_STATE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="variable_main_8c_1a748bd5c8f549a308c8a3d1bce904dc9e.html">Variable EXIT_STATE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="variable_simple_8c_1ae403608f4b1a83db152ae3a9400d2dd4.html">Variable JSON_STRING</a></li>
+<li class="toctree-l4"><a class="reference internal" href="variable_config__utils_8c_1a68d537efdc815805c0c887ab26ab48d0.html">Variable MAX_TOKENS_COUNT</a></li>
+<li class="toctree-l4"><a class="reference internal" href="variable_config__utils_8template_8c_1a68d537efdc815805c0c887ab26ab48d0.html">Variable MAX_TOKENS_COUNT</a></li>
+<li class="toctree-l4"><a class="reference internal" href="variable_jsmn__test_8c_1a8b5365d61f45f1a38e5e7e67dac96c54.html">Variable test_failed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="variable_jsmn__test_8c_1a8e6f4dd376ef9a53443d7de828a9a287.html">Variable test_passed</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#defines">Defines</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="define_log__utils__colors_8h_1aca16e6a49eb51333c5fd3eee19487315.html">Define ANSI_COLOR_BLUE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_log__utils__colors_8h_1a8d0b0043e152438bb39b918a1f98c65f.html">Define ANSI_COLOR_CYAN</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_log__utils__colors_8h_1ab9cba69b94a63d50492a1fd6deb81ca6.html">Define ANSI_COLOR_DARK_GRAY</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_log__utils__colors_8h_1a966c72d8d733c7734c6c784753d894c7.html">Define ANSI_COLOR_GREEN</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_log__utils__colors_8h_1acb30614ba1535da5b9d0c490b3c10515.html">Define ANSI_COLOR_MAGENTA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_log__utils__colors_8h_1a34995b955465f6bbb37c359173d50477.html">Define ANSI_COLOR_RED</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_log__utils__colors_8h_1a5a123b382640b3aa65dd5db386002fbc.html">Define ANSI_COLOR_YELLOW</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_jsmn__test_8c_1a9b7ee5bbb263671ca310a70e0d1526e9.html">Define check</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_jsmn__test_8c_1a4c29258cb6b467ba162cfe09d50a6ad7.html">Define done</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_jsmn__test_8c_1a73a3b169ac8c3419cbe15327e75ffcfd.html">Define fail</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_jsmn__test_8c_1ab901dc08c3d247fdcc588b7c0e6cc455.html">Define jsmn_alloc_token</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_jsmn__test_8c_1a6e0d3e5a3c9a8cec2f7734e149fb7ea7.html">Define JSMN_ARRAY</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_jsmn__test_8c_1ae8cf2a3f50ee5a8502517bd478215fea.html">Define JSMN_ERROR_INVAL</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_jsmn__test_8c_1a1b4d51e7cd70fba297dd1676ed2dc37b.html">Define JSMN_ERROR_NOMEM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_jsmn__test_8c_1af866da305aac2ecaf71a0c6c773ee1c1.html">Define JSMN_ERROR_PART</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_jsmn__test_8c_1ab5a2bfae4f669203b1b433e93d3d3d0f.html">Define jsmn_fill_token</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_jsmn__test_8c_1a410cd4f831fbbb674557b2aa6284484d.html">Define jsmn_init</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_jsmn__test_8c_1af6afc7d17e8f9d1af9728ac7f19f86f4.html">Define JSMN_OBJECT</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_jsmn__test_8c_1afac59fb4c00d048a1e8404fa9348eef0.html">Define jsmn_parse</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_jsmn__test_8c_1a0273e29042742f4e599e1fc49be19c6c.html">Define jsmn_parse_primitive</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_jsmn__test_8c_1aa730aa6e498c379420e253d3e9f48e1c.html">Define jsmn_parse_string</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_jsmn__test_8c_1af8bcfd10e6aef6f72173bfe7137e28e4.html">Define jsmn_parser</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_jsmn__test_8c_1af2062938627e941f0ab2b92162edcaae.html">Define JSMN_PRIMITIVE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_jsmn__test_8c_1ae9493ed0020a5a9595eb8d0b6870f947.html">Define JSMN_STRICT</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_jsmn__test_8c_1a1fb5855a9ef4d9723cc90698c2946ce3.html">Define JSMN_STRING</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_jsmn__test_8c_1aa99dd26a01ca1740a689bff6009be93f.html">Define jsmnerr_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_jsmn__test_8c_1aa987bb9bdabfd416763ca9ebc235cf25.html">Define jsmntok_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_jsmn__test_8c_1a5880db10b08557ba157306931beac19b.html">Define jsmntype_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_jsmn__test_8c_1ad48a257b2f2782c3f0153beafe125784.html">Define TOKEN_EQ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_jsmn__test_8c_1a5c48c6301374df1920d7645837018f96.html">Define TOKEN_PRINT</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_jsmn__test_8c_1a6c62686f717602088bfced2b1456cba8.html">Define TOKEN_STRING</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Eagletrt Project</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Title</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/api/library_root.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="title">
+<h1>Title<a class="headerlink" href="#title" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="class-hierarchy">
+<h2>Class Hierarchy<a class="headerlink" href="#class-hierarchy" title="Permalink to this headline">¶</a></h2>
+<ul class="treeView" id="class-treeView">
+  <li>
+    <ul class="collapsibleList">
+      <li>Struct <a href="structbms__hv__current__data.html#exhale-struct-structbms-hv-current-data">bms_hv_current_data</a></li><li>Struct <a href="structbms__hv__current__value__data.html#exhale-struct-structbms-hv-current-value-data">bms_hv_current_value_data</a></li><li>Struct <a href="structbms__hv__data.html#exhale-struct-structbms-hv-data">bms_hv_data</a></li><li>Struct <a href="structbms__hv__errors__data.html#exhale-struct-structbms-hv-errors-data">bms_hv_errors_data</a></li><li>Struct <a href="structbms__hv__errors__value__data.html#exhale-struct-structbms-hv-errors-value-data">bms_hv_errors_value_data</a></li><li>Struct <a href="structbms__hv__temperature__data.html#exhale-struct-structbms-hv-temperature-data">bms_hv_temperature_data</a></li><li>Struct <a href="structbms__hv__temperature__value__data.html#exhale-struct-structbms-hv-temperature-value-data">bms_hv_temperature_value_data</a></li><li>Struct <a href="structbms__hv__voltage__data.html#exhale-struct-structbms-hv-voltage-data">bms_hv_voltage_data</a></li><li>Struct <a href="structbms__hv__voltage__value__data.html#exhale-struct-structbms-hv-voltage-value-data">bms_hv_voltage_value_data</a></li><li>Struct <a href="structbms__hv__warnings__data.html#exhale-struct-structbms-hv-warnings-data">bms_hv_warnings_data</a></li><li>Struct <a href="structbms__hv__warnings__value__data.html#exhale-struct-structbms-hv-warnings-value-data">bms_hv_warnings_value_data</a></li><li>Struct <a href="structbms__lv__data.html#exhale-struct-structbms-lv-data">bms_lv_data</a></li><li>Struct <a href="structbms__lv__errors__data.html#exhale-struct-structbms-lv-errors-data">bms_lv_errors_data</a></li><li>Struct <a href="structbms__lv__values__data.html#exhale-struct-structbms-lv-values-data">bms_lv_values_data</a></li><li>Struct <a href="structbms__lv__values__value__data.html#exhale-struct-structbms-lv-values-value-data">bms_lv_values_value_data</a></li><li>Struct <a href="structconfig__t.html#exhale-struct-structconfig-t">config_t</a></li><li>Struct <a href="structdata__t.html#exhale-struct-structdata-t">data_t</a></li><li>Struct <a href="structdistance__data.html#exhale-struct-structdistance-data">distance_data</a></li><li>Struct <a href="structdistance__value__data.html#exhale-struct-structdistance-value-data">distance_value_data</a></li><li>Struct <a href="structfront__wheels__encoders__data.html#exhale-struct-structfront-wheels-encoders-data">front_wheels_encoders_data</a></li><li>Struct <a href="structfront__wheels__encoders__left__angle__data.html#exhale-struct-structfront-wheels-encoders-left-angle-data">front_wheels_encoders_left_angle_data</a></li><li>Struct <a href="structfront__wheels__encoders__left__angle__value__data.html#exhale-struct-structfront-wheels-encoders-left-angle-value-data">front_wheels_encoders_left_angle_value_data</a></li><li>Struct <a href="structfront__wheels__encoders__left__data.html#exhale-struct-structfront-wheels-encoders-left-data">front_wheels_encoders_left_data</a></li><li>Struct <a href="structfront__wheels__encoders__left__speed__data.html#exhale-struct-structfront-wheels-encoders-left-speed-data">front_wheels_encoders_left_speed_data</a></li><li>Struct <a href="structfront__wheels__encoders__left__speed__rads__data.html#exhale-struct-structfront-wheels-encoders-left-speed-rads-data">front_wheels_encoders_left_speed_rads_data</a></li><li>Struct <a href="structfront__wheels__encoders__left__speed__value__data.html#exhale-struct-structfront-wheels-encoders-left-speed-value-data">front_wheels_encoders_left_speed_value_data</a></li><li>Struct <a href="structfront__wheels__encoders__right__angle__data.html#exhale-struct-structfront-wheels-encoders-right-angle-data">front_wheels_encoders_right_angle_data</a></li><li>Struct <a href="structfront__wheels__encoders__right__angle__value__data.html#exhale-struct-structfront-wheels-encoders-right-angle-value-data">front_wheels_encoders_right_angle_value_data</a></li><li>Struct <a href="structfront__wheels__encoders__right__data.html#exhale-struct-structfront-wheels-encoders-right-data">front_wheels_encoders_right_data</a></li><li>Struct <a href="structfront__wheels__encoders__right__speed__data.html#exhale-struct-structfront-wheels-encoders-right-speed-data">front_wheels_encoders_right_speed_data</a></li><li>Struct <a href="structfront__wheels__encoders__right__speed__rads__data.html#exhale-struct-structfront-wheels-encoders-right-speed-rads-data">front_wheels_encoders_right_speed_rads_data</a></li><li>Struct <a href="structfront__wheels__encoders__right__speed__value__data.html#exhale-struct-structfront-wheels-encoders-right-speed-value-data">front_wheels_encoders_right_speed_value_data</a></li><li>Struct <a href="structgps__config__t.html#exhale-struct-structgps-config-t">gps_config_t</a></li><li>Struct <a href="structgps__data.html#exhale-struct-structgps-data">gps_data</a></li><li>Struct <a href="structgps__gga__data.html#exhale-struct-structgps-gga-data">gps_gga_data</a></li><li>Struct <a href="structgps__gga__value__data.html#exhale-struct-structgps-gga-value-data">gps_gga_value_data</a></li><li>Struct <a href="structgps__gll__data.html#exhale-struct-structgps-gll-data">gps_gll_data</a></li><li>Struct <a href="structgps__gll__value__data.html#exhale-struct-structgps-gll-value-data">gps_gll_value_data</a></li><li>Struct <a href="structgps__rmc__data.html#exhale-struct-structgps-rmc-data">gps_rmc_data</a></li><li>Struct <a href="structgps__rmc__value__data.html#exhale-struct-structgps-rmc-value-data">gps_rmc_value_data</a></li><li>Struct <a href="structgps__vtg__data.html#exhale-struct-structgps-vtg-data">gps_vtg_data</a></li><li>Struct <a href="structgps__vtg__value__data.html#exhale-struct-structgps-vtg-value-data">gps_vtg_value_data</a></li><li>Struct <a href="structimu__accel__data.html#exhale-struct-structimu-accel-data">imu_accel_data</a></li><li>Struct <a href="structimu__accel__value__data.html#exhale-struct-structimu-accel-value-data">imu_accel_value_data</a></li><li>Struct <a href="structimu__data.html#exhale-struct-structimu-data">imu_data</a></li><li>Struct <a href="structimu__gyro__data.html#exhale-struct-structimu-gyro-data">imu_gyro_data</a></li><li>Struct <a href="structimu__gyro__value__data.html#exhale-struct-structimu-gyro-value-data">imu_gyro_value_data</a></li><li>Struct <a href="structimu__old__accel__data.html#exhale-struct-structimu-old-accel-data">imu_old_accel_data</a></li><li>Struct <a href="structimu__old__accel__value__data.html#exhale-struct-structimu-old-accel-value-data">imu_old_accel_value_data</a></li><li>Struct <a href="structimu__old__data.html#exhale-struct-structimu-old-data">imu_old_data</a></li><li>Struct <a href="structimu__old__gyro__data.html#exhale-struct-structimu-old-gyro-data">imu_old_gyro_data</a></li><li>Struct <a href="structimu__old__gyro__value__data.html#exhale-struct-structimu-old-gyro-value-data">imu_old_gyro_value_data</a></li><li>Struct <a href="structinverters__data.html#exhale-struct-structinverters-data">inverters_data</a></li><li>Struct <a href="structinverters__left__data.html#exhale-struct-structinverters-left-data">inverters_left_data</a></li><li>Struct <a href="structinverters__left__speed__data.html#exhale-struct-structinverters-left-speed-data">inverters_left_speed_data</a></li><li>Struct <a href="structinverters__left__temperature__igbt__data.html#exhale-struct-structinverters-left-temperature-igbt-data">inverters_left_temperature_igbt_data</a></li><li>Struct <a href="structinverters__left__temperature__motors__data.html#exhale-struct-structinverters-left-temperature-motors-data">inverters_left_temperature_motors_data</a></li><li>Struct <a href="structinverters__left__torque__data.html#exhale-struct-structinverters-left-torque-data">inverters_left_torque_data</a></li><li>Struct <a href="structinverters__right__data.html#exhale-struct-structinverters-right-data">inverters_right_data</a></li><li>Struct <a href="structinverters__right__speed__data.html#exhale-struct-structinverters-right-speed-data">inverters_right_speed_data</a></li><li>Struct <a href="structinverters__right__temperature__igbt__data.html#exhale-struct-structinverters-right-temperature-igbt-data">inverters_right_temperature_igbt_data</a></li><li>Struct <a href="structinverters__right__temperature__motors__data.html#exhale-struct-structinverters-right-temperature-motors-data">inverters_right_temperature_motors_data</a></li><li>Struct <a href="structinverters__right__torque__data.html#exhale-struct-structinverters-right-torque-data">inverters_right_torque_data</a></li><li>Struct <a href="structjsmn__parser.html#exhale-struct-structjsmn-parser">jsmn_parser</a></li><li>Struct <a href="structjsmntok__t.html#exhale-struct-structjsmntok-t">jsmntok_t</a></li><li>Struct <a href="structmongodb__config__t.html#exhale-struct-structmongodb-config-t">mongodb_config_t</a></li><li>Struct <a href="structmqtt__config__t.html#exhale-struct-structmqtt-config-t">mqtt_config_t</a></li><li>Struct <a href="structpedals__brake__data.html#exhale-struct-structpedals-brake-data">pedals_brake_data</a></li><li>Struct <a href="structpedals__brake__value__data.html#exhale-struct-structpedals-brake-value-data">pedals_brake_value_data</a></li><li>Struct <a href="structpedals__data.html#exhale-struct-structpedals-data">pedals_data</a></li><li>Struct <a href="structpedals__throttle__data.html#exhale-struct-structpedals-throttle-data">pedals_throttle_data</a></li><li>Struct <a href="structsteering__wheel__data.html#exhale-struct-structsteering-wheel-data">steering_wheel_data</a></li><li>Struct <a href="structsteering__wheel__encoder__data.html#exhale-struct-structsteering-wheel-encoder-data">steering_wheel_encoder_data</a></li><li>Struct <a href="structsteering__wheel__gears__data.html#exhale-struct-structsteering-wheel-gears-data">steering_wheel_gears_data</a></li><li>Struct <a href="structsteering__wheel__gears__value__data.html#exhale-struct-structsteering-wheel-gears-value-data">steering_wheel_gears_value_data</a></li><li>Enum <a href="enum_jsmn_8h_1ad30df3d9e174dcb6060160f486f2772f.html#exhale-enum-jsmn-8h-1ad30df3d9e174dcb6060160f486f2772f">jsmnerr_t</a></li><li class="lastChild">Enum <a href="enum_jsmn_8h_1a065320719769f9dc1fbe30094e52802f.html#exhale-enum-jsmn-8h-1a065320719769f9dc1fbe30094e52802f">jsmntype_t</a></li>
+    </ul>
+  </li><!-- only tree view element -->
+</ul><!-- /treeView class-treeView --></div>
+<div class="section" id="file-hierarchy">
+<h2>File Hierarchy<a class="headerlink" href="#file-hierarchy" title="Permalink to this headline">¶</a></h2>
+<ul class="treeView" id="file-treeView">
+  <li>
+    <ul class="collapsibleList">
+      <li>Directory <a href="dir_utils.html#dir-utils">utils</a><ul><li>Directory <a href="dir_utils_can_utils.html#dir-utils-can-utils">utils</a><ul><li>File <a href="file_utils_can_utils_can_utils.c.html#file-utils-can-utils-can-utils.c">can_utils.c</a></li><li class="lastChild">File <a href="file_utils_can_utils_can_utils.h.html#file-utils-can-utils-can-utils.h">can_utils.h</a></li></ul></li><li>Directory <a href="dir_utils_config_utils.html#dir-utils-config-utils">utils</a><ul><li>Directory <a href="dir_utils_config_utils_jsmn.html#dir-utils-config-utils-jsmn">jsmn</a><ul><li>Directory <a href="dir_utils_config_utils_jsmn_example.html#dir-utils-config-utils-jsmn-example">example</a><ul><li>File <a href="file_utils_config_utils_jsmn_example_jsondump.c.html#file-utils-config-utils-jsmn-example-jsondump.c">jsondump.c</a></li><li class="lastChild">File <a href="file_utils_config_utils_jsmn_example_simple.c.html#file-utils-config-utils-jsmn-example-simple.c">simple.c</a></li></ul></li><li>File <a href="file_utils_config_utils_jsmn_jsmn.c.html#file-utils-config-utils-jsmn-jsmn.c">jsmn.c</a></li><li>File <a href="file_utils_config_utils_jsmn_jsmn.h.html#file-utils-config-utils-jsmn-jsmn.h">jsmn.h</a></li><li>File <a href="file_utils_config_utils_jsmn_jsmn_test.c.html#file-utils-config-utils-jsmn-jsmn-test.c">jsmn_test.c</a></li><li class="lastChild">File <a href="file_utils_config_utils_jsmn_README.md.html#file-utils-config-utils-jsmn-README.md">README.md</a></li></ul></li><li>File <a href="file_utils_config_utils_config_utils.c.html#file-utils-config-utils-config-utils.c">config_utils.c</a></li><li>File <a href="file_utils_config_utils_config_utils.h.html#file-utils-config-utils-config-utils.h">config_utils.h</a></li><li>File <a href="file_utils_config_utils_config_utils.template.c.html#file-utils-config-utils-config-utils.template.c">config_utils.template.c</a></li><li class="lastChild">File <a href="file_utils_config_utils_config_utils.template.h.html#file-utils-config-utils-config-utils.template.h">config_utils.template.h</a></li></ul></li><li>Directory <a href="dir_utils_gather_utils.html#dir-utils-gather-utils">utils</a><ul><li>File <a href="file_utils_gather_utils_data_structure.h.html#file-utils-gather-utils-data-structure.h">data_structure.h</a></li><li>File <a href="file_utils_gather_utils_data_structure.template.h.html#file-utils-gather-utils-data-structure.template.h">data_structure.template.h</a></li><li>File <a href="file_utils_gather_utils_gather_utils.c.html#file-utils-gather-utils-gather-utils.c">gather_utils.c</a></li><li>File <a href="file_utils_gather_utils_gather_utils.h.html#file-utils-gather-utils-gather-utils.h">gather_utils.h</a></li><li class="lastChild">File <a href="file_utils_gather_utils_gather_utils.template.c.html#file-utils-gather-utils-gather-utils.template.c">gather_utils.template.c</a></li></ul></li><li>Directory <a href="dir_utils_log_utils.html#dir-utils-log-utils">utils</a><ul><li>File <a href="file_utils_log_utils_log_utils.c.html#file-utils-log-utils-log-utils.c">log_utils.c</a></li><li>File <a href="file_utils_log_utils_log_utils.h.html#file-utils-log-utils-log-utils.h">log_utils.h</a></li><li class="lastChild">File <a href="file_utils_log_utils_log_utils_colors.h.html#file-utils-log-utils-log-utils-colors.h">log_utils_colors.h</a></li></ul></li><li class="lastChild">Directory <a href="dir_utils_misc_utils.html#dir-utils-misc-utils">utils</a><ul><li>File <a href="file_utils_misc_utils_misc_utils.c.html#file-utils-misc-utils-misc-utils.c">misc_utils.c</a></li><li class="lastChild">File <a href="file_utils_misc_utils_misc_utils.h.html#file-utils-misc-utils-misc-utils.h">misc_utils.h</a></li></ul></li></ul></li><li class="lastChild">File <a href="file_main.c.html#file-main.c">main.c</a></li>
+    </ul>
+  </li><!-- only tree view element -->
+</ul><!-- /treeView file-treeView --></div>
+<div class="section" id="full-api">
+<h2>Full API<a class="headerlink" href="#full-api" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="classes-and-structs">
+<h3>Classes and Structs<a class="headerlink" href="#classes-and-structs" title="Permalink to this headline">¶</a></h3>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structbms__hv__current__data.html">Struct bms_hv_current_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structbms__hv__current__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structbms__hv__current__value__data.html">Struct bms_hv_current_value_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structbms__hv__current__value__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structbms__hv__data.html">Struct bms_hv_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structbms__hv__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structbms__hv__errors__data.html">Struct bms_hv_errors_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structbms__hv__errors__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structbms__hv__errors__value__data.html">Struct bms_hv_errors_value_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structbms__hv__errors__value__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structbms__hv__temperature__data.html">Struct bms_hv_temperature_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structbms__hv__temperature__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structbms__hv__temperature__value__data.html">Struct bms_hv_temperature_value_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structbms__hv__temperature__value__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structbms__hv__voltage__data.html">Struct bms_hv_voltage_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structbms__hv__voltage__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structbms__hv__voltage__value__data.html">Struct bms_hv_voltage_value_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structbms__hv__voltage__value__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structbms__hv__warnings__data.html">Struct bms_hv_warnings_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structbms__hv__warnings__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structbms__hv__warnings__value__data.html">Struct bms_hv_warnings_value_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structbms__hv__warnings__value__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structbms__lv__data.html">Struct bms_lv_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structbms__lv__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structbms__lv__errors__data.html">Struct bms_lv_errors_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structbms__lv__errors__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structbms__lv__values__data.html">Struct bms_lv_values_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structbms__lv__values__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structbms__lv__values__value__data.html">Struct bms_lv_values_value_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structbms__lv__values__value__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structconfig__t.html">Struct config_t</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structconfig__t.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structdata__t.html">Struct data_t</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structdata__t.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structdistance__data.html">Struct distance_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structdistance__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structdistance__value__data.html">Struct distance_value_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structdistance__value__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structfront__wheels__encoders__data.html">Struct front_wheels_encoders_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structfront__wheels__encoders__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structfront__wheels__encoders__left__angle__data.html">Struct front_wheels_encoders_left_angle_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structfront__wheels__encoders__left__angle__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structfront__wheels__encoders__left__angle__value__data.html">Struct front_wheels_encoders_left_angle_value_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structfront__wheels__encoders__left__angle__value__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structfront__wheels__encoders__left__data.html">Struct front_wheels_encoders_left_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structfront__wheels__encoders__left__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structfront__wheels__encoders__left__speed__data.html">Struct front_wheels_encoders_left_speed_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structfront__wheels__encoders__left__speed__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structfront__wheels__encoders__left__speed__rads__data.html">Struct front_wheels_encoders_left_speed_rads_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structfront__wheels__encoders__left__speed__rads__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structfront__wheels__encoders__left__speed__value__data.html">Struct front_wheels_encoders_left_speed_value_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structfront__wheels__encoders__left__speed__value__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structfront__wheels__encoders__right__angle__data.html">Struct front_wheels_encoders_right_angle_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structfront__wheels__encoders__right__angle__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structfront__wheels__encoders__right__angle__value__data.html">Struct front_wheels_encoders_right_angle_value_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structfront__wheels__encoders__right__angle__value__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structfront__wheels__encoders__right__data.html">Struct front_wheels_encoders_right_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structfront__wheels__encoders__right__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structfront__wheels__encoders__right__speed__data.html">Struct front_wheels_encoders_right_speed_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structfront__wheels__encoders__right__speed__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structfront__wheels__encoders__right__speed__rads__data.html">Struct front_wheels_encoders_right_speed_rads_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structfront__wheels__encoders__right__speed__rads__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structfront__wheels__encoders__right__speed__value__data.html">Struct front_wheels_encoders_right_speed_value_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structfront__wheels__encoders__right__speed__value__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structgps__config__t.html">Struct gps_config_t</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structgps__config__t.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structgps__data.html">Struct gps_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structgps__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structgps__gga__data.html">Struct gps_gga_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structgps__gga__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structgps__gga__value__data.html">Struct gps_gga_value_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structgps__gga__value__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structgps__gll__data.html">Struct gps_gll_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structgps__gll__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structgps__gll__value__data.html">Struct gps_gll_value_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structgps__gll__value__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structgps__rmc__data.html">Struct gps_rmc_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structgps__rmc__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structgps__rmc__value__data.html">Struct gps_rmc_value_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structgps__rmc__value__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structgps__vtg__data.html">Struct gps_vtg_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structgps__vtg__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structgps__vtg__value__data.html">Struct gps_vtg_value_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structgps__vtg__value__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structimu__accel__data.html">Struct imu_accel_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structimu__accel__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structimu__accel__value__data.html">Struct imu_accel_value_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structimu__accel__value__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structimu__data.html">Struct imu_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structimu__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structimu__gyro__data.html">Struct imu_gyro_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structimu__gyro__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structimu__gyro__value__data.html">Struct imu_gyro_value_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structimu__gyro__value__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structimu__old__accel__data.html">Struct imu_old_accel_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structimu__old__accel__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structimu__old__accel__value__data.html">Struct imu_old_accel_value_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structimu__old__accel__value__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structimu__old__data.html">Struct imu_old_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structimu__old__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structimu__old__gyro__data.html">Struct imu_old_gyro_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structimu__old__gyro__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structimu__old__gyro__value__data.html">Struct imu_old_gyro_value_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structimu__old__gyro__value__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structinverters__data.html">Struct inverters_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structinverters__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structinverters__left__data.html">Struct inverters_left_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structinverters__left__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structinverters__left__speed__data.html">Struct inverters_left_speed_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structinverters__left__speed__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structinverters__left__temperature__igbt__data.html">Struct inverters_left_temperature_igbt_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structinverters__left__temperature__igbt__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structinverters__left__temperature__motors__data.html">Struct inverters_left_temperature_motors_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structinverters__left__temperature__motors__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structinverters__left__torque__data.html">Struct inverters_left_torque_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structinverters__left__torque__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structinverters__right__data.html">Struct inverters_right_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structinverters__right__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structinverters__right__speed__data.html">Struct inverters_right_speed_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structinverters__right__speed__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structinverters__right__temperature__igbt__data.html">Struct inverters_right_temperature_igbt_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structinverters__right__temperature__igbt__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structinverters__right__temperature__motors__data.html">Struct inverters_right_temperature_motors_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structinverters__right__temperature__motors__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structinverters__right__torque__data.html">Struct inverters_right_torque_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structinverters__right__torque__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structjsmn__parser.html">Struct jsmn_parser</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structjsmn__parser.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structjsmntok__t.html">Struct jsmntok_t</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structjsmntok__t.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structmongodb__config__t.html">Struct mongodb_config_t</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structmongodb__config__t.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structmqtt__config__t.html">Struct mqtt_config_t</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structmqtt__config__t.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structpedals__brake__data.html">Struct pedals_brake_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structpedals__brake__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structpedals__brake__value__data.html">Struct pedals_brake_value_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structpedals__brake__value__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structpedals__data.html">Struct pedals_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structpedals__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structpedals__throttle__data.html">Struct pedals_throttle_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structpedals__throttle__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structsteering__wheel__data.html">Struct steering_wheel_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structsteering__wheel__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structsteering__wheel__encoder__data.html">Struct steering_wheel_encoder_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structsteering__wheel__encoder__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structsteering__wheel__gears__data.html">Struct steering_wheel_gears_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structsteering__wheel__gears__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structsteering__wheel__gears__value__data.html">Struct steering_wheel_gears_value_data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structsteering__wheel__gears__value__data.html#struct-documentation">Struct Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="enums">
+<h3>Enums<a class="headerlink" href="#enums" title="Permalink to this headline">¶</a></h3>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="enum_jsmn_8h_1ad30df3d9e174dcb6060160f486f2772f.html">Enum jsmnerr_t</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="enum_jsmn_8h_1ad30df3d9e174dcb6060160f486f2772f.html#enum-documentation">Enum Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="enum_jsmn_8h_1a065320719769f9dc1fbe30094e52802f.html">Enum jsmntype_t</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="enum_jsmn_8h_1a065320719769f9dc1fbe30094e52802f.html#enum-documentation">Enum Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h3>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_can__utils_8c_1a511005e4cb027db07cdbcfb3c32342ff.html">Function canOpenSocket(const char *, struct sockaddr_can *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_can__utils_8c_1a511005e4cb027db07cdbcfb3c32342ff.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_can__utils_8h_1a511005e4cb027db07cdbcfb3c32342ff.html">Function canOpenSocket(const char *, struct sockaddr_can *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_can__utils_8h_1a511005e4cb027db07cdbcfb3c32342ff.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_can__utils_8c_1ac5488a3b4d4b754c9dc07f58af5b84c2.html">Function canReceive(int, int *, char **)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_can__utils_8c_1ac5488a3b4d4b754c9dc07f58af5b84c2.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_can__utils_8h_1ac5488a3b4d4b754c9dc07f58af5b84c2.html">Function canReceive(int, int *, char **)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_can__utils_8h_1ac5488a3b4d4b754c9dc07f58af5b84c2.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_can__utils_8c_1a8796f5bee2fe9a0446531c7ca355a416.html">Function canReceiveCompact(int, int *, int *, int *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_can__utils_8c_1a8796f5bee2fe9a0446531c7ca355a416.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_can__utils_8h_1a8796f5bee2fe9a0446531c7ca355a416.html">Function canReceiveCompact(int, int *, int *, int *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_can__utils_8h_1a8796f5bee2fe9a0446531c7ca355a416.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_can__utils_8c_1ab8ef5d4c913bc0fbf069e3cc723dd8ed.html">Function canReceiveSimple(int, char **)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_can__utils_8c_1ab8ef5d4c913bc0fbf069e3cc723dd8ed.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_can__utils_8h_1ab8ef5d4c913bc0fbf069e3cc723dd8ed.html">Function canReceiveSimple(int, char **)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_can__utils_8h_1ab8ef5d4c913bc0fbf069e3cc723dd8ed.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_can__utils_8c_1ab86be082c2e50660788fc72c3ac674ae.html">Function canSend(int, int, int, const char *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_can__utils_8c_1ab86be082c2e50660788fc72c3ac674ae.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_can__utils_8h_1ab86be082c2e50660788fc72c3ac674ae.html">Function canSend(int, int, int, const char *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_can__utils_8h_1ab86be082c2e50660788fc72c3ac674ae.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_can__utils_8c_1a2c592e0db2b5f124ff86c947e8e6e79a.html">Function canSendSimple(int, const char *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_can__utils_8c_1a2c592e0db2b5f124ff86c947e8e6e79a.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_can__utils_8h_1a2c592e0db2b5f124ff86c947e8e6e79a.html">Function canSendSimple(int, const char *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_can__utils_8h_1a2c592e0db2b5f124ff86c947e8e6e79a.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_misc__utils_8c_1a3ae73ef89febc41a3e538cfd795b0954.html">Function cloneStringsArray(char **, int)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_misc__utils_8c_1a3ae73ef89febc41a3e538cfd795b0954.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_misc__utils_8h_1a3ae73ef89febc41a3e538cfd795b0954.html">Function cloneStringsArray(char **, int)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_misc__utils_8h_1a3ae73ef89febc41a3e538cfd795b0954.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_config__utils_8c_1aa3f38eddd6da05ce480922e2b48fbaca.html">Function deleteConfig(config_t *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_config__utils_8c_1aa3f38eddd6da05ce480922e2b48fbaca.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_config__utils_8h_1aa3f38eddd6da05ce480922e2b48fbaca.html">Function deleteConfig(config_t *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_config__utils_8h_1aa3f38eddd6da05ce480922e2b48fbaca.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_config__utils_8template_8c_1aa3f38eddd6da05ce480922e2b48fbaca.html">Function deleteConfig(config_t *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_config__utils_8template_8c_1aa3f38eddd6da05ce480922e2b48fbaca.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_config__utils_8template_8h_1aa3f38eddd6da05ce480922e2b48fbaca.html">Function deleteConfig(config_t *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_config__utils_8template_8h_1aa3f38eddd6da05ce480922e2b48fbaca.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_misc__utils_8c_1a1bc70acf5dbd4ffac31ec18b2485dafb.html">Function digitsCount(int)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_misc__utils_8c_1a1bc70acf5dbd4ffac31ec18b2485dafb.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_misc__utils_8h_1a1bc70acf5dbd4ffac31ec18b2485dafb.html">Function digitsCount(int)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_misc__utils_8h_1a1bc70acf5dbd4ffac31ec18b2485dafb.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_jsondump_8c_1a90066587586ada4bf6a046f954f22c9d.html">Function dump</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_jsondump_8c_1a90066587586ada4bf6a046f954f22c9d.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_config__utils_8c_1a874c64e0eebacc3ec1c83143f31a3609.html">Function extractString(jsmntok_t, const char *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_config__utils_8c_1a874c64e0eebacc3ec1c83143f31a3609.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_config__utils_8template_8c_1a874c64e0eebacc3ec1c83143f31a3609.html">Function extractString(jsmntok_t, const char *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_config__utils_8template_8c_1a874c64e0eebacc3ec1c83143f31a3609.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_misc__utils_8c_1a93a91bd58090c1e8fbdc06e834491318.html">Function freeStringsArray(char **, int *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_misc__utils_8c_1a93a91bd58090c1e8fbdc06e834491318.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_misc__utils_8h_1a93a91bd58090c1e8fbdc06e834491318.html">Function freeStringsArray(char **, int *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_misc__utils_8h_1a93a91bd58090c1e8fbdc06e834491318.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_gather__utils_8c_1a687271e885feacd742b4cb110b9d8f94.html">Function gatherCreateData()</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_gather__utils_8c_1a687271e885feacd742b4cb110b9d8f94.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_gather__utils_8h_1a687271e885feacd742b4cb110b9d8f94.html">Function gatherCreateData()</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_gather__utils_8h_1a687271e885feacd742b4cb110b9d8f94.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_gather__utils_8template_8c_1a687271e885feacd742b4cb110b9d8f94.html">Function gatherCreateData()</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_gather__utils_8template_8c_1a687271e885feacd742b4cb110b9d8f94.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_gather__utils_8c_1af0cc0c1459af5983ebe2240d193dc68b.html">Function gatherDataToBson(data_t *, bson_t **)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_gather__utils_8c_1af0cc0c1459af5983ebe2240d193dc68b.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_gather__utils_8h_1af0cc0c1459af5983ebe2240d193dc68b.html">Function gatherDataToBson(data_t *, bson_t **)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_gather__utils_8h_1af0cc0c1459af5983ebe2240d193dc68b.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_gather__utils_8template_8c_1af0cc0c1459af5983ebe2240d193dc68b.html">Function gatherDataToBson(data_t *, bson_t **)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_gather__utils_8template_8c_1af0cc0c1459af5983ebe2240d193dc68b.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_gather__utils_8c_1a585aab6d7a061c6be7f95d61a1dddb23.html">Function gatherDeleteData(data_t *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_gather__utils_8c_1a585aab6d7a061c6be7f95d61a1dddb23.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_gather__utils_8h_1a9b52209d0a330080ea37332b3b140730.html">Function gatherDeleteData(data_t *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_gather__utils_8h_1a9b52209d0a330080ea37332b3b140730.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_gather__utils_8template_8c_1a585aab6d7a061c6be7f95d61a1dddb23.html">Function gatherDeleteData(data_t *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_gather__utils_8template_8c_1a585aab6d7a061c6be7f95d61a1dddb23.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_misc__utils_8c_1a252e39171b12cc131cbec5e725a3c978.html">Function getCurrentTimestamp()</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_misc__utils_8c_1a252e39171b12cc131cbec5e725a3c978.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_misc__utils_8h_1a252e39171b12cc131cbec5e725a3c978.html">Function getCurrentTimestamp()</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_misc__utils_8h_1a252e39171b12cc131cbec5e725a3c978.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_config__utils_8c_1aa70f8f3fb7c1a275bfcc7991dfcbc514.html">Function getDoubleArrayValue(const jsmntok_t *, const char *, int *, int *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_config__utils_8c_1aa70f8f3fb7c1a275bfcc7991dfcbc514.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_config__utils_8template_8c_1aa70f8f3fb7c1a275bfcc7991dfcbc514.html">Function getDoubleArrayValue(const jsmntok_t *, const char *, int *, int *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_config__utils_8template_8c_1aa70f8f3fb7c1a275bfcc7991dfcbc514.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_config__utils_8c_1ab56a7b92c62b48c71bb5ffe4415448a0.html">Function getDoubleValue(const jsmntok_t *, const char *, int *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_config__utils_8c_1ab56a7b92c62b48c71bb5ffe4415448a0.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_config__utils_8template_8c_1ab56a7b92c62b48c71bb5ffe4415448a0.html">Function getDoubleValue(const jsmntok_t *, const char *, int *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_config__utils_8template_8c_1ab56a7b92c62b48c71bb5ffe4415448a0.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_config__utils_8c_1a44823d436aba4855383f66fc4286aa1f.html">Function getIntArrayValue(const jsmntok_t *, const char *, int *, int *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_config__utils_8c_1a44823d436aba4855383f66fc4286aa1f.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_config__utils_8template_8c_1a44823d436aba4855383f66fc4286aa1f.html">Function getIntArrayValue(const jsmntok_t *, const char *, int *, int *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_config__utils_8template_8c_1a44823d436aba4855383f66fc4286aa1f.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_config__utils_8c_1a7955081949e2710813ab532d81522e34.html">Function getIntValue(const jsmntok_t *, const char *, int *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_config__utils_8c_1a7955081949e2710813ab532d81522e34.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_config__utils_8template_8c_1a7955081949e2710813ab532d81522e34.html">Function getIntValue(const jsmntok_t *, const char *, int *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_config__utils_8template_8c_1a7955081949e2710813ab532d81522e34.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_config__utils_8c_1a3986f58a97f858b7cdaa946cc6d52b49.html">Function getJsonString(FILE *, char **)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_config__utils_8c_1a3986f58a97f858b7cdaa946cc6d52b49.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_config__utils_8template_8c_1a3986f58a97f858b7cdaa946cc6d52b49.html">Function getJsonString(FILE *, char **)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_config__utils_8template_8c_1a3986f58a97f858b7cdaa946cc6d52b49.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_config__utils_8c_1a01482edfb23a6a39480e39decca0af74.html">Function getJsonTokens(const char *, int, jsmntok_t **)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_config__utils_8c_1a01482edfb23a6a39480e39decca0af74.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_config__utils_8template_8c_1a01482edfb23a6a39480e39decca0af74.html">Function getJsonTokens(const char *, int, jsmntok_t **)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_config__utils_8template_8c_1a01482edfb23a6a39480e39decca0af74.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_config__utils_8c_1a1c8de5808b33845d00b19df3ab590a8b.html">Function getStringArrayValue(const jsmntok_t *, const char *, int *, int *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_config__utils_8c_1a1c8de5808b33845d00b19df3ab590a8b.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_config__utils_8template_8c_1a1c8de5808b33845d00b19df3ab590a8b.html">Function getStringArrayValue(const jsmntok_t *, const char *, int *, int *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_config__utils_8template_8c_1a1c8de5808b33845d00b19df3ab590a8b.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_config__utils_8c_1a14de4a67845250dd6b898ec8f84ef1a8.html">Function getStringValue(const jsmntok_t *, const char *, int *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_config__utils_8c_1a14de4a67845250dd6b898ec8f84ef1a8.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_config__utils_8template_8c_1a14de4a67845250dd6b898ec8f84ef1a8.html">Function getStringValue(const jsmntok_t *, const char *, int *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_config__utils_8template_8c_1a14de4a67845250dd6b898ec8f84ef1a8.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_jsmn_8c_1a0d7a964b95b65cd16699a355ede80394.html">Function jsmn_alloc_token</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_jsmn_8c_1a0d7a964b95b65cd16699a355ede80394.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_jsmn_8c_1a20b875e37a2a5c88888c6d80068715be.html">Function jsmn_fill_token</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_jsmn_8c_1a20b875e37a2a5c88888c6d80068715be.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_jsmn_8c_1a8d4a8b3ce5c3d600feea38615b5f9aa6.html">Function jsmn_init(jsmn_parser *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_jsmn_8c_1a8d4a8b3ce5c3d600feea38615b5f9aa6.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_jsmn_8h_1a8d4a8b3ce5c3d600feea38615b5f9aa6.html">Function jsmn_init(jsmn_parser *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_jsmn_8h_1a8d4a8b3ce5c3d600feea38615b5f9aa6.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_jsmn_8c_1a64734cb1fc006fba5fd237e80a58ef40.html">Function jsmn_parse(jsmn_parser *, const char *, size_t, jsmntok_t *, unsigned int)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_jsmn_8c_1a64734cb1fc006fba5fd237e80a58ef40.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_jsmn_8h_1a64734cb1fc006fba5fd237e80a58ef40.html">Function jsmn_parse(jsmn_parser *, const char *, size_t, jsmntok_t *, unsigned int)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_jsmn_8h_1a64734cb1fc006fba5fd237e80a58ef40.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_jsmn_8c_1a095d91050319b21ff068389b85091764.html">Function jsmn_parse_primitive</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_jsmn_8c_1a095d91050319b21ff068389b85091764.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_jsmn_8c_1a0fe4b35d45560e530ac7402a73bcf564.html">Function jsmn_parse_string</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_jsmn_8c_1a0fe4b35d45560e530ac7402a73bcf564.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_simple_8c_1a66a4118cf6fedab06aa795581935fd03.html">Function jsoneq</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_simple_8c_1a66a4118cf6fedab06aa795581935fd03.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_log__utils_8c_1a7d8ff0e26b7d1428c8b8177770a9e05f.html">Function logDebug(const char *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_log__utils_8c_1a7d8ff0e26b7d1428c8b8177770a9e05f.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_log__utils_8h_1a7d8ff0e26b7d1428c8b8177770a9e05f.html">Function logDebug(const char *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_log__utils_8h_1a7d8ff0e26b7d1428c8b8177770a9e05f.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_log__utils_8c_1a645de0704d59f6bbfcca3f0cc7dbace2.html">Function logError(const char *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_log__utils_8c_1a645de0704d59f6bbfcca3f0cc7dbace2.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_log__utils_8h_1a645de0704d59f6bbfcca3f0cc7dbace2.html">Function logError(const char *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_log__utils_8h_1a645de0704d59f6bbfcca3f0cc7dbace2.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_log__utils_8c_1a837fc549bf5c2e058aa2e1e5aa0ed67c.html">Function logInfo(const char *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_log__utils_8c_1a837fc549bf5c2e058aa2e1e5aa0ed67c.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_log__utils_8h_1a837fc549bf5c2e058aa2e1e5aa0ed67c.html">Function logInfo(const char *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_log__utils_8h_1a837fc549bf5c2e058aa2e1e5aa0ed67c.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_log__utils_8c_1a171b91332e4c15080a4f7c45d6f0b7de.html">Function logSuccess(const char *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_log__utils_8c_1a171b91332e4c15080a4f7c45d6f0b7de.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_log__utils_8h_1a171b91332e4c15080a4f7c45d6f0b7de.html">Function logSuccess(const char *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_log__utils_8h_1a171b91332e4c15080a4f7c45d6f0b7de.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_log__utils_8c_1a3fd9e91eb8bda4afbb2e38ae5f954c5c.html">Function logWarning(const char *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_log__utils_8c_1a3fd9e91eb8bda4afbb2e38ae5f954c5c.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_log__utils_8h_1a3fd9e91eb8bda4afbb2e38ae5f954c5c.html">Function logWarning(const char *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_log__utils_8h_1a3fd9e91eb8bda4afbb2e38ae5f954c5c.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_main_8c_1a0ddf1224851353fc92bfbff6f499fa97.html">Function main(int, char *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_main_8c_1a0ddf1224851353fc92bfbff6f499fa97.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_jsondump_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4.html">Function main()</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_jsondump_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_simple_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4.html">Function main()</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_simple_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_config__utils_8c_1a66bb2060e7b6c8361134473a2d3981aa.html">Function newConfig()</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_config__utils_8c_1a66bb2060e7b6c8361134473a2d3981aa.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_config__utils_8h_1a66bb2060e7b6c8361134473a2d3981aa.html">Function newConfig()</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_config__utils_8h_1a66bb2060e7b6c8361134473a2d3981aa.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_config__utils_8template_8c_1a66bb2060e7b6c8361134473a2d3981aa.html">Function newConfig()</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_config__utils_8template_8c_1a66bb2060e7b6c8361134473a2d3981aa.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_config__utils_8template_8h_1a66bb2060e7b6c8361134473a2d3981aa.html">Function newConfig()</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_config__utils_8template_8h_1a66bb2060e7b6c8361134473a2d3981aa.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_config__utils_8c_1a1b47e2fca6322c3a0c82eff692d151d4.html">Function parseConfigFile(const char *, config_t **)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_config__utils_8c_1a1b47e2fca6322c3a0c82eff692d151d4.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_config__utils_8h_1a1b47e2fca6322c3a0c82eff692d151d4.html">Function parseConfigFile(const char *, config_t **)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_config__utils_8h_1a1b47e2fca6322c3a0c82eff692d151d4.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_config__utils_8template_8c_1a1b47e2fca6322c3a0c82eff692d151d4.html">Function parseConfigFile(const char *, config_t **)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_config__utils_8template_8c_1a1b47e2fca6322c3a0c82eff692d151d4.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_config__utils_8template_8h_1a1b47e2fca6322c3a0c82eff692d151d4.html">Function parseConfigFile(const char *, config_t **)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_config__utils_8template_8h_1a1b47e2fca6322c3a0c82eff692d151d4.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_config__utils_8c_1a64615c329d1e4d9f478235f17bee892e.html">Function parseGpsObject</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_config__utils_8c_1a64615c329d1e4d9f478235f17bee892e.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_config__utils_8c_1a9163f2f9b207c23992e3a266fea0c50d.html">Function parseJsonTokens(const jsmntok_t *, int, const char *, config_t *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_config__utils_8c_1a9163f2f9b207c23992e3a266fea0c50d.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_config__utils_8template_8c_1a9163f2f9b207c23992e3a266fea0c50d.html">Function parseJsonTokens(const jsmntok_t *, int, const char *, config_t *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_config__utils_8template_8c_1a9163f2f9b207c23992e3a266fea0c50d.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_config__utils_8c_1ab93c6c4f2640ccdf160a866bc45fc7d5.html">Function parseMongodbObject(const jsmntok_t *, const char *, config_t *, int *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_config__utils_8c_1ab93c6c4f2640ccdf160a866bc45fc7d5.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_config__utils_8template_8c_1ab93c6c4f2640ccdf160a866bc45fc7d5.html">Function parseMongodbObject(const jsmntok_t *, const char *, config_t *, int *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_config__utils_8template_8c_1ab93c6c4f2640ccdf160a866bc45fc7d5.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_config__utils_8c_1afb31a5f7b2aefb725a64049a964290d9.html">Function parseMqttObject(const jsmntok_t *, const char *, config_t *, int *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_config__utils_8c_1afb31a5f7b2aefb725a64049a964290d9.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_config__utils_8template_8c_1afb31a5f7b2aefb725a64049a964290d9.html">Function parseMqttObject(const jsmntok_t *, const char *, config_t *, int *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_config__utils_8template_8c_1afb31a5f7b2aefb725a64049a964290d9.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_config__utils_8c_1a6bc865b692f56d2f37ee4136c41de765.html">Function printConfig(const config_t *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_config__utils_8c_1a6bc865b692f56d2f37ee4136c41de765.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_config__utils_8h_1a6bc865b692f56d2f37ee4136c41de765.html">Function printConfig(const config_t *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_config__utils_8h_1a6bc865b692f56d2f37ee4136c41de765.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_config__utils_8template_8c_1a6bc865b692f56d2f37ee4136c41de765.html">Function printConfig(const config_t *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_config__utils_8template_8c_1a6bc865b692f56d2f37ee4136c41de765.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_config__utils_8template_8h_1a6bc865b692f56d2f37ee4136c41de765.html">Function printConfig(const config_t *)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_config__utils_8template_8h_1a6bc865b692f56d2f37ee4136c41de765.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_misc__utils_8c_1a696f8e4109d95c48131f0345839c5b93.html">Function printDoubleArray(double *, int)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_misc__utils_8c_1a696f8e4109d95c48131f0345839c5b93.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_misc__utils_8h_1a696f8e4109d95c48131f0345839c5b93.html">Function printDoubleArray(double *, int)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_misc__utils_8h_1a696f8e4109d95c48131f0345839c5b93.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_misc__utils_8c_1a28bf4bbddfeeab9fc9c5c7d75ae7b87b.html">Function printIntArray(int *, int)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_misc__utils_8c_1a28bf4bbddfeeab9fc9c5c7d75ae7b87b.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_misc__utils_8h_1a28bf4bbddfeeab9fc9c5c7d75ae7b87b.html">Function printIntArray(int *, int)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_misc__utils_8h_1a28bf4bbddfeeab9fc9c5c7d75ae7b87b.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_misc__utils_8c_1a1da449f0ce22aa68d7a60c58f11657fc.html">Function printStringsArray(char **, int)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_misc__utils_8c_1a1da449f0ce22aa68d7a60c58f11657fc.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_misc__utils_8h_1a1da449f0ce22aa68d7a60c58f11657fc.html">Function printStringsArray(char **, int)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_misc__utils_8h_1a1da449f0ce22aa68d7a60c58f11657fc.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_misc__utils_8c_1a308ff7fab67f9ed07c35abb82a57a8f4.html">Function swapPointers(void **, void **)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_misc__utils_8c_1a308ff7fab67f9ed07c35abb82a57a8f4.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_misc__utils_8h_1a308ff7fab67f9ed07c35abb82a57a8f4.html">Function swapPointers(void **, void **)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_misc__utils_8h_1a308ff7fab67f9ed07c35abb82a57a8f4.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_jsmn__test_8c_1a55cc16d7b9979340e22e32928a979788.html">Function test</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_jsmn__test_8c_1a55cc16d7b9979340e22e32928a979788.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_jsmn__test_8c_1a65098ef4d0359f3f6e8b6bd279aee3fb.html">Function test_array_nomem</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_jsmn__test_8c_1a65098ef4d0359f3f6e8b6bd279aee3fb.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_jsmn__test_8c_1a163b278887480ecc9db1f582fd0b10ba.html">Function test_count</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_jsmn__test_8c_1a163b278887480ecc9db1f582fd0b10ba.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_jsmn__test_8c_1a61dfc9918289fc65ee42995ca0c926ad.html">Function test_empty</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_jsmn__test_8c_1a61dfc9918289fc65ee42995ca0c926ad.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_jsmn__test_8c_1a9711a07d9e5f94b868a829338c6fdd9e.html">Function test_input_length</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_jsmn__test_8c_1a9711a07d9e5f94b868a829338c6fdd9e.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_jsmn__test_8c_1a126d58774391fb7369bc05b0887772b7.html">Function test_issue_22</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_jsmn__test_8c_1a126d58774391fb7369bc05b0887772b7.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_jsmn__test_8c_1ad3754da91a829f3ddf29acad8654c177.html">Function test_objects_arrays</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_jsmn__test_8c_1ad3754da91a829f3ddf29acad8654c177.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_jsmn__test_8c_1af2a8c84ace3eaeb72a6ad337cbfa8c4c.html">Function test_partial_array</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_jsmn__test_8c_1af2a8c84ace3eaeb72a6ad337cbfa8c4c.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_jsmn__test_8c_1a535ada6219623d2b1cca500f59a96b8f.html">Function test_partial_string</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_jsmn__test_8c_1a535ada6219623d2b1cca500f59a96b8f.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_jsmn__test_8c_1a5b5ad5866292ac7bd170be55dc844438.html">Function test_primitive</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_jsmn__test_8c_1a5b5ad5866292ac7bd170be55dc844438.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_jsmn__test_8c_1ade55f0f689e1ddc2ed56c62b3a2452c3.html">Function test_simple</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_jsmn__test_8c_1ade55f0f689e1ddc2ed56c62b3a2452c3.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_jsmn__test_8c_1a5e7535140ec876502bbea202769af296.html">Function test_string</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_jsmn__test_8c_1a5e7535140ec876502bbea202769af296.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_jsmn__test_8c_1a33887e2d91dc8c7830a7598bd4b4c9d1.html">Function test_unicode_characters</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_jsmn__test_8c_1a33887e2d91dc8c7830a7598bd4b4c9d1.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_jsmn__test_8c_1ae299f9189096da05de141bc7663b8af8.html">Function test_unquoted_keys</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_jsmn__test_8c_1ae299f9189096da05de141bc7663b8af8.html#function-documentation">Function Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="variables">
+<h3>Variables<a class="headerlink" href="#variables" title="Permalink to this headline">¶</a></h3>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="variable_main_8c_1accfd06683048794bbd23d2eb5bba72c8.html">Variable condition</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="variable_main_8c_1accfd06683048794bbd23d2eb5bba72c8.html#variable-documentation">Variable Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="variable_main_8c_1acaf254db67d7b96b6e56a90d9e5130e4.html">Variable ENTRY_STATE</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="variable_main_8c_1acaf254db67d7b96b6e56a90d9e5130e4.html#variable-documentation">Variable Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="variable_main_8c_1a748bd5c8f549a308c8a3d1bce904dc9e.html">Variable EXIT_STATE</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="variable_main_8c_1a748bd5c8f549a308c8a3d1bce904dc9e.html#variable-documentation">Variable Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="variable_simple_8c_1ae403608f4b1a83db152ae3a9400d2dd4.html">Variable JSON_STRING</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="variable_simple_8c_1ae403608f4b1a83db152ae3a9400d2dd4.html#variable-documentation">Variable Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="variable_config__utils_8c_1a68d537efdc815805c0c887ab26ab48d0.html">Variable MAX_TOKENS_COUNT</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="variable_config__utils_8c_1a68d537efdc815805c0c887ab26ab48d0.html#variable-documentation">Variable Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="variable_config__utils_8template_8c_1a68d537efdc815805c0c887ab26ab48d0.html">Variable MAX_TOKENS_COUNT</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="variable_config__utils_8template_8c_1a68d537efdc815805c0c887ab26ab48d0.html#variable-documentation">Variable Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="variable_jsmn__test_8c_1a8b5365d61f45f1a38e5e7e67dac96c54.html">Variable test_failed</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="variable_jsmn__test_8c_1a8b5365d61f45f1a38e5e7e67dac96c54.html#variable-documentation">Variable Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="variable_jsmn__test_8c_1a8e6f4dd376ef9a53443d7de828a9a287.html">Variable test_passed</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="variable_jsmn__test_8c_1a8e6f4dd376ef9a53443d7de828a9a287.html#variable-documentation">Variable Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="defines">
+<h3>Defines<a class="headerlink" href="#defines" title="Permalink to this headline">¶</a></h3>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_log__utils__colors_8h_1aca16e6a49eb51333c5fd3eee19487315.html">Define ANSI_COLOR_BLUE</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="define_log__utils__colors_8h_1aca16e6a49eb51333c5fd3eee19487315.html#define-documentation">Define Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_log__utils__colors_8h_1a8d0b0043e152438bb39b918a1f98c65f.html">Define ANSI_COLOR_CYAN</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="define_log__utils__colors_8h_1a8d0b0043e152438bb39b918a1f98c65f.html#define-documentation">Define Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_log__utils__colors_8h_1ab9cba69b94a63d50492a1fd6deb81ca6.html">Define ANSI_COLOR_DARK_GRAY</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="define_log__utils__colors_8h_1ab9cba69b94a63d50492a1fd6deb81ca6.html#define-documentation">Define Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_log__utils__colors_8h_1a966c72d8d733c7734c6c784753d894c7.html">Define ANSI_COLOR_GREEN</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="define_log__utils__colors_8h_1a966c72d8d733c7734c6c784753d894c7.html#define-documentation">Define Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_log__utils__colors_8h_1acb30614ba1535da5b9d0c490b3c10515.html">Define ANSI_COLOR_MAGENTA</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="define_log__utils__colors_8h_1acb30614ba1535da5b9d0c490b3c10515.html#define-documentation">Define Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_log__utils__colors_8h_1a34995b955465f6bbb37c359173d50477.html">Define ANSI_COLOR_RED</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="define_log__utils__colors_8h_1a34995b955465f6bbb37c359173d50477.html#define-documentation">Define Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_log__utils__colors_8h_1a5a123b382640b3aa65dd5db386002fbc.html">Define ANSI_COLOR_YELLOW</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="define_log__utils__colors_8h_1a5a123b382640b3aa65dd5db386002fbc.html#define-documentation">Define Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_jsmn__test_8c_1a9b7ee5bbb263671ca310a70e0d1526e9.html">Define check</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="define_jsmn__test_8c_1a9b7ee5bbb263671ca310a70e0d1526e9.html#define-documentation">Define Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_jsmn__test_8c_1a4c29258cb6b467ba162cfe09d50a6ad7.html">Define done</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="define_jsmn__test_8c_1a4c29258cb6b467ba162cfe09d50a6ad7.html#define-documentation">Define Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_jsmn__test_8c_1a73a3b169ac8c3419cbe15327e75ffcfd.html">Define fail</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="define_jsmn__test_8c_1a73a3b169ac8c3419cbe15327e75ffcfd.html#define-documentation">Define Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_jsmn__test_8c_1ab901dc08c3d247fdcc588b7c0e6cc455.html">Define jsmn_alloc_token</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="define_jsmn__test_8c_1ab901dc08c3d247fdcc588b7c0e6cc455.html#define-documentation">Define Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_jsmn__test_8c_1a6e0d3e5a3c9a8cec2f7734e149fb7ea7.html">Define JSMN_ARRAY</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="define_jsmn__test_8c_1a6e0d3e5a3c9a8cec2f7734e149fb7ea7.html#define-documentation">Define Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_jsmn__test_8c_1ae8cf2a3f50ee5a8502517bd478215fea.html">Define JSMN_ERROR_INVAL</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="define_jsmn__test_8c_1ae8cf2a3f50ee5a8502517bd478215fea.html#define-documentation">Define Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_jsmn__test_8c_1a1b4d51e7cd70fba297dd1676ed2dc37b.html">Define JSMN_ERROR_NOMEM</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="define_jsmn__test_8c_1a1b4d51e7cd70fba297dd1676ed2dc37b.html#define-documentation">Define Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_jsmn__test_8c_1af866da305aac2ecaf71a0c6c773ee1c1.html">Define JSMN_ERROR_PART</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="define_jsmn__test_8c_1af866da305aac2ecaf71a0c6c773ee1c1.html#define-documentation">Define Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_jsmn__test_8c_1ab5a2bfae4f669203b1b433e93d3d3d0f.html">Define jsmn_fill_token</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="define_jsmn__test_8c_1ab5a2bfae4f669203b1b433e93d3d3d0f.html#define-documentation">Define Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_jsmn__test_8c_1a410cd4f831fbbb674557b2aa6284484d.html">Define jsmn_init</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="define_jsmn__test_8c_1a410cd4f831fbbb674557b2aa6284484d.html#define-documentation">Define Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_jsmn__test_8c_1af6afc7d17e8f9d1af9728ac7f19f86f4.html">Define JSMN_OBJECT</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="define_jsmn__test_8c_1af6afc7d17e8f9d1af9728ac7f19f86f4.html#define-documentation">Define Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_jsmn__test_8c_1afac59fb4c00d048a1e8404fa9348eef0.html">Define jsmn_parse</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="define_jsmn__test_8c_1afac59fb4c00d048a1e8404fa9348eef0.html#define-documentation">Define Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_jsmn__test_8c_1a0273e29042742f4e599e1fc49be19c6c.html">Define jsmn_parse_primitive</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="define_jsmn__test_8c_1a0273e29042742f4e599e1fc49be19c6c.html#define-documentation">Define Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_jsmn__test_8c_1aa730aa6e498c379420e253d3e9f48e1c.html">Define jsmn_parse_string</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="define_jsmn__test_8c_1aa730aa6e498c379420e253d3e9f48e1c.html#define-documentation">Define Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_jsmn__test_8c_1af8bcfd10e6aef6f72173bfe7137e28e4.html">Define jsmn_parser</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="define_jsmn__test_8c_1af8bcfd10e6aef6f72173bfe7137e28e4.html#define-documentation">Define Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_jsmn__test_8c_1af2062938627e941f0ab2b92162edcaae.html">Define JSMN_PRIMITIVE</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="define_jsmn__test_8c_1af2062938627e941f0ab2b92162edcaae.html#define-documentation">Define Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_jsmn__test_8c_1ae9493ed0020a5a9595eb8d0b6870f947.html">Define JSMN_STRICT</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="define_jsmn__test_8c_1ae9493ed0020a5a9595eb8d0b6870f947.html#define-documentation">Define Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_jsmn__test_8c_1a1fb5855a9ef4d9723cc90698c2946ce3.html">Define JSMN_STRING</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="define_jsmn__test_8c_1a1fb5855a9ef4d9723cc90698c2946ce3.html#define-documentation">Define Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_jsmn__test_8c_1aa99dd26a01ca1740a689bff6009be93f.html">Define jsmnerr_t</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="define_jsmn__test_8c_1aa99dd26a01ca1740a689bff6009be93f.html#define-documentation">Define Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_jsmn__test_8c_1aa987bb9bdabfd416763ca9ebc235cf25.html">Define jsmntok_t</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="define_jsmn__test_8c_1aa987bb9bdabfd416763ca9ebc235cf25.html#define-documentation">Define Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_jsmn__test_8c_1a5880db10b08557ba157306931beac19b.html">Define jsmntype_t</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="define_jsmn__test_8c_1a5880db10b08557ba157306931beac19b.html#define-documentation">Define Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_jsmn__test_8c_1ad48a257b2f2782c3f0153beafe125784.html">Define TOKEN_EQ</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="define_jsmn__test_8c_1ad48a257b2f2782c3f0153beafe125784.html#define-documentation">Define Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_jsmn__test_8c_1a5c48c6301374df1920d7645837018f96.html">Define TOKEN_PRINT</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="define_jsmn__test_8c_1a5c48c6301374df1920d7645837018f96.html#define-documentation">Define Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_jsmn__test_8c_1a6c62686f717602088bfced2b1456cba8.html">Define TOKEN_STRING</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="define_jsmn__test_8c_1a6c62686f717602088bfced2b1456cba8.html#define-documentation">Define Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="structbms__hv__current__data.html" class="btn btn-neutral float-right" title="Struct bms_hv_current_data" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../index.html" class="btn btn-neutral float-left" title="Welcome to Eagletrt ubx parser master’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Eagletrt.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

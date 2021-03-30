@@ -1,0 +1,13 @@
+.. _exhale_function_config__utils_8template_8c_1a14de4a67845250dd6b898ec8f84ef1a8:
+
+Function getStringValue(const jsmntok_t \*, const char \*, int \*)
+==================================================================
+
+- Defined in :ref:`file_utils_config_utils_config_utils.template.c`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: getStringValue(const jsmntok_t *, const char *, int *)

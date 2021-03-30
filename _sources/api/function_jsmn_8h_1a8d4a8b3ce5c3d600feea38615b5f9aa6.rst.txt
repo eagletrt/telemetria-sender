@@ -1,0 +1,13 @@
+.. _exhale_function_jsmn_8h_1a8d4a8b3ce5c3d600feea38615b5f9aa6:
+
+Function jsmn_init(jsmn_parser \*)
+==================================
+
+- Defined in :ref:`file_utils_config_utils_jsmn_jsmn.h`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: jsmn_init(jsmn_parser *)

@@ -1,0 +1,13 @@
+.. _exhale_function_misc__utils_8h_1a1da449f0ce22aa68d7a60c58f11657fc:
+
+Function printStringsArray(char \*\*, int)
+==========================================
+
+- Defined in :ref:`file_utils_misc_utils_misc_utils.h`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: printStringsArray(char **, int)

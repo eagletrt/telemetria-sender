@@ -1,0 +1,43 @@
+
+.. _program_listing_file_utils_can_utils_can_utils.h:
+
+Program Listing for File can_utils.h
+====================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_utils_can_utils_can_utils.h>` (``utils/can_utils/can_utils.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   #ifndef TELEMETRY_CAN_UTILS
+   #define TELEMETRY_CAN_UTILS
+   
+   /* IMPORTS */
+   
+   #include <stdlib.h>
+   #include <stdio.h>
+   #include <unistd.h>
+   #include <string.h>
+   #include <net/if.h>
+   #include <sys/types.h>
+   #include <sys/socket.h>
+   #include <sys/ioctl.h>
+   #include <linux/can.h>
+   #include <linux/can/raw.h>
+   
+   /* FUNCTIONS */
+   
+   int canOpenSocket(const char* can_device, struct sockaddr_can* address);
+   
+   int canSendSimple(int socket, const char* data);
+   
+   int canSend(int socket, int id, int length, const char* data);
+   
+   int canReceiveSimple(int socket, char** data);
+   
+   int canReceive(int socket, int* id, char** data);
+   
+   int canReceiveCompact(int socket, int* id, int* dataLeft, int* dataRight);
+   
+   #endif

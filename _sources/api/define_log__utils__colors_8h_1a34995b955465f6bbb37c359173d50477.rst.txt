@@ -1,0 +1,13 @@
+.. _exhale_define_log__utils__colors_8h_1a34995b955465f6bbb37c359173d50477:
+
+Define ANSI_COLOR_RED
+=====================
+
+- Defined in :ref:`file_utils_log_utils_log_utils_colors.h`
+
+
+Define Documentation
+--------------------
+
+
+.. doxygendefine:: ANSI_COLOR_RED

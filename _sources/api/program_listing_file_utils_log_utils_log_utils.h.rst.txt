@@ -1,0 +1,31 @@
+
+.. _program_listing_file_utils_log_utils_log_utils.h:
+
+Program Listing for File log_utils.h
+====================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_utils_log_utils_log_utils.h>` (``utils/log_utils/log_utils.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   #ifndef TELEMETRY_LOG_UTILS
+   #define TELEMETRY_LOG_UTILS
+   
+   /* IMPORTS */
+   
+   #include <stdlib.h>
+   #include <stdio.h>
+   #include <string.h>
+   #include "log_utils_colors.h"
+   
+   /* FUNCTIONS */
+   
+   void logInfo(const char* message);
+   void logSuccess(const char* message);
+   void logDebug(const char* message);
+   void logError(const char* message);
+   void logWarning(const char* message);
+   
+   #endif

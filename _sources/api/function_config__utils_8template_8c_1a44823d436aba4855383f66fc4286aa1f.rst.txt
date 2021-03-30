@@ -1,0 +1,13 @@
+.. _exhale_function_config__utils_8template_8c_1a44823d436aba4855383f66fc4286aa1f:
+
+Function getIntArrayValue(const jsmntok_t \*, const char \*, int \*, int \*)
+============================================================================
+
+- Defined in :ref:`file_utils_config_utils_config_utils.template.c`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: getIntArrayValue(const jsmntok_t *, const char *, int *, int *)

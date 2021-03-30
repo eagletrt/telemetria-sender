@@ -1,0 +1,13 @@
+.. _exhale_function_gather__utils_8template_8c_1a585aab6d7a061c6be7f95d61a1dddb23:
+
+Function gatherDeleteData(data_t \*)
+====================================
+
+- Defined in :ref:`file_utils_gather_utils_gather_utils.template.c`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: gatherDeleteData(data_t *)

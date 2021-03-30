@@ -1,0 +1,13 @@
+.. _exhale_function_config__utils_8c_1afb31a5f7b2aefb725a64049a964290d9:
+
+Function parseMqttObject(const jsmntok_t \*, const char \*, config_t \*, int \*)
+================================================================================
+
+- Defined in :ref:`file_utils_config_utils_config_utils.c`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: parseMqttObject(const jsmntok_t *, const char *, config_t *, int *)

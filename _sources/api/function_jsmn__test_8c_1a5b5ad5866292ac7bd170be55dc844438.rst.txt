@@ -1,0 +1,13 @@
+.. _exhale_function_jsmn__test_8c_1a5b5ad5866292ac7bd170be55dc844438:
+
+Function test_primitive
+=======================
+
+- Defined in :ref:`file_utils_config_utils_jsmn_jsmn_test.c`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: test_primitive()

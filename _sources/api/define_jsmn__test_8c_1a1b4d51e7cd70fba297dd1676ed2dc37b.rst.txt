@@ -1,0 +1,13 @@
+.. _exhale_define_jsmn__test_8c_1a1b4d51e7cd70fba297dd1676ed2dc37b:
+
+Define JSMN_ERROR_NOMEM
+=======================
+
+- Defined in :ref:`file_utils_config_utils_jsmn_jsmn_test.c`
+
+
+Define Documentation
+--------------------
+
+
+.. doxygendefine:: JSMN_ERROR_NOMEM

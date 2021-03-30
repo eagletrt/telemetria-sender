@@ -1,0 +1,28 @@
+.. _dir_utils_config_utils_jsmn:
+
+
+Directory jsmn
+==============
+
+
+|exhale_lsh| :ref:`Parent directory <dir_utils_config_utils>` (``utils/config_utils``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+*Directory path:* ``utils/config_utils/jsmn``
+
+Subdirectories
+--------------
+
+- :ref:`dir_utils_config_utils_jsmn_example`
+
+
+Files
+-----
+
+- :ref:`file_utils_config_utils_jsmn_jsmn.c`
+- :ref:`file_utils_config_utils_jsmn_jsmn.h`
+- :ref:`file_utils_config_utils_jsmn_jsmn_test.c`
+- :ref:`file_utils_config_utils_jsmn_README.md`
+
+

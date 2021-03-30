@@ -1,0 +1,13 @@
+.. _exhale_function_log__utils_8c_1a7d8ff0e26b7d1428c8b8177770a9e05f:
+
+Function logDebug(const char \*)
+================================
+
+- Defined in :ref:`file_utils_log_utils_log_utils.c`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: logDebug(const char *)

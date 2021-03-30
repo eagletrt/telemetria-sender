@@ -1,0 +1,16 @@
+.. _exhale_struct_structinverters__right__temperature__igbt__data:
+
+Struct inverters_right_temperature_igbt_data
+============================================
+
+- Defined in :ref:`file_utils_gather_utils_data_structure.h`
+
+
+Struct Documentation
+--------------------
+
+
+.. doxygenstruct:: inverters_right_temperature_igbt_data
+   :members:
+   :protected-members:
+   :undoc-members:

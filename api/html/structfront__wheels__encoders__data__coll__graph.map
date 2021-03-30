@@ -1,0 +1,15 @@
+<map id="front_wheels_encoders_data" name="front_wheels_encoders_data">
+<area shape="rect" id="node1" title=" " alt="" coords="836,197,1044,223"/>
+<area shape="rect" id="node2" href="$structfront__wheels__encoders__left__data.html" title=" " alt="" coords="581,105,753,147"/>
+<area shape="rect" id="node3" href="$structfront__wheels__encoders__left__speed__rads__data.html" title=" " alt="" coords="281,5,453,47"/>
+<area shape="rect" id="node4" href="$structfront__wheels__encoders__left__angle__data.html" title=" " alt="" coords="281,71,453,112"/>
+<area shape="rect" id="node5" href="$structfront__wheels__encoders__left__angle__value__data.html" title=" " alt="" coords="11,71,183,112"/>
+<area shape="rect" id="node6" href="$structfront__wheels__encoders__left__speed__data.html" title=" " alt="" coords="281,136,453,177"/>
+<area shape="rect" id="node7" href="$structfront__wheels__encoders__left__speed__value__data.html" title=" " alt="" coords="10,136,185,177"/>
+<area shape="rect" id="node8" href="$structfront__wheels__encoders__right__data.html" title=" " alt="" coords="581,232,753,273"/>
+<area shape="rect" id="node9" href="$structfront__wheels__encoders__right__angle__data.html" title=" " alt="" coords="281,201,453,243"/>
+<area shape="rect" id="node10" href="$structfront__wheels__encoders__right__angle__value__data.html" title=" " alt="" coords="7,201,188,243"/>
+<area shape="rect" id="node11" href="$structfront__wheels__encoders__right__speed__data.html" title=" " alt="" coords="281,267,453,308"/>
+<area shape="rect" id="node12" href="$structfront__wheels__encoders__right__speed__value__data.html" title=" " alt="" coords="5,267,189,308"/>
+<area shape="rect" id="node13" href="$structfront__wheels__encoders__right__speed__rads__data.html" title=" " alt="" coords="279,332,455,373"/>
+</map>

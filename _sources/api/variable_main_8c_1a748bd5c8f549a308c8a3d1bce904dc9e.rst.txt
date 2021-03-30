@@ -1,0 +1,13 @@
+.. _exhale_variable_main_8c_1a748bd5c8f549a308c8a3d1bce904dc9e:
+
+Variable EXIT_STATE
+===================
+
+- Defined in :ref:`file_main.c`
+
+
+Variable Documentation
+----------------------
+
+
+.. doxygenvariable:: EXIT_STATE

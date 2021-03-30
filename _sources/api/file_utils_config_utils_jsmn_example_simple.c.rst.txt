@@ -1,0 +1,57 @@
+
+.. _file_utils_config_utils_jsmn_example_simple.c:
+
+File simple.c
+=============
+
+|exhale_lsh| :ref:`Parent directory <dir_utils_config_utils_jsmn_example>` (``utils/config_utils/jsmn/example``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``utils/config_utils/jsmn/example/simple.c``)
+---------------------------------------------------------
+
+
+.. toctree::
+   :maxdepth: 1
+
+   program_listing_file_utils_config_utils_jsmn_example_simple.c.rst
+
+
+
+
+
+Includes
+--------
+
+
+- ``../jsmn.h``
+
+- ``stdio.h``
+
+- ``string.h``
+
+
+
+
+
+
+Functions
+---------
+
+
+- :ref:`exhale_function_simple_8c_1a66a4118cf6fedab06aa795581935fd03`
+
+- :ref:`exhale_function_simple_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4`
+
+
+Variables
+---------
+
+
+- :ref:`exhale_variable_simple_8c_1ae403608f4b1a83db152ae3a9400d2dd4`
+

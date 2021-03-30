@@ -1,0 +1,13 @@
+.. _exhale_function_can__utils_8h_1a511005e4cb027db07cdbcfb3c32342ff:
+
+Function canOpenSocket(const char \*, struct sockaddr_can \*)
+=============================================================
+
+- Defined in :ref:`file_utils_can_utils_can_utils.h`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: canOpenSocket(const char *, struct sockaddr_can *)

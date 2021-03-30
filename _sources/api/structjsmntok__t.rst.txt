@@ -1,0 +1,16 @@
+.. _exhale_struct_structjsmntok__t:
+
+Struct jsmntok_t
+================
+
+- Defined in :ref:`file_utils_config_utils_jsmn_jsmn.h`
+
+
+Struct Documentation
+--------------------
+
+
+.. doxygenstruct:: jsmntok_t
+   :members:
+   :protected-members:
+   :undoc-members:

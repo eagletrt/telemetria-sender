@@ -1,0 +1,13 @@
+.. _exhale_function_jsmn_8c_1a0d7a964b95b65cd16699a355ede80394:
+
+Function jsmn_alloc_token
+=========================
+
+- Defined in :ref:`file_utils_config_utils_jsmn_jsmn.c`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: jsmn_alloc_token(jsmn_parser *, jsmntok_t *, size_t)

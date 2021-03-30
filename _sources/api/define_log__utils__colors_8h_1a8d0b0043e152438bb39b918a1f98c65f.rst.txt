@@ -1,0 +1,13 @@
+.. _exhale_define_log__utils__colors_8h_1a8d0b0043e152438bb39b918a1f98c65f:
+
+Define ANSI_COLOR_CYAN
+======================
+
+- Defined in :ref:`file_utils_log_utils_log_utils_colors.h`
+
+
+Define Documentation
+--------------------
+
+
+.. doxygendefine:: ANSI_COLOR_CYAN

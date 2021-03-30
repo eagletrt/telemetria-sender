@@ -1,0 +1,16 @@
+.. _exhale_struct_structgps__config__t:
+
+Struct gps_config_t
+===================
+
+- Defined in :ref:`file_utils_config_utils_config_utils.h`
+
+
+Struct Documentation
+--------------------
+
+
+.. doxygenstruct:: gps_config_t
+   :members:
+   :protected-members:
+   :undoc-members:

@@ -1,0 +1,13 @@
+.. _exhale_define_jsmn__test_8c_1a0273e29042742f4e599e1fc49be19c6c:
+
+Define jsmn_parse_primitive
+===========================
+
+- Defined in :ref:`file_utils_config_utils_jsmn_jsmn_test.c`
+
+
+Define Documentation
+--------------------
+
+
+.. doxygendefine:: jsmn_parse_primitive

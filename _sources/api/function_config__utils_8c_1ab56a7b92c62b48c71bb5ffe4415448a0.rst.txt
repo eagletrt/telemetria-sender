@@ -1,0 +1,13 @@
+.. _exhale_function_config__utils_8c_1ab56a7b92c62b48c71bb5ffe4415448a0:
+
+Function getDoubleValue(const jsmntok_t \*, const char \*, int \*)
+==================================================================
+
+- Defined in :ref:`file_utils_config_utils_config_utils.c`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: getDoubleValue(const jsmntok_t *, const char *, int *)

@@ -1,0 +1,13 @@
+.. _exhale_function_log__utils_8h_1a171b91332e4c15080a4f7c45d6f0b7de:
+
+Function logSuccess(const char \*)
+==================================
+
+- Defined in :ref:`file_utils_log_utils_log_utils.h`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: logSuccess(const char *)

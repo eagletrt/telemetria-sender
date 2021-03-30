@@ -1,0 +1,13 @@
+<map id="bms_hv_data" name="bms_hv_data">
+<area shape="rect" id="node1" title=" " alt="" coords="644,108,753,135"/>
+<area shape="rect" id="node2" href="$structbms__hv__warnings__data.html" title=" " alt="" coords="325,7,499,33"/>
+<area shape="rect" id="node3" href="$structbms__hv__warnings__value__data.html" title=" " alt="" coords="5,7,224,33"/>
+<area shape="rect" id="node4" href="$structbms__hv__voltage__data.html" title=" " alt="" coords="329,57,495,84"/>
+<area shape="rect" id="node5" href="$structbms__hv__voltage__value__data.html" title=" " alt="" coords="11,57,219,84"/>
+<area shape="rect" id="node6" href="$structbms__hv__errors__data.html" title=" " alt="" coords="335,108,489,135"/>
+<area shape="rect" id="node7" href="$structbms__hv__errors__value__data.html" title=" " alt="" coords="16,108,213,135"/>
+<area shape="rect" id="node8" href="$structbms__hv__temperature__data.html" title=" " alt="" coords="313,163,511,189"/>
+<area shape="rect" id="node9" href="$structbms__hv__temperature__value__data.html" title=" " alt="" coords="34,159,195,201"/>
+<area shape="rect" id="node10" href="$structbms__hv__current__data.html" title=" " alt="" coords="331,221,493,248"/>
+<area shape="rect" id="node11" href="$structbms__hv__current__value__data.html" title=" " alt="" coords="12,225,217,252"/>
+</map>

@@ -1,0 +1,13 @@
+.. _exhale_function_misc__utils_8h_1a3ae73ef89febc41a3e538cfd795b0954:
+
+Function cloneStringsArray(char \*\*, int)
+==========================================
+
+- Defined in :ref:`file_utils_misc_utils_misc_utils.h`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: cloneStringsArray(char **, int)

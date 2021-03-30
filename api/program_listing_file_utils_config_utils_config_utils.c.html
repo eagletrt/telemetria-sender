@@ -1,0 +1,597 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Program Listing for File config_utils.c &mdash; Eagletrt Project 1.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script type="text/javascript" src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Eagletrt Project
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="library_root.html">Title</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Eagletrt Project</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Program Listing for File config_utils.c</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/api/program_listing_file_utils_config_utils_config_utils.c.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="program-listing-for-file-config-utils-c">
+<span id="program-listing-file-utils-config-utils-config-utils-c"></span><h1>Program Listing for File config_utils.c<a class="headerlink" href="#program-listing-for-file-config-utils-c" title="Permalink to this headline">¶</a></h1>
+<p>↰ <a class="reference internal" href="file_utils_config_utils_config_utils.c.html#file-utils-config-utils-config-utils-c"><span class="std std-ref">Return to documentation for file</span></a> (<code class="docutils literal notranslate"><span class="pre">utils/config_utils/config_utils.c</span></code>)</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;config_utils.h&quot;</span><span class="cp"></span>
+
+<span class="cm">/* INTERNAL FUNCTIONS SIGNATURES AND CONSTANTS */</span>
+
+<span class="k">static</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">MAX_TOKENS_COUNT</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="nf">getJsonString</span><span class="p">(</span><span class="kt">FILE</span> <span class="o">*</span><span class="n">config_file</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">json_string</span><span class="p">);</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="nf">getJsonTokens</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">json_string</span><span class="p">,</span> <span class="kt">int</span> <span class="n">json_length</span><span class="p">,</span> <span class="n">jsmntok_t</span><span class="o">**</span> <span class="n">json_tokens</span><span class="p">);</span>
+<span class="k">static</span> <span class="kt">char</span><span class="o">*</span> <span class="nf">extractString</span><span class="p">(</span><span class="n">jsmntok_t</span> <span class="n">token</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">json_string</span><span class="p">);</span>
+<span class="k">static</span> <span class="kt">char</span><span class="o">*</span> <span class="nf">getStringValue</span><span class="p">(</span><span class="k">const</span> <span class="n">jsmntok_t</span> <span class="o">*</span><span class="n">json_tokens</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">json_string</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">i</span><span class="p">);</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="nf">getIntValue</span><span class="p">(</span><span class="k">const</span> <span class="n">jsmntok_t</span> <span class="o">*</span><span class="n">json_tokens</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">json_string</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">i</span><span class="p">);</span>
+<span class="k">static</span> <span class="kt">char</span><span class="o">**</span> <span class="nf">getStringArrayValue</span><span class="p">(</span><span class="k">const</span> <span class="n">jsmntok_t</span> <span class="o">*</span><span class="n">json_tokens</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">json_string</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">size</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">i</span><span class="p">);</span>
+<span class="k">static</span> <span class="kt">int</span><span class="o">*</span> <span class="nf">getIntArrayValue</span><span class="p">(</span><span class="k">const</span> <span class="n">jsmntok_t</span> <span class="o">*</span><span class="n">json_tokens</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">json_string</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">size</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">i</span><span class="p">);</span>
+<span class="k">static</span> <span class="kt">double</span><span class="o">*</span> <span class="nf">getDoubleArrayValue</span><span class="p">(</span><span class="k">const</span> <span class="n">jsmntok_t</span> <span class="o">*</span><span class="n">json_tokens</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">json_string</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">size</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">i</span><span class="p">);</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">parseMqttObject</span><span class="p">(</span><span class="k">const</span> <span class="n">jsmntok_t</span> <span class="o">*</span><span class="n">json_tokens</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">json_string</span><span class="p">,</span> <span class="n">config_t</span> <span class="o">*</span><span class="n">config</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">i</span><span class="p">);</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">parseMongodbObject</span><span class="p">(</span><span class="k">const</span> <span class="n">jsmntok_t</span> <span class="o">*</span><span class="n">json_tokens</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">json_string</span><span class="p">,</span> <span class="n">config_t</span> <span class="o">*</span><span class="n">config</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">i</span><span class="p">);</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">parseJsonTokens</span><span class="p">(</span><span class="k">const</span> <span class="n">jsmntok_t</span> <span class="o">*</span><span class="n">json_tokens</span><span class="p">,</span> <span class="kt">int</span> <span class="n">tokens_length</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">json_string</span><span class="p">,</span> <span class="n">config_t</span> <span class="o">*</span><span class="n">config</span><span class="p">);</span>
+
+<span class="cm">/* EXPORTED FUNCTIONS */</span>
+
+<span class="n">config_t</span><span class="o">*</span> <span class="nf">newConfig</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">config_t</span> <span class="o">*</span><span class="n">config</span> <span class="o">=</span> <span class="p">(</span><span class="n">config_t</span><span class="o">*</span><span class="p">)</span> <span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">config_t</span><span class="p">));</span>
+
+    <span class="n">config</span><span class="o">-&gt;</span><span class="n">mqtt</span><span class="p">.</span><span class="n">host</span> <span class="o">=</span> <span class="n">strdup</span><span class="p">(</span><span class="s">&quot;localhost&quot;</span><span class="p">);</span>
+    <span class="n">config</span><span class="o">-&gt;</span><span class="n">mqtt</span><span class="p">.</span><span class="n">port</span> <span class="o">=</span> <span class="mi">1883</span><span class="p">;</span>
+    <span class="n">config</span><span class="o">-&gt;</span><span class="n">mqtt</span><span class="p">.</span><span class="n">data_topic</span> <span class="o">=</span> <span class="n">strdup</span><span class="p">(</span><span class="s">&quot;telemetria&quot;</span><span class="p">);</span>
+    <span class="n">config</span><span class="o">-&gt;</span><span class="n">mqtt</span><span class="p">.</span><span class="n">log_topic</span> <span class="o">=</span> <span class="n">strdup</span><span class="p">(</span><span class="s">&quot;telemetria_log&quot;</span><span class="p">);</span>
+    <span class="n">config</span><span class="o">-&gt;</span><span class="n">mongodb</span><span class="p">.</span><span class="n">host</span> <span class="o">=</span> <span class="n">strdup</span><span class="p">(</span><span class="s">&quot;localhost&quot;</span><span class="p">);</span>
+    <span class="n">config</span><span class="o">-&gt;</span><span class="n">mongodb</span><span class="p">.</span><span class="n">port</span> <span class="o">=</span> <span class="mi">27017</span><span class="p">;</span>
+    <span class="n">config</span><span class="o">-&gt;</span><span class="n">mongodb</span><span class="p">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">strdup</span><span class="p">(</span><span class="s">&quot;eagle_test&quot;</span><span class="p">);</span>
+    <span class="n">config</span><span class="o">-&gt;</span><span class="n">mongodb</span><span class="p">.</span><span class="n">collection</span> <span class="o">=</span> <span class="n">strdup</span><span class="p">(</span><span class="s">&quot;chimera&quot;</span><span class="p">);</span>
+    <span class="n">config</span><span class="o">-&gt;</span><span class="n">gps</span><span class="p">.</span><span class="n">plugged</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="n">config</span><span class="o">-&gt;</span><span class="n">gps</span><span class="p">.</span><span class="n">simulated</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="n">config</span><span class="o">-&gt;</span><span class="n">gps</span><span class="p">.</span><span class="n">interface</span> <span class="o">=</span> <span class="n">strdup</span><span class="p">(</span><span class="s">&quot;/dev/pts/4&quot;</span><span class="p">);</span>
+    <span class="n">config</span><span class="o">-&gt;</span><span class="n">pilots_count</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>
+    <span class="n">config</span><span class="o">-&gt;</span><span class="n">pilots</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">**</span><span class="p">)</span> <span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span> <span class="o">*</span> <span class="n">config</span><span class="o">-&gt;</span><span class="n">pilots_count</span><span class="p">);</span>
+    <span class="n">config</span><span class="o">-&gt;</span><span class="n">pilots</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">strdup</span><span class="p">(</span><span class="s">&quot;default&quot;</span><span class="p">);</span>
+    <span class="n">config</span><span class="o">-&gt;</span><span class="n">pilots</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">strdup</span><span class="p">(</span><span class="s">&quot;Ivan&quot;</span><span class="p">);</span>
+    <span class="n">config</span><span class="o">-&gt;</span><span class="n">pilots</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">strdup</span><span class="p">(</span><span class="s">&quot;Filippo&quot;</span><span class="p">);</span>
+    <span class="n">config</span><span class="o">-&gt;</span><span class="n">pilots</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">strdup</span><span class="p">(</span><span class="s">&quot;Mirco&quot;</span><span class="p">);</span>
+    <span class="n">config</span><span class="o">-&gt;</span><span class="n">pilots</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="n">strdup</span><span class="p">(</span><span class="s">&quot;Nicola&quot;</span><span class="p">);</span>
+    <span class="n">config</span><span class="o">-&gt;</span><span class="n">pilots</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="n">strdup</span><span class="p">(</span><span class="s">&quot;Davide&quot;</span><span class="p">);</span>
+    <span class="n">config</span><span class="o">-&gt;</span><span class="n">races_count</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+    <span class="n">config</span><span class="o">-&gt;</span><span class="n">races</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">**</span><span class="p">)</span> <span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span> <span class="o">*</span> <span class="n">config</span><span class="o">-&gt;</span><span class="n">races_count</span><span class="p">);</span>
+    <span class="n">config</span><span class="o">-&gt;</span><span class="n">races</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">strdup</span><span class="p">(</span><span class="s">&quot;default&quot;</span><span class="p">);</span>
+    <span class="n">config</span><span class="o">-&gt;</span><span class="n">races</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">strdup</span><span class="p">(</span><span class="s">&quot;Autocross&quot;</span><span class="p">);</span>
+    <span class="n">config</span><span class="o">-&gt;</span><span class="n">races</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">strdup</span><span class="p">(</span><span class="s">&quot;Skidpad&quot;</span><span class="p">);</span>
+    <span class="n">config</span><span class="o">-&gt;</span><span class="n">races</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">strdup</span><span class="p">(</span><span class="s">&quot;Endurance&quot;</span><span class="p">);</span>
+    <span class="n">config</span><span class="o">-&gt;</span><span class="n">races</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="n">strdup</span><span class="p">(</span><span class="s">&quot;Acceleration&quot;</span><span class="p">);</span>
+    <span class="n">config</span><span class="o">-&gt;</span><span class="n">circuits_count</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+    <span class="n">config</span><span class="o">-&gt;</span><span class="n">circuits</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">**</span><span class="p">)</span> <span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span> <span class="o">*</span> <span class="n">config</span><span class="o">-&gt;</span><span class="n">circuits_count</span><span class="p">);</span>
+    <span class="n">config</span><span class="o">-&gt;</span><span class="n">circuits</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">strdup</span><span class="p">(</span><span class="s">&quot;default&quot;</span><span class="p">);</span>
+    <span class="n">config</span><span class="o">-&gt;</span><span class="n">circuits</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">strdup</span><span class="p">(</span><span class="s">&quot;Vadena&quot;</span><span class="p">);</span>
+    <span class="n">config</span><span class="o">-&gt;</span><span class="n">circuits</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">strdup</span><span class="p">(</span><span class="s">&quot;Varano&quot;</span><span class="p">);</span>
+    <span class="n">config</span><span class="o">-&gt;</span><span class="n">circuits</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">strdup</span><span class="p">(</span><span class="s">&quot;Povo&quot;</span><span class="p">);</span>
+    <span class="n">config</span><span class="o">-&gt;</span><span class="n">model_version</span> <span class="o">=</span> <span class="n">strdup</span><span class="p">(</span><span class="s">&quot;0.0.0&quot;</span><span class="p">);</span>
+    <span class="n">config</span><span class="o">-&gt;</span><span class="n">can_interface</span> <span class="o">=</span> <span class="n">strdup</span><span class="p">(</span><span class="s">&quot;can0&quot;</span><span class="p">);</span>
+    <span class="n">config</span><span class="o">-&gt;</span><span class="n">sending_rate</span> <span class="o">=</span> <span class="mi">500</span><span class="p">;</span>
+    <span class="n">config</span><span class="o">-&gt;</span><span class="n">verbose</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+
+    <span class="k">return</span> <span class="n">config</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">parseConfigFile</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">path</span><span class="p">,</span> <span class="n">config_t</span> <span class="o">**</span><span class="n">config</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">FILE</span> <span class="o">*</span><span class="n">config_file</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s">&quot;r&quot;</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">config_file</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+        <span class="o">*</span><span class="n">config</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="p">{</span>
+        <span class="kt">char</span> <span class="o">*</span><span class="n">json_string</span><span class="p">;</span>
+        <span class="n">jsmntok_t</span> <span class="o">*</span><span class="n">json_tokens</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">json_length</span><span class="p">,</span> <span class="n">tokens_length</span><span class="p">;</span>
+        <span class="n">json_length</span> <span class="o">=</span> <span class="n">getJsonString</span><span class="p">(</span><span class="n">config_file</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">json_string</span><span class="p">);</span>
+        <span class="n">fclose</span><span class="p">(</span><span class="n">config_file</span><span class="p">);</span>
+        <span class="n">tokens_length</span> <span class="o">=</span> <span class="n">getJsonTokens</span><span class="p">(</span><span class="n">json_string</span><span class="p">,</span> <span class="n">json_length</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">json_tokens</span><span class="p">);</span>
+        <span class="n">parseJsonTokens</span><span class="p">(</span><span class="n">json_tokens</span><span class="p">,</span> <span class="n">tokens_length</span><span class="p">,</span> <span class="n">json_string</span><span class="p">,</span> <span class="o">*</span><span class="n">config</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">deleteConfig</span><span class="p">(</span><span class="n">config_t</span> <span class="o">*</span><span class="n">config</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">free</span><span class="p">(</span><span class="n">config</span><span class="o">-&gt;</span><span class="n">mqtt</span><span class="p">.</span><span class="n">host</span><span class="p">);</span>
+    <span class="n">free</span><span class="p">(</span><span class="n">config</span><span class="o">-&gt;</span><span class="n">mqtt</span><span class="p">.</span><span class="n">data_topic</span><span class="p">);</span>
+    <span class="n">free</span><span class="p">(</span><span class="n">config</span><span class="o">-&gt;</span><span class="n">mqtt</span><span class="p">.</span><span class="n">log_topic</span><span class="p">);</span>
+    <span class="n">free</span><span class="p">(</span><span class="n">config</span><span class="o">-&gt;</span><span class="n">mongodb</span><span class="p">.</span><span class="n">host</span><span class="p">);</span>
+    <span class="n">free</span><span class="p">(</span><span class="n">config</span><span class="o">-&gt;</span><span class="n">mongodb</span><span class="p">.</span><span class="n">db</span><span class="p">);</span>
+    <span class="n">free</span><span class="p">(</span><span class="n">config</span><span class="o">-&gt;</span><span class="n">mongodb</span><span class="p">.</span><span class="n">collection</span><span class="p">);</span>
+    <span class="n">free</span><span class="p">(</span><span class="n">config</span><span class="o">-&gt;</span><span class="n">gps</span><span class="p">.</span><span class="n">interface</span><span class="p">);</span>
+    <span class="n">freeStringsArray</span><span class="p">(</span><span class="n">config</span><span class="o">-&gt;</span><span class="n">pilots</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">config</span><span class="o">-&gt;</span><span class="n">pilots_count</span><span class="p">);</span>
+    <span class="n">freeStringsArray</span><span class="p">(</span><span class="n">config</span><span class="o">-&gt;</span><span class="n">races</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">config</span><span class="o">-&gt;</span><span class="n">races_count</span><span class="p">);</span>
+    <span class="n">freeStringsArray</span><span class="p">(</span><span class="n">config</span><span class="o">-&gt;</span><span class="n">circuits</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">config</span><span class="o">-&gt;</span><span class="n">circuits_count</span><span class="p">);</span>
+    <span class="n">free</span><span class="p">(</span><span class="n">config</span><span class="o">-&gt;</span><span class="n">model_version</span><span class="p">);</span>
+    <span class="n">free</span><span class="p">(</span><span class="n">config</span><span class="o">-&gt;</span><span class="n">can_interface</span><span class="p">);</span>
+
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">printConfig</span><span class="p">(</span><span class="k">const</span> <span class="n">config_t</span><span class="o">*</span> <span class="n">config</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;config-&gt;mqtt.host:</span><span class="se">\t</span><span class="s">%s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">config</span><span class="o">-&gt;</span><span class="n">mqtt</span><span class="p">.</span><span class="n">host</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;config-&gt;mqtt.port:</span><span class="se">\t</span><span class="s">%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">config</span><span class="o">-&gt;</span><span class="n">mqtt</span><span class="p">.</span><span class="n">port</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;config-&gt;mqtt.data_topic:</span><span class="se">\t</span><span class="s">%s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">config</span><span class="o">-&gt;</span><span class="n">mqtt</span><span class="p">.</span><span class="n">data_topic</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;config-&gt;mqtt.log_topic:</span><span class="se">\t</span><span class="s">%s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">config</span><span class="o">-&gt;</span><span class="n">mqtt</span><span class="p">.</span><span class="n">log_topic</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;config-&gt;mongodb.host:</span><span class="se">\t</span><span class="s">%s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">config</span><span class="o">-&gt;</span><span class="n">mongodb</span><span class="p">.</span><span class="n">host</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;config-&gt;mongodb.port:</span><span class="se">\t</span><span class="s">%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">config</span><span class="o">-&gt;</span><span class="n">mongodb</span><span class="p">.</span><span class="n">port</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;config-&gt;mongodb.db:</span><span class="se">\t</span><span class="s">%s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">config</span><span class="o">-&gt;</span><span class="n">mongodb</span><span class="p">.</span><span class="n">db</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;config-&gt;mongodb.collection:</span><span class="se">\t</span><span class="s">%s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">config</span><span class="o">-&gt;</span><span class="n">mongodb</span><span class="p">.</span><span class="n">collection</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;config-&gt;gps.plugged:</span><span class="se">\t</span><span class="s">%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">config</span><span class="o">-&gt;</span><span class="n">gps</span><span class="p">.</span><span class="n">plugged</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;config-&gt;gps.simulated:</span><span class="se">\t</span><span class="s">%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">config</span><span class="o">-&gt;</span><span class="n">gps</span><span class="p">.</span><span class="n">simulated</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;config-&gt;gps.interface:</span><span class="se">\t</span><span class="s">%s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">config</span><span class="o">-&gt;</span><span class="n">gps</span><span class="p">.</span><span class="n">interface</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;config-&gt;pilots: &quot;</span><span class="p">);</span>
+    <span class="n">printStringsArray</span><span class="p">(</span><span class="n">config</span><span class="o">-&gt;</span><span class="n">pilots</span><span class="p">,</span> <span class="n">config</span><span class="o">-&gt;</span><span class="n">pilots_count</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;config-&gt;races: &quot;</span><span class="p">);</span>
+    <span class="n">printStringsArray</span><span class="p">(</span><span class="n">config</span><span class="o">-&gt;</span><span class="n">races</span><span class="p">,</span> <span class="n">config</span><span class="o">-&gt;</span><span class="n">races_count</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;config-&gt;circuits: &quot;</span><span class="p">);</span>
+    <span class="n">printStringsArray</span><span class="p">(</span><span class="n">config</span><span class="o">-&gt;</span><span class="n">circuits</span><span class="p">,</span> <span class="n">config</span><span class="o">-&gt;</span><span class="n">circuits_count</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;config-&gt;model_version:</span><span class="se">\t</span><span class="s">%s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">config</span><span class="o">-&gt;</span><span class="n">model_version</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;config-&gt;can_interface:</span><span class="se">\t</span><span class="s">%s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">config</span><span class="o">-&gt;</span><span class="n">can_interface</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;config-&gt;sending_rate:</span><span class="se">\t</span><span class="s">%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">config</span><span class="o">-&gt;</span><span class="n">sending_rate</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;config-&gt;verbose:</span><span class="se">\t</span><span class="s">%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">config</span><span class="o">-&gt;</span><span class="n">verbose</span><span class="p">);</span>
+
+<span class="p">}</span>
+
+<span class="cm">/* INTERNAL FUNCTIONS DEFINITIONS */</span>
+
+<span class="k">static</span> <span class="kt">int</span> <span class="nf">getJsonString</span><span class="p">(</span><span class="kt">FILE</span> <span class="o">*</span><span class="n">config_file</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">json_string</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">char</span><span class="o">*</span> <span class="n">line</span><span class="p">;</span>
+    <span class="kt">size_t</span> <span class="n">lineLength</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">json_length</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="n">getline</span><span class="p">(</span><span class="o">&amp;</span><span class="n">line</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">lineLength</span><span class="p">,</span> <span class="n">config_file</span><span class="p">);</span>
+    <span class="n">json_length</span> <span class="o">+=</span> <span class="n">lineLength</span><span class="p">;</span>
+    <span class="o">*</span><span class="n">json_string</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span> <span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">)</span> <span class="o">*</span> <span class="n">json_length</span><span class="p">);</span>
+    <span class="n">strcpy</span><span class="p">(</span><span class="o">*</span><span class="n">json_string</span><span class="p">,</span> <span class="n">line</span><span class="p">);</span>
+
+    <span class="k">while</span> <span class="p">(</span><span class="n">getline</span><span class="p">(</span><span class="o">&amp;</span><span class="n">line</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">lineLength</span><span class="p">,</span> <span class="n">config_file</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">json_length</span> <span class="o">+=</span> <span class="n">lineLength</span><span class="p">;</span>
+        <span class="o">*</span><span class="n">json_string</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span> <span class="n">realloc</span><span class="p">(</span><span class="o">*</span><span class="n">json_string</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">)</span> <span class="o">*</span> <span class="n">json_length</span><span class="p">);</span>
+        <span class="n">strcat</span><span class="p">(</span><span class="o">*</span><span class="n">json_string</span><span class="p">,</span> <span class="n">line</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">json_length</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">int</span> <span class="nf">getJsonTokens</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">json_string</span><span class="p">,</span> <span class="kt">int</span> <span class="n">json_length</span><span class="p">,</span> <span class="n">jsmntok_t</span><span class="o">**</span> <span class="n">json_tokens</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">jsmn_parser</span> <span class="n">parser</span><span class="p">;</span>
+    <span class="n">jsmn_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">parser</span><span class="p">);</span>
+    <span class="o">*</span><span class="n">json_tokens</span> <span class="o">=</span> <span class="p">(</span><span class="n">jsmntok_t</span><span class="o">*</span><span class="p">)</span> <span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">jsmntok_t</span><span class="p">)</span> <span class="o">*</span> <span class="n">MAX_TOKENS_COUNT</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">tokens_length</span> <span class="o">=</span> <span class="n">jsmn_parse</span><span class="p">(</span><span class="o">&amp;</span><span class="n">parser</span><span class="p">,</span> <span class="n">json_string</span><span class="p">,</span> <span class="n">json_length</span><span class="p">,</span> <span class="o">*</span><span class="n">json_tokens</span><span class="p">,</span> <span class="n">MAX_TOKENS_COUNT</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">tokens_length</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">char</span><span class="o">*</span> <span class="nf">extractString</span><span class="p">(</span><span class="n">jsmntok_t</span> <span class="n">token</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">json_string</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">length</span> <span class="o">=</span> <span class="n">token</span><span class="p">.</span><span class="n">end</span> <span class="o">-</span> <span class="n">token</span><span class="p">.</span><span class="n">start</span><span class="p">;</span>
+    <span class="kt">char</span><span class="o">*</span> <span class="n">key</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">length</span> <span class="o">+</span> <span class="mi">1</span><span class="p">));</span>
+    <span class="n">memcpy</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">json_string</span><span class="p">[</span><span class="n">token</span><span class="p">.</span><span class="n">start</span><span class="p">],</span> <span class="n">length</span><span class="p">);</span>
+    <span class="n">key</span><span class="p">[</span><span class="n">length</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;\0&#39;</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">key</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">char</span><span class="o">*</span> <span class="nf">getStringValue</span><span class="p">(</span><span class="k">const</span> <span class="n">jsmntok_t</span> <span class="o">*</span><span class="n">json_tokens</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">json_string</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="o">++</span><span class="p">(</span><span class="o">*</span><span class="n">i</span><span class="p">);</span>
+    <span class="k">const</span> <span class="n">jsmntok_t</span> <span class="n">token</span> <span class="o">=</span> <span class="n">json_tokens</span><span class="p">[</span><span class="o">*</span><span class="n">i</span><span class="p">];</span>
+    <span class="k">return</span> <span class="n">extractString</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="n">json_string</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">int</span> <span class="nf">getIntValue</span><span class="p">(</span><span class="k">const</span> <span class="n">jsmntok_t</span> <span class="o">*</span><span class="n">json_tokens</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">json_string</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="o">++</span><span class="p">(</span><span class="o">*</span><span class="n">i</span><span class="p">);</span>
+    <span class="k">const</span> <span class="n">jsmntok_t</span> <span class="n">token</span> <span class="o">=</span> <span class="n">json_tokens</span><span class="p">[</span><span class="o">*</span><span class="n">i</span><span class="p">];</span>
+    <span class="k">return</span> <span class="n">atoi</span><span class="p">(</span><span class="n">extractString</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="n">json_string</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">double</span> <span class="nf">getDoubleValue</span><span class="p">(</span><span class="k">const</span> <span class="n">jsmntok_t</span> <span class="o">*</span><span class="n">json_tokens</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">json_string</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="o">++</span><span class="p">(</span><span class="o">*</span><span class="n">i</span><span class="p">);</span>
+    <span class="k">const</span> <span class="n">jsmntok_t</span> <span class="n">token</span> <span class="o">=</span> <span class="n">json_tokens</span><span class="p">[</span><span class="o">*</span><span class="n">i</span><span class="p">];</span>
+    <span class="k">return</span> <span class="n">atof</span><span class="p">(</span><span class="n">extractString</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="n">json_string</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">char</span><span class="o">**</span> <span class="nf">getStringArrayValue</span><span class="p">(</span><span class="k">const</span> <span class="n">jsmntok_t</span> <span class="o">*</span><span class="n">json_tokens</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">json_string</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">size</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">char</span> <span class="o">**</span><span class="n">string_array</span><span class="p">;</span>
+
+    <span class="o">++</span><span class="p">(</span><span class="o">*</span><span class="n">i</span><span class="p">);</span>
+    <span class="o">*</span><span class="n">size</span> <span class="o">=</span> <span class="n">json_tokens</span><span class="p">[</span><span class="o">*</span><span class="n">i</span><span class="p">].</span><span class="n">size</span><span class="p">;</span>
+    <span class="n">string_array</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">**</span><span class="p">)</span> <span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span> <span class="o">*</span> <span class="o">*</span><span class="n">size</span><span class="p">);</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="o">*</span><span class="n">size</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span> <span class="p">{</span>
+        <span class="o">++</span><span class="p">(</span><span class="o">*</span><span class="n">i</span><span class="p">);</span>
+        <span class="kt">char</span><span class="o">*</span> <span class="n">child</span> <span class="o">=</span> <span class="n">extractString</span><span class="p">(</span><span class="n">json_tokens</span><span class="p">[</span><span class="o">*</span><span class="n">i</span><span class="p">],</span> <span class="n">json_string</span><span class="p">);</span>
+        <span class="n">string_array</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">child</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">string_array</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">int</span><span class="o">*</span> <span class="nf">getIntArrayValue</span><span class="p">(</span><span class="k">const</span> <span class="n">jsmntok_t</span> <span class="o">*</span><span class="n">json_tokens</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">json_string</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">size</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="o">*</span><span class="n">int_array</span><span class="p">;</span>
+
+    <span class="o">++</span><span class="p">(</span><span class="o">*</span><span class="n">i</span><span class="p">);</span>
+    <span class="o">*</span><span class="n">size</span> <span class="o">=</span> <span class="n">json_tokens</span><span class="p">[</span><span class="o">*</span><span class="n">i</span><span class="p">].</span><span class="n">size</span><span class="p">;</span>
+    <span class="n">int_array</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span> <span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="o">*</span> <span class="o">*</span><span class="n">size</span><span class="p">);</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="o">*</span><span class="n">size</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span> <span class="p">{</span>
+        <span class="o">++</span><span class="p">(</span><span class="o">*</span><span class="n">i</span><span class="p">);</span>
+        <span class="kt">char</span><span class="o">*</span> <span class="n">child</span> <span class="o">=</span> <span class="n">extractString</span><span class="p">(</span><span class="n">json_tokens</span><span class="p">[</span><span class="o">*</span><span class="n">i</span><span class="p">],</span> <span class="n">json_string</span><span class="p">);</span>
+        <span class="n">int_array</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">atoi</span><span class="p">(</span><span class="n">child</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">int_array</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">double</span><span class="o">*</span> <span class="nf">getDoubleArrayValue</span><span class="p">(</span><span class="k">const</span> <span class="n">jsmntok_t</span> <span class="o">*</span><span class="n">json_tokens</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">json_string</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">size</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">double</span> <span class="o">*</span><span class="n">double_array</span><span class="p">;</span>
+
+    <span class="o">++</span><span class="p">(</span><span class="o">*</span><span class="n">i</span><span class="p">);</span>
+    <span class="o">*</span><span class="n">size</span> <span class="o">=</span> <span class="n">json_tokens</span><span class="p">[</span><span class="o">*</span><span class="n">i</span><span class="p">].</span><span class="n">size</span><span class="p">;</span>
+    <span class="n">double_array</span> <span class="o">=</span> <span class="p">(</span><span class="kt">double</span><span class="o">*</span><span class="p">)</span> <span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">double</span><span class="p">)</span> <span class="o">*</span> <span class="o">*</span><span class="n">size</span><span class="p">);</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="o">*</span><span class="n">size</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span> <span class="p">{</span>
+        <span class="o">++</span><span class="p">(</span><span class="o">*</span><span class="n">i</span><span class="p">);</span>
+        <span class="kt">char</span><span class="o">*</span> <span class="n">child</span> <span class="o">=</span> <span class="n">extractString</span><span class="p">(</span><span class="n">json_tokens</span><span class="p">[</span><span class="o">*</span><span class="n">i</span><span class="p">],</span> <span class="n">json_string</span><span class="p">);</span>
+        <span class="n">double_array</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">atof</span><span class="p">(</span><span class="n">child</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">double_array</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">parseMqttObject</span><span class="p">(</span><span class="k">const</span> <span class="n">jsmntok_t</span> <span class="o">*</span><span class="n">json_tokens</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">json_string</span><span class="p">,</span> <span class="n">config_t</span> <span class="o">*</span><span class="n">config</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="o">++</span><span class="p">(</span><span class="o">*</span><span class="n">i</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="n">json_tokens</span><span class="p">[</span><span class="o">*</span><span class="n">i</span><span class="p">].</span><span class="n">size</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span> <span class="p">{</span>
+        <span class="o">++</span><span class="p">(</span><span class="o">*</span><span class="n">i</span><span class="p">);</span>
+        <span class="kt">char</span><span class="o">*</span> <span class="n">key</span> <span class="o">=</span> <span class="n">extractString</span><span class="p">(</span><span class="n">json_tokens</span><span class="p">[</span><span class="o">*</span><span class="n">i</span><span class="p">],</span> <span class="n">json_string</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="s">&quot;host&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">free</span><span class="p">(</span><span class="n">config</span><span class="o">-&gt;</span><span class="n">mqtt</span><span class="p">.</span><span class="n">host</span><span class="p">);</span>
+            <span class="n">config</span><span class="o">-&gt;</span><span class="n">mqtt</span><span class="p">.</span><span class="n">host</span> <span class="o">=</span> <span class="n">getStringValue</span><span class="p">(</span><span class="n">json_tokens</span><span class="p">,</span> <span class="n">json_string</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="s">&quot;port&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">config</span><span class="o">-&gt;</span><span class="n">mqtt</span><span class="p">.</span><span class="n">port</span> <span class="o">=</span> <span class="n">getIntValue</span><span class="p">(</span><span class="n">json_tokens</span><span class="p">,</span> <span class="n">json_string</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="s">&quot;data_topic&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">free</span><span class="p">(</span><span class="n">config</span><span class="o">-&gt;</span><span class="n">mqtt</span><span class="p">.</span><span class="n">data_topic</span><span class="p">);</span>
+            <span class="n">config</span><span class="o">-&gt;</span><span class="n">mqtt</span><span class="p">.</span><span class="n">data_topic</span> <span class="o">=</span> <span class="n">getStringValue</span><span class="p">(</span><span class="n">json_tokens</span><span class="p">,</span> <span class="n">json_string</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="s">&quot;log_topic&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">free</span><span class="p">(</span><span class="n">config</span><span class="o">-&gt;</span><span class="n">mqtt</span><span class="p">.</span><span class="n">log_topic</span><span class="p">);</span>
+            <span class="n">config</span><span class="o">-&gt;</span><span class="n">mqtt</span><span class="p">.</span><span class="n">log_topic</span> <span class="o">=</span> <span class="n">getStringValue</span><span class="p">(</span><span class="n">json_tokens</span><span class="p">,</span> <span class="n">json_string</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="p">{</span>
+            <span class="o">++</span><span class="p">(</span><span class="o">*</span><span class="n">i</span><span class="p">);</span>
+            <span class="n">jsmntok_t</span> <span class="n">token</span> <span class="o">=</span> <span class="n">json_tokens</span><span class="p">[</span><span class="o">*</span><span class="n">i</span><span class="p">];</span>
+            <span class="k">switch</span> <span class="p">(</span><span class="n">token</span><span class="p">.</span><span class="n">type</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">case</span> <span class="nl">JSMN_ARRAY</span><span class="p">:</span>
+                    <span class="o">*</span><span class="n">i</span> <span class="o">+=</span> <span class="n">token</span><span class="p">.</span><span class="n">size</span><span class="p">;</span>
+                    <span class="k">break</span><span class="p">;</span>
+                <span class="k">case</span> <span class="nl">JSMN_OBJECT</span><span class="p">:</span>
+                    <span class="o">*</span><span class="n">i</span> <span class="o">+=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">token</span><span class="p">.</span><span class="n">size</span><span class="p">;</span>
+                    <span class="k">break</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">parseMongodbObject</span><span class="p">(</span><span class="k">const</span> <span class="n">jsmntok_t</span> <span class="o">*</span><span class="n">json_tokens</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">json_string</span><span class="p">,</span> <span class="n">config_t</span> <span class="o">*</span><span class="n">config</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="o">++</span><span class="p">(</span><span class="o">*</span><span class="n">i</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="n">json_tokens</span><span class="p">[</span><span class="o">*</span><span class="n">i</span><span class="p">].</span><span class="n">size</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span> <span class="p">{</span>
+        <span class="o">++</span><span class="p">(</span><span class="o">*</span><span class="n">i</span><span class="p">);</span>
+        <span class="kt">char</span><span class="o">*</span> <span class="n">key</span> <span class="o">=</span> <span class="n">extractString</span><span class="p">(</span><span class="n">json_tokens</span><span class="p">[</span><span class="o">*</span><span class="n">i</span><span class="p">],</span> <span class="n">json_string</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="s">&quot;host&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">free</span><span class="p">(</span><span class="n">config</span><span class="o">-&gt;</span><span class="n">mongodb</span><span class="p">.</span><span class="n">host</span><span class="p">);</span>
+            <span class="n">config</span><span class="o">-&gt;</span><span class="n">mongodb</span><span class="p">.</span><span class="n">host</span> <span class="o">=</span> <span class="n">getStringValue</span><span class="p">(</span><span class="n">json_tokens</span><span class="p">,</span> <span class="n">json_string</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="s">&quot;port&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">config</span><span class="o">-&gt;</span><span class="n">mongodb</span><span class="p">.</span><span class="n">port</span> <span class="o">=</span> <span class="n">getIntValue</span><span class="p">(</span><span class="n">json_tokens</span><span class="p">,</span> <span class="n">json_string</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="s">&quot;db&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">free</span><span class="p">(</span><span class="n">config</span><span class="o">-&gt;</span><span class="n">mongodb</span><span class="p">.</span><span class="n">db</span><span class="p">);</span>
+            <span class="n">config</span><span class="o">-&gt;</span><span class="n">mongodb</span><span class="p">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">getStringValue</span><span class="p">(</span><span class="n">json_tokens</span><span class="p">,</span> <span class="n">json_string</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="s">&quot;collection&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">free</span><span class="p">(</span><span class="n">config</span><span class="o">-&gt;</span><span class="n">mongodb</span><span class="p">.</span><span class="n">collection</span><span class="p">);</span>
+            <span class="n">config</span><span class="o">-&gt;</span><span class="n">mongodb</span><span class="p">.</span><span class="n">collection</span> <span class="o">=</span> <span class="n">getStringValue</span><span class="p">(</span><span class="n">json_tokens</span><span class="p">,</span> <span class="n">json_string</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="p">{</span>
+            <span class="o">++</span><span class="p">(</span><span class="o">*</span><span class="n">i</span><span class="p">);</span>
+            <span class="n">jsmntok_t</span> <span class="n">token</span> <span class="o">=</span> <span class="n">json_tokens</span><span class="p">[</span><span class="o">*</span><span class="n">i</span><span class="p">];</span>
+            <span class="k">switch</span> <span class="p">(</span><span class="n">token</span><span class="p">.</span><span class="n">type</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">case</span> <span class="nl">JSMN_ARRAY</span><span class="p">:</span>
+                    <span class="o">*</span><span class="n">i</span> <span class="o">+=</span> <span class="n">token</span><span class="p">.</span><span class="n">size</span><span class="p">;</span>
+                    <span class="k">break</span><span class="p">;</span>
+                <span class="k">case</span> <span class="nl">JSMN_OBJECT</span><span class="p">:</span>
+                    <span class="o">*</span><span class="n">i</span> <span class="o">+=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">token</span><span class="p">.</span><span class="n">size</span><span class="p">;</span>
+                    <span class="k">break</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">parseGpsObject</span><span class="p">(</span><span class="k">const</span> <span class="n">jsmntok_t</span> <span class="o">*</span><span class="n">json_tokens</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">json_string</span><span class="p">,</span> <span class="n">config_t</span> <span class="o">*</span><span class="n">config</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="o">++</span><span class="p">(</span><span class="o">*</span><span class="n">i</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="n">json_tokens</span><span class="p">[</span><span class="o">*</span><span class="n">i</span><span class="p">].</span><span class="n">size</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span> <span class="p">{</span>
+        <span class="o">++</span><span class="p">(</span><span class="o">*</span><span class="n">i</span><span class="p">);</span>
+        <span class="kt">char</span><span class="o">*</span> <span class="n">key</span> <span class="o">=</span> <span class="n">extractString</span><span class="p">(</span><span class="n">json_tokens</span><span class="p">[</span><span class="o">*</span><span class="n">i</span><span class="p">],</span> <span class="n">json_string</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="s">&quot;plugged&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">config</span><span class="o">-&gt;</span><span class="n">gps</span><span class="p">.</span><span class="n">plugged</span> <span class="o">=</span> <span class="n">getIntValue</span><span class="p">(</span><span class="n">json_tokens</span><span class="p">,</span> <span class="n">json_string</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="s">&quot;simulated&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">config</span><span class="o">-&gt;</span><span class="n">gps</span><span class="p">.</span><span class="n">simulated</span> <span class="o">=</span> <span class="n">getIntValue</span><span class="p">(</span><span class="n">json_tokens</span><span class="p">,</span> <span class="n">json_string</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="s">&quot;interface&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">free</span><span class="p">(</span><span class="n">config</span><span class="o">-&gt;</span><span class="n">gps</span><span class="p">.</span><span class="n">interface</span><span class="p">);</span>
+            <span class="n">config</span><span class="o">-&gt;</span><span class="n">gps</span><span class="p">.</span><span class="n">interface</span> <span class="o">=</span> <span class="n">getStringValue</span><span class="p">(</span><span class="n">json_tokens</span><span class="p">,</span> <span class="n">json_string</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="p">{</span>
+            <span class="o">++</span><span class="p">(</span><span class="o">*</span><span class="n">i</span><span class="p">);</span>
+            <span class="n">jsmntok_t</span> <span class="n">token</span> <span class="o">=</span> <span class="n">json_tokens</span><span class="p">[</span><span class="o">*</span><span class="n">i</span><span class="p">];</span>
+            <span class="k">switch</span> <span class="p">(</span><span class="n">token</span><span class="p">.</span><span class="n">type</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">case</span> <span class="nl">JSMN_ARRAY</span><span class="p">:</span>
+                    <span class="o">*</span><span class="n">i</span> <span class="o">+=</span> <span class="n">token</span><span class="p">.</span><span class="n">size</span><span class="p">;</span>
+                    <span class="k">break</span><span class="p">;</span>
+                <span class="k">case</span> <span class="nl">JSMN_OBJECT</span><span class="p">:</span>
+                    <span class="o">*</span><span class="n">i</span> <span class="o">+=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">token</span><span class="p">.</span><span class="n">size</span><span class="p">;</span>
+                    <span class="k">break</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">parseJsonTokens</span><span class="p">(</span><span class="k">const</span> <span class="n">jsmntok_t</span> <span class="o">*</span><span class="n">json_tokens</span><span class="p">,</span> <span class="kt">int</span> <span class="n">tokens_length</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">json_string</span><span class="p">,</span> <span class="n">config_t</span> <span class="o">*</span><span class="n">config</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">_i</span><span class="p">,</span> <span class="o">*</span><span class="n">i</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">_i</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="o">*</span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="o">*</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">tokens_length</span><span class="p">;</span> <span class="o">++</span><span class="p">(</span><span class="o">*</span><span class="n">i</span><span class="p">))</span> <span class="p">{</span>
+        <span class="kt">char</span><span class="o">*</span> <span class="n">key</span> <span class="o">=</span> <span class="n">extractString</span><span class="p">(</span><span class="n">json_tokens</span><span class="p">[</span><span class="o">*</span><span class="n">i</span><span class="p">],</span> <span class="n">json_string</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="s">&quot;mqtt&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">parseMqttObject</span><span class="p">(</span><span class="n">json_tokens</span><span class="p">,</span> <span class="n">json_string</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="s">&quot;mongodb&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">parseMongodbObject</span><span class="p">(</span><span class="n">json_tokens</span><span class="p">,</span> <span class="n">json_string</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="s">&quot;gps&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">parseGpsObject</span><span class="p">(</span><span class="n">json_tokens</span><span class="p">,</span> <span class="n">json_string</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="s">&quot;pilots&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">freeStringsArray</span><span class="p">(</span><span class="n">config</span><span class="o">-&gt;</span><span class="n">pilots</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">config</span><span class="o">-&gt;</span><span class="n">pilots_count</span><span class="p">);</span>
+            <span class="n">config</span><span class="o">-&gt;</span><span class="n">pilots</span> <span class="o">=</span> <span class="n">getStringArrayValue</span><span class="p">(</span><span class="n">json_tokens</span><span class="p">,</span> <span class="n">json_string</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">config</span><span class="o">-&gt;</span><span class="n">pilots_count</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="s">&quot;races&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">freeStringsArray</span><span class="p">(</span><span class="n">config</span><span class="o">-&gt;</span><span class="n">races</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">config</span><span class="o">-&gt;</span><span class="n">races_count</span><span class="p">);</span>
+            <span class="n">config</span><span class="o">-&gt;</span><span class="n">races</span> <span class="o">=</span> <span class="n">getStringArrayValue</span><span class="p">(</span><span class="n">json_tokens</span><span class="p">,</span> <span class="n">json_string</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">config</span><span class="o">-&gt;</span><span class="n">races_count</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="s">&quot;circuits&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">freeStringsArray</span><span class="p">(</span><span class="n">config</span><span class="o">-&gt;</span><span class="n">circuits</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">config</span><span class="o">-&gt;</span><span class="n">circuits_count</span><span class="p">);</span>
+            <span class="n">config</span><span class="o">-&gt;</span><span class="n">circuits</span> <span class="o">=</span> <span class="n">getStringArrayValue</span><span class="p">(</span><span class="n">json_tokens</span><span class="p">,</span> <span class="n">json_string</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">config</span><span class="o">-&gt;</span><span class="n">circuits_count</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="s">&quot;model_version&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">free</span><span class="p">(</span><span class="n">config</span><span class="o">-&gt;</span><span class="n">model_version</span><span class="p">);</span>
+            <span class="n">config</span><span class="o">-&gt;</span><span class="n">model_version</span> <span class="o">=</span> <span class="n">getStringValue</span><span class="p">(</span><span class="n">json_tokens</span><span class="p">,</span> <span class="n">json_string</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="s">&quot;can_interface&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">free</span><span class="p">(</span><span class="n">config</span><span class="o">-&gt;</span><span class="n">can_interface</span><span class="p">);</span>
+            <span class="n">config</span><span class="o">-&gt;</span><span class="n">can_interface</span> <span class="o">=</span> <span class="n">getStringValue</span><span class="p">(</span><span class="n">json_tokens</span><span class="p">,</span> <span class="n">json_string</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="s">&quot;sending_rate&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">config</span><span class="o">-&gt;</span><span class="n">sending_rate</span> <span class="o">=</span> <span class="n">getIntValue</span><span class="p">(</span><span class="n">json_tokens</span><span class="p">,</span> <span class="n">json_string</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="s">&quot;verbose&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">config</span><span class="o">-&gt;</span><span class="n">verbose</span> <span class="o">=</span> <span class="n">getIntValue</span><span class="p">(</span><span class="n">json_tokens</span><span class="p">,</span> <span class="n">json_string</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="p">{</span>
+            <span class="o">++</span><span class="p">(</span><span class="o">*</span><span class="n">i</span><span class="p">);</span>
+            <span class="n">jsmntok_t</span> <span class="n">token</span> <span class="o">=</span> <span class="n">json_tokens</span><span class="p">[</span><span class="o">*</span><span class="n">i</span><span class="p">];</span>
+            <span class="k">switch</span> <span class="p">(</span><span class="n">token</span><span class="p">.</span><span class="n">type</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">case</span> <span class="nl">JSMN_ARRAY</span><span class="p">:</span>
+                    <span class="o">*</span><span class="n">i</span> <span class="o">+=</span> <span class="n">token</span><span class="p">.</span><span class="n">size</span><span class="p">;</span>
+                    <span class="k">break</span><span class="p">;</span>
+                <span class="k">case</span> <span class="nl">JSMN_OBJECT</span><span class="p">:</span>
+                    <span class="o">*</span><span class="n">i</span> <span class="o">+=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">token</span><span class="p">.</span><span class="n">size</span><span class="p">;</span>
+                    <span class="k">break</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Eagletrt.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

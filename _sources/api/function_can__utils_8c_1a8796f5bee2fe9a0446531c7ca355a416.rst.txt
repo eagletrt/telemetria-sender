@@ -1,0 +1,13 @@
+.. _exhale_function_can__utils_8c_1a8796f5bee2fe9a0446531c7ca355a416:
+
+Function canReceiveCompact(int, int \*, int \*, int \*)
+=======================================================
+
+- Defined in :ref:`file_utils_can_utils_can_utils.c`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: canReceiveCompact(int, int *, int *, int *)

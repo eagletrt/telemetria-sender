@@ -1,0 +1,16 @@
+.. _exhale_struct_structdata__t:
+
+Struct data_t
+=============
+
+- Defined in :ref:`file_utils_gather_utils_data_structure.h`
+
+
+Struct Documentation
+--------------------
+
+
+.. doxygenstruct:: data_t
+   :members:
+   :protected-members:
+   :undoc-members:

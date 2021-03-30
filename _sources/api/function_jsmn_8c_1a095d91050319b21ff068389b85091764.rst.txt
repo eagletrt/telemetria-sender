@@ -1,0 +1,13 @@
+.. _exhale_function_jsmn_8c_1a095d91050319b21ff068389b85091764:
+
+Function jsmn_parse_primitive
+=============================
+
+- Defined in :ref:`file_utils_config_utils_jsmn_jsmn.c`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: jsmn_parse_primitive(jsmn_parser *, const char *, size_t, jsmntok_t *, size_t)

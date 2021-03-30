@@ -1,0 +1,13 @@
+.. _exhale_function_config__utils_8template_8h_1a1b47e2fca6322c3a0c82eff692d151d4:
+
+Function parseConfigFile(const char \*, config_t \*\*)
+======================================================
+
+- Defined in :ref:`file_utils_config_utils_config_utils.template.h`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: parseConfigFile(const char *, config_t **)

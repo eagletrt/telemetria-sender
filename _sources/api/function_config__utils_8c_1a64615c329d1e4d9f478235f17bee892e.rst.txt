@@ -1,0 +1,13 @@
+.. _exhale_function_config__utils_8c_1a64615c329d1e4d9f478235f17bee892e:
+
+Function parseGpsObject
+=======================
+
+- Defined in :ref:`file_utils_config_utils_config_utils.c`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: parseGpsObject(const jsmntok_t *, const char *, config_t *, int *)

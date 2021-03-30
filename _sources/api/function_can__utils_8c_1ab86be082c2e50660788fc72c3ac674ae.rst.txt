@@ -1,0 +1,13 @@
+.. _exhale_function_can__utils_8c_1ab86be082c2e50660788fc72c3ac674ae:
+
+Function canSend(int, int, int, const char \*)
+==============================================
+
+- Defined in :ref:`file_utils_can_utils_can_utils.c`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: canSend(int, int, int, const char *)

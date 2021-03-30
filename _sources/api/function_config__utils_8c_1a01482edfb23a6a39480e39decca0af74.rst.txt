@@ -1,0 +1,13 @@
+.. _exhale_function_config__utils_8c_1a01482edfb23a6a39480e39decca0af74:
+
+Function getJsonTokens(const char \*, int, jsmntok_t \*\*)
+==========================================================
+
+- Defined in :ref:`file_utils_config_utils_config_utils.c`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: getJsonTokens(const char *, int, jsmntok_t **)

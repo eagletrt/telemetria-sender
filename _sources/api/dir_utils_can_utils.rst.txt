@@ -1,0 +1,21 @@
+.. _dir_utils_can_utils:
+
+
+Directory utils
+===============
+
+
+|exhale_lsh| :ref:`Parent directory <dir_utils>` (``utils``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+*Directory path:* ``utils/can_utils``
+
+
+Files
+-----
+
+- :ref:`file_utils_can_utils_can_utils.c`
+- :ref:`file_utils_can_utils_can_utils.h`
+
+

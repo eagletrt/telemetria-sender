@@ -1,0 +1,13 @@
+.. _exhale_function_config__utils_8h_1a6bc865b692f56d2f37ee4136c41de765:
+
+Function printConfig(const config_t \*)
+=======================================
+
+- Defined in :ref:`file_utils_config_utils_config_utils.h`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: printConfig(const config_t *)

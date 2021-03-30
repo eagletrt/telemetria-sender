@@ -1,0 +1,32 @@
+
+.. _program_listing_file_utils_gather_utils_gather_utils.h:
+
+Program Listing for File gather_utils.h
+=======================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_utils_gather_utils_gather_utils.h>` (``utils/gather_utils/gather_utils.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   #ifndef TELEMETRY_GATHER_UTILS
+   #define TELEMETRY_GATHER_UTILS
+   
+   /* IMPORTS */
+   
+   #include <mongoc.h>
+   #include <time.h>
+   #include <sys/timeb.h>
+   #include <sys/sysinfo.h>
+   #include "data_structure.h"
+   
+   /* FUNCTIONS */
+   
+   data_t* gatherCreateData();
+   
+   void gatherDeleteData(data_t *document);
+   
+   void gatherDataToBson(data_t *data, bson_t** bson_document);
+   
+   #endif

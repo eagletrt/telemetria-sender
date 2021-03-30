@@ -1,0 +1,121 @@
+
+.. _file_main.c:
+
+File main.c
+===========
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``main.c``)
+-----------------------
+
+
+.. toctree::
+   :maxdepth: 1
+
+   program_listing_file_main.c.rst
+
+
+
+
+
+Includes
+--------
+
+
+- ``./state_machine/state_machine.h``
+
+- ``./state_machine/state_machine_condition.h``
+
+- ``/home/runner/work/eagletrt-telemetria-sender/eagletrt-telemetria-sender/services/can_service/can_service.h``
+
+- ``/home/runner/work/eagletrt-telemetria-sender/eagletrt-telemetria-sender/services/config_service/config_service.h``
+
+- ``/home/runner/work/eagletrt-telemetria-sender/eagletrt-telemetria-sender/services/gather_service/can/can_messages_identifiers.h``
+
+- ``/home/runner/work/eagletrt-telemetria-sender/eagletrt-telemetria-sender/services/gather_service/can/gather_can_service.h``
+
+- ``/home/runner/work/eagletrt-telemetria-sender/eagletrt-telemetria-sender/services/gather_service/gather_service.h``
+
+- ``/home/runner/work/eagletrt-telemetria-sender/eagletrt-telemetria-sender/services/gather_service/gps/gather_gps_service.h``
+
+- ``/home/runner/work/eagletrt-telemetria-sender/eagletrt-telemetria-sender/services/gather_service/master/gather_master_service.h``
+
+- ``/home/runner/work/eagletrt-telemetria-sender/eagletrt-telemetria-sender/services/gather_service/sender/gather_sender_service.h``
+
+- ``/home/runner/work/eagletrt-telemetria-sender/eagletrt-telemetria-sender/services/gps_service/gps_service.h``
+
+- ``/home/runner/work/eagletrt-telemetria-sender/eagletrt-telemetria-sender/services/log_service/log_service.h``
+
+- ``/home/runner/work/eagletrt-telemetria-sender/eagletrt-telemetria-sender/services/mongo_service/mongo_service.h``
+
+- ``/home/runner/work/eagletrt-telemetria-sender/eagletrt-telemetria-sender/services/mosquitto_service/mosquitto_service.h``
+
+- ``/home/runner/work/eagletrt-telemetria-sender/eagletrt-telemetria-sender/state_machine/state_machine_condition.h``
+
+- ``/home/runner/work/eagletrt-telemetria-sender/eagletrt-telemetria-sender/utils/can_utils/can_utils.h``
+
+- ``/home/runner/work/eagletrt-telemetria-sender/eagletrt-telemetria-sender/utils/config_utils/config_utils.h``
+
+- ``/home/runner/work/eagletrt-telemetria-sender/eagletrt-telemetria-sender/utils/gather_utils/data_structure.h``
+
+- ``/home/runner/work/eagletrt-telemetria-sender/eagletrt-telemetria-sender/utils/gather_utils/gather_utils.h``
+
+- ``/home/runner/work/eagletrt-telemetria-sender/eagletrt-telemetria-sender/utils/log_utils/log_utils.h``
+
+- ``/home/runner/work/eagletrt-telemetria-sender/eagletrt-telemetria-sender/utils/misc_utils/misc_utils.h``
+
+- ``bson.h``
+
+- ``errno.h``
+
+- ``fcntl.h``
+
+- ``math.h``
+
+- ``mongoc.h``
+
+- ``mosquitto.h``
+
+- ``pthread.h``
+
+- ``stdio.h``
+
+- ``stdlib.h``
+
+- ``string.h``
+
+- ``sys/sysinfo.h``
+
+- ``sys/timeb.h``
+
+- ``termios.h``
+
+- ``time.h``
+
+- ``unistd.h``
+
+
+
+
+
+
+Functions
+---------
+
+
+- :ref:`exhale_function_main_8c_1a0ddf1224851353fc92bfbff6f499fa97`
+
+
+Variables
+---------
+
+
+- :ref:`exhale_variable_main_8c_1accfd06683048794bbd23d2eb5bba72c8`
+
+- :ref:`exhale_variable_main_8c_1acaf254db67d7b96b6e56a90d9e5130e4`
+
+- :ref:`exhale_variable_main_8c_1a748bd5c8f549a308c8a3d1bce904dc9e`
+

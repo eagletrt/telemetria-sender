@@ -1,0 +1,16 @@
+.. _exhale_struct_structgps__gll__data:
+
+Struct gps_gll_data
+===================
+
+- Defined in :ref:`file_utils_gather_utils_data_structure.h`
+
+
+Struct Documentation
+--------------------
+
+
+.. doxygenstruct:: gps_gll_data
+   :members:
+   :protected-members:
+   :undoc-members:

@@ -1,0 +1,13 @@
+.. _exhale_function_misc__utils_8c_1a308ff7fab67f9ed07c35abb82a57a8f4:
+
+Function swapPointers(void \*\*, void \*\*)
+===========================================
+
+- Defined in :ref:`file_utils_misc_utils_misc_utils.c`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: swapPointers(void **, void **)

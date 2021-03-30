@@ -1,0 +1,64 @@
+
+.. _file_utils_gather_utils_gather_utils.h:
+
+File gather_utils.h
+===================
+
+|exhale_lsh| :ref:`Parent directory <dir_utils_gather_utils>` (``utils/gather_utils``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``utils/gather_utils/gather_utils.h``)
+--------------------------------------------------
+
+
+.. toctree::
+   :maxdepth: 1
+
+   program_listing_file_utils_gather_utils_gather_utils.h.rst
+
+
+
+
+
+Includes
+--------
+
+
+- ``data_structure.h`` (:ref:`file_utils_gather_utils_data_structure.h`)
+
+- ``mongoc.h``
+
+- ``sys/sysinfo.h``
+
+- ``sys/timeb.h``
+
+- ``time.h``
+
+
+
+Included By
+-----------
+
+
+- :ref:`file_utils_gather_utils_gather_utils.c`
+
+- :ref:`file_utils_gather_utils_gather_utils.template.c`
+
+
+
+
+Functions
+---------
+
+
+- :ref:`exhale_function_gather__utils_8h_1a687271e885feacd742b4cb110b9d8f94`
+
+- :ref:`exhale_function_gather__utils_8h_1af0cc0c1459af5983ebe2240d193dc68b`
+
+- :ref:`exhale_function_gather__utils_8h_1a9b52209d0a330080ea37332b3b140730`
+

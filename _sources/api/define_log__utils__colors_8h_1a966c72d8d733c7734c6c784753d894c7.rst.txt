@@ -1,0 +1,13 @@
+.. _exhale_define_log__utils__colors_8h_1a966c72d8d733c7734c6c784753d894c7:
+
+Define ANSI_COLOR_GREEN
+=======================
+
+- Defined in :ref:`file_utils_log_utils_log_utils_colors.h`
+
+
+Define Documentation
+--------------------
+
+
+.. doxygendefine:: ANSI_COLOR_GREEN

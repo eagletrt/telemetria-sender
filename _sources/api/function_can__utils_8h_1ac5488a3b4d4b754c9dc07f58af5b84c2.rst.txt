@@ -1,0 +1,13 @@
+.. _exhale_function_can__utils_8h_1ac5488a3b4d4b754c9dc07f58af5b84c2:
+
+Function canReceive(int, int \*, char \*\*)
+===========================================
+
+- Defined in :ref:`file_utils_can_utils_can_utils.h`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: canReceive(int, int *, char **)

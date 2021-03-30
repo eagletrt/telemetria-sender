@@ -1,0 +1,13 @@
+.. _exhale_function_jsondump_8c_1a90066587586ada4bf6a046f954f22c9d:
+
+Function dump
+=============
+
+- Defined in :ref:`file_utils_config_utils_jsmn_example_jsondump.c`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: dump(const char *, jsmntok_t *, size_t, int)

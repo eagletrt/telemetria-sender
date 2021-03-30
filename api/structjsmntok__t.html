@@ -1,0 +1,262 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Struct jsmntok_t &mdash; Eagletrt Project 1.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script type="text/javascript" src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Struct mongodb_config_t" href="structmongodb__config__t.html" />
+    <link rel="prev" title="Struct jsmn_parser" href="structjsmn__parser.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Eagletrt Project
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="library_root.html">Title</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Eagletrt Project</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="library_root.html">Title</a> &raquo;</li>
+        
+      <li>Struct jsmntok_t</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/api/structjsmntok__t.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="struct-jsmntok-t">
+<span id="exhale-struct-structjsmntok-t"></span><h1>Struct jsmntok_t<a class="headerlink" href="#struct-jsmntok-t" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li>Defined in <a class="reference internal" href="file_utils_config_utils_jsmn_jsmn.h.html#file-utils-config-utils-jsmn-jsmn-h"><span class="std std-ref">File jsmn.h</span></a></li>
+</ul>
+<div class="section" id="struct-documentation">
+<h2>Struct Documentation<a class="headerlink" href="#struct-documentation" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="_CPPv49jsmntok_t">
+<span id="_CPPv39jsmntok_t"></span><span id="_CPPv29jsmntok_t"></span><span id="jsmntok_t"></span><span class="target" id="structjsmntok__t"></span><em class="property">struct </em><code class="descname">jsmntok_t</code><a class="headerlink" href="#_CPPv49jsmntok_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>JSON token description. <dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">type</span></code>: type (object, array, string etc.) </li>
+<li><code class="docutils literal notranslate"><span class="pre">start</span></code>: start position in JSON data string </li>
+<li><code class="docutils literal notranslate"><span class="pre">end</span></code>: end position in JSON data string </li>
+</ul>
+</dd>
+</dl>
+</p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Members</p>
+<dl class="member">
+<dt id="_CPPv4N9jsmntok_t4typeE">
+<span id="_CPPv3N9jsmntok_t4typeE"></span><span id="_CPPv2N9jsmntok_t4typeE"></span><span id="jsmntok_t::type__jsmntype_t"></span><span class="target" id="structjsmntok__t_1ac03dbd6b83cbcd979eb64702d5b9943e"></span><a class="reference internal" href="enum_jsmn_8h_1a065320719769f9dc1fbe30094e52802f.html#_CPPv410jsmntype_t" title="jsmntype_t">jsmntype_t</a> <code class="descname">type</code><a class="headerlink" href="#_CPPv4N9jsmntok_t4typeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="_CPPv4N9jsmntok_t5startE">
+<span id="_CPPv3N9jsmntok_t5startE"></span><span id="_CPPv2N9jsmntok_t5startE"></span><span id="jsmntok_t::start__i"></span><span class="target" id="structjsmntok__t_1a0a8f55d0095f268ce8e224fe1234acd0"></span>int <code class="descname">start</code><a class="headerlink" href="#_CPPv4N9jsmntok_t5startE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="_CPPv4N9jsmntok_t3endE">
+<span id="_CPPv3N9jsmntok_t3endE"></span><span id="_CPPv2N9jsmntok_t3endE"></span><span id="jsmntok_t::end__i"></span><span class="target" id="structjsmntok__t_1ab49e0369f39e9b6174141e7f5bde5996"></span>int <code class="descname">end</code><a class="headerlink" href="#_CPPv4N9jsmntok_t3endE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="_CPPv4N9jsmntok_t4sizeE">
+<span id="_CPPv3N9jsmntok_t4sizeE"></span><span id="_CPPv2N9jsmntok_t4sizeE"></span><span id="jsmntok_t::size__i"></span><span class="target" id="structjsmntok__t_1a8ac3694b7335456c8e602197778883db"></span>int <code class="descname">size</code><a class="headerlink" href="#_CPPv4N9jsmntok_t4sizeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="structmongodb__config__t.html" class="btn btn-neutral float-right" title="Struct mongodb_config_t" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="structjsmn__parser.html" class="btn btn-neutral float-left" title="Struct jsmn_parser" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Eagletrt.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

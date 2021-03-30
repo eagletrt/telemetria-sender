@@ -1,0 +1,64 @@
+
+.. _file_utils_log_utils_log_utils.h:
+
+File log_utils.h
+================
+
+|exhale_lsh| :ref:`Parent directory <dir_utils_log_utils>` (``utils/log_utils``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``utils/log_utils/log_utils.h``)
+--------------------------------------------
+
+
+.. toctree::
+   :maxdepth: 1
+
+   program_listing_file_utils_log_utils_log_utils.h.rst
+
+
+
+
+
+Includes
+--------
+
+
+- ``log_utils_colors.h`` (:ref:`file_utils_log_utils_log_utils_colors.h`)
+
+- ``stdio.h``
+
+- ``stdlib.h``
+
+- ``string.h``
+
+
+
+Included By
+-----------
+
+
+- :ref:`file_utils_log_utils_log_utils.c`
+
+
+
+
+Functions
+---------
+
+
+- :ref:`exhale_function_log__utils_8h_1a7d8ff0e26b7d1428c8b8177770a9e05f`
+
+- :ref:`exhale_function_log__utils_8h_1a645de0704d59f6bbfcca3f0cc7dbace2`
+
+- :ref:`exhale_function_log__utils_8h_1a837fc549bf5c2e058aa2e1e5aa0ed67c`
+
+- :ref:`exhale_function_log__utils_8h_1a171b91332e4c15080a4f7c45d6f0b7de`
+
+- :ref:`exhale_function_log__utils_8h_1a3fd9e91eb8bda4afbb2e38ae5f954c5c`
+

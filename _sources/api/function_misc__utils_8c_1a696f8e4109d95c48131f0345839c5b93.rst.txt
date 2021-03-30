@@ -1,0 +1,13 @@
+.. _exhale_function_misc__utils_8c_1a696f8e4109d95c48131f0345839c5b93:
+
+Function printDoubleArray(double \*, int)
+=========================================
+
+- Defined in :ref:`file_utils_misc_utils_misc_utils.c`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: printDoubleArray(double *, int)

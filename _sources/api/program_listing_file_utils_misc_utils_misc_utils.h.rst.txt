@@ -1,0 +1,43 @@
+
+.. _program_listing_file_utils_misc_utils_misc_utils.h:
+
+Program Listing for File misc_utils.h
+=====================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_utils_misc_utils_misc_utils.h>` (``utils/misc_utils/misc_utils.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   #ifndef TELEMETRY_MISC_UTILS
+   #define TELEMETRY_MISC_UTILS
+   
+   #include <stdlib.h>
+   #include <stdio.h>
+   #include <string.h>
+   #include <math.h>
+   #include <time.h>
+   #include <sys/timeb.h>
+   #include <sys/sysinfo.h>
+   
+   
+   /* FUNCTIONS */
+   
+   char** cloneStringsArray(char** array, int n);
+   
+   void freeStringsArray(char** array, int* n);
+   
+   void printStringsArray(char** array, int n);
+   
+   void printIntArray(int* array, int n);
+   
+   void printDoubleArray(double* array, int n);
+   
+   int digitsCount(int n);
+   
+   void swapPointers(void** x, void** y);
+   
+   long long int getCurrentTimestamp();
+   
+   #endif

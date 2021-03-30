@@ -1,0 +1,28 @@
+var searchData=
+[
+  ['readme_1060',['README',['../md_README.html',1,'']]],
+  ['races_1061',['races',['../structconfig__t.html#aaf2b78f3fbde0057fa5a213d7a08f791',1,'config_t::races()'],['../structsession__condition__t.html#a7ed5d143f808b513c0f70e5dd3953851',1,'session_condition_t::races()']]],
+  ['races_5fcount_1062',['races_count',['../structconfig__t.html#a4963074e1d6b64beecd002755eb1b4a7',1,'config_t::races_count()'],['../structsession__condition__t.html#a9051190e96ef646d1a9939ee5cd886d1',1,'session_condition_t::races_count()']]],
+  ['random_2dfile_2etxt_1063',['random-file.txt',['../random-file_8txt.html',1,'']]],
+  ['readgps_1064',['readGPS',['../gps__service_8c.html#a0dd6942741f6de63db20afbd5daf8d66',1,'readGPS():&#160;gps_service.c'],['../gps__service_8h.html#a0dd6942741f6de63db20afbd5daf8d66',1,'readGPS():&#160;gps_service.c']]],
+  ['readme_1065',['README',['../program__listing__file__utils__config__utils__jsmn__README_8md_8rst_8txt.html#ac6265308777ded323d0a31cd4b779335',1,'program_listing_file_utils_config_utils_jsmn_README.md.rst.txt']]],
+  ['readme_2emd_1066',['README.md',['../README_8md.html',1,'(Global Namespace)'],['../utils_2config__utils_2jsmn_2README_8md.html',1,'(Global Namespace)']]],
+  ['recover_5fstdout_1067',['recover_stdout',['../test__utils_8c.html#aa769c355d91449575a999b35aa651a0d',1,'recover_stdout(redirect_config_t *config):&#160;test_utils.c'],['../test__utils_8h.html#aa769c355d91449575a999b35aa651a0d',1,'recover_stdout(redirect_config_t *config):&#160;test_utils.c']]],
+  ['redirect_5fconfig_5ft_1068',['redirect_config_t',['../structredirect__config__t.html',1,'']]],
+  ['redirect_5fstdout_1069',['redirect_stdout',['../test__utils_8c.html#a6f6e266c29328362addb2394cb035e82',1,'redirect_stdout(redirect_config_t *config):&#160;test_utils.c'],['../test__utils_8h.html#a6f6e266c29328362addb2394cb035e82',1,'redirect_stdout(redirect_config_t *config):&#160;test_utils.c']]],
+  ['release_1070',['release',['../namespaceconf.html#a325dc746d8bf05c54d26351c35a21d90',1,'conf']]],
+  ['repeat_1071',['REPEAT',['../state__machine_8h.html#a1f4f2aeb38cc5c0311392e92bd4db07ea972f3df9d279a3d3acc88bcbe4452d51',1,'state_machine.h']]],
+  ['report_1072',['report',['../structMunitTestRunner.html#a7aeaf17407636f07714f087c2cc91b4e',1,'MunitTestRunner']]],
+  ['restart_1073',['RESTART',['../state__machine_8h.html#ab44f81e9f0b8e5687ca7a45c0301d751a262553c759e1d1a9398bc406b1fadcb7',1,'state_machine.h']]],
+  ['restart_5fstate_1074',['restart_state',['../state__machine_8c.html#a0d66e4896d55460286dd17b1ddf550f2',1,'restart_state():&#160;state_machine.c'],['../state__machine_8h.html#a0d66e4896d55460286dd17b1ddf550f2',1,'restart_state():&#160;state_machine.c']]],
+  ['result_5fcode_1075',['result_code',['../structtransition__t.html#abad8d7a151dd7c46a4fafa22bce9744e',1,'transition_t']]],
+  ['result_5fcodes_1076',['result_codes',['../state__machine_8h.html#a1f4f2aeb38cc5c0311392e92bd4db07e',1,'state_machine.h']]],
+  ['results_1077',['results',['../program__listing__file__utils__config__utils__jsmn__README_8md_8rst_8txt.html#a956db8337b8d203e12f993247ff34d84',1,'program_listing_file_utils_config_utils_jsmn_README.md.rst.txt']]],
+  ['return_1078',['return',['../program__listing__file__utils__config__utils__jsmn__example__jsondump_8c_8rst_8txt.html#a9717e7bbecb906637e86cef6da3d83c2',1,'program_listing_file_utils_config_utils_jsmn_example_jsondump.c.rst.txt']]],
+  ['right_1079',['right',['../structinverters__data.html#a907616f94fe31d15f26b445a7cca9ce4',1,'inverters_data::right()'],['../structfront__wheels__encoders__data.html#a6503fe8e415a6514ce4632487301d3a5',1,'front_wheels_encoders_data::right()']]],
+  ['rmc_1080',['rmc',['../structgps__data.html#a65a5f09741e6c5b06b95a0c438a10af8',1,'gps_data::rmc()'],['../structgps__struct.html#af6fa04f8447421e75ba4fff9eb4f0487',1,'gps_struct::rmc()'],['../program__listing__file__utils__gather__utils__gather__utils_8c_8rst_8txt.html#a12610b8b3945e386cbbb9d0fe68b8d39',1,'rmc():&#160;program_listing_file_utils_gather_utils_gather_utils.c.rst.txt']]],
+  ['rmc_5fcount_1081',['rmc_count',['../structgps__data.html#aadd964db9bf27d1b0e5426dc510c59a0',1,'gps_data::rmc_count()'],['../program__listing__file__utils__gather__utils__gather__utils_8c_8rst_8txt.html#a5d83939793ead41d26067dd1698c6257',1,'rmc_count():&#160;program_listing_file_utils_gather_utils_gather_utils.c.rst.txt']]],
+  ['rmc_5fsize_1082',['rmc_size',['../structgps__data.html#ac4dcfbf052ab144d01bdd3b7be004354',1,'gps_data::rmc_size()'],['../program__listing__file__utils__gather__utils__gather__utils_8c_8rst_8txt.html#a26ee21360e05845731819ec14bfef6af',1,'rmc_size():&#160;program_listing_file_utils_gather_utils_gather_utils.c.rst.txt']]],
+  ['rotations_1083',['rotations',['../structdistance__value__data.html#af661d7a7b790d83f3ee90abb2d4ea153',1,'distance_value_data']]],
+  ['run_1084',['run',['../program__listing__file__utils__config__utils__jsmn__README_8md_8rst_8txt.html#a0681e714f979148c2b8e43f0752c46a4',1,'program_listing_file_utils_config_utils_jsmn_README.md.rst.txt']]]
+];

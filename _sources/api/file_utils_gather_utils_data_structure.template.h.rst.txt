@@ -1,0 +1,31 @@
+
+.. _file_utils_gather_utils_data_structure.template.h:
+
+File data_structure.template.h
+==============================
+
+|exhale_lsh| :ref:`Parent directory <dir_utils_gather_utils>` (``utils/gather_utils``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``utils/gather_utils/data_structure.template.h``)
+-------------------------------------------------------------
+
+
+.. toctree::
+   :maxdepth: 1
+
+   program_listing_file_utils_gather_utils_data_structure.template.h.rst
+
+
+
+
+
+
+
+
+

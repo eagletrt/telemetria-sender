@@ -1,0 +1,13 @@
+.. _exhale_function_config__utils_8c_1a9163f2f9b207c23992e3a266fea0c50d:
+
+Function parseJsonTokens(const jsmntok_t \*, int, const char \*, config_t \*)
+=============================================================================
+
+- Defined in :ref:`file_utils_config_utils_config_utils.c`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: parseJsonTokens(const jsmntok_t *, int, const char *, config_t *)

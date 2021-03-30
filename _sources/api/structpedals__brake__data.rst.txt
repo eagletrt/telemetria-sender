@@ -1,0 +1,16 @@
+.. _exhale_struct_structpedals__brake__data:
+
+Struct pedals_brake_data
+========================
+
+- Defined in :ref:`file_utils_gather_utils_data_structure.h`
+
+
+Struct Documentation
+--------------------
+
+
+.. doxygenstruct:: pedals_brake_data
+   :members:
+   :protected-members:
+   :undoc-members:

@@ -1,0 +1,13 @@
+.. _exhale_define_log__utils__colors_8h_1acb30614ba1535da5b9d0c490b3c10515:
+
+Define ANSI_COLOR_MAGENTA
+=========================
+
+- Defined in :ref:`file_utils_log_utils_log_utils_colors.h`
+
+
+Define Documentation
+--------------------
+
+
+.. doxygendefine:: ANSI_COLOR_MAGENTA

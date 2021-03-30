@@ -1,0 +1,13 @@
+.. _exhale_variable_main_8c_1acaf254db67d7b96b6e56a90d9e5130e4:
+
+Variable ENTRY_STATE
+====================
+
+- Defined in :ref:`file_main.c`
+
+
+Variable Documentation
+----------------------
+
+
+.. doxygenvariable:: ENTRY_STATE

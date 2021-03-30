@@ -1,0 +1,13 @@
+.. _exhale_function_can__utils_8h_1ab8ef5d4c913bc0fbf069e3cc723dd8ed:
+
+Function canReceiveSimple(int, char \*\*)
+=========================================
+
+- Defined in :ref:`file_utils_can_utils_can_utils.h`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: canReceiveSimple(int, char **)

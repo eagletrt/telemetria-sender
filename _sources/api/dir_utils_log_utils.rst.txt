@@ -1,0 +1,22 @@
+.. _dir_utils_log_utils:
+
+
+Directory utils
+===============
+
+
+|exhale_lsh| :ref:`Parent directory <dir_utils>` (``utils``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+*Directory path:* ``utils/log_utils``
+
+
+Files
+-----
+
+- :ref:`file_utils_log_utils_log_utils.c`
+- :ref:`file_utils_log_utils_log_utils.h`
+- :ref:`file_utils_log_utils_log_utils_colors.h`
+
+

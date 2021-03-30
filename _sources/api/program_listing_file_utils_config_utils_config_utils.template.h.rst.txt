@@ -1,0 +1,38 @@
+
+.. _program_listing_file_utils_config_utils_config_utils.template.h:
+
+Program Listing for File config_utils.template.h
+================================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_utils_config_utils_config_utils.template.h>` (``utils/config_utils/config_utils.template.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   #ifndef TELEMETRY_CONFIG_UTILS
+   #define TELEMETRY_CONFIG_UTILS
+   
+   /* IMPORTS */
+   
+   #include <stdlib.h>
+   #include <stdio.h>
+   #include <string.h>
+   #include "../misc_utils/misc_utils.h"
+   #include "./jsmn/jsmn.h"
+   
+   /* STRUCTURES */
+   
+   // {{GENERATE_CONFIG_TYPE}}
+   
+   /* FUNCTIONS */
+   
+   config_t* newConfig();
+   
+   void parseConfigFile(const char* path, config_t **config);
+   
+   void deleteConfig(config_t *config);
+   
+   void printConfig(const config_t* config);
+   
+   #endif

@@ -1,0 +1,18 @@
+
+.. _program_listing_file_utils_gather_utils_data_structure.template.h:
+
+Program Listing for File data_structure.template.h
+==================================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_utils_gather_utils_data_structure.template.h>` (``utils/gather_utils/data_structure.template.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   #ifndef TELEMETRY_DATA_STRUCTURE
+   #define TELEMETRY_DATA_STRUCTURE
+   
+   // {{GENERATE_STRUCTURE_TYPE}}
+   
+   #endif

@@ -1,0 +1,16 @@
+.. _exhale_struct_structsteering__wheel__gears__value__data:
+
+Struct steering_wheel_gears_value_data
+======================================
+
+- Defined in :ref:`file_utils_gather_utils_data_structure.h`
+
+
+Struct Documentation
+--------------------
+
+
+.. doxygenstruct:: steering_wheel_gears_value_data
+   :members:
+   :protected-members:
+   :undoc-members:

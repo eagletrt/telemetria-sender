@@ -1,0 +1,81 @@
+
+.. _file_utils_config_utils_config_utils.template.c:
+
+File config_utils.template.c
+============================
+
+|exhale_lsh| :ref:`Parent directory <dir_utils_config_utils>` (``utils/config_utils``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``utils/config_utils/config_utils.template.c``)
+-----------------------------------------------------------
+
+
+.. toctree::
+   :maxdepth: 1
+
+   program_listing_file_utils_config_utils_config_utils.template.c.rst
+
+
+
+
+
+Includes
+--------
+
+
+- ``config_utils.h`` (:ref:`file_utils_config_utils_config_utils.h`)
+
+
+
+
+
+
+Functions
+---------
+
+
+- :ref:`exhale_function_config__utils_8template_8c_1aa3f38eddd6da05ce480922e2b48fbaca`
+
+- :ref:`exhale_function_config__utils_8template_8c_1a874c64e0eebacc3ec1c83143f31a3609`
+
+- :ref:`exhale_function_config__utils_8template_8c_1aa70f8f3fb7c1a275bfcc7991dfcbc514`
+
+- :ref:`exhale_function_config__utils_8template_8c_1ab56a7b92c62b48c71bb5ffe4415448a0`
+
+- :ref:`exhale_function_config__utils_8template_8c_1a44823d436aba4855383f66fc4286aa1f`
+
+- :ref:`exhale_function_config__utils_8template_8c_1a7955081949e2710813ab532d81522e34`
+
+- :ref:`exhale_function_config__utils_8template_8c_1a3986f58a97f858b7cdaa946cc6d52b49`
+
+- :ref:`exhale_function_config__utils_8template_8c_1a01482edfb23a6a39480e39decca0af74`
+
+- :ref:`exhale_function_config__utils_8template_8c_1a1c8de5808b33845d00b19df3ab590a8b`
+
+- :ref:`exhale_function_config__utils_8template_8c_1a14de4a67845250dd6b898ec8f84ef1a8`
+
+- :ref:`exhale_function_config__utils_8template_8c_1a66bb2060e7b6c8361134473a2d3981aa`
+
+- :ref:`exhale_function_config__utils_8template_8c_1a1b47e2fca6322c3a0c82eff692d151d4`
+
+- :ref:`exhale_function_config__utils_8template_8c_1a9163f2f9b207c23992e3a266fea0c50d`
+
+- :ref:`exhale_function_config__utils_8template_8c_1ab93c6c4f2640ccdf160a866bc45fc7d5`
+
+- :ref:`exhale_function_config__utils_8template_8c_1afb31a5f7b2aefb725a64049a964290d9`
+
+- :ref:`exhale_function_config__utils_8template_8c_1a6bc865b692f56d2f37ee4136c41de765`
+
+
+Variables
+---------
+
+
+- :ref:`exhale_variable_config__utils_8template_8c_1a68d537efdc815805c0c887ab26ab48d0`
+

@@ -1,0 +1,13 @@
+.. _exhale_define_jsmn__test_8c_1ab901dc08c3d247fdcc588b7c0e6cc455:
+
+Define jsmn_alloc_token
+=======================
+
+- Defined in :ref:`file_utils_config_utils_jsmn_jsmn_test.c`
+
+
+Define Documentation
+--------------------
+
+
+.. doxygendefine:: jsmn_alloc_token

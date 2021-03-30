@@ -1,0 +1,13 @@
+.. _exhale_function_jsmn_8h_1a64734cb1fc006fba5fd237e80a58ef40:
+
+Function jsmn_parse(jsmn_parser \*, const char \*, size_t, jsmntok_t \*, unsigned int)
+======================================================================================
+
+- Defined in :ref:`file_utils_config_utils_jsmn_jsmn.h`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: jsmn_parse(jsmn_parser *, const char *, size_t, jsmntok_t *, unsigned int)

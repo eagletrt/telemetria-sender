@@ -1,0 +1,13 @@
+.. _exhale_function_can__utils_8h_1a2c592e0db2b5f124ff86c947e8e6e79a:
+
+Function canSendSimple(int, const char \*)
+==========================================
+
+- Defined in :ref:`file_utils_can_utils_can_utils.h`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: canSendSimple(int, const char *)

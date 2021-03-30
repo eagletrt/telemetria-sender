@@ -1,0 +1,13 @@
+.. _exhale_define_jsmn__test_8c_1a410cd4f831fbbb674557b2aa6284484d:
+
+Define jsmn_init
+================
+
+- Defined in :ref:`file_utils_config_utils_jsmn_jsmn_test.c`
+
+
+Define Documentation
+--------------------
+
+
+.. doxygendefine:: jsmn_init

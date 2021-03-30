@@ -1,0 +1,13 @@
+.. _exhale_define_jsmn__test_8c_1ae9493ed0020a5a9595eb8d0b6870f947:
+
+Define JSMN_STRICT
+==================
+
+- Defined in :ref:`file_utils_config_utils_jsmn_jsmn_test.c`
+
+
+Define Documentation
+--------------------
+
+
+.. doxygendefine:: JSMN_STRICT

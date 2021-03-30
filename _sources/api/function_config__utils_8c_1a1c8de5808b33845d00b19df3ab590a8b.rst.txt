@@ -1,0 +1,13 @@
+.. _exhale_function_config__utils_8c_1a1c8de5808b33845d00b19df3ab590a8b:
+
+Function getStringArrayValue(const jsmntok_t \*, const char \*, int \*, int \*)
+===============================================================================
+
+- Defined in :ref:`file_utils_config_utils_config_utils.c`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: getStringArrayValue(const jsmntok_t *, const char *, int *, int *)

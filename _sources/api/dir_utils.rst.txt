@@ -1,0 +1,20 @@
+.. _dir_utils:
+
+
+Directory utils
+===============
+
+
+*Directory path:* ``utils``
+
+Subdirectories
+--------------
+
+- :ref:`dir_utils_can_utils`
+- :ref:`dir_utils_config_utils`
+- :ref:`dir_utils_gather_utils`
+- :ref:`dir_utils_log_utils`
+- :ref:`dir_utils_misc_utils`
+
+
+

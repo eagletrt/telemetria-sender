@@ -1,0 +1,13 @@
+.. _exhale_function_jsmn__test_8c_1a33887e2d91dc8c7830a7598bd4b4c9d1:
+
+Function test_unicode_characters
+================================
+
+- Defined in :ref:`file_utils_config_utils_jsmn_jsmn_test.c`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: test_unicode_characters()

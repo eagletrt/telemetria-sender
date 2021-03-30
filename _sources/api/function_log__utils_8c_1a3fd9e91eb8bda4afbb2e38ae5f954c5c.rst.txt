@@ -1,0 +1,13 @@
+.. _exhale_function_log__utils_8c_1a3fd9e91eb8bda4afbb2e38ae5f954c5c:
+
+Function logWarning(const char \*)
+==================================
+
+- Defined in :ref:`file_utils_log_utils_log_utils.c`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: logWarning(const char *)

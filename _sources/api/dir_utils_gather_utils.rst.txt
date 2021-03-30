@@ -1,0 +1,24 @@
+.. _dir_utils_gather_utils:
+
+
+Directory utils
+===============
+
+
+|exhale_lsh| :ref:`Parent directory <dir_utils>` (``utils``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+*Directory path:* ``utils/gather_utils``
+
+
+Files
+-----
+
+- :ref:`file_utils_gather_utils_data_structure.h`
+- :ref:`file_utils_gather_utils_data_structure.template.h`
+- :ref:`file_utils_gather_utils_gather_utils.c`
+- :ref:`file_utils_gather_utils_gather_utils.h`
+- :ref:`file_utils_gather_utils_gather_utils.template.c`
+
+

@@ -1,0 +1,13 @@
+.. _exhale_define_log__utils__colors_8h_1a5a123b382640b3aa65dd5db386002fbc:
+
+Define ANSI_COLOR_YELLOW
+========================
+
+- Defined in :ref:`file_utils_log_utils_log_utils_colors.h`
+
+
+Define Documentation
+--------------------
+
+
+.. doxygendefine:: ANSI_COLOR_YELLOW

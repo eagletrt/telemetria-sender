@@ -1,0 +1,16 @@
+.. _exhale_struct_structjsmn__parser:
+
+Struct jsmn_parser
+==================
+
+- Defined in :ref:`file_utils_config_utils_jsmn_jsmn.h`
+
+
+Struct Documentation
+--------------------
+
+
+.. doxygenstruct:: jsmn_parser
+   :members:
+   :protected-members:
+   :undoc-members:

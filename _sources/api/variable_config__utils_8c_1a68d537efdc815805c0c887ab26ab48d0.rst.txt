@@ -1,0 +1,13 @@
+.. _exhale_variable_config__utils_8c_1a68d537efdc815805c0c887ab26ab48d0:
+
+Variable MAX_TOKENS_COUNT
+=========================
+
+- Defined in :ref:`file_utils_config_utils_config_utils.c`
+
+
+Variable Documentation
+----------------------
+
+
+.. doxygenvariable:: MAX_TOKENS_COUNT

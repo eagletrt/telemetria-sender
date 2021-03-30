@@ -1,0 +1,7 @@
+<map id="test_delete_config_fixture" name="test_delete_config_fixture">
+<area shape="rect" id="node1" title=" " alt="" coords="133,184,274,225"/>
+<area shape="rect" id="node2" href="$structconfig__t.html" title=" " alt="" coords="167,95,240,121"/>
+<area shape="rect" id="node3" href="$structgps__config__t.html" title=" " alt="" coords="5,5,108,32"/>
+<area shape="rect" id="node4" href="$structmongodb__config__t.html" title=" " alt="" coords="133,5,274,32"/>
+<area shape="rect" id="node5" href="$structmqtt__config__t.html" title=" " alt="" coords="299,5,409,32"/>
+</map>

@@ -1,0 +1,13 @@
+.. _exhale_function_misc__utils_8h_1a93a91bd58090c1e8fbdc06e834491318:
+
+Function freeStringsArray(char \*\*, int \*)
+============================================
+
+- Defined in :ref:`file_utils_misc_utils_misc_utils.h`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: freeStringsArray(char **, int *)

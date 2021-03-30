@@ -1,0 +1,28 @@
+.. _dir_utils_config_utils:
+
+
+Directory utils
+===============
+
+
+|exhale_lsh| :ref:`Parent directory <dir_utils>` (``utils``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+*Directory path:* ``utils/config_utils``
+
+Subdirectories
+--------------
+
+- :ref:`dir_utils_config_utils_jsmn`
+
+
+Files
+-----
+
+- :ref:`file_utils_config_utils_config_utils.c`
+- :ref:`file_utils_config_utils_config_utils.h`
+- :ref:`file_utils_config_utils_config_utils.template.c`
+- :ref:`file_utils_config_utils_config_utils.template.h`
+
+

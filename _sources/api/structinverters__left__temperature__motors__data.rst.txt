@@ -1,0 +1,16 @@
+.. _exhale_struct_structinverters__left__temperature__motors__data:
+
+Struct inverters_left_temperature_motors_data
+=============================================
+
+- Defined in :ref:`file_utils_gather_utils_data_structure.h`
+
+
+Struct Documentation
+--------------------
+
+
+.. doxygenstruct:: inverters_left_temperature_motors_data
+   :members:
+   :protected-members:
+   :undoc-members:

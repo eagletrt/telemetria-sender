@@ -1,0 +1,13 @@
+.. _exhale_function_gather__utils_8h_1af0cc0c1459af5983ebe2240d193dc68b:
+
+Function gatherDataToBson(data_t \*, bson_t \*\*)
+=================================================
+
+- Defined in :ref:`file_utils_gather_utils_gather_utils.h`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: gatherDataToBson(data_t *, bson_t **)

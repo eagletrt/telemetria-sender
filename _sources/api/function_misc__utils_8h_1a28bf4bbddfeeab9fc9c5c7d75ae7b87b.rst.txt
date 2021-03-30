@@ -1,0 +1,13 @@
+.. _exhale_function_misc__utils_8h_1a28bf4bbddfeeab9fc9c5c7d75ae7b87b:
+
+Function printIntArray(int \*, int)
+===================================
+
+- Defined in :ref:`file_utils_misc_utils_misc_utils.h`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: printIntArray(int *, int)

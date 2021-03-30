@@ -1,0 +1,13 @@
+.. _exhale_function_config__utils_8c_1a66bb2060e7b6c8361134473a2d3981aa:
+
+Function newConfig()
+====================
+
+- Defined in :ref:`file_utils_config_utils_config_utils.c`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: newConfig()
