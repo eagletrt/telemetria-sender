@@ -145,11 +145,6 @@ Files
 .. toctree::
    :maxdepth: 5
 
-   file_main.c.rst
-
-.. toctree::
-   :maxdepth: 5
-
    file_utils_misc_utils_misc_utils.c.rst
 
 .. toctree::

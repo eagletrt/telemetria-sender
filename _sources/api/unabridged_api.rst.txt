@@ -757,11 +757,6 @@ Functions
 .. toctree::
    :maxdepth: 5
 
-   function_main_8c_1a0ddf1224851353fc92bfbff6f499fa97.rst
-
-.. toctree::
-   :maxdepth: 5
-
    function_jsondump_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4.rst
 
 .. toctree::
@@ -977,21 +972,6 @@ Functions
 Variables
 *********
 
-
-.. toctree::
-   :maxdepth: 5
-
-   variable_main_8c_1accfd06683048794bbd23d2eb5bba72c8.rst
-
-.. toctree::
-   :maxdepth: 5
-
-   variable_main_8c_1acaf254db67d7b96b6e56a90d9e5130e4.rst
-
-.. toctree::
-   :maxdepth: 5
-
-   variable_main_8c_1a748bd5c8f549a308c8a3d1bce904dc9e.rst
 
 .. toctree::
    :maxdepth: 5

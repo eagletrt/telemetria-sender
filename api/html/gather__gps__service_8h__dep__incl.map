@@ -1,10 +1,9 @@
 <map id="services/gather_service/gps/gather_gps_service.h" name="services/gather_service/gps/gather_gps_service.h">
-<area shape="rect" id="node1" title=" " alt="" coords="323,5,513,47"/>
-<area shape="rect" id="node2" href="$gather__service_8h.html" title=" " alt="" coords="226,95,402,136"/>
-<area shape="rect" id="node8" href="$gather__gps__service_8c.html" title=" " alt="" coords="427,95,617,136"/>
-<area shape="rect" id="node3" href="$state__machine_8h.html" title=" " alt="" coords="142,184,297,225"/>
-<area shape="rect" id="node7" href="$gather__service_8c.html" title=" " alt="" coords="321,184,497,225"/>
-<area shape="rect" id="node4" href="$program__listing__file__main_8c_8rst_8txt.html" title=" " alt="" coords="5,273,161,329"/>
-<area shape="rect" id="node5" href="$main_8c.html" title=" " alt="" coords="186,288,253,315"/>
-<area shape="rect" id="node6" href="$state__machine_8c.html" title=" " alt="" coords="277,281,431,322"/>
+<area shape="rect" id="node1" title=" " alt="" coords="209,5,399,47"/>
+<area shape="rect" id="node2" href="$gather__service_8h.html" title=" " alt="" coords="112,95,288,136"/>
+<area shape="rect" id="node7" href="$gather__gps__service_8c.html" title=" " alt="" coords="313,95,503,136"/>
+<area shape="rect" id="node3" href="$state__machine_8h.html" title=" " alt="" coords="28,184,183,225"/>
+<area shape="rect" id="node6" href="$gather__service_8c.html" title=" " alt="" coords="207,184,383,225"/>
+<area shape="rect" id="node4" href="$main_8c.html" title=" " alt="" coords="5,281,72,307"/>
+<area shape="rect" id="node5" href="$state__machine_8c.html" title=" " alt="" coords="96,273,251,315"/>
 </map>

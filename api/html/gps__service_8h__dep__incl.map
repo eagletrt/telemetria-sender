@@ -1,12 +1,11 @@
 <map id="services/gps_service/gps_service.h" name="services/gps_service/gps_service.h">
-<area shape="rect" id="node1" title=" " alt="" coords="274,5,431,47"/>
-<area shape="rect" id="node2" href="$state__machine_8h.html" title=" " alt="" coords="142,273,297,315"/>
-<area shape="rect" id="node6" href="$gather__gps__service_8h.html" title=" " alt="" coords="257,95,448,136"/>
-<area shape="rect" id="node10" href="$gps__service_8c.html" title=" " alt="" coords="473,95,630,136"/>
-<area shape="rect" id="node3" href="$program__listing__file__main_8c_8rst_8txt.html" title=" " alt="" coords="5,363,161,419"/>
-<area shape="rect" id="node4" href="$main_8c.html" title=" " alt="" coords="186,377,253,404"/>
-<area shape="rect" id="node5" href="$state__machine_8c.html" title=" " alt="" coords="277,370,431,411"/>
-<area shape="rect" id="node7" href="$gather__service_8h.html" title=" " alt="" coords="261,184,437,225"/>
-<area shape="rect" id="node9" href="$gather__gps__service_8c.html" title=" " alt="" coords="461,184,652,225"/>
-<area shape="rect" id="node8" href="$gather__service_8c.html" title=" " alt="" coords="321,273,497,315"/>
+<area shape="rect" id="node1" title=" " alt="" coords="160,5,317,47"/>
+<area shape="rect" id="node2" href="$state__machine_8h.html" title=" " alt="" coords="28,273,183,315"/>
+<area shape="rect" id="node5" href="$gather__gps__service_8h.html" title=" " alt="" coords="143,95,334,136"/>
+<area shape="rect" id="node9" href="$gps__service_8c.html" title=" " alt="" coords="359,95,516,136"/>
+<area shape="rect" id="node3" href="$main_8c.html" title=" " alt="" coords="5,370,72,397"/>
+<area shape="rect" id="node4" href="$state__machine_8c.html" title=" " alt="" coords="96,363,251,404"/>
+<area shape="rect" id="node6" href="$gather__service_8h.html" title=" " alt="" coords="147,184,323,225"/>
+<area shape="rect" id="node8" href="$gather__gps__service_8c.html" title=" " alt="" coords="347,184,538,225"/>
+<area shape="rect" id="node7" href="$gather__service_8c.html" title=" " alt="" coords="207,273,383,315"/>
 </map>
