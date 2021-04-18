@@ -1,5 +1,5 @@
 {
-  "mqtt": {
+  "mqtt": { 
     "host": "localhost",
     "port": 1883,
     "data_topic": "telemetria",
@@ -12,9 +12,9 @@
     "collection": "chimera"
   },
   "gps": {
-    "plugged": 1,
+    "plugged": 0,
     "simulated": 1,
-    "interface": "/dev/pts/6"
+    "interface": "/dev/pts/4"
   },
   "pilots": [
     "default",

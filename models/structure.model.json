@@ -7,60 +7,60 @@
             "speed": [
                 {
                     "timestamp": "long",
-                    "value": "double"
-                },
-                500
+                    "value": "double",
+                    "maxLength": 500
+                }
             ],
             "temperature_igbt": [
                 {
                     "timestamp": "long",
-                    "value": "double"
-                },
-                500
+                    "value": "double",
+                    "maxLength": 500
+                }
             ],
             "temperature_motors": [
                 {
                     "timestamp": "long",
-                    "value": "double"
-                },
-                500
+                    "value": "double",
+                    "maxLength": 500
+                }
             ],
             "torque": [
                 {
                     "timestamp": "long",
-                    "value": "double"
-                },
-                500
+                    "value": "double",
+                    "maxLength": 500
+                }
             ]
         },
         "left": {
             "speed": [
                 {
                     "timestamp": "long",
-                    "value": "double"
-                },
-                500
+                    "value": "double",
+                    "maxLength": 500
+                }
             ],
             "temperature_igbt": [
                 {
                     "timestamp": "long",
-                    "value": "double"
-                },
-                500
+                    "value": "double",
+                    "maxLength": 500
+                }
             ],
             "temperature_motors": [
                 {
                     "timestamp": "long",
-                    "value": "double"
-                },
-                500
+                    "value": "double",
+                    "maxLength": 500
+                }
             ],
             "torque": [
                 {
                     "timestamp": "long",
-                    "value": "double"
-                },
-                500
+                    "value": "double",
+                    "maxLength": 500
+                }
             ]
         }
     },
@@ -72,9 +72,9 @@
                     "max": "double",
                     "min": "double",
                     "average": "double"
-                }
-            },
-            500
+                },
+                "maxLength": 500
+            }
         ],
         "voltage": [
             {
@@ -83,9 +83,9 @@
                     "max": "double",
                     "min": "double",
                     "total": "double"
-                }
-            },
-            500
+                },
+                "maxLength": 500
+            }
         ],
         "current": [
             {
@@ -93,9 +93,9 @@
                 "value": {
                     "current": "double",
                     "pow": "double"
-                }
-            },
-            500
+                },
+                "maxLength": 500
+            }
         ],
         "errors": [
             {
@@ -103,9 +103,9 @@
                 "value": {
                     "fault_id": "int",
                     "fault_index": "int"
-                }
-            },
-            500
+                },
+                "maxLength": 500
+            }
         ],
         "warnings": [
             {
@@ -113,9 +113,9 @@
                 "value": {
                     "fault_id": "int",
                     "fault_index": "int"
-                }
-            },
-            500
+                },
+                "maxLength": 500
+            }
         ]
     },
     "bms_lv": {
@@ -125,16 +125,16 @@
                 "value": {
                     "voltage": "double",
                     "temperature": "double"
-                }
-            },
-            500
+                },
+                "maxLength": 500
+            }
         ],
         "errors": [
             {
                 "timestamp": "long",
-                "value": "int"
-            },
-            500
+                "value": "int",
+                "maxLength": 500
+            }
         ]
     },
     "gps": {
@@ -150,9 +150,9 @@
                     "ns_indicator": "char*",
                     "ew_indicator": "char*",
                     "utc_time": "char*"
-                }
-            },
-            500
+                },
+                "maxLength": 500
+            }
         ],
         "gll": [
             {
@@ -163,9 +163,9 @@
                     "ns_indicator": "char*",
                     "ew_indicator": "char*",
                     "utc_time": "char*"
-                }
-            },
-            500
+                },
+                "maxLength": 500
+            }
         ],
         "vtg": [
             {
@@ -173,9 +173,9 @@
                 "value": {
                     "ground_speed_knots": "double",
                     "ground_speed_human": "double"
-                }
-            },
-            500
+                },
+                "maxLength": 500
+            }
         ],
         "rmc": [
             {
@@ -188,9 +188,9 @@
                     "utc_time": "char*",
                     "date": "char*",
                     "ground_speed_knots": "double"
-                }
-            },
-            500
+                },
+                "maxLength": 500
+            }
         ]
     },
     "imu_old": {
@@ -202,9 +202,9 @@
                     "y": "double",
                     "z": "double",
                     "scale": "double"
-                }
-            },
-            500
+                },
+                "maxLength": 500
+            }
         ],
         "accel": [
             {
@@ -214,9 +214,9 @@
                     "y": "double",
                     "z": "double",
                     "scale": "double"
-                }
-            },
-            500
+                },
+                "maxLength": 500
+            }
         ]
     },
     "imu": {
@@ -227,9 +227,9 @@
                     "x": "double",
                     "y": "double",
                     "z": "double"
-                }
-            },
-            500
+                },
+                "maxLength": 500
+            }
         ],
         "accel": [
             {
@@ -238,9 +238,9 @@
                     "x": "double",
                     "y": "double",
                     "z": "double"
-                }
-            },
-            500
+                },
+                "maxLength": 500
+            }
         ]
     },
     "front_wheels_encoders": {
@@ -251,16 +251,16 @@
                     "value": {
                         "speed": "double",
                         "error_flag": "int"
-                    }
-                },
-                500
+                    },
+                    "maxLength": 500
+                }
             ],
             "speed_rads": [
                 {
                     "timestamp": "long",
-                    "value": "double"
-                },
-                500
+                    "value": "double",
+                    "maxLength": 500
+                }
             ],
             "angle": [
                 {
@@ -269,9 +269,9 @@
                         "angle_0": "double",
                         "angle_1": "double",
                         "angle_delta": "double"
-                    }
-                },
-                500
+                    },
+                    "maxLength": 500
+                }
             ]
         },
         "left": {
@@ -281,16 +281,16 @@
                     "value": {
                         "speed": "double",
                         "error_flag": "int"
-                    }
-                },
-                500
+                    },
+                    "maxLength": 500
+                }
             ],
             "speed_rads": [
                 {
                     "timestamp": "long",
-                    "value": "double"
-                },
-                500
+                    "value": "double",
+                    "maxLength": 500
+                }
             ],
             "angle": [
                 {
@@ -299,9 +299,9 @@
                         "angle_0": "double",
                         "angle_1": "double",
                         "angle_delta": "double"
-                    }
-                },
-                500
+                    },
+                    "maxLength": 500
+                }
             ]
         }
     },
@@ -313,17 +313,17 @@
                 "rotations": "double",
                 "angle": "double",
                 "clock_period": "double"
-            }
-        },
-        500
+            },
+            "maxLength": 500
+        }
     ],
     "pedals": {
         "throttle": [
             {
                 "timestamp": "long",
-                "value": "int"
-            },
-            500
+                "value": "int",
+                "maxLength": 500
+            }
         ],
         "brake": [
             {
@@ -332,18 +332,18 @@
                     "is_breaking": "int",
                     "pressure_front": "double",
                     "pressure_back": "double"
-                }
-            },
-            500
+                },
+                "maxLength": 500
+            }
         ]
     },
     "steering_wheel": {
         "encoder": [
             {
                 "timestamp": "long",
-                "value": "double"
-            },
-            500
+                "value": "double",
+                "maxLength": 500
+            }
         ],
         "gears": [
             {
@@ -352,9 +352,9 @@
                     "control": "int",
                     "cooling": "int",
                     "map": "int"
-                }
-            },
-            500
+                },
+                "maxLength": 500
+            }
         ],
         "marker": "int"
     }
