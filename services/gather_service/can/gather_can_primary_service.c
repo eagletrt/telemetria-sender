@@ -44,18 +44,71 @@ static void* _parseCanMessages(void* args) {
 		document = condition.structure.data_head;
 
 		switch (id) {
-			case (ID_HV_VOLTAGE):
-				if (document->bms_hv.voltage_count < document->bms_hv.voltage_size) {
-					Primary_HV_VOLTAGE* value = (Primary_HV_VOLTAGE*) malloc(sizeof(Primary_HV_VOLTAGE));
-					deserialize_Primary_HV_VOLTAGE(data, 8, value);
-					document->bms_hv.voltage[document->bms_hv.voltage_count].timestamp = getCurrentTimestamp();
-					document->bms_hv.voltage[document->bms_hv.voltage_count].value.pack_voltage = value->pack_voltage;
-					document->bms_hv.voltage[document->bms_hv.voltage_count].value.bus_voltage = value->bus_voltage;
-					document->bms_hv.voltage[document->bms_hv.voltage_count].value.max_cell_voltage = value->max_cell_voltage;
-					document->bms_hv.voltage[document->bms_hv.voltage_count].value.min_cell_voltage = value->min_cell_voltage;
-					++(document->bms_hv.voltage_count);
+			case (ID_HV_TEMP): {
+				int count = document->bms_hv.temperature_count;
+				if (count < document->bms_hv.temperature_size) {
+					Primary_HV_TEMP* message = (Primary_HV_TEMP*) malloc(sizeof(Primary_HV_TEMP));
+					deserialize_Primary_HV_TEMP(data, 8, message);
+					
+					
+					document->bms_hv.temperature[count].timestamp = getCurrentTimestamp();
+					document->bms_hv.temperature[count].value.average_temp = message->average_temp;
+					document->bms_hv.temperature[count].value.max_temp = message->max_temp;
+					document->bms_hv.temperature[count].value.min_temp = message->min_temp;
+					++document->bms_hv.temperature_count;
 				}
 				break;
+			}
+			
+			case (ID_HV_VOLTAGE): {
+				int count = document->bms_hv.voltage_count;
+				if (count < document->bms_hv.voltage_size) {
+					Primary_HV_VOLTAGE* message = (Primary_HV_VOLTAGE*) malloc(sizeof(Primary_HV_VOLTAGE));
+					deserialize_Primary_HV_VOLTAGE(data, 8, message);
+					
+					
+					document->bms_hv.voltage[count].timestamp = getCurrentTimestamp();
+					document->bms_hv.voltage[count].value.pack_voltage = message->pack_voltage;
+					document->bms_hv.voltage[count].value.bus_voltage = message->bus_voltage;
+					document->bms_hv.voltage[count].value.min_cell_voltage = message->min_cell_voltage;
+					document->bms_hv.voltage[count].value.max_cell_voltage = message->max_cell_voltage;
+					++document->bms_hv.voltage_count;
+				}
+				break;
+			}
+			
+			case (ID_HV_CURRENT): {
+				int count = document->bms_hv.current_count;
+				if (count < document->bms_hv.current_size) {
+					Primary_HV_CURRENT* message = (Primary_HV_CURRENT*) malloc(sizeof(Primary_HV_CURRENT));
+					deserialize_Primary_HV_CURRENT(data, 8, message);
+					
+					
+					document->bms_hv.current[count].timestamp = getCurrentTimestamp();
+					document->bms_hv.current[count].value.current = message->current;
+					document->bms_hv.current[count].value.power = message->power;
+					++document->bms_hv.current_count;
+				}
+				break;
+			}
+			
+			case (ID_HV_ERROR): {
+				int count = document->bms_hv.errors_count;
+				if (count < document->bms_hv.errors_size) {
+					Primary_HV_ERROR* message = (Primary_HV_ERROR*) malloc(sizeof(Primary_HV_ERROR));
+					deserialize_Primary_HV_ERROR(data, 8, message);
+					
+					
+					document->bms_hv.errors[count].timestamp = getCurrentTimestamp();
+					document->bms_hv.errors[count].value.error_code = message->error_code;
+					document->bms_hv.errors[count].value.error_index = message->error_index;
+					document->bms_hv.errors[count].value.active = message->active;
+					++document->bms_hv.errors_count;
+				}
+				break;
+			}
+			
+			
 		}
 
 		// Unlock document
