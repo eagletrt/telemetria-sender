@@ -11,7 +11,9 @@
                     "max_temp": "int",
                     "min_temp": "int"
                 },
-                "maxLength": 500
+                "maxLength": 500,
+                "name": "HV_TEMP",
+                "network": "Primary"
             }
         ],
         "voltage": [
@@ -23,7 +25,9 @@
                     "min_cell_voltage": "int",
                     "max_cell_voltage": "int"
                 },
-                "maxLength": 500
+                "maxLength": 500,
+                "name": "HV_VOLTAGE",
+                "network": "Primary"
             }
         ],
         "current": [
@@ -33,7 +37,9 @@
                     "current": "int",
                     "power": "int"
                 },
-                "maxLength": 500
+                "maxLength": 500,
+                "name": "HV_CURRENT",
+                "network": "Primary"
             }
         ],
         "errors": [
@@ -44,7 +50,9 @@
                     "error_index": "int",
                     "active": "int"
                 },
-                "maxLength": 500
+                "maxLength": 500,
+                "name": "HV_ERROR",
+                "network": "Primary"
             }
         ]
     },
@@ -57,7 +65,9 @@
                     "accel_y": "int",
                     "accel_z": "int"
                 },
-                "maxLength": 500
+                "maxLength": 500,
+                "name": "IMU_ACCELERATION",
+                "network": "Secondary"
             }
         ]
     },
