@@ -15,7 +15,11 @@
         "array": "c",
         "tuple": "c",
         "type_traits": "c",
-        "utility": "c"
+        "utility": "c",
+        "gather_can_primary_service.h": "c",
+        "misc_utils.h": "c",
+        "primary.h": "c",
+        "ids.h": "c"
     },
     "workbench.colorCustomizations": {
         "activityBar.activeBackground": "#420080",

@@ -11,6 +11,8 @@
 #include "../../../services/log_service/log_service.h"
 #include "../../../utils/gather_utils/gather_utils.h"
 #include "../../../utils/misc_utils/misc_utils.h"
+#include "../../../utils/can-cicd/includes-generator/Secondary/ids.h"
+#include "../../../utils/can-cicd/naked-generator/Secondary/c/Secondary.h"
 #include "../../../state_machine/state_machine_condition.h"
 #include "../../can_service/can_service.h"
 

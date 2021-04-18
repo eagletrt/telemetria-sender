@@ -43,8 +43,18 @@ static void* _parseCanMessages(void* args) {
 		// Create reference to data_head
 		document = condition.structure.data_head;
 
-		switch (id) { 
-			
+		switch (id) {
+			case (ID_IMU_ACCELERATION):
+				if (document->imu.acceleration_count < document->imu.acceleration_size) {
+					Secondary_IMU_ACCELERATION* value = (Secondary_IMU_ACCELERATION*) malloc(sizeof(Secondary_IMU_ACCELERATION));
+					deserialize_Secondary_IMU_ACCELERATION(data, 8, value);
+					document->imu.acceleration[document->imu.acceleration_count].timestamp = getCurrentTimestamp();
+					document->imu.acceleration[document->imu.acceleration_count].value.accel_x = value->accel_x;
+					document->imu.acceleration[document->imu.acceleration_count].value.accel_y = value->accel_y;
+					document->imu.acceleration[document->imu.acceleration_count].value.accel_z = value->accel_z;
+					++(document->imu.acceleration_count);
+				}
+				break;
 		}
 
 		// Unlock document

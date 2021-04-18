@@ -10,9 +10,9 @@
                     "average_temp": "int",
                     "max_temp": "int",
                     "min_temp": "int"
-                }
-            },
-            500
+                },
+                "maxLength": 500
+            }
         ],
         "voltage": [
             {
@@ -22,9 +22,9 @@
                     "bus_voltage": "int",
                     "min_cell_voltage": "int",
                     "max_cell_voltage": "int"
-                }
-            },
-            500
+                },
+                "maxLength": 500
+            }
         ],
         "current": [
             {
@@ -32,9 +32,9 @@
                 "value": {
                     "current": "int",
                     "power": "int"
-                }
-            },
-            500
+                },
+                "maxLength": 500
+            }
         ],
         "errors": [
             {
@@ -43,9 +43,9 @@
                     "error_code": "int",
                     "error_index": "int",
                     "active": "int"
-                }
-            },
-            500
+                },
+                "maxLength": 500
+            }
         ]
     },
     "imu": {
@@ -56,9 +56,9 @@
                     "accel_x": "int",
                     "accel_y": "int",
                     "accel_z": "int"
-                }
-            },
-            500
+                },
+                "maxLength": 500
+            }
         ]
     },
     "gps": {
@@ -74,9 +74,9 @@
                     "ns_indicator": "char*",
                     "ew_indicator": "char*",
                     "utc_time": "char*"
-                }
-            },
-            500
+                },
+                "maxLength": 500
+            }
         ],
         "gll": [
             {
@@ -87,9 +87,9 @@
                     "ns_indicator": "char*",
                     "ew_indicator": "char*",
                     "utc_time": "char*"
-                }
-            },
-            500
+                },
+                "maxLength": 500
+            }
         ],
         "vtg": [
             {
@@ -97,9 +97,9 @@
                 "value": {
                     "ground_speed_knots": "double",
                     "ground_speed_human": "double"
-                }
-            },
-            500
+                },
+                "maxLength": 500
+            }
         ],
         "rmc": [
             {
@@ -112,9 +112,9 @@
                     "utc_time": "char*",
                     "date": "char*",
                     "ground_speed_knots": "double"
-                }
-            },
-            500
+                },
+                "maxLength": 500
+            }
         ]
     }
 }
