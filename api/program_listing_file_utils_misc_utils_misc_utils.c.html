@@ -235,11 +235,10 @@
 
 
 <span class="kt">long</span> <span class="kt">long</span> <span class="kt">int</span> <span class="nf">getCurrentTimestamp</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">struct</span> <span class="n">timeb</span> <span class="n">timer_msec</span><span class="p">;</span>
-    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">ftime</span><span class="p">(</span><span class="o">&amp;</span><span class="n">timer_msec</span><span class="p">))</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="p">((</span><span class="kt">long</span> <span class="kt">long</span> <span class="kt">int</span><span class="p">)</span> <span class="n">timer_msec</span><span class="p">.</span><span class="n">time</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1000ll</span> <span class="o">+</span> <span class="p">((</span><span class="kt">long</span> <span class="kt">long</span> <span class="kt">int</span><span class="p">)</span> <span class="n">timer_msec</span><span class="p">.</span><span class="n">millitm</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="k">else</span> <span class="p">{</span>
+    <span class="k">struct</span> <span class="n">timeval</span> <span class="n">tv</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">gettimeofday</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tv</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">(</span><span class="kt">long</span> <span class="kt">long</span> <span class="kt">int</span><span class="p">)(</span><span class="n">tv</span><span class="p">.</span><span class="n">tv_sec</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1000ll</span> <span class="o">+</span> <span class="p">(</span><span class="kt">long</span> <span class="kt">long</span> <span class="kt">int</span><span class="p">)(</span><span class="n">tv</span><span class="p">.</span><span class="n">tv_usec</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1000ll</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
         <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">}</span>

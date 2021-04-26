@@ -1,9 +1,0 @@
-<map id="services/gather_service/master/gather_master_service.h" name="services/gather_service/master/gather_master_service.h">
-<area shape="rect" id="node1" title=" " alt="" coords="212,5,388,61"/>
-<area shape="rect" id="node2" href="$gather__service_8h.html" title=" " alt="" coords="112,117,288,158"/>
-<area shape="rect" id="node7" href="$gather__master__service_8c.html" title=" " alt="" coords="312,109,488,165"/>
-<area shape="rect" id="node3" href="$state__machine_8h.html" title=" " alt="" coords="28,213,183,255"/>
-<area shape="rect" id="node6" href="$gather__service_8c.html" title=" " alt="" coords="207,213,383,255"/>
-<area shape="rect" id="node4" href="$main_8c.html" title=" " alt="" coords="5,310,72,337"/>
-<area shape="rect" id="node5" href="$state__machine_8c.html" title=" " alt="" coords="96,303,251,344"/>
-</map>

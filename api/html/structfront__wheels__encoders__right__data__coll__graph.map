@@ -1,8 +1,0 @@
-<map id="front_wheels_encoders_right_data" name="front_wheels_encoders_right_data">
-<area shape="rect" id="node1" title=" " alt="" coords="581,71,753,112"/>
-<area shape="rect" id="node2" href="$structfront__wheels__encoders__right__angle__data.html" title=" " alt="" coords="281,5,453,47"/>
-<area shape="rect" id="node3" href="$structfront__wheels__encoders__right__angle__value__data.html" title=" " alt="" coords="7,5,188,47"/>
-<area shape="rect" id="node4" href="$structfront__wheels__encoders__right__speed__data.html" title=" " alt="" coords="281,71,453,112"/>
-<area shape="rect" id="node5" href="$structfront__wheels__encoders__right__speed__value__data.html" title=" " alt="" coords="5,71,189,112"/>
-<area shape="rect" id="node6" href="$structfront__wheels__encoders__right__speed__rads__data.html" title=" " alt="" coords="279,136,455,177"/>
-</map>

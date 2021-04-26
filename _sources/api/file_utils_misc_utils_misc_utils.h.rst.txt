@@ -39,7 +39,7 @@ Includes
 
 - ``sys/sysinfo.h``
 
-- ``sys/timeb.h``
+- ``sys/time.h``
 
 - ``time.h``
 

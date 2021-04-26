@@ -1,8 +1,0 @@
-var searchData=
-[
-  ['strcpy_2059',['strcpy',['../program__listing__file__utils__can__utils__can__utils_8c_8rst_8txt.html#aa66ba112c72eaa3ef742359572d15eca',1,'program_listing_file_utils_can_utils_can_utils.c.rst.txt']]],
-  ['successinsertion_2060',['successInsertion',['../log__service_8c.html#a4ad5b24235eb35d669ea299e9751e4c2',1,'successInsertion(int size):&#160;log_service.c'],['../log__service_8h.html#a4ad5b24235eb35d669ea299e9751e4c2',1,'successInsertion(int size):&#160;log_service.c']]],
-  ['successquitting_2061',['successQuitting',['../log__service_8c.html#a8326f7b6a374c5f13f92c720af38ec76',1,'successQuitting():&#160;log_service.c'],['../log__service_8h.html#a8326f7b6a374c5f13f92c720af38ec76',1,'successQuitting():&#160;log_service.c']]],
-  ['successstartedup_2062',['successStartedUp',['../log__service_8c.html#a1f2a0585905e995866fc36dacbe0aeba',1,'successStartedUp():&#160;log_service.c'],['../log__service_8h.html#a1f2a0585905e995866fc36dacbe0aeba',1,'successStartedUp():&#160;log_service.c']]],
-  ['swappointers_2063',['swapPointers',['../program__listing__file__utils__misc__utils__misc__utils_8c_8rst_8txt.html#a308ff7fab67f9ed07c35abb82a57a8f4',1,'swapPointers(void **x, void **y):&#160;program_listing_file_utils_misc_utils_misc_utils.c.rst.txt'],['../program__listing__file__utils__misc__utils__misc__utils_8h_8rst_8txt.html#a308ff7fab67f9ed07c35abb82a57a8f4',1,'swapPointers(void **x, void **y):&#160;program_listing_file_utils_misc_utils_misc_utils.c.rst.txt'],['../misc__utils_8c.html#a308ff7fab67f9ed07c35abb82a57a8f4',1,'swapPointers(void **x, void **y):&#160;misc_utils.c'],['../misc__utils_8h.html#a308ff7fab67f9ed07c35abb82a57a8f4',1,'swapPointers(void **x, void **y):&#160;program_listing_file_utils_misc_utils_misc_utils.c.rst.txt']]]
-];
