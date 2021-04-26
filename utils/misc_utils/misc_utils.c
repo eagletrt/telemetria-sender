@@ -71,11 +71,10 @@ void swapPointers(void** x, void** y) {
 
 
 long long int getCurrentTimestamp() {
-	struct timeb timer_msec;
-	if(!ftime(&timer_msec)) {
-		return ((long long int) timer_msec.time) * 1000ll + ((long long int) timer_msec.millitm);
-	}
-	else {
-		return -1;
-	}
+    struct timeval tv;
+    if (!gettimeofday(&tv, NULL)) {
+        return (long long int)(tv.tv_sec) * 1000ll + (long long int)(tv.tv_usec) / 1000ll;
+    } else {
+        return -1;
+    }
 }
