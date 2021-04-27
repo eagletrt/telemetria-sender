@@ -28,7 +28,7 @@ static void* senderSend(void *args) {
     // Get enabled state
     int enabled = (int) ((long) args);
 
-    while (1) {
+    while (!condition.structure.restarting) {
         // Waits until it must flush the toilet
         debugGeneric("{SENDER} Waiting for flushing toilet");
         printf("--- SENDER ce l'ha %d \n", condition.structure.threads.flush_toilet_mutex.__data.__owner);

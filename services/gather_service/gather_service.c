@@ -12,6 +12,7 @@ void gatherSetup() {
     condition.structure.toilet_flushed = 0;
     condition.structure.enabled = 0;
     condition.structure.toggle_state = 0;
+    condition.structure.restarting = 0;
     condition.structure.data_head = gatherCreateData();
     condition.structure.data_tail = NULL;
 
@@ -22,6 +23,7 @@ void gatherSetupRestart() {
     condition.structure.flush_toilet = 0;
     condition.structure.toilet_flushed = 0;
     condition.structure.toggle_state = 0;
+    condition.structure.restarting = 0;
 
     destroyMutexesAndConds();
     initMutexesAndConds();
@@ -49,6 +51,7 @@ static void initMutexesAndConds() {
     pthread_mutex_init(&condition.structure.threads.flush_toilet_mutex, NULL);
     pthread_mutex_init(&condition.structure.threads.toilet_flushed_mutex, NULL);
     pthread_mutex_init(&condition.structure.threads.toggle_state_mutex, NULL);
+    pthread_mutex_init(&condition.structure.threads.restarting_mutex, NULL);
     pthread_cond_init(&condition.structure.threads.flush_toilet_cond, NULL);
     pthread_cond_init(&condition.structure.threads.toilet_flushed_cond, NULL);
 }
@@ -59,6 +62,8 @@ static void destroyMutexesAndConds() {
     pthread_mutex_destroy(&condition.structure.threads.flush_toilet_mutex);
     pthread_mutex_destroy(&condition.structure.threads.toilet_flushed_mutex);
     pthread_mutex_destroy(&condition.structure.threads.toggle_state_mutex);
+    pthread_mutex_destroy(&condition.structure.threads.restarting_mutex);
     pthread_cond_destroy(&condition.structure.threads.flush_toilet_cond);
     pthread_cond_destroy(&condition.structure.threads.toilet_flushed_cond);
+
 }
