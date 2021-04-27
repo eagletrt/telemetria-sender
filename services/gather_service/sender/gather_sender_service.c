@@ -31,12 +31,20 @@ static void* senderSend(void *args) {
     while (1) {
         // Waits until it must flush the toilet
         debugGeneric("{SENDER} Waiting for flushing toilet");
+        printf("--- SENDER ce l'ha %d \n", condition.structure.threads.flush_toilet_mutex.__data.__owner);
+        puts("--- SENDER locking");
         pthread_mutex_lock(&condition.structure.threads.flush_toilet_mutex);
+        puts("--- SENDER locked");
+        printf("--- SENDER e ora ce l'ha %d \n", condition.structure.threads.flush_toilet_mutex.__data.__owner);
         while (!condition.structure.flush_toilet) {
+            puts("--- SENDER waiting");
             pthread_cond_wait(&condition.structure.threads.flush_toilet_cond, &condition.structure.threads.flush_toilet_mutex);
+            puts("--- SENDER waited");
         }
         condition.structure.flush_toilet = 0;
+        puts("--- SENDER unlocking");
         pthread_mutex_unlock(&condition.structure.threads.flush_toilet_mutex);
+        puts("--- SENDER unlocked");
 
         // Locks data_tail
         debugGeneric("{SENDER} Locking data tail");
