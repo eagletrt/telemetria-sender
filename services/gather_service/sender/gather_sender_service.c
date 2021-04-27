@@ -26,9 +26,9 @@ void gatherSenderStopThread() {
 
 static void* senderSend(void *args) {
     // Get enabled state
-    int enabled = (int) ((long) args);
+    // int enabled = (int) ((long) args);
 
-    while (!condition.structure.restarting) {
+    while (1) {
         // Waits until it must flush the toilet
         debugGeneric("{SENDER} Waiting for flushing toilet");
         printf("--- SENDER ce l'ha %d \n", condition.structure.threads.flush_toilet_mutex.__data.__owner);
@@ -60,7 +60,7 @@ static void* senderSend(void *args) {
             debugGeneric("{SENDER} Sending over mosquitto");
             mosquittoSend(bson_document);
             
-            if (enabled) {
+            if (condition.structure.enabled) {
                 debugGeneric("{SENDER} Inserting to mongo");
                 mongoInsert(bson_document);
                 size_t size; bson_as_relaxed_extended_json(bson_document, &size);

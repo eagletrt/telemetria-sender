@@ -31,8 +31,8 @@ void gatherMasterSwap() {
 
     swapPointers((void**) &condition.structure.data_head, (void**) &condition.structure.data_tail);
 
-    pthread_mutex_unlock(&condition.structure.threads.data_head_mutex);
     pthread_mutex_unlock(&condition.structure.threads.data_tail_mutex);
+    pthread_mutex_unlock(&condition.structure.threads.data_head_mutex);
 }
 
 void gatherMasterResetToiletFlushed() {
