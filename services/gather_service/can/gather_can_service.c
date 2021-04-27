@@ -25,9 +25,6 @@ void gatherCanStopThread() {
 /* INTERNAL FUNCTIONS DEFINITIONS */
 
 static void* parseCanMessages(void *args) {
-	// Getting enabled arg
-	// int enabled = (int) ((long) args);
-
     // Declare used variables
     data_t* document;
     int id = 0, data_left, data_right, first_byte;

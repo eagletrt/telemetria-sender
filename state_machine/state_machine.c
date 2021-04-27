@@ -77,15 +77,7 @@ result_codes init_state() {
 }
 
 result_codes restart_state() {
-    gatherCanStopThread();
-    // gatherGpsStopThread();
-    // gatherSenderStopThread();
-
     gatherSetupRestart();
-
-    gatherCanStartThread();
-    // gatherGpsStartThread();
-    // gatherSenderStartThread(condition.structure.enabled);
 
     return condition.structure.enabled ? ENABLE : DISABLE;
 }

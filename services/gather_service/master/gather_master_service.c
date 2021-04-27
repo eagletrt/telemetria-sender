@@ -43,18 +43,10 @@ void gatherMasterResetToiletFlushed() {
 }
 
 void gatherMasterEnableFlushToilet() {
-    printf("--- MASTER ce l'ha %d \n", condition.structure.threads.flush_toilet_mutex.__data.__owner);
-    puts("--- MASTER locking");
     pthread_mutex_lock(&condition.structure.threads.flush_toilet_mutex);
-    puts("--- MASTER locked");
-    printf("--- MASTER e ora ce l'ha %d \n", condition.structure.threads.flush_toilet_mutex.__data.__owner);
     condition.structure.flush_toilet = 1;
-    puts("--- MASTER signaling");
     pthread_cond_signal(&condition.structure.threads.flush_toilet_cond);
-    puts("--- MASTER signaled");
-    puts("--- MASTER unlocking");
     pthread_mutex_unlock(&condition.structure.threads.flush_toilet_mutex);
-    puts("--- MASTER unlocked");
 }
 
 void gatherMasterWaitToiletFlushed() {
