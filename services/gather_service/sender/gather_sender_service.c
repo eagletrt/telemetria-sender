@@ -11,10 +11,10 @@ static void* senderSend(void *args);
 
 /* EXPORTED FUNCTIONS */
 
-void gatherSenderStartThread(int enabled) {
+void gatherSenderStartThread() {
 	pthread_attr_init(&gather_sender_thread_attr);
 	pthread_attr_setdetachstate(&gather_sender_thread_attr, PTHREAD_CREATE_JOINABLE);
-	pthread_create(&gather_sender_thread, &gather_sender_thread_attr, &senderSend, (void*) ((long) enabled));
+	pthread_create(&gather_sender_thread, &gather_sender_thread_attr, &senderSend, NULL);
 	pthread_attr_destroy(&gather_sender_thread_attr);
 }
 
