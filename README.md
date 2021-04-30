@@ -173,7 +173,7 @@ On the raspeberry of the telemetry there is the **Ubuntu** for ARM operative sys
 * Install **nodejs** to execute js scripts, on ubuntu I suggest reading [this](https://tecadmin.net/install-latest-nodejs-npm-on-ubuntu)
 * Install **mosquitto** to host an mqtt broker, `sudo apt install mosquitto && sudo apt install mosquitto-clients`
 * Install **canutils** to connect to canbus, `sudo apt install can-utils`
-* Install **mongodb** to have the local database, on ubuntu I suggest reading [this](https://hevodata.com/blog/install-mongodb-on-ubuntu/)
+* Install **mongodb** to have the local database, on ubuntu I suggest reading [this](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/)
 * Install **mongodriver for c** to use mongodb from c, on ubuntu `sudo apt install libmongoc-dev && sudo apt install libbson-dev`
 * Install **mqttdriver for c** to use mqtt from c, on ubuntu `sudo apt install libmosquitto-dev`
 
