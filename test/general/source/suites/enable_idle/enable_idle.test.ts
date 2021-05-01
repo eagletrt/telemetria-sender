@@ -58,7 +58,7 @@ export default async function () {
 
         it('Should enable and idle the telemetry several times', async function () {
             const iterations = 5;
-            this.timeout((iterations * 2 * 1200) + 2000);
+            this.timeout((iterations * 2 * 1700) + 3000);
 
             let lastSessionName = '';
             let sessionChanges = 0;
@@ -73,9 +73,10 @@ export default async function () {
             });
 
             for (let i = 0; i < iterations; i++) {
-                await enable(1000 + (Math.ceil(Math.random() * 200) - 100));
-                await idle(1000 + (Math.ceil(Math.random() * 200) - 100));
+                await enable(1500 + (Math.ceil(Math.random() * 200) - 100));
+                await idle(1500 + (Math.ceil(Math.random() * 200) - 100));
             }
+            await wait(1000);
             expect(sessionChanges).to.equal(iterations);
         });
 
