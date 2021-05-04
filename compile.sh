@@ -27,7 +27,9 @@ gcc main.c -o sender.out \
     -lbson-1.0 \
     -lmosquitto \
     -lpthread \
-    -lm
+    -lm \
+    -Wno-unused-result \
+    -O3
 if [ $? -eq 0 ]; then
     echo "compiled :)"
     exit 0
