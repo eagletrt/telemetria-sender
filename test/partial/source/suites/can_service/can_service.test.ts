@@ -1,4 +1,4 @@
-import { virtualizeCan, VirtualizeCanResult } from '@eagletrt/eagletrt-telemetria-simulator';
+import { virtualizeCan, VirtualizeCanResult } from '@eagletrt/telemetria-simulator';
 import * as path from 'path';
 import { runTests } from "../../utils/misc"
 import { execSync, exec } from 'child_process'

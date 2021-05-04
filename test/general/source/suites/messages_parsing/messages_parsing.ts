@@ -6,7 +6,7 @@ import { deserialize } from 'bson';
 import { AsyncClient as MqttClient, connectAsync } from 'async-mqtt';
 import { clean } from 'mongo-cleaner';
 import { join } from 'path';
-import { CanSimulatorInstance, GpsSimulatorInstance, simulateCan, simulateGps, virtualizeCan } from '@eagletrt/eagletrt-telemetria-simulator';
+import { CanSimulatorInstance, GpsSimulatorInstance, simulateCan, simulateGps, virtualizeCan } from '@eagletrt/telemetria-simulator';
 
 import getConfiguration from '../../utils/config';
 import { wait, paraCulo } from '../../utils/misc';

@@ -1,6 +1,6 @@
 import { deserialize } from 'bson';
 import { AsyncClient as MqttClient, connectAsync } from 'async-mqtt';
-import { CanSimulatorInstance, simulateCan, virtualizeCan } from '@eagletrt/eagletrt-telemetria-simulator';
+import { CanSimulatorInstance, simulateCan, virtualizeCan } from '@eagletrt/telemetria-simulator';
 import { exec } from 'child_process'
 import getConfiguration from '../../utils/config';
 import { wait, paraCulo } from '../../utils/misc';

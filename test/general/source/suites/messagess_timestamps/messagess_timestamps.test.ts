@@ -3,7 +3,7 @@ import { MongoClient } from 'mongodb';
 import { deserialize } from 'bson';
 import { AsyncClient as MqttClient, connectAsync } from 'async-mqtt';
 import { clean } from 'mongo-cleaner';
-import { CanSimulatorInstance, GpsSimulatorInstance, simulateCan, simulateGps, virtualizeCan } from '@eagletrt/eagletrt-telemetria-simulator';
+import { CanSimulatorInstance, GpsSimulatorInstance, simulateCan, simulateGps, virtualizeCan } from '@eagletrt/telemetria-simulator';
 import { wait } from '../../utils/misc';
 import { startTelemetry, TelemetryProcessInstance } from '../../utils/telemetry';
 import getConfiguration from '../../utils/config';
