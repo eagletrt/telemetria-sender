@@ -2,17 +2,183 @@
     "id": "int",
     "timestamp": "long",
     "sessionName": "char*",
+    "bms_hv": {
+        "voltage": [
+            {
+                "timestamp": "long",
+                "value": {
+                    "pack": {
+                        "type": "int",
+                        "value": "#pack_voltage"
+                    },
+                    "bus": {
+                        "type": "int",
+                        "value": "#bus_voltage"
+                    },
+                    "max": {
+                        "type": "int",
+                        "value": "#max_cell_voltage"
+                    },
+                    "min": {
+                        "type": "int",
+                        "value": "#min_cell_voltage"
+                    }
+                },
+                "maxLength": 500,
+                "name": "HV_VOLTAGE",
+                "network": "Primary"
+            }
+        ],
+        "current": [
+            {
+                "timestamp": "long",
+                "value": {
+                    "current": "int",
+                    "power": "int"
+                },
+                "maxLength": 500,
+                "name": "HV_CURRENT",
+                "network": "Primary"
+            }
+        ],
+        "temperature": [
+            {
+                "timestamp": "long",
+                "value": {
+                    "avg": {
+                        "type": "int",
+                        "value": "#average_temp"
+                    },
+                    "max": {
+                        "type": "int",
+                        "value": "#max_temp"
+                    },
+                    "min": {
+                        "type": "int",
+                        "value": "#min_temp"
+                    }
+                },
+                "maxLength": 500,
+                "name": "HV_TEMP",
+                "network": "Primary"
+            }
+        ]
+    },
+    "bms_lv": {
+        "current": [
+            {
+                "timestamp": "long",
+                "value": { 
+                    "type": "int",
+                    "value": "#current"
+                 },
+                "maxLength": 500,
+                "name": "LV_CURRENT",
+                "network": "Primary"
+            }
+        ],
+        "voltage": [
+            {
+                "timestamp": "long",
+                "value": {
+                    "total_voltage": "int",
+                    "voltage_1": "int",
+                    "voltage_2": "int",
+                    "voltage_3": "int",
+                    "voltage_4": "int"
+                },
+                "maxLength": 500,
+                "name": "LV_VOLTAGE",
+                "network": "Primary"
+            }
+        ],
+        "temperature": [
+            {
+                "timestamp": "long",
+                "value": {
+                    "battery": {
+                        "type": "int",
+                        "value": "#battery_temperature"
+                    },
+                    "dcdc": {
+                        "type": "int",
+                        "value": "#dcdc_temperature"
+                    }
+                },
+                "maxLength": 500,
+                "name": "LV_TEMPERATURE",
+                "network": "Primary"
+            }
+        ]
+    },
     "imu": {
+        "angle": [
+            {
+                "timestamp": "long",
+                "value": {
+                    "x": {
+                        "type": "int",
+                        "value": "#ang_rate_x"
+                    },
+                    "y": {
+                        "type": "int",
+                        "value": "#ang_rate_y"
+                    },
+                    "z": {
+                        "type": "int",
+                        "value": "#ang_rate_z"
+                    }
+                },
+                "maxLength": 500,
+                "name": "IMU_ANGULAR_RATE",
+                "network": "Secondary"
+            }
+        ],
         "acceleration": [
             {
                 "timestamp": "long",
                 "value": {
-                    "accel_x": "int",
-                    "accel_y": "int",
-                    "accel_z": "int"
+                    "x": {
+                        "type": "int",
+                        "value": "#accel_x"
+                    },
+                    "y": {
+                        "type": "int",
+                        "value": "#accel_y"
+                    },
+                    "z": {
+                        "type": "int",
+                        "value": "#accel_z"
+                    }
                 },
                 "maxLength": 500,
                 "name": "IMU_ACCELERATION",
+                "network": "Secondary"
+            }
+        ]
+    },
+    "pedals": {
+        "brake": [
+            {
+                "timestamp": "long",
+                "value": {
+                    "type": "int",
+                    "value": "#level"
+                },
+                "maxLength": 500,
+                "name": "BRAKE_PEDAL_VAL",
+                "network": "Secondary"
+            }
+        ],
+        "throttle": [
+            {
+                "timestamp": "long",
+                "value": {
+                    "type": "int",
+                    "value": "#level"
+                },
+                "maxLength": 500,
+                "name": "ACCELERATOR_PEDAL_VAL",
                 "network": "Secondary"
             }
         ]
