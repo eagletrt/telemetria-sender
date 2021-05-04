@@ -95,9 +95,15 @@ static char* getFormattedTimestamp(long long int timestamp) {
 	char* timeString = itostr(time);
 
 	int length = strlen(dateString) + 1 + strlen(timeString) + 1;
+	if (formatted->tm_hour) {
+		length++;
+	}
 	result = (char*) malloc(sizeof(char) * length);
 	strcpy(result, dateString);
 	strcat(result, "_");
+	if (formatted->tm_hour) {
+		strcat(result, "0");
+	}
 	strcat(result, timeString);
 
 	free(dateString);
