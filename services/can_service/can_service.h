@@ -8,6 +8,8 @@
 #include <string.h>
 #include "../../utils/can_utils/can_utils.h"
 #include "../../state_machine/state_machine_condition.h"
+#include "../../utils/can-cicd/includes_generator/Primary/ids.h"
+#include "../../utils/can-cicd/naked_generator/Primary/c/Primary.h"
 
 /* EXTERN */
 

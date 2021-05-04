@@ -56,29 +56,20 @@ int canReadSecondary(int *id, char** data) {
 
 can_code canAnswerWheel(int enabled) {
     can_code result = CAN_SERVICE_OK;
-    // Get the current time
-    int timestamp = time(NULL);
 
-    // Create the message data
-    char *data = (char*) malloc(sizeof(char) * 8);
-	data[0] = 101;
-	data[1] = (enabled ? 1 : 0);
-	data[2] = condition.session.selected_pilot;
-	data[3] = condition.session.selected_race;
-	data[4] = (timestamp >> 24) & 0xFF;
-	data[5] = (timestamp >> 16) & 0xFF;
-	data[6] = (timestamp >> 8) & 0xFF;
-	data[7] = (timestamp) & 0xFF;
+    // Create response
+    uint8_t* buffer_message = (uint8_t*)malloc(8 * sizeof(uint8_t));
+	serialize_Primary_TLM_STATUS(buffer_message, 8, enabled, condition.session.selected_race, condition.session.selected_pilot, 0);
 
     // Send the message
-	int outcome = canSend(condition.can_primary.socket, 0xAB, 8, data);
+	int outcome = canSend(condition.can_primary.socket, ID_TLM_STATUS, 8, buffer_message);
     // Set the result depending on the outcome
     if (outcome < 0) {
         result = CAN_SERVICE_SENDING_ERROR;
     }
     
-    // Free the data
-	free(data);
+    // Free the message
+	free(buffer_message);
     
     return result;
 }
