@@ -66,7 +66,8 @@ result_codes init_state() {
     }
 
     gatherSetup();
-    gatherCanStartThread();
+    gatherCanPrimaryStartThread();
+    gatherCanSecondaryStartThread();
     gatherGpsStartThread();
     gatherSenderStartThread();
     

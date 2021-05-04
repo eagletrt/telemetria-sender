@@ -4,7 +4,8 @@
     "files.associations": {
         "functional": "c",
         "mongo_service.h": "c",
-        "misc_utils.h": "c"
+        "misc_utils.h": "c",
+        "state_machine_condition.h": "c"
     },
     "workbench.colorCustomizations": {
         "activityBar.activeBackground": "#420080",

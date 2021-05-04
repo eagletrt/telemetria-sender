@@ -1,3 +1,4 @@
+
 #!/bin/bash
 echo "transpiling..."
 npm run transpile
@@ -9,6 +10,8 @@ gcc main.c -o sender.out \
     ./utils/gather_utils/gather_utils.c \
     ./utils/config_utils/jsmn/jsmn.c \
     ./utils/config_utils/config_utils.c \
+    ./utils/can-cicd/naked_generator/Primary/c/Primary.c \
+    ./utils/can-cicd/naked_generator/Secondary/c/Secondary.c \
     ./services/config_service/config_service.c \
     ./services/gps_service/gps_service.c \
     ./services/mongo_service/mongo_service.c \
@@ -17,7 +20,8 @@ gcc main.c -o sender.out \
     ./services/mosquitto_service/mosquitto_service.c \
     ./services/gather_service/gather_service.c \
     ./services/gather_service/master/gather_master_service.c \
-    ./services/gather_service/can/gather_can_service.c \
+    ./services/gather_service/can/gather_can_primary_service.c \
+    ./services/gather_service/can/gather_can_secondary_service.c \
     ./services/gather_service/gps/gather_gps_service.c \
     ./services/gather_service/sender/gather_sender_service.c \
     ./state_machine/state_machine.c \
@@ -27,9 +31,10 @@ gcc main.c -o sender.out \
     -lbson-1.0 \
     -lmosquitto \
     -lpthread \
-    -lm \
-    -Wno-unused-result \
-    -O3
+    -lm
+    #-Wno-unused-result \
+    #-O3
+
 if [ $? -eq 0 ]; then
     echo "compiled :)"
     exit 0

@@ -2,60 +2,6 @@
     "id": "int",
     "timestamp": "long",
     "sessionName": "char*",
-    "bms_hv": {
-        "temperature": [
-            {
-                "timestamp": "long",
-                "value": {
-                    "average_temp": "int",
-                    "max_temp": "int",
-                    "min_temp": "int"
-                },
-                "maxLength": 500,
-                "name": "HV_TEMP",
-                "network": "Primary"
-            }
-        ],
-        "voltage": [
-            {
-                "timestamp": "long",
-                "value": {
-                    "pack_voltage": "int",
-                    "bus_voltage": "int",
-                    "min_cell_voltage": "int",
-                    "max_cell_voltage": "int"
-                },
-                "maxLength": 500,
-                "name": "HV_VOLTAGE",
-                "network": "Primary"
-            }
-        ],
-        "current": [
-            {
-                "timestamp": "long",
-                "value": {
-                    "current": "int",
-                    "power": "int"
-                },
-                "maxLength": 500,
-                "name": "HV_CURRENT",
-                "network": "Primary"
-            }
-        ],
-        "errors": [
-            {
-                "timestamp": "long",
-                "value": {
-                    "error_code": "int",
-                    "error_index": "int",
-                    "active": "int"
-                },
-                "maxLength": 500,
-                "name": "HV_ERROR",
-                "network": "Primary"
-            }
-        ]
-    },
     "imu": {
         "acceleration": [
             {

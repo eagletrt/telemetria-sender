@@ -42,7 +42,8 @@ typedef struct {
 	char** circuits;
 	int circuits_count;
 	char* model_version;
-	char* can_interface;
+	char* can_primary;
+	char* can_secondary;
 	int sending_rate;
 	int verbose;
 } config_t;
