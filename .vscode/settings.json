@@ -2,7 +2,9 @@
     "C_Cpp.default.cStandard": "c11",
     "C_Cpp.clang_format_fallbackStyle": "{BasedOnStyle: Google, UseTab: true, IndentWidth: 4, TabWidth: 4, ColumnLimit: 0, AllowShortIfStatementsOnASingleLine: false}",
     "files.associations": {
-        "functional": "c"
+        "functional": "c",
+        "mongo_service.h": "c",
+        "misc_utils.h": "c"
     },
     "workbench.colorCustomizations": {
         "activityBar.activeBackground": "#420080",
