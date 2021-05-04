@@ -5,8 +5,8 @@ import enableIdle from './suites/enable_idle/enable_idle.test';
 
 describe('EagleTRT Telemetria General Tests', async function() {
     this.timeout(0);
-    await messagesParsing();
-    await messagesIds();
-    await messagesTimestamps();
+    // await messagesParsing();
+    // await messagesIds();
+    // await messagesTimestamps();
     await enableIdle();
 });

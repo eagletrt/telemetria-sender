@@ -1,27 +1,16 @@
 import { deserialize } from 'bson';
 import { AsyncClient as MqttClient, connectAsync } from 'async-mqtt';
 import { CanSimulatorInstance, simulateCan, virtualizeCan } from '@eagletrt/telemetria-simulator';
-import { exec } from 'child_process'
 import getConfiguration from '../../utils/config';
-import { wait, paraCulo } from '../../utils/misc';
+import { wait, paraCulo, randWithDeviation, randRange } from '../../utils/misc';
 import { startTelemetry, TelemetryProcessInstance } from '../../utils/telemetry';
 import { expect } from 'chai';
 
 
 const config = getConfiguration();
 
-async function enable(ms: number = 1500) {
-    exec('cansend can0 0A0#65010000');
-    await wait(ms);
-}
-
-async function idle(ms: number = 1500) {
-    exec('cansend can0 0A0#65000000');
-    await wait(ms);
-}
-
 export default async function () {
-    describe('Test enable idle', function () {
+    describe('Test enable idle (and if gives a stallo)', function () {
 
         let
             canSimulatorInstance: CanSimulatorInstance,
@@ -65,40 +54,45 @@ export default async function () {
             mqttClient.on('message', (topic, message: Buffer) => {
                 if (topic === config.data.mqtt.data_topic) {
                     const obj = deserialize(message)
-                    if (obj['sessionName'] !== lastSessionName) {
+                    if (obj.sessionName !== lastSessionName) {
                         sessionChanges++;
-                        lastSessionName = obj['sessionName'];
+                        lastSessionName = obj.sessionName;
                     }
                 }
             });
 
             for (let i = 0; i < iterations; i++) {
-                await enable(1500 + (Math.ceil(Math.random() * 200) - 100));
-                await idle(1500 + (Math.ceil(Math.random() * 200) - 100));
+                telemetryProcessInstance.enable();
+                await wait(randWithDeviation(1500, 100));
+                telemetryProcessInstance.disable();
+                await wait(randWithDeviation(1500, 100));
             }
             await wait(1000);
+
             expect(sessionChanges).to.equal(iterations);
         });
 
-        it('Should stress test enabling and idlign the telemetry', async function () {
+        it('Should stress test enabling and disabling the telemetry', async function () {
             const iterations = 100;
             this.timeout((iterations * 2 * 200) + 2000);
 
             let currSessionName = '';
             mqttClient.on('message', (topic, message: Buffer) => {
                 if (topic === config.data.mqtt.data_topic) {
-                    currSessionName = deserialize(message)['sessionName'];
+                    currSessionName = deserialize(message).sessionName;
                 }
             });
 
             for (let i = 0; i < iterations; i++) {
-                await enable(50 + Math.ceil(Math.random() * 100));
-                await idle(50 + Math.ceil(Math.random() * 100));
+                telemetryProcessInstance.enable();
+                await wait(randRange(50, 150));
+                telemetryProcessInstance.disable();
+                await wait(randRange(50, 150));
             }
             await wait(1000);
+            
             const oldSession = currSessionName;
-
-            await enable(1500);
+            telemetryProcessInstance.enable();
             await wait(1500);
             const newSession = currSessionName;
 
