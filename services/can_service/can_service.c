@@ -1,10 +1,10 @@
 #include "can_service.h"
 
-can_code canSetup() {
+can_code canSetupPrimary() {
     can_code result;
 
     // Reads the can_interface from the conditions and opens the can
-    char* can_interface = condition.can.can_interface;
+    char* can_interface = condition.can_primary.can_interface;
     struct sockaddr_can addr;
     int socket = canOpenSocket(can_interface, &addr);
     
@@ -16,15 +16,42 @@ can_code canSetup() {
         result = CAN_SERVICE_BINDING_ERROR;
     }
     else {
-        condition.can.socket = socket;
+        condition.can_primary.socket = socket;
         result = CAN_SERVICE_OK;
     }
 
     return result;
 }
 
-int canRead(int *id, int *data_left, int *data_right) {
-    return canReceiveCompact(condition.can.socket, id, data_left, data_right);
+can_code canSetupSecondary() {
+    can_code result;
+
+    // Reads the can_interface from the conditions and opens the can
+    char* can_interface = condition.can_secondary.can_interface;
+    struct sockaddr_can addr;
+    int socket = canOpenSocket(can_interface, &addr);
+    
+    // Sets the right result depending on the outcome
+    if (socket == -1) {
+        result = CAN_SERVICE_CONNECTION_ERROR;
+    }
+    else if (socket == -2) {
+        result = CAN_SERVICE_BINDING_ERROR;
+    }
+    else {
+        condition.can_secondary.socket = socket;
+        result = CAN_SERVICE_OK;
+    }
+
+    return result;
+}
+
+int canReadPrimary(int *id, char** data) {
+    return canReceive(condition.can_primary.socket, id, data);
+}
+
+int canReadSecondary(int *id, char** data) {
+    return canReceive(condition.can_secondary.socket, id, data);
 }
 
 can_code canAnswerWheel(int enabled) {
@@ -44,7 +71,7 @@ can_code canAnswerWheel(int enabled) {
 	data[7] = (timestamp) & 0xFF;
 
     // Send the message
-	int outcome = canSend(condition.can.socket, 0xAB, 8, data);
+	int outcome = canSend(condition.can_primary.socket, 0xAB, 8, data);
     // Set the result depending on the outcome
     if (outcome < 0) {
         result = CAN_SERVICE_SENDING_ERROR;
