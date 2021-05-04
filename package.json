@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "The telemetry of eagletrt",
   "scripts": {
-    "transpile": "npx eagle generate -s ./models/structure.model.json -c ./models/config.model.json",
+    "transpile": "npx eagletrt-cg generate -s ./models/structure.model.json -c ./models/config.model.json",
     "validate:config": "ajv validate -s ./models/config.schema.json -d ./config.json",
     "compile": "./compile.sh",
     "start": "npm run validate:config && sudo ./sender.out config.json",
@@ -28,7 +28,7 @@
     }
   },
   "devDependencies": {
-    "@eagletrt/eagletrt-code-generator": "^4.0.0",
+    "@eagletrt/code-generator": "^4.2.0",
     "@types/chai": "^4.2.17",
     "ajv-cli": "^5.0.0",
     "commitizen": "^4.2.3",
