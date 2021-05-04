@@ -1,8 +1,8 @@
-name: Tests
+name: Moduled Tests
 on: [push]
 
 jobs:
-  test:
+  tests-moduled:
     runs-on: ubuntu-18.04
     timeout-minutes: 15
 
@@ -34,9 +34,3 @@ jobs:
       
       - name: Test moduled
         run: cd test && npm run test:moduled
-
-      - name: Test partial
-        run: cd test && npm run test:partial
-
-      - name: Test general
-        run: cd test && npm run test:general

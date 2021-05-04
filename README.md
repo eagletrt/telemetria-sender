@@ -1,7 +1,9 @@
-[![Github Actions](https://github.com/eagletrt/eagletrt-telemetria-sender/workflows/Tests/badge.svg)](https://github.com/eagletrt/eagletrt-telemetria-sender/actions)
+[![Github Actions](https://github.com/eagletrt/telemetria-sender/workflows/General Tests/badge.svg)](https://github.com/eagletrt/telemetria-sender/actions)
+[![Github Actions](https://github.com/eagletrt/telemetria-sender/workflows/General Partial/badge.svg)](https://github.com/eagletrt/telemetria-sender/actions)
+[![Github Actions](https://github.com/eagletrt/telemetria-sender/workflows/General Moduled/badge.svg)](https://github.com/eagletrt/telemetria-sender/actions)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli)
 
-# eagletrt-telemetria-sender
+# telemetria-sender
 
 This is the telemetry repo of **[@eagletrt](https://www.github.com/eagletrt)**.
 
