@@ -11,10 +11,10 @@ static void* parseCanMessages(void *args);
 
 /* EXPORTED FUNCTIONS */
 
-void gatherCanStartThread(int enabled) {
+void gatherCanStartThread() {
 	pthread_attr_init(&gather_can_thread_attr);
 	pthread_attr_setdetachstate(&gather_can_thread_attr, PTHREAD_CREATE_JOINABLE);
-	pthread_create(&gather_can_thread, &gather_can_thread_attr, &parseCanMessages, (void*) ((long) enabled));
+	pthread_create(&gather_can_thread, &gather_can_thread_attr, &parseCanMessages, NULL);
 	pthread_attr_destroy(&gather_can_thread_attr);
 }
 
@@ -25,9 +25,6 @@ void gatherCanStopThread() {
 /* INTERNAL FUNCTIONS DEFINITIONS */
 
 static void* parseCanMessages(void *args) {
-	// Getting enabled arg
-	int enabled = (int) ((long) args);
-
     // Declare used variables
     data_t* document;
     int id = 0, data_left, data_right, first_byte;
@@ -409,7 +406,7 @@ static void* parseCanMessages(void *args) {
 					int race_index = data_left & 0xFF;
 
 					if (status == 0) {
-						if (enabled == 0) {
+						if (condition.structure.enabled == 0) {
 							logWarning("Error in structure: telemetry already disabled");
 						}
 						else {
@@ -419,7 +416,7 @@ static void* parseCanMessages(void *args) {
 						}
 					}
 					else if (status == 1) {
-						if (enabled == 1) {
+						if (condition.structure.enabled == 1) {
 							logWarning("Error in structure: telemetry already enabled");
 						}
 						else {

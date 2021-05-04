@@ -66,9 +66,9 @@ result_codes init_state() {
     }
 
     gatherSetup();
-    gatherCanStartThread(0);
+    gatherCanStartThread();
     gatherGpsStartThread();
-    gatherSenderStartThread(0);
+    gatherSenderStartThread();
     
     successStartedUp();
     mosquittoLogStartup();
@@ -77,15 +77,7 @@ result_codes init_state() {
 }
 
 result_codes restart_state() {
-    gatherCanStopThread();
-    gatherGpsStopThread();
-    gatherSenderStopThread();
-
     gatherSetupRestart();
-
-    gatherCanStartThread(condition.structure.enabled);
-    gatherGpsStartThread();
-    gatherSenderStartThread(condition.structure.enabled);
 
     return condition.structure.enabled ? ENABLE : DISABLE;
 }

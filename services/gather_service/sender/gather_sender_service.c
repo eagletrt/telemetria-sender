@@ -11,10 +11,10 @@ static void* senderSend(void *args);
 
 /* EXPORTED FUNCTIONS */
 
-void gatherSenderStartThread(int enabled) {
+void gatherSenderStartThread() {
 	pthread_attr_init(&gather_sender_thread_attr);
 	pthread_attr_setdetachstate(&gather_sender_thread_attr, PTHREAD_CREATE_JOINABLE);
-	pthread_create(&gather_sender_thread, &gather_sender_thread_attr, &senderSend, (void*) ((long) enabled));
+	pthread_create(&gather_sender_thread, &gather_sender_thread_attr, &senderSend, NULL);
 	pthread_attr_destroy(&gather_sender_thread_attr);
 }
 
@@ -25,17 +25,16 @@ void gatherSenderStopThread() {
 /* INTERNAL FUNCTIONS DEFINITIONS */
 
 static void* senderSend(void *args) {
-    // Get enabled state
-    int enabled = (int) ((long) args);
-
     while (1) {
         // Waits until it must flush the toilet
         debugGeneric("{SENDER} Waiting for flushing toilet");
         pthread_mutex_lock(&condition.structure.threads.flush_toilet_mutex);
+
         while (!condition.structure.flush_toilet) {
             pthread_cond_wait(&condition.structure.threads.flush_toilet_cond, &condition.structure.threads.flush_toilet_mutex);
         }
         condition.structure.flush_toilet = 0;
+
         pthread_mutex_unlock(&condition.structure.threads.flush_toilet_mutex);
 
         // Locks data_tail
@@ -52,7 +51,7 @@ static void* senderSend(void *args) {
             debugGeneric("{SENDER} Sending over mosquitto");
             mosquittoSend(bson_document);
             
-            if (enabled) {
+            if (condition.structure.enabled) {
                 debugGeneric("{SENDER} Inserting to mongo");
                 mongoInsert(bson_document);
                 size_t size; bson_as_relaxed_extended_json(bson_document, &size);

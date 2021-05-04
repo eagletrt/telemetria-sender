@@ -64,6 +64,7 @@ typedef struct {
     pthread_mutex_t flush_toilet_mutex;
     pthread_mutex_t toilet_flushed_mutex;
     pthread_mutex_t toggle_state_mutex;
+
     pthread_cond_t flush_toilet_cond;
     pthread_cond_t toilet_flushed_cond;
 } structure_threads_condition_t;
