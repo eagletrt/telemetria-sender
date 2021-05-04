@@ -10,7 +10,10 @@
     "serve": "npm run compile && npm run start",
     "enable": "./enable_signal.sh",
     "idle": "./idle_signal.sh",
-    "commit": "git add . && cz"
+    "commit": "git add . && cz",
+    "cicd:add": "cd utils && git submodule add -b build https://github.com/eagletrt/can-cicd",
+    "cicd:update": "git submodule foreach git pull",
+    "cicd:remove": "git submodule deinit -f -- utils/can-cicd && rm -rf .git/modules/utils/can-cicd && git rm -f utils/can-cicd"
   },
   "repository": {
     "type": "git",
