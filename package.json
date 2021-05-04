@@ -22,16 +22,16 @@
     "url": "https://github.com/eagletrt/fenice-telemetria-sender/issues"
   },
   "homepage": "https://github.com/eagletrt/fenice-telemetria-sender#readme",
-  "devDependencies": {
-    "@eagletrt/eagletrt-code-generator": "^3.0.3",
-    "@types/chai": "^4.2.14",
-    "ajv-cli": "^3.3.0",
-    "commitizen": "^4.2.2",
-    "cz-conventional-changelog": "^3.3.0"
-  },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "devDependencies": {
+    "@eagletrt/eagletrt-code-generator": "^4.0.0",
+    "@types/chai": "^4.2.17",
+    "ajv-cli": "^5.0.0",
+    "commitizen": "^4.2.3",
+    "cz-conventional-changelog": "^3.3.0"
   }
 }
