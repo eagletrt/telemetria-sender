@@ -1,43 +1,49 @@
 {
-  "mqtt": { 
+  "mqtt": {
     "host": "localhost",
     "port": 1883,
-    "data_topic": "telemetria",
-    "log_topic": "telemetria_log"
+    "data_topic": "fenice",
+    "log_topic": "fenice_log"
   },
+
   "mongodb": {
     "host": "localhost",
     "port": 27017,
     "db": "eagle_test",
-    "collection": "chimera"
+    "collection": "fenice"
   },
+
   "gps": {
     "plugged": 0,
     "simulated": 1,
     "interface": "/dev/pts/4"
   },
+
   "pilots": [
     "default",
-    "Ivan",
     "Filippo",
     "Mirco",
-    "Nicola",
-    "Davide"
+    "Nicola"
   ],
+
   "races": [
-    "default",
-    "Autocross",
-    "Skidpad",
-    "Endurance",
-    "Acceleration"
+      "default",
+      "Autocross",
+      "Skidpad",
+      "Endurance",
+      "Acceleration"
   ],
+
   "circuits": [
     "default",
     "Vadena",
     "Varano",
     "Povo"
   ],
-  "can_interface": "can0",
+
+  "model_version": "0.0.0",
+  "can_primary": "can0",
+  "can_secondary": "can1",
   "sending_rate": 500,
   "verbose": 0
 }

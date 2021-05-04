@@ -27,9 +27,16 @@ result_codes init_state() {
         return ERROR;
     }
 
-    can_code can_outcome = canSetup();
-    if (can_outcome != CAN_SERVICE_OK) {
-        char* message = canErrorMessage(can_outcome);
+    can_code can_primary_outcome = canSetupPrimary();
+    if (can_primary_outcome != CAN_SERVICE_OK) {
+        char* message = canErrorMessage(can_primary_outcome);
+        errorGeneric(message);
+        return ERROR;
+    }
+
+    can_code can_secondary_outcome = canSetupSecondary();
+    if (can_secondary_outcome != CAN_SERVICE_OK) {
+        char* message = canErrorMessage(can_secondary_outcome);
         errorGeneric(message);
         return ERROR;
     }
