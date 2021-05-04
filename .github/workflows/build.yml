@@ -1,0 +1,39 @@
+name: Tests
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: '15'
+
+      - name: Use MongoDB ${{ matrix.mongodb-version }}
+        uses: supercharge/mongodb-github-action@1.3.0
+        with:
+          mongodb-version: '4.4'
+
+      - name: Use Mosquitto ${{ matrix.mosquitto-version }}
+        uses: namoshek/mosquitto-github-action@v0.1.0
+        with:
+          version: '1.6'
+
+      - name: Install dependecies
+        run: sudo DEBIAN_FRONTEND='noninteractive' apt install -y build-essential git sudo curl wget nano can-utils gnupg screen libmongoc-dev libbson-dev libmosquitto-dev
+
+      - name: Install node dependencies
+        run: npm install
+
+      - name: Validate config
+        run: npm run validate:config
+
+      - name: Transpile C code
+        run: npm run transpile
+      
+      - name: Compile C code
+        run: npm run compile
