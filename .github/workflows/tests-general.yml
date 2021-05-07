@@ -4,7 +4,7 @@ on: [push]
 jobs:
   tests-general:
     runs-on: ubuntu-18.04
-    timeout-minutes: 15
+    timeout-minutes: 30
 
     steps:
       - uses: actions/checkout@v2
