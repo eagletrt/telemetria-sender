@@ -113,11 +113,11 @@ function testMessageFolder(name: string, path: string, keys: string[]): void {
                 // Start telemetry
                 telemetryProcessInstance = await startTelemetry(config.path);
                 // Enable telemetry
-                await wait(500);
+                await wait(2000);
                 telemetryProcessInstance.enable();
                 
                 // Simulate can
-                await wait(1000);
+                await wait(5000);
                 if (canLogExists) {
                     canSimulatorInstance = await simulateCan(canLogPath, {
                         iterations: 1
