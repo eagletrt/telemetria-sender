@@ -47,7 +47,7 @@ export default async function () {
 
         it('Should enable and idle the telemetry several times', async function () {
             const iterations = 5;
-            this.timeout((iterations * 2 * 1700) + 3000);
+            this.timeout((iterations * 2 * 4000) + 3000);
 
             let lastSessionName = '';
             let sessionChanges = 0;
@@ -63,9 +63,9 @@ export default async function () {
 
             for (let i = 0; i < iterations; i++) {
                 telemetryProcessInstance.enable();
-                await wait(randWithDeviation(1500, 100));
+                await wait(randWithDeviation(4000, 100));
                 telemetryProcessInstance.disable();
-                await wait(randWithDeviation(1500, 100));
+                await wait(randWithDeviation(4000, 100));
             }
             await wait(1000);
 
@@ -74,7 +74,7 @@ export default async function () {
 
         it('Should stress test enabling and disabling the telemetry', async function () {
             const iterations = 100;
-            this.timeout((iterations * 2 * 200) + 2000);
+            this.timeout((iterations * 2 * 200) + 12000);
 
             let currSessionName = '';
             mqttClient.on('message', (topic, message: Buffer) => {
@@ -89,11 +89,11 @@ export default async function () {
                 telemetryProcessInstance.disable();
                 await wait(randRange(50, 150));
             }
-            await wait(1000);
+            await wait(5000);
             
             const oldSession = currSessionName;
             telemetryProcessInstance.enable();
-            await wait(1500);
+            await wait(5000);
             const newSession = currSessionName;
 
             expect(oldSession).to.not.equal(newSession, 'New session not created');
