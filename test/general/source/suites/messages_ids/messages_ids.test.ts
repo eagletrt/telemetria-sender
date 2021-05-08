@@ -1,5 +1,4 @@
 import { expect } from 'chai';
-import { MongoClient } from 'mongodb';
 import { deserialize } from 'bson';
 import { AsyncClient as MqttClient, connectAsync } from 'async-mqtt';
 import { clean } from 'mongo-cleaner';
@@ -14,7 +13,6 @@ let
     canSimulatorInstance: CanSimulatorInstance,
     gpsSimulatorInstance: GpsSimulatorInstance,
     telemetryProcessInstance: TelemetryProcessInstance,
-    mongoConnection: MongoClient,
     mqttClient: MqttClient,
     mqttData: any;
 
@@ -38,11 +36,6 @@ export default async function () {
                     mqttData.push(deserialize(message));
                 }
             });
-
-            // Connect to mongodb
-            const mongoUri = `mongodb://${config.data.mongodb.host}:${config.data.mongodb.port}`;
-            await clean(mongoUri, undefined, { keep: database => database !== config.data.mongodb.db });
-            mongoConnection = await MongoClient.connect(mongoUri, { useUnifiedTopology: true });
 
             // Virtualize can if not already virtualized
             await virtualizeCan(config.data.can_interface);
@@ -84,7 +77,7 @@ export default async function () {
             mqttData = [];
             await wait(numberOfDocs * config.data.sending_rate);
             await telemetryProcessInstance.stop();
-            let ids = mqttData.map(el => el.id) as number[];
+            const ids = mqttData.map(el => el.id) as number[];
             expect(ids).to.have.length.within(numberOfDocs - 1, numberOfDocs + 1, 'Not the right number of docs');
             while(ids[0] === 0) {
                 ids.shift();
@@ -93,14 +86,12 @@ export default async function () {
             expect(ids).to.satisfy((els: number[]) => {
                 return els.every((el, index) => el === index + 1);
             }, 'Id not sequential');
-            console.log(ids);
             
         });
 
         afterEach(async function () {
             await gpsSimulatorInstance.stop();
             await canSimulatorInstance.stop();
-            await mongoConnection.close();
             await mqttClient.end();
         });
     });

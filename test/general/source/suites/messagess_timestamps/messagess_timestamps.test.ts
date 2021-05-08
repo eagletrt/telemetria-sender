@@ -127,7 +127,7 @@ export default async function () {
         it('Should save all documents timestamps incrementals on mongodb', async function () {
             telemetryProcessInstance.enable();
             await wait(config.data.sending_rate);
-            await wait(5 * config.data.sending_rate);
+            await wait(15 * config.data.sending_rate);
             await telemetryProcessInstance.stop();
 
             const collection = mongoConnection.db(config.data.mongodb.db).collection(config.data.mongodb.collection);
@@ -146,7 +146,7 @@ export default async function () {
         it('Should save all documents timestamps with attendible values on mongodb', async function () {
             telemetryProcessInstance.enable();
             await wait(config.data.sending_rate);
-            await wait(5 * config.data.sending_rate);
+            await wait(15 * config.data.sending_rate);
             await telemetryProcessInstance.stop();
             
             const collection = mongoConnection.db(config.data.mongodb.db).collection(config.data.mongodb.collection);
@@ -166,7 +166,7 @@ export default async function () {
         it('Should save all messages timestamps with attendible values on mongodb', async function () {
             telemetryProcessInstance.enable();
             await wait(config.data.sending_rate);
-            await wait(5 * config.data.sending_rate);
+            await wait(15 * config.data.sending_rate);
             await telemetryProcessInstance.stop();
 
             const mezzora = 30 * 60 * 1000;
