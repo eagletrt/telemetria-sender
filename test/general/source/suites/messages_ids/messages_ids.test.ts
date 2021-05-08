@@ -78,16 +78,23 @@ export default async function () {
         });
 
         it('Should set all ids incremental and starting by 1 when in enabled status', async function () {
+            const numberOfDocs = 15;
             telemetryProcessInstance.enable();
             await wait(config.data.sending_rate);
             mqttData = [];
-            await wait(5 * config.data.sending_rate);
+            await wait(numberOfDocs * config.data.sending_rate);
             await telemetryProcessInstance.stop();
-            const ids = mqttData.map(el => el.id);
-            expect(ids).to.have.length.within(4, 6);
+            let ids = mqttData.map(el => el.id) as number[];
+            expect(ids).to.have.length.within(numberOfDocs - 1, numberOfDocs + 1, 'Not the right number of docs');
+            while(ids[0] === 0) {
+                ids.shift();
+            }
+            expect(ids).to.have.length.above(0, 'No ids greather than 0 found');
             expect(ids).to.satisfy((els: number[]) => {
                 return els.every((el, index) => el === index + 1);
-            });
+            }, 'Id not sequential');
+            console.log(ids);
+            
         });
 
         afterEach(async function () {
