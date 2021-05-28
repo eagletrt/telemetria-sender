@@ -1,0 +1,13 @@
+.. _exhale_function_lapcounter__utils_8c_1a9c7d1dcc55e18d0e82931f1885ef9715:
+
+Function lc_eval_point(lc_counter_t \*, lc_point_t \*)
+======================================================
+
+- Defined in :ref:`file_utils_lapcounter_utils_lapcounter_utils.c`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: lc_eval_point(lc_counter_t *, lc_point_t *)

@@ -1,0 +1,13 @@
+.. _exhale_define_vector__utils_8h_1a83aff59c521b0f1ed126d1a9cb4b837c:
+
+Define TO_RAD
+=============
+
+- Defined in :ref:`file_utils_lapcounter_utils_utils_vector_vector_utils.h`
+
+
+Define Documentation
+--------------------
+
+
+.. doxygendefine:: TO_RAD

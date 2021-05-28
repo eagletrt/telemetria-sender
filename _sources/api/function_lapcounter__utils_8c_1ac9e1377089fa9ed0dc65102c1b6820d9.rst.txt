@@ -1,0 +1,13 @@
+.. _exhale_function_lapcounter__utils_8c_1ac9e1377089fa9ed0dc65102c1b6820d9:
+
+Function _update_proximity_thr
+==============================
+
+- Defined in :ref:`file_utils_lapcounter_utils_lapcounter_utils.c`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: _update_proximity_thr(lc_counter_t *)

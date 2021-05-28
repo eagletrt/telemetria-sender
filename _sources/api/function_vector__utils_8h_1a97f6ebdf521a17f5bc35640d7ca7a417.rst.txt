@@ -1,0 +1,13 @@
+.. _exhale_function_vector__utils_8h_1a97f6ebdf521a17f5bc35640d7ca7a417:
+
+Function lc_vector_set_from_versor(lc_vector_t \*, char, double)
+================================================================
+
+- Defined in :ref:`file_utils_lapcounter_utils_utils_vector_vector_utils.h`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: lc_vector_set_from_versor(lc_vector_t *, char, double)

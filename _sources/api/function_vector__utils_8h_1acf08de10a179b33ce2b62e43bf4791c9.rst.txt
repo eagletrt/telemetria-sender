@@ -1,0 +1,13 @@
+.. _exhale_function_vector__utils_8h_1acf08de10a179b33ce2b62e43bf4791c9:
+
+Function lc_vector_set_from_angle(lc_vector_t \*, const lc_point_t \*, double)
+==============================================================================
+
+- Defined in :ref:`file_utils_lapcounter_utils_utils_vector_vector_utils.h`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: lc_vector_set_from_angle(lc_vector_t *, const lc_point_t *, double)

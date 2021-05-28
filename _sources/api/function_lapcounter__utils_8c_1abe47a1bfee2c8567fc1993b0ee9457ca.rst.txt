@@ -1,0 +1,13 @@
+.. _exhale_function_lapcounter__utils_8c_1abe47a1bfee2c8567fc1993b0ee9457ca:
+
+Function _update_current_vector
+===============================
+
+- Defined in :ref:`file_utils_lapcounter_utils_lapcounter_utils.c`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: _update_current_vector(lc_counter_t *, lc_point_t *)

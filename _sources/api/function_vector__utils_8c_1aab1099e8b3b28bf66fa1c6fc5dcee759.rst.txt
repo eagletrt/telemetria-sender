@@ -1,0 +1,13 @@
+.. _exhale_function_vector__utils_8c_1aab1099e8b3b28bf66fa1c6fc5dcee759:
+
+Function lc_vector_length(const lc_vector_t \*)
+===============================================
+
+- Defined in :ref:`file_utils_lapcounter_utils_utils_vector_vector_utils.c`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: lc_vector_length(const lc_vector_t *)

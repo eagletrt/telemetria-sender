@@ -1,0 +1,59 @@
+
+.. _program_listing_file_utils_lapcounter_utils_lapcounter_utils.h:
+
+Program Listing for File lapcounter_utils.h
+===========================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_utils_lapcounter_utils_lapcounter_utils.h>` (``utils/lapcounter_utils/lapcounter_utils.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   #ifndef _LC_LAPCOUNTER_H
+   #define _LC_LAPCOUNTER_H
+   
+   #include <stdio.h>
+   #include <math.h>
+   #include <time.h>
+   #include <stdlib.h>
+   #include "./utils/vector/vector_utils.h"
+   
+   typedef struct _lc_counter_config_t {
+       size_t *start_points_count;
+       double *proximity_incr;
+       double *inclination_thr;
+   } lc_counter_config_t;
+   
+   typedef struct _lc_counter_t
+   {
+       lc_point_t *start_points;
+       size_t start_points_count;
+       size_t start_point_index;
+       lc_vector_t start_vector;
+       lc_vector_t start_line;
+       double start_vector_angle;
+   
+       lc_point_t last_point;
+       lc_point_t current_point;
+       lc_vector_t current_vector;
+       int last_proximity_result;
+       int last_inclination_result;
+       int last_overlap_result;
+   
+       double proximity_thr;
+       double proximity_incr;
+       double inclination_thr;
+   
+       int laps_count;
+   } lc_counter_t;
+   
+   lc_counter_t *lc_init(lc_counter_config_t* config);
+   
+   int lc_eval_point(lc_counter_t *lp, lc_point_t *p);
+   
+   void lc_reset(lc_counter_t *lp);
+   
+   void lc_destroy(lc_counter_t *lp);
+   
+   #endif

@@ -1,0 +1,13 @@
+.. _exhale_function_lapcounter__utils_8c_1a6aefe5e65bf420f81c19d6f9508b32ad:
+
+Function _update_startline_points
+=================================
+
+- Defined in :ref:`file_utils_lapcounter_utils_lapcounter_utils.c`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: _update_startline_points(lc_counter_t *, lc_point_t *)

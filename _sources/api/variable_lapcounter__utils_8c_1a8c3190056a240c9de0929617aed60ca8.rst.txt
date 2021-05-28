@@ -1,0 +1,13 @@
+.. _exhale_variable_lapcounter__utils_8c_1a8c3190056a240c9de0929617aed60ca8:
+
+Variable _LC_DEFAULT_INCLINATION_THR
+====================================
+
+- Defined in :ref:`file_utils_lapcounter_utils_lapcounter_utils.c`
+
+
+Variable Documentation
+----------------------
+
+
+.. doxygenvariable:: _LC_DEFAULT_INCLINATION_THR

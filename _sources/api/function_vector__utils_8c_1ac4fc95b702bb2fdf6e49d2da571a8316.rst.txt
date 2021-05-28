@@ -1,0 +1,13 @@
+.. _exhale_function_vector__utils_8c_1ac4fc95b702bb2fdf6e49d2da571a8316:
+
+Function lc_vector_angle(const lc_vector_t \*)
+==============================================
+
+- Defined in :ref:`file_utils_lapcounter_utils_utils_vector_vector_utils.c`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: lc_vector_angle(const lc_vector_t *)

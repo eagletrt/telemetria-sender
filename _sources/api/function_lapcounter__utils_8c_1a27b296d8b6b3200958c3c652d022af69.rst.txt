@@ -1,0 +1,13 @@
+.. _exhale_function_lapcounter__utils_8c_1a27b296d8b6b3200958c3c652d022af69:
+
+Function lc_destroy(lc_counter_t \*)
+====================================
+
+- Defined in :ref:`file_utils_lapcounter_utils_lapcounter_utils.c`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: lc_destroy(lc_counter_t *)

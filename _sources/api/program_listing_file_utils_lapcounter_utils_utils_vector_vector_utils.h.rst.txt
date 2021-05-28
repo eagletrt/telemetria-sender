@@ -1,0 +1,61 @@
+
+.. _program_listing_file_utils_lapcounter_utils_utils_vector_vector_utils.h:
+
+Program Listing for File vector_utils.h
+=======================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_utils_lapcounter_utils_utils_vector_vector_utils.h>` (``utils/lapcounter_utils/utils/vector/vector_utils.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   #ifndef _LC_VECTOR_H
+   #define _LC_VECTOR_H
+   
+   #include <stdio.h>
+   #include <stdlib.h>
+   #include <string.h>
+   #include <math.h>
+   #include "./point/point_utils.h"
+   
+   #define TO_DEG 180 / M_PI
+   #define TO_RAD M_PI / 180
+   
+   typedef struct _lc_vector_t
+   {
+       lc_point_t p1;
+       lc_point_t p2;
+       double dx;
+       double dy;
+   } lc_vector_t;
+   
+   void lc_vector_set(lc_vector_t *v, const lc_point_t *p1, const lc_point_t *p2);
+   
+   void lc_vector_set_from_angle(lc_vector_t *v, const lc_point_t *p1, double angle);
+   
+   void lc_vector_set_from_versor(lc_vector_t *v, char axis, double length);
+   
+   void lc_vector_set_from_perpendicular(lc_vector_t *v, const lc_vector_t *vp);
+   
+   lc_vector_t *lc_vector_init(const lc_point_t *p1, const lc_point_t *p2);
+   
+   lc_vector_t *lc_vector_init_from_angle(const lc_point_t *p1, double angle);
+   
+   lc_vector_t *lc_vector_init_from_versor(char axis, double length);
+   
+   lc_vector_t *lc_vector_init_from_perpendicular(const lc_vector_t *v);
+   
+   double lc_vector_length(const lc_vector_t *v);
+   
+   double lc_vector_angle(const lc_vector_t *v);
+   
+   char *lc_vector_to_str(const lc_vector_t *v);
+   
+   void lc_vector_print(const lc_vector_t *v);
+   
+   double lc_vector_prod(const lc_vector_t *v1, const lc_vector_t *v2);
+   
+   double lc_vector_det(const lc_vector_t *v1, const lc_vector_t *v2);
+   
+   #endif

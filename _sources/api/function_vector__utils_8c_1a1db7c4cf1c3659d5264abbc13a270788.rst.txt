@@ -1,0 +1,13 @@
+.. _exhale_function_vector__utils_8c_1a1db7c4cf1c3659d5264abbc13a270788:
+
+Function lc_print_vector
+========================
+
+- Defined in :ref:`file_utils_lapcounter_utils_utils_vector_vector_utils.c`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: lc_print_vector(const lc_vector_t *)

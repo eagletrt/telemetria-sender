@@ -1,0 +1,16 @@
+.. _exhale_struct_struct__lc__vector__t:
+
+Struct _lc_vector_t
+===================
+
+- Defined in :ref:`file_utils_lapcounter_utils_utils_vector_vector_utils.h`
+
+
+Struct Documentation
+--------------------
+
+
+.. doxygenstruct:: _lc_vector_t
+   :members:
+   :protected-members:
+   :undoc-members:

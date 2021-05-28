@@ -1,0 +1,387 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Program Listing for File lapcounter_utils.c &mdash; Eagletrt Telemetria Sender 1.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script type="text/javascript" src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Eagletrt Telemetria Sender
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="library_root.html">Eagletrt Telemetria Sender</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Eagletrt Telemetria Sender</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Program Listing for File lapcounter_utils.c</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/api/program_listing_file_utils_lapcounter_utils_lapcounter_utils.c.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="program-listing-for-file-lapcounter-utils-c">
+<span id="program-listing-file-utils-lapcounter-utils-lapcounter-utils-c"></span><h1>Program Listing for File lapcounter_utils.c<a class="headerlink" href="#program-listing-for-file-lapcounter-utils-c" title="Permalink to this headline">¶</a></h1>
+<p>↰ <a class="reference internal" href="file_utils_lapcounter_utils_lapcounter_utils.c.html#file-utils-lapcounter-utils-lapcounter-utils-c"><span class="std std-ref">Return to documentation for file</span></a> (<code class="docutils literal notranslate"><span class="pre">utils/lapcounter_utils/lapcounter_utils.c</span></code>)</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;lapcounter_utils.h&quot;</span><span class="cp"></span>
+
+<span class="k">static</span> <span class="k">const</span> <span class="kt">double</span> <span class="n">_LC_DEFAULT_PROXIMITY_INCR</span> <span class="o">=</span> <span class="mf">1.05</span><span class="p">;</span>
+<span class="k">static</span> <span class="k">const</span> <span class="kt">double</span> <span class="n">_LC_DEFAULT_INCLINATION_THR</span> <span class="o">=</span> <span class="mi">45</span><span class="p">;</span>
+<span class="k">static</span> <span class="k">const</span> <span class="kt">size_t</span> <span class="n">_LC_DEFAULT_START_POINTS_COUNT</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+
+<span class="c1">// Updates the current vector by adding a new point</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">_update_current_vector</span><span class="p">(</span><span class="n">lc_counter_t</span> <span class="o">*</span><span class="n">lp</span><span class="p">,</span> <span class="n">lc_point_t</span> <span class="o">*</span><span class="n">p</span><span class="p">);</span>
+<span class="c1">// Updates the startline points by adding a new point</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">_update_startline_points</span><span class="p">(</span><span class="n">lc_counter_t</span> <span class="o">*</span><span class="n">lp</span><span class="p">,</span> <span class="n">lc_point_t</span> <span class="o">*</span><span class="n">p</span><span class="p">);</span>
+<span class="c1">// Calculates the start line and the start vector, used when the start points are all gathered</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">_calc_startline</span><span class="p">(</span><span class="n">lc_counter_t</span> <span class="o">*</span><span class="n">lp</span><span class="p">,</span> <span class="n">lc_point_t</span> <span class="o">*</span><span class="n">p</span><span class="p">);</span>
+<span class="c1">// Updates the proximity thr after that the current vector has been updated</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">_update_proximity_thr</span><span class="p">(</span><span class="n">lc_counter_t</span> <span class="o">*</span><span class="n">lp</span><span class="p">);</span>
+<span class="c1">// Resets to False (0) the results from the last evaluation</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">_reset_last_results</span><span class="p">(</span><span class="n">lc_counter_t</span> <span class="o">*</span><span class="n">lp</span><span class="p">);</span>
+
+<span class="c1">// Checks if the last point is very near to the first point</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="nf">_check_proximity</span><span class="p">(</span><span class="n">lc_counter_t</span> <span class="o">*</span><span class="n">lp</span><span class="p">);</span>
+<span class="c1">// Checks if the inclination of the last vector is ok with the iniitial vector</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="nf">_check_inclination</span><span class="p">(</span><span class="n">lc_counter_t</span> <span class="o">*</span><span class="n">lp</span><span class="p">);</span>
+<span class="c1">// Checks if the start line has been passed</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="nf">_check_overlap</span><span class="p">(</span><span class="n">lc_counter_t</span> <span class="o">*</span><span class="n">lp</span><span class="p">);</span>
+
+<span class="n">lc_counter_t</span> <span class="o">*</span><span class="nf">lc_init</span><span class="p">(</span><span class="n">lc_counter_config_t</span> <span class="o">*</span><span class="n">config</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">lc_counter_t</span> <span class="o">*</span><span class="n">lp</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">lc_counter_t</span><span class="p">));</span>
+
+    <span class="n">lp</span><span class="o">-&gt;</span><span class="n">start_point_index</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">lp</span><span class="o">-&gt;</span><span class="n">laps_count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">lp</span><span class="o">-&gt;</span><span class="n">proximity_thr</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">lp</span><span class="o">-&gt;</span><span class="n">proximity_incr</span> <span class="o">=</span> <span class="n">config</span> <span class="o">==</span> <span class="nb">NULL</span> <span class="o">||</span> <span class="n">config</span><span class="o">-&gt;</span><span class="n">proximity_incr</span> <span class="o">==</span> <span class="nb">NULL</span> <span class="o">?</span> <span class="nl">_LC_DEFAULT_PROXIMITY_INCR</span> <span class="p">:</span> <span class="o">*</span><span class="n">config</span><span class="o">-&gt;</span><span class="n">proximity_incr</span><span class="p">;</span>
+    <span class="n">lp</span><span class="o">-&gt;</span><span class="n">inclination_thr</span> <span class="o">=</span> <span class="n">config</span> <span class="o">==</span> <span class="nb">NULL</span> <span class="o">||</span> <span class="n">config</span><span class="o">-&gt;</span><span class="n">inclination_thr</span> <span class="o">==</span> <span class="nb">NULL</span> <span class="o">?</span> <span class="nl">_LC_DEFAULT_INCLINATION_THR</span> <span class="p">:</span> <span class="o">*</span><span class="n">config</span><span class="o">-&gt;</span><span class="n">inclination_thr</span><span class="p">;</span>
+    <span class="n">lp</span><span class="o">-&gt;</span><span class="n">start_points_count</span> <span class="o">=</span> <span class="n">config</span> <span class="o">==</span> <span class="nb">NULL</span> <span class="o">||</span> <span class="n">config</span><span class="o">-&gt;</span><span class="n">start_points_count</span> <span class="o">==</span> <span class="nb">NULL</span> <span class="o">?</span> <span class="nl">_LC_DEFAULT_START_POINTS_COUNT</span> <span class="p">:</span> <span class="o">*</span><span class="n">config</span><span class="o">-&gt;</span><span class="n">start_points_count</span><span class="p">;</span>
+    <span class="n">lp</span><span class="o">-&gt;</span><span class="n">start_points</span> <span class="o">=</span> <span class="p">(</span><span class="n">lc_point_t</span><span class="o">*</span><span class="p">)</span> <span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">lc_point_t</span><span class="p">)</span> <span class="o">*</span> <span class="n">lp</span><span class="o">-&gt;</span><span class="n">start_points_count</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="n">lp</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">lc_eval_point</span><span class="p">(</span><span class="n">lc_counter_t</span> <span class="o">*</span><span class="n">lp</span><span class="p">,</span> <span class="n">lc_point_t</span> <span class="o">*</span><span class="n">p</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// Bool result if new lap</span>
+    <span class="kt">int</span> <span class="n">new_lap</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="c1">// Sets the last two points (last and current) and updates the related vector (current_vector)</span>
+    <span class="n">_update_current_vector</span><span class="p">(</span><span class="n">lp</span><span class="p">,</span> <span class="n">p</span><span class="p">);</span>
+
+    <span class="c1">// If the point is one of the firsts, use it to create the start line</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">lp</span><span class="o">-&gt;</span><span class="n">start_point_index</span> <span class="o">&lt;</span> <span class="n">lp</span><span class="o">-&gt;</span><span class="n">start_points_count</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">_update_startline_points</span><span class="p">(</span><span class="n">lp</span><span class="p">,</span> <span class="n">p</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="c1">// If the points for the start line are just finished, calculate the start line and the start vector</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">lp</span><span class="o">-&gt;</span><span class="n">start_point_index</span> <span class="o">==</span> <span class="n">lp</span><span class="o">-&gt;</span><span class="n">start_points_count</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">_calc_startline</span><span class="p">(</span><span class="n">lp</span><span class="p">,</span> <span class="n">p</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="c1">// Otherwise check if it is a new lap</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+        <span class="c1">// Updates the proximity thr</span>
+        <span class="n">_update_proximity_thr</span><span class="p">(</span><span class="n">lp</span><span class="p">);</span>
+
+        <span class="c1">// Retest last result</span>
+        <span class="n">_reset_last_results</span><span class="p">(</span><span class="n">lp</span><span class="p">);</span>
+
+        <span class="c1">// If new lap, increment laps count and set result to true</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">_check_proximity</span><span class="p">(</span><span class="n">lp</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">_check_inclination</span><span class="p">(</span><span class="n">lp</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">_check_overlap</span><span class="p">(</span><span class="n">lp</span><span class="p">))</span>
+        <span class="p">{</span>
+            <span class="n">lp</span><span class="o">-&gt;</span><span class="n">laps_count</span><span class="o">++</span><span class="p">;</span>
+            <span class="n">new_lap</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">new_lap</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">lc_reset</span><span class="p">(</span><span class="n">lc_counter_t</span> <span class="o">*</span><span class="n">lp</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">lp</span><span class="o">-&gt;</span><span class="n">start_point_index</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">lp</span><span class="o">-&gt;</span><span class="n">laps_count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">lp</span><span class="o">-&gt;</span><span class="n">proximity_thr</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">lc_destroy</span><span class="p">(</span><span class="n">lc_counter_t</span> <span class="o">*</span><span class="n">lp</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">free</span><span class="p">(</span><span class="n">lp</span><span class="o">-&gt;</span><span class="n">start_points</span><span class="p">);</span>
+    <span class="n">free</span><span class="p">(</span><span class="n">lp</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">_update_current_vector</span><span class="p">(</span><span class="n">lc_counter_t</span> <span class="o">*</span><span class="n">lp</span><span class="p">,</span> <span class="n">lc_point_t</span> <span class="o">*</span><span class="n">p</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">lp</span><span class="o">-&gt;</span><span class="n">last_point</span> <span class="o">=</span> <span class="n">lp</span><span class="o">-&gt;</span><span class="n">current_point</span><span class="p">;</span>
+    <span class="n">lp</span><span class="o">-&gt;</span><span class="n">current_point</span> <span class="o">=</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
+    <span class="n">lc_vector_set</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lp</span><span class="o">-&gt;</span><span class="n">current_vector</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">lp</span><span class="o">-&gt;</span><span class="n">last_point</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">lp</span><span class="o">-&gt;</span><span class="n">current_point</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">_update_startline_points</span><span class="p">(</span><span class="n">lc_counter_t</span> <span class="o">*</span><span class="n">lp</span><span class="p">,</span> <span class="n">lc_point_t</span> <span class="o">*</span><span class="n">p</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">lp</span><span class="o">-&gt;</span><span class="n">start_points</span><span class="p">[</span><span class="n">lp</span><span class="o">-&gt;</span><span class="n">start_point_index</span><span class="p">]</span> <span class="o">=</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
+    <span class="o">++</span><span class="n">lp</span><span class="o">-&gt;</span><span class="n">start_point_index</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">_calc_startline</span><span class="p">(</span><span class="n">lc_counter_t</span> <span class="o">*</span><span class="n">lp</span><span class="p">,</span> <span class="n">lc_point_t</span> <span class="o">*</span><span class="n">p</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">double</span> <span class="n">avg_start_angle</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">lc_vector_t</span> <span class="n">temp_vect</span><span class="p">;</span>
+
+    <span class="c1">// For every couple of start points</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">lp</span><span class="o">-&gt;</span><span class="n">start_points_count</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// Create a vector between the two points and add its angle to the avg_start_angle variable</span>
+        <span class="n">lc_vector_set</span><span class="p">(</span><span class="o">&amp;</span><span class="n">temp_vect</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">lp</span><span class="o">-&gt;</span><span class="n">start_points</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">lp</span><span class="o">-&gt;</span><span class="n">start_points</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]);</span>
+        <span class="n">avg_start_angle</span> <span class="o">+=</span> <span class="n">lc_vector_angle</span><span class="p">(</span><span class="o">&amp;</span><span class="n">temp_vect</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="c1">// Finish calculating the avg_start_angle</span>
+    <span class="n">avg_start_angle</span> <span class="o">/=</span> <span class="n">lp</span><span class="o">-&gt;</span><span class="n">start_points_count</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+
+    <span class="c1">// Sets the start vector as a vector starting from the first point and having the average angle between the first points</span>
+    <span class="n">lc_vector_set_from_angle</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lp</span><span class="o">-&gt;</span><span class="n">start_vector</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">lp</span><span class="o">-&gt;</span><span class="n">start_points</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">avg_start_angle</span><span class="p">);</span>
+    <span class="c1">// Updates the start_vector_angle</span>
+    <span class="n">lp</span><span class="o">-&gt;</span><span class="n">start_vector_angle</span> <span class="o">=</span> <span class="n">avg_start_angle</span><span class="p">;</span>
+    <span class="c1">// Sets the start line as the vector perpendicular to the start vector</span>
+    <span class="n">lc_vector_set_from_perpendicular</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lp</span><span class="o">-&gt;</span><span class="n">start_line</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">lp</span><span class="o">-&gt;</span><span class="n">start_vector</span><span class="p">);</span>
+    <span class="c1">// Updates the start_point_index</span>
+    <span class="n">lp</span><span class="o">-&gt;</span><span class="n">start_point_index</span><span class="o">++</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">_update_proximity_thr</span><span class="p">(</span><span class="n">lc_counter_t</span> <span class="o">*</span><span class="n">lp</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">double</span> <span class="n">proximity_temp</span> <span class="o">=</span> <span class="n">lc_vector_length</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lp</span><span class="o">-&gt;</span><span class="n">current_vector</span><span class="p">)</span> <span class="o">*</span> <span class="n">lp</span><span class="o">-&gt;</span><span class="n">proximity_incr</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">proximity_temp</span> <span class="o">&gt;</span> <span class="n">lp</span><span class="o">-&gt;</span><span class="n">proximity_thr</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">lp</span><span class="o">-&gt;</span><span class="n">proximity_thr</span> <span class="o">=</span> <span class="n">proximity_temp</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">_reset_last_results</span><span class="p">(</span><span class="n">lc_counter_t</span> <span class="o">*</span><span class="n">lp</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">lp</span><span class="o">-&gt;</span><span class="n">last_proximity_result</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">lp</span><span class="o">-&gt;</span><span class="n">last_inclination_result</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">lp</span><span class="o">-&gt;</span><span class="n">last_overlap_result</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">int</span> <span class="nf">_check_proximity</span><span class="p">(</span><span class="n">lc_counter_t</span> <span class="o">*</span><span class="n">lp</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">double</span> <span class="n">d1</span> <span class="o">=</span> <span class="n">lc_point_distance</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lp</span><span class="o">-&gt;</span><span class="n">last_point</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">lp</span><span class="o">-&gt;</span><span class="n">start_points</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+    <span class="kt">double</span> <span class="n">d2</span> <span class="o">=</span> <span class="n">lc_point_distance</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lp</span><span class="o">-&gt;</span><span class="n">current_point</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">lp</span><span class="o">-&gt;</span><span class="n">start_points</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">d1</span> <span class="o">&lt;</span> <span class="n">lp</span><span class="o">-&gt;</span><span class="n">proximity_thr</span> <span class="o">&amp;&amp;</span> <span class="n">d2</span> <span class="o">&lt;</span> <span class="n">lp</span><span class="o">-&gt;</span><span class="n">proximity_thr</span><span class="p">;</span>
+    <span class="n">lp</span><span class="o">-&gt;</span><span class="n">last_proximity_result</span> <span class="o">=</span> <span class="n">result</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">int</span> <span class="nf">_check_inclination</span><span class="p">(</span><span class="n">lc_counter_t</span> <span class="o">*</span><span class="n">lp</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">double</span> <span class="n">current_vector_angle</span> <span class="o">=</span> <span class="n">lc_vector_angle</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lp</span><span class="o">-&gt;</span><span class="n">current_vector</span><span class="p">);</span>
+    <span class="kt">double</span> <span class="n">angle_difference</span> <span class="o">=</span> <span class="p">(</span><span class="kt">double</span><span class="p">)((</span><span class="kt">int</span><span class="p">)(</span><span class="n">current_vector_angle</span> <span class="o">-</span> <span class="n">lp</span><span class="o">-&gt;</span><span class="n">start_vector_angle</span> <span class="o">+</span> <span class="mi">180</span><span class="p">)</span> <span class="o">%</span> <span class="mi">360</span> <span class="o">-</span> <span class="mi">180</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">fabs</span><span class="p">(</span><span class="n">angle_difference</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">lp</span><span class="o">-&gt;</span><span class="n">inclination_thr</span><span class="p">;</span>
+    <span class="n">lp</span><span class="o">-&gt;</span><span class="n">last_inclination_result</span> <span class="o">=</span> <span class="n">result</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">int</span> <span class="nf">_check_overlap</span><span class="p">(</span><span class="n">lc_counter_t</span> <span class="o">*</span><span class="n">lp</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">lc_vector_t</span> <span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">overlap_p1cond</span><span class="p">,</span> <span class="n">overlap_p2cond</span><span class="p">;</span>
+    <span class="n">lc_vector_set</span><span class="p">(</span><span class="o">&amp;</span><span class="n">v1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">lp</span><span class="o">-&gt;</span><span class="n">start_line</span><span class="p">.</span><span class="n">p1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">lp</span><span class="o">-&gt;</span><span class="n">current_vector</span><span class="p">.</span><span class="n">p1</span><span class="p">);</span>
+    <span class="n">lc_vector_set</span><span class="p">(</span><span class="o">&amp;</span><span class="n">v2</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">lp</span><span class="o">-&gt;</span><span class="n">start_line</span><span class="p">.</span><span class="n">p1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">lp</span><span class="o">-&gt;</span><span class="n">current_vector</span><span class="p">.</span><span class="n">p2</span><span class="p">);</span>
+    <span class="n">overlap_p1cond</span> <span class="o">=</span> <span class="n">lc_vector_det</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lp</span><span class="o">-&gt;</span><span class="n">start_line</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">v1</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">overlap_p2cond</span> <span class="o">=</span> <span class="n">lc_vector_det</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lp</span><span class="o">-&gt;</span><span class="n">start_line</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">v2</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">overlap_p1cond</span> <span class="o">!=</span> <span class="n">overlap_p2cond</span><span class="p">;</span>
+    <span class="n">lp</span><span class="o">-&gt;</span><span class="n">last_overlap_result</span> <span class="o">=</span> <span class="n">result</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Eagletrt.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

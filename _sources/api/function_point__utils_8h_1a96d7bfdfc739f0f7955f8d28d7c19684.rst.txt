@@ -1,0 +1,13 @@
+.. _exhale_function_point__utils_8h_1a96d7bfdfc739f0f7955f8d28d7c19684:
+
+Function lc_point_print
+=======================
+
+- Defined in :ref:`file_utils_lapcounter_utils_utils_vector_point_point_utils.h`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: lc_point_print(const lc_point_t *)

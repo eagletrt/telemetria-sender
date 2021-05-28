@@ -1,0 +1,13 @@
+.. _exhale_typedef_point__utils_8h_1a7dbcf6275575b391544ba0fce5863bb5:
+
+Typedef lc_point_t
+==================
+
+- Defined in :ref:`file_utils_lapcounter_utils_utils_vector_point_point_utils.h`
+
+
+Typedef Documentation
+---------------------
+
+
+.. doxygentypedef:: lc_point_t

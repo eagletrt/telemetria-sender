@@ -1,0 +1,13 @@
+.. _exhale_function_lapcounter__utils_8c_1a9933f251f64ef1bcba06970c5818780f:
+
+Function lc_reset(lc_counter_t \*)
+==================================
+
+- Defined in :ref:`file_utils_lapcounter_utils_lapcounter_utils.c`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: lc_reset(lc_counter_t *)

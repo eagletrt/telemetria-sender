@@ -1,0 +1,13 @@
+.. _exhale_variable_lapcounter__utils_8c_1a8932b79275d14900ea4bff66860962f2:
+
+Variable _LC_DEFAULT_START_POINTS_COUNT
+=======================================
+
+- Defined in :ref:`file_utils_lapcounter_utils_lapcounter_utils.c`
+
+
+Variable Documentation
+----------------------
+
+
+.. doxygenvariable:: _LC_DEFAULT_START_POINTS_COUNT

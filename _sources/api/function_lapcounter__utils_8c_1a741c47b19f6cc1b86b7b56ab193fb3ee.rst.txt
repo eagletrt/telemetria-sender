@@ -1,0 +1,13 @@
+.. _exhale_function_lapcounter__utils_8c_1a741c47b19f6cc1b86b7b56ab193fb3ee:
+
+Function _calc_startline
+========================
+
+- Defined in :ref:`file_utils_lapcounter_utils_lapcounter_utils.c`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: _calc_startline(lc_counter_t *, lc_point_t *)

@@ -1,0 +1,13 @@
+.. _exhale_function_lapcounter__utils_8c_1abfc8bd690193d074a8e1323047a93c85:
+
+Function _check_inclination
+===========================
+
+- Defined in :ref:`file_utils_lapcounter_utils_lapcounter_utils.c`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: _check_inclination(lc_counter_t *)

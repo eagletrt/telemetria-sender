@@ -1,0 +1,76 @@
+
+.. _file_utils_lapcounter_utils_utils_vector_point_point_utils.h:
+
+File point_utils.h
+==================
+
+|exhale_lsh| :ref:`Parent directory <dir_utils_lapcounter_utils_utils_vector_point>` (``utils/lapcounter_utils/utils/vector/point``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``utils/lapcounter_utils/utils/vector/point/point_utils.h``)
+------------------------------------------------------------------------
+
+
+.. toctree::
+   :maxdepth: 1
+
+   program_listing_file_utils_lapcounter_utils_utils_vector_point_point_utils.h.rst
+
+
+
+
+
+Includes
+--------
+
+
+- ``math.h``
+
+- ``stdio.h``
+
+- ``stdlib.h``
+
+
+
+Included By
+-----------
+
+
+- :ref:`file_utils_lapcounter_utils_utils_vector_vector_utils.h`
+
+- :ref:`file_utils_lapcounter_utils_utils_vector_point_point_utils.c`
+
+
+
+
+Classes
+-------
+
+
+- :ref:`exhale_struct_struct__lc__point__t`
+
+
+Functions
+---------
+
+
+- :ref:`exhale_function_point__utils_8h_1aa9aa84642ff225a7c1c266149797e1bc`
+
+- :ref:`exhale_function_point__utils_8h_1af8b3eb6e1d6750a1d2b1b9f8612f011f`
+
+- :ref:`exhale_function_point__utils_8h_1a96d7bfdfc739f0f7955f8d28d7c19684`
+
+- :ref:`exhale_function_point__utils_8h_1a3f1b49514b0c746631d38eb6674288a6`
+
+
+Typedefs
+--------
+
+
+- :ref:`exhale_typedef_point__utils_8h_1a7dbcf6275575b391544ba0fce5863bb5`
+

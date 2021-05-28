@@ -1,0 +1,21 @@
+.. _dir_utils_lapcounter_utils_utils_vector_point:
+
+
+Directory point
+===============
+
+
+|exhale_lsh| :ref:`Parent directory <dir_utils_lapcounter_utils_utils_vector>` (``utils/lapcounter_utils/utils/vector``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+*Directory path:* ``utils/lapcounter_utils/utils/vector/point``
+
+
+Files
+-----
+
+- :ref:`file_utils_lapcounter_utils_utils_vector_point_point_utils.c`
+- :ref:`file_utils_lapcounter_utils_utils_vector_point_point_utils.h`
+
+

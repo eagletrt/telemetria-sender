@@ -1,0 +1,13 @@
+.. _exhale_function_vector__utils_8h_1a1aba2d6958a1dba5a12de5466e58a292:
+
+Function lc_vector_set_from_perpendicular(lc_vector_t \*, const lc_vector_t \*)
+===============================================================================
+
+- Defined in :ref:`file_utils_lapcounter_utils_utils_vector_vector_utils.h`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: lc_vector_set_from_perpendicular(lc_vector_t *, const lc_vector_t *)

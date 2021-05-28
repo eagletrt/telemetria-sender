@@ -1,0 +1,50 @@
+
+.. _file_utils_lapcounter_utils_utils_vector_point_point_utils.c:
+
+File point_utils.c
+==================
+
+|exhale_lsh| :ref:`Parent directory <dir_utils_lapcounter_utils_utils_vector_point>` (``utils/lapcounter_utils/utils/vector/point``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``utils/lapcounter_utils/utils/vector/point/point_utils.c``)
+------------------------------------------------------------------------
+
+
+.. toctree::
+   :maxdepth: 1
+
+   program_listing_file_utils_lapcounter_utils_utils_vector_point_point_utils.c.rst
+
+
+
+
+
+Includes
+--------
+
+
+- ``point_utils.h`` (:ref:`file_utils_lapcounter_utils_utils_vector_point_point_utils.h`)
+
+
+
+
+
+
+Functions
+---------
+
+
+- :ref:`exhale_function_point__utils_8c_1aa9aa84642ff225a7c1c266149797e1bc`
+
+- :ref:`exhale_function_point__utils_8c_1af8b3eb6e1d6750a1d2b1b9f8612f011f`
+
+- :ref:`exhale_function_point__utils_8c_1a3f1b49514b0c746631d38eb6674288a6`
+
+- :ref:`exhale_function_point__utils_8c_1aef99383ba3d06654c3065dbed194b601`
+

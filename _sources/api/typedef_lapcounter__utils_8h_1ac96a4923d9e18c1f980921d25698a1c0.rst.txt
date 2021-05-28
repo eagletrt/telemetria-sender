@@ -1,0 +1,13 @@
+.. _exhale_typedef_lapcounter__utils_8h_1ac96a4923d9e18c1f980921d25698a1c0:
+
+Typedef lc_counter_t
+====================
+
+- Defined in :ref:`file_utils_lapcounter_utils_lapcounter_utils.h`
+
+
+Typedef Documentation
+---------------------
+
+
+.. doxygentypedef:: lc_counter_t

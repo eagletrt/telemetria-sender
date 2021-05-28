@@ -41,6 +41,26 @@ Directories
 .. toctree::
    :maxdepth: 5
 
+   dir_utils_lapcounter_utils.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   dir_utils_lapcounter_utils_utils.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   dir_utils_lapcounter_utils_utils_vector.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   dir_utils_lapcounter_utils_utils_vector_point.rst
+
+.. toctree::
+   :maxdepth: 5
+
    dir_utils_log_utils.rst
 
 .. toctree::
@@ -130,6 +150,16 @@ Files
 .. toctree::
    :maxdepth: 5
 
+   file_utils_lapcounter_utils_lapcounter_utils.c.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   file_utils_lapcounter_utils_lapcounter_utils.h.rst
+
+.. toctree::
+   :maxdepth: 5
+
    file_utils_log_utils_log_utils.c.rst
 
 .. toctree::
@@ -155,9 +185,29 @@ Files
 .. toctree::
    :maxdepth: 5
 
+   file_utils_lapcounter_utils_utils_vector_point_point_utils.c.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   file_utils_lapcounter_utils_utils_vector_point_point_utils.h.rst
+
+.. toctree::
+   :maxdepth: 5
+
    file_utils_config_utils_jsmn_README.md.rst
 
 .. toctree::
    :maxdepth: 5
 
    file_utils_config_utils_jsmn_example_simple.c.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   file_utils_lapcounter_utils_utils_vector_vector_utils.c.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   file_utils_lapcounter_utils_utils_vector_vector_utils.h.rst

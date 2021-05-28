@@ -1,0 +1,13 @@
+.. _exhale_variable_lapcounter__utils_8c_1a7143cfe46bf72382d67724ac68f7796b:
+
+Variable _LC_DEFAULT_PROXIMITY_INCR
+===================================
+
+- Defined in :ref:`file_utils_lapcounter_utils_lapcounter_utils.c`
+
+
+Variable Documentation
+----------------------
+
+
+.. doxygenvariable:: _LC_DEFAULT_PROXIMITY_INCR

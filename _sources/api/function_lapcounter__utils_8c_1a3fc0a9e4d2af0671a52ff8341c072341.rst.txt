@@ -1,0 +1,13 @@
+.. _exhale_function_lapcounter__utils_8c_1a3fc0a9e4d2af0671a52ff8341c072341:
+
+Function lc_init(lc_counter_config_t \*)
+========================================
+
+- Defined in :ref:`file_utils_lapcounter_utils_lapcounter_utils.c`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: lc_init(lc_counter_config_t *)

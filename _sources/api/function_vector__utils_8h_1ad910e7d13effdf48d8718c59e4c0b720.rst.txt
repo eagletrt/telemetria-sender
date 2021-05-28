@@ -1,0 +1,13 @@
+.. _exhale_function_vector__utils_8h_1ad910e7d13effdf48d8718c59e4c0b720:
+
+Function lc_vector_init_from_versor(char, double)
+=================================================
+
+- Defined in :ref:`file_utils_lapcounter_utils_utils_vector_vector_utils.h`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: lc_vector_init_from_versor(char, double)

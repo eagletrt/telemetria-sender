@@ -1,0 +1,16 @@
+.. _exhale_struct_struct__lc__counter__t:
+
+Struct _lc_counter_t
+====================
+
+- Defined in :ref:`file_utils_lapcounter_utils_lapcounter_utils.h`
+
+
+Struct Documentation
+--------------------
+
+
+.. doxygenstruct:: _lc_counter_t
+   :members:
+   :protected-members:
+   :undoc-members:

@@ -1,0 +1,35 @@
+
+.. _program_listing_file_utils_lapcounter_utils_utils_vector_point_point_utils.h:
+
+Program Listing for File point_utils.h
+======================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_utils_lapcounter_utils_utils_vector_point_point_utils.h>` (``utils/lapcounter_utils/utils/vector/point/point_utils.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   #ifndef _LC_POINT_H
+   #define _LC_POINT_H
+   
+   #include <stdio.h>
+   #include <stdlib.h>
+   #include <math.h>
+   
+   typedef struct _lc_point_t
+   {
+       double x;
+       double y;
+   } lc_point_t;
+   
+   lc_point_t* lc_point_init(double x, double y);
+   
+   double lc_point_distance(const lc_point_t *p1, const lc_point_t *p2);
+   
+   char* lc_point_to_str(const lc_point_t *p);
+   
+   void lc_point_print(const lc_point_t *p);
+   
+   
+   #endif

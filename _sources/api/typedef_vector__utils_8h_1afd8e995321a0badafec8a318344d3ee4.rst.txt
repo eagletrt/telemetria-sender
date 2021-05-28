@@ -1,0 +1,13 @@
+.. _exhale_typedef_vector__utils_8h_1afd8e995321a0badafec8a318344d3ee4:
+
+Typedef lc_vector_t
+===================
+
+- Defined in :ref:`file_utils_lapcounter_utils_utils_vector_vector_utils.h`
+
+
+Typedef Documentation
+---------------------
+
+
+.. doxygentypedef:: lc_vector_t

@@ -1,0 +1,13 @@
+.. _exhale_function_vector__utils_8h_1a160b9fbb2025679f0cfc61e0dcec6a4c:
+
+Function lc_vector_set(lc_vector_t \*, const lc_point_t \*, const lc_point_t \*)
+================================================================================
+
+- Defined in :ref:`file_utils_lapcounter_utils_utils_vector_vector_utils.h`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: lc_vector_set(lc_vector_t *, const lc_point_t *, const lc_point_t *)

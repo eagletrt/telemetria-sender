@@ -1,0 +1,82 @@
+
+.. _file_utils_lapcounter_utils_lapcounter_utils.h:
+
+File lapcounter_utils.h
+=======================
+
+|exhale_lsh| :ref:`Parent directory <dir_utils_lapcounter_utils>` (``utils/lapcounter_utils``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``utils/lapcounter_utils/lapcounter_utils.h``)
+----------------------------------------------------------
+
+
+.. toctree::
+   :maxdepth: 1
+
+   program_listing_file_utils_lapcounter_utils_lapcounter_utils.h.rst
+
+
+
+
+
+Includes
+--------
+
+
+- ``./utils/vector/vector_utils.h``
+
+- ``math.h``
+
+- ``stdio.h``
+
+- ``stdlib.h``
+
+- ``time.h``
+
+
+
+Included By
+-----------
+
+
+- :ref:`file_utils_lapcounter_utils_lapcounter_utils.c`
+
+
+
+
+Classes
+-------
+
+
+- :ref:`exhale_struct_struct__lc__counter__config__t`
+
+- :ref:`exhale_struct_struct__lc__counter__t`
+
+
+Functions
+---------
+
+
+- :ref:`exhale_function_lapcounter__utils_8h_1a27b296d8b6b3200958c3c652d022af69`
+
+- :ref:`exhale_function_lapcounter__utils_8h_1a9c7d1dcc55e18d0e82931f1885ef9715`
+
+- :ref:`exhale_function_lapcounter__utils_8h_1a3fc0a9e4d2af0671a52ff8341c072341`
+
+- :ref:`exhale_function_lapcounter__utils_8h_1a9933f251f64ef1bcba06970c5818780f`
+
+
+Typedefs
+--------
+
+
+- :ref:`exhale_typedef_lapcounter__utils_8h_1ad4bf4d630f98e6dfb7d98d3e6b158fc6`
+
+- :ref:`exhale_typedef_lapcounter__utils_8h_1ac96a4923d9e18c1f980921d25698a1c0`
+

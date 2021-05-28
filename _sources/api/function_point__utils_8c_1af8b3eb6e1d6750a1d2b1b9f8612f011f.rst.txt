@@ -1,0 +1,13 @@
+.. _exhale_function_point__utils_8c_1af8b3eb6e1d6750a1d2b1b9f8612f011f:
+
+Function lc_point_init(double, double)
+======================================
+
+- Defined in :ref:`file_utils_lapcounter_utils_utils_vector_point_point_utils.c`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: lc_point_init(double, double)
