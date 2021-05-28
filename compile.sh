@@ -9,6 +9,9 @@ gcc main.c -o sender.out \
     ./utils/gather_utils/gather_utils.c \
     ./utils/config_utils/jsmn/jsmn.c \
     ./utils/config_utils/config_utils.c \
+    ./utils/lapcounter_utils/lapcounter_utils.c \
+    ./utils/lapcounter_utils/utils/vector/vector_utils.c \
+    ./utils/lapcounter_utils/utils/vector/point/point_utils.c \
     ./services/config_service/config_service.c \
     ./services/gps_service/gps_service.c \
     ./services/mongo_service/mongo_service.c \

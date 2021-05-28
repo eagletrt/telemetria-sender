@@ -193,6 +193,17 @@
             }
         ]
     },
+    "laps": {
+        "laps": [
+            {
+                "timestamp": "long",
+                "value": {
+                    "lap": "int"
+                },
+                "maxLength": 500
+            }
+        ]
+    },
     "imu_old": {
         "gyro": [
             {
