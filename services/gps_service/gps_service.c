@@ -38,47 +38,47 @@ int openGPSPort() {
 		return -1;
 	}
 
-	// Create termios struct to configure port
-	struct termios tty;
-	memset(&tty, 0, sizeof(tty));
+	// // Create termios struct to configure port
+	// struct termios tty;
+	// memset(&tty, 0, sizeof(tty));
 
-	// Read in existing settings and handle errors
-	if(tcgetattr(serial_port, &tty) != 0) {
-		logWarning("Error in GPS tcgetattr");
-		return -1;
-	}
+	// // Read in existing settings and handle errors
+	// if(tcgetattr(serial_port, &tty) != 0) {
+	// 	logWarning("Error in GPS tcgetattr");
+	// 	return -1;
+	// }
 
-	// the c_cflags member of the termios contains control fields
-	tty.c_cflag &= ~PARENB;				// disable parity bit
-	tty.c_cflag &= ~CSTOPB;				// clear stop field
-	tty.c_cflag |= CS8;					// 8 data bits per byte
-	tty.c_cflag &= ~CRTSCTS;			// disable TRS/CTS hardware flow control
-	tty.c_cflag |= CREAD | CLOCAL;		// turn on READ and ignore control lines, setting CLOCAL allows us to read data
-	// local modes
-	tty.c_lflag &= ~ICANON;		// disable canonical mode, in canonical mode input data is received line by line, usually undesired when dealing with serial ports
-	tty.c_lflag &= ~ECHO;		// if this bit (ECHO) is set, sent characters will be echoed back.
-	tty.c_lflag &= ~ECHOE;
-	tty.c_lflag &= ~ECHONL;
-	tty.c_lflag &= ~ISIG;		// when the ISIG bit is set, INTR,QUIT and SUSP characters are interpreted. we don't want this with a serial port
-	// the c_iflag member of the termios struct contains low-level settings for input processing. the c_iflag member is an int
-	tty.c_iflag &= ~(IXON | IXOFF | IXANY);											// clearing IXON,IXOFF,IXANY disable software flow control
-	tty.c_iflag &= ~(IGNBRK | BRKINT | PARMRK | ISTRIP | INLCR | IGNCR | ICRNL);	// clearing all of this bits disable any special handling of received bytes, i want raw data
-	// output modes (c_oflag). the c_oflag member of the termios struct contain low level settings for output processing, we want to disable any special handling of output chars/bytes
-	tty.c_oflag &= ~OPOST;		// prevent special interpretation of output bytes
-	tty.c_oflag &= ~ONLCR;		// prevent conversion of newline to carriage return/line feed
-	// setting VTIME VMIN
-	tty.c_cc[VTIME] = 10;		// read() will block until either any amount of data is received or the timeout ocurs
-	tty.c_cc[VMIN] = 0;
+	// // the c_cflags member of the termios contains control fields
+	// tty.c_cflag &= ~PARENB;				// disable parity bit
+	// tty.c_cflag &= ~CSTOPB;				// clear stop field
+	// tty.c_cflag |= CS8;					// 8 data bits per byte
+	// tty.c_cflag &= ~CRTSCTS;			// disable TRS/CTS hardware flow control
+	// tty.c_cflag |= CREAD | CLOCAL;		// turn on READ and ignore control lines, setting CLOCAL allows us to read data
+	// // local modes
+	// tty.c_lflag &= ~ICANON;		// disable canonical mode, in canonical mode input data is received line by line, usually undesired when dealing with serial ports
+	// tty.c_lflag &= ~ECHO;		// if this bit (ECHO) is set, sent characters will be echoed back.
+	// tty.c_lflag &= ~ECHOE;
+	// tty.c_lflag &= ~ECHONL;
+	// tty.c_lflag &= ~ISIG;		// when the ISIG bit is set, INTR,QUIT and SUSP characters are interpreted. we don't want this with a serial port
+	// // the c_iflag member of the termios struct contains low-level settings for input processing. the c_iflag member is an int
+	// tty.c_iflag &= ~(IXON | IXOFF | IXANY);											// clearing IXON,IXOFF,IXANY disable software flow control
+	// tty.c_iflag &= ~(IGNBRK | BRKINT | PARMRK | ISTRIP | INLCR | IGNCR | ICRNL);	// clearing all of this bits disable any special handling of received bytes, i want raw data
+	// // output modes (c_oflag). the c_oflag member of the termios struct contain low level settings for output processing, we want to disable any special handling of output chars/bytes
+	// tty.c_oflag &= ~OPOST;		// prevent special interpretation of output bytes
+	// tty.c_oflag &= ~ONLCR;		// prevent conversion of newline to carriage return/line feed
+	// // setting VTIME VMIN
+	// tty.c_cc[VTIME] = 10;		// read() will block until either any amount of data is received or the timeout ocurs
+	// tty.c_cc[VMIN] = 0;
 
-	// Setting baud rate
-	cfsetispeed(&tty, B460800);
-	cfsetospeed(&tty, B460800);
+	// // Setting baud rate
+	// cfsetispeed(&tty, B460800);
+	// cfsetospeed(&tty, B460800);
 
-	// After changing settings we need to save the tty termios struct, also error checking
-	if(tcsetattr(serial_port, TCSANOW, &tty) != 0) {
-		logWarning("Error in GPS tcsetattr");
-		return -1;
-	}
+	// // After changing settings we need to save the tty termios struct, also error checking
+	// if(tcsetattr(serial_port, TCSANOW, &tty) != 0) {
+	// 	logWarning("Error in GPS tcsetattr");
+	// 	return -1;
+	// }
 
 	return serial_port;
 }
