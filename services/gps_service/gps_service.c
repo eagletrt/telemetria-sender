@@ -30,7 +30,7 @@ static void gpsPrint(gps_struct* data);
 
 int openGPSPort() {
 	// Opens the serial port
-	int serial_port = open(condition.gps.interface, O_RDWR);
+	int serial_port = open(condition.gps.interface, O_RDONLY);
 
 	// Handle in case of error
 	if(serial_port < 0) {
