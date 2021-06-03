@@ -29,6 +29,8 @@ static void gpsPrint(gps_struct* data);
 /* EXPORTED FUNCTIONS */
 
 int openGPSPort() {
+	// Open fifo
+	mkfifo(condition.gps.interface, 0666);
 	// Opens the serial port
 	int serial_port = open(condition.gps.interface, O_RDONLY);
 
