@@ -381,6 +381,50 @@ static void* parseCanMessages(void *args) {
 				}
 				break;
 
+			case (ENCODERS_AVERAGE_SPEED):
+				if (document->encoders.average_speed_count < document->encoders.average_speed_size) {
+					document->encoders.average_speed[document->encoders.average_speed_count].timestamp = getCurrentTimestamp();
+					document->encoders.average_speed[document->encoders.average_speed_count].value.left = ((data_left >> 8) & 0x00FFFFFF) * (((data_right >> 16 & 0x000000FF) == 0) ? 1 : -1);
+					document->encoders.average_speed[document->encoders.average_speed_count].value.right = (((data_left & 0x000000FF) << 16) | ((data_right >> 16) & 0x0000FFFF)) * (((data_right >> 24 & 0x000000FF) == 0) ? 1 : -1);
+					++(document->encoders.average_speed_count);
+				}
+				break;
+
+			case (ENCODERS_ROTATION_AND_KM):
+				if (document->encoders.rotations_count < document->encoders.rotations_size) {
+					document->encoders.rotations[document->encoders.rotations_count].timestamp = getCurrentTimestamp();
+					document->encoders.rotations[document->encoders.rotations_count].value = (data_left >> 8) & 0x00FFFFFF;
+					++(document->encoders.rotations_count);
+				}
+				if (document->encoders.km_count < document->encoders.km_size) {
+					document->encoders.km[document->encoders.km_count].timestamp = getCurrentTimestamp();
+					document->encoders.km[document->encoders.km_count].value = ((data_left & 0x000000FF) << 16) | ((data_right >> 16) & 0x0000FFFF);
+					++(document->encoders.km_count);
+				}
+				break;
+
+			case (ENCODERS_AVERAGE_SPEED2):
+				if (document->encoders.speed_kmh_count < document->encoders.speed_kmh_count) {
+					double speed_diveder = (((double)(data_right & 0x000000FF) / 2.0) * 3.6)*1000.0;
+					double speedSign = (data_left & 0x000000FF) ? 1.0 : -1.0;
+					document->encoders.speed_kmh[document->encoders.speed_kmh_count].timestamp = getCurrentTimestamp();
+					document->encoders.speed_kmh[document->encoders.speed_kmh_count].value = ((double)(((data_left & 0x000000FF) << 16) | ((data_right >> 16) & 0x0000FFFF)) / speed_diveder) * speedSign;
+					++(document->encoders.speed_kmh_count);
+				}
+				break;
+
+			case (ENCODERS_ANGLES):
+				if (document->encoders.angles_count < document->encoders.angles_size) {
+					document->encoders.angles[document->encoders.angles_count].timestamp = getCurrentTimestamp();
+					document->encoders.angles[document->encoders.angles_count].value.la = ((double)((data_left >> 16) & 0x0000FFFF)) / 100.0;
+					document->encoders.angles[document->encoders.angles_count].value.ra = ((double)(data_left & 0x0000FFFF)) / 100.0;
+					document->encoders.angles[document->encoders.angles_count].value.da = ((double)((data_right >> 16) & 0x0000FFFF)) / 100.0;
+					document->encoders.angles[document->encoders.angles_count].value.frequencyLeft = ((data_right >> 8) & 0x000000FF);
+					document->encoders.angles[document->encoders.angles_count].value.frequencyRight = (data_right & 0x000000FF);
+					++(document->encoders.angles_count);
+				}
+				break;
+
 			case (BMS_LV_ID):
 				if (document->bms_lv.values_count < document->bms_lv.values_size) {
 					document->bms_lv.values[document->bms_lv.values_count].timestamp = getCurrentTimestamp();

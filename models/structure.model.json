@@ -254,6 +254,59 @@
             }
         ]
     },
+    "encoders": {
+        "average_speed": [
+            {
+                "timestamp": "long",
+                "value": {
+                    "left": "int",
+                    "right": "int"
+                },
+                "maxLength": 500
+            }
+        ],
+        "right_rads": [
+            {
+                "timestamp": "long",
+                "value": "int",
+                "maxLength": 500
+            }
+        ],
+        "rotations": [
+            {
+                "timestamp": "long",
+                "value": "int",
+                "maxLength": 500
+            }
+        ],
+        "km": [
+            {
+                "timestamp": "long",
+                "value": "int",
+                "maxLength": 500
+            }
+        ],
+        "speed_kmh": [
+            {
+                "timestamp": "long",
+                "value": "double",
+                "maxLength": 500
+            }
+        ],
+        "angles": [
+            {
+                "timestamp": "long",
+                "value": {
+                    "la": "double",
+                    "ra": "double",
+                    "da": "double",
+                    "frequencyLeft": "int",
+                    "frequencyRight": "int"
+                },
+                "maxLength": 500
+            }
+        ]
+    },
     "front_wheels_encoders": {
         "right": {
             "speed": [

@@ -319,6 +319,70 @@ typedef struct {
 } imu_data;
 
 typedef struct {
+	int left;
+	int right;
+} encoders_average_speed_value_data;
+
+typedef struct {
+	long timestamp;
+	encoders_average_speed_value_data value;
+} encoders_average_speed_data;
+
+typedef struct {
+	long timestamp;
+	int value;
+} encoders_right_rads_data;
+
+typedef struct {
+	long timestamp;
+	int value;
+} encoders_rotations_data;
+
+typedef struct {
+	long timestamp;
+	int value;
+} encoders_km_data;
+
+typedef struct {
+	long timestamp;
+	double value;
+} encoders_speed_kmh_data;
+
+typedef struct {
+	double la;
+	double ra;
+	double da;
+	int frequencyLeft;
+	int frequencyRight;
+} encoders_angles_value_data;
+
+typedef struct {
+	long timestamp;
+	encoders_angles_value_data value;
+} encoders_angles_data;
+
+typedef struct {
+	encoders_average_speed_data *average_speed;
+	int average_speed_count;
+	int average_speed_size;
+	encoders_right_rads_data *right_rads;
+	int right_rads_count;
+	int right_rads_size;
+	encoders_rotations_data *rotations;
+	int rotations_count;
+	int rotations_size;
+	encoders_km_data *km;
+	int km_count;
+	int km_size;
+	encoders_speed_kmh_data *speed_kmh;
+	int speed_kmh_count;
+	int speed_kmh_size;
+	encoders_angles_data *angles;
+	int angles_count;
+	int angles_size;
+} encoders_data;
+
+typedef struct {
 	double speed;
 	int error_flag;
 } front_wheels_encoders_right_speed_value_data;
@@ -473,6 +537,7 @@ typedef struct {
 	laps_data laps;
 	imu_old_data imu_old;
 	imu_data imu;
+	encoders_data encoders;
 	front_wheels_encoders_data front_wheels_encoders;
 	distance_data *distance;
 	int distance_count;
