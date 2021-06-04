@@ -149,17 +149,17 @@ Classes and Structs
 .. toctree::
    :maxdepth: 5
 
-   structencoders__km__data.rst
-
-.. toctree::
-   :maxdepth: 5
-
    structencoders__right__rads__data.rst
 
 .. toctree::
    :maxdepth: 5
 
-   structencoders__rotations__data.rst
+   structencoders__rotations__and__km__data.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   structencoders__rotations__and__km__value__data.rst
 
 .. toctree::
    :maxdepth: 5

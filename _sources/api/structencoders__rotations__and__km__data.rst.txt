@@ -1,0 +1,16 @@
+.. _exhale_struct_structencoders__rotations__and__km__data:
+
+Struct encoders_rotations_and_km_data
+=====================================
+
+- Defined in :ref:`file_utils_gather_utils_data_structure.h`
+
+
+Struct Documentation
+--------------------
+
+
+.. doxygenstruct:: encoders_rotations_and_km_data
+   :members:
+   :protected-members:
+   :undoc-members:

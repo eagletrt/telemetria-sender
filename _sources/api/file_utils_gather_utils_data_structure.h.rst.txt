@@ -86,11 +86,11 @@ Classes
 
 - :ref:`exhale_struct_structencoders__data`
 
-- :ref:`exhale_struct_structencoders__km__data`
-
 - :ref:`exhale_struct_structencoders__right__rads__data`
 
-- :ref:`exhale_struct_structencoders__rotations__data`
+- :ref:`exhale_struct_structencoders__rotations__and__km__data`
+
+- :ref:`exhale_struct_structencoders__rotations__and__km__value__data`
 
 - :ref:`exhale_struct_structencoders__speed__kmh__data`
 

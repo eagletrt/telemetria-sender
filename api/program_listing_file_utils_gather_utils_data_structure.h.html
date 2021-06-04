@@ -498,14 +498,14 @@
 <span class="p">}</span> <span class="n">encoders_right_rads_data</span><span class="p">;</span>
 
 <span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
-    <span class="kt">long</span> <span class="n">timestamp</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">value</span><span class="p">;</span>
-<span class="p">}</span> <span class="n">encoders_rotations_data</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">rotation</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">km</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">encoders_rotations_and_km_value_data</span><span class="p">;</span>
 
 <span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
     <span class="kt">long</span> <span class="n">timestamp</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">value</span><span class="p">;</span>
-<span class="p">}</span> <span class="n">encoders_km_data</span><span class="p">;</span>
+    <span class="n">encoders_rotations_and_km_value_data</span> <span class="n">value</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">encoders_rotations_and_km_data</span><span class="p">;</span>
 
 <span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
     <span class="kt">long</span> <span class="n">timestamp</span><span class="p">;</span>
@@ -532,12 +532,9 @@
     <span class="n">encoders_right_rads_data</span> <span class="o">*</span><span class="n">right_rads</span><span class="p">;</span>
     <span class="kt">int</span> <span class="n">right_rads_count</span><span class="p">;</span>
     <span class="kt">int</span> <span class="n">right_rads_size</span><span class="p">;</span>
-    <span class="n">encoders_rotations_data</span> <span class="o">*</span><span class="n">rotations</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">rotations_count</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">rotations_size</span><span class="p">;</span>
-    <span class="n">encoders_km_data</span> <span class="o">*</span><span class="n">km</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">km_count</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">km_size</span><span class="p">;</span>
+    <span class="n">encoders_rotations_and_km_data</span> <span class="o">*</span><span class="n">rotations_and_km</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">rotations_and_km_count</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">rotations_and_km_size</span><span class="p">;</span>
     <span class="n">encoders_speed_kmh_data</span> <span class="o">*</span><span class="n">speed_kmh</span><span class="p">;</span>
     <span class="kt">int</span> <span class="n">speed_kmh_count</span><span class="p">;</span>
     <span class="kt">int</span> <span class="n">speed_kmh_size</span><span class="p">;</span>
