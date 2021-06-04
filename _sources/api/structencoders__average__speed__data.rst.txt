@@ -1,0 +1,16 @@
+.. _exhale_struct_structencoders__average__speed__data:
+
+Struct encoders_average_speed_data
+==================================
+
+- Defined in :ref:`file_utils_gather_utils_data_structure.h`
+
+
+Struct Documentation
+--------------------
+
+
+.. doxygenstruct:: encoders_average_speed_data
+   :members:
+   :protected-members:
+   :undoc-members:

@@ -124,6 +124,51 @@ Classes and Structs
 .. toctree::
    :maxdepth: 5
 
+   structencoders__angles__data.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   structencoders__angles__value__data.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   structencoders__average__speed__data.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   structencoders__average__speed__value__data.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   structencoders__data.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   structencoders__km__data.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   structencoders__right__rads__data.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   structencoders__rotations__data.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   structencoders__speed__kmh__data.rst
+
+.. toctree::
+   :maxdepth: 5
+
    structfront__wheels__encoders__data.rst
 
 .. toctree::
