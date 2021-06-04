@@ -334,14 +334,14 @@ typedef struct {
 } encoders_right_rads_data;
 
 typedef struct {
-	long timestamp;
-	int value;
-} encoders_rotations_data;
+	int rotation;
+	int km;
+} encoders_rotations_and_km_value_data;
 
 typedef struct {
 	long timestamp;
-	int value;
-} encoders_km_data;
+	encoders_rotations_and_km_value_data value;
+} encoders_rotations_and_km_data;
 
 typedef struct {
 	long timestamp;
@@ -368,12 +368,9 @@ typedef struct {
 	encoders_right_rads_data *right_rads;
 	int right_rads_count;
 	int right_rads_size;
-	encoders_rotations_data *rotations;
-	int rotations_count;
-	int rotations_size;
-	encoders_km_data *km;
-	int km_count;
-	int km_size;
+	encoders_rotations_and_km_data *rotations_and_km;
+	int rotations_and_km_count;
+	int rotations_and_km_size;
 	encoders_speed_kmh_data *speed_kmh;
 	int speed_kmh_count;
 	int speed_kmh_size;

@@ -391,15 +391,11 @@ static void* parseCanMessages(void *args) {
 				break;
 
 			case (ENCODERS_ROTATION_AND_KM):
-				if (document->encoders.rotations_count < document->encoders.rotations_size) {
-					document->encoders.rotations[document->encoders.rotations_count].timestamp = getCurrentTimestamp();
-					document->encoders.rotations[document->encoders.rotations_count].value = (data_left >> 8) & 0x00FFFFFF;
-					++(document->encoders.rotations_count);
-				}
-				if (document->encoders.km_count < document->encoders.km_size) {
-					document->encoders.km[document->encoders.km_count].timestamp = getCurrentTimestamp();
-					document->encoders.km[document->encoders.km_count].value = ((data_left & 0x000000FF) << 16) | ((data_right >> 16) & 0x0000FFFF);
-					++(document->encoders.km_count);
+				if (document->encoders.rotations_and_km_count < document->encoders.rotations_and_km_size) {
+					document->encoders.rotations_and_km[document->encoders.rotations_and_km_count].timestamp = getCurrentTimestamp();
+					document->encoders.rotations_and_km[document->encoders.rotations_and_km_count].value.rotation = (data_left >> 8) & 0x00FFFFFF;
+					document->encoders.rotations_and_km[document->encoders.rotations_and_km_count].value.km = ((data_left & 0x000000FF) << 16) | ((data_right >> 16) & 0x0000FFFF);
+					++(document->encoders.rotations_and_km_count);
 				}
 				break;
 

@@ -272,17 +272,13 @@
                 "maxLength": 500
             }
         ],
-        "rotations": [
+        "rotations_and_km": [
             {
                 "timestamp": "long",
-                "value": "int",
-                "maxLength": 500
-            }
-        ],
-        "km": [
-            {
-                "timestamp": "long",
-                "value": "int",
+                "value": {
+                    "rotation": "int",
+                    "km": "int"
+                },
                 "maxLength": 500
             }
         ],
