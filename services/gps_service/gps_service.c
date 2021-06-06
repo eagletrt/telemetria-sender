@@ -230,17 +230,17 @@ static gps_gga_struct* parseGGA(char *message) {
 	}
 
 	if (i < 15) {
-		if (i >= 5) {
-			free(result->ew_indicator);
-		}
+		// if (i >= 5) {
+		// 	free(result->ew_indicator);
+		// }
 		
-		if (i >= 3) {
-			free(result->ns_indicator);
-		}
+		// if (i >= 3) {
+		// 	free(result->ns_indicator);
+		// }
 
-		if (i >= 1) {
-			free(result->utc_time);
-		}
+		// if (i >= 1) {
+		// 	free(result->utc_time);
+		// }
 
 		return NULL;
 	}
@@ -291,17 +291,17 @@ static gps_gll_struct* parseGLL(char *message) {
 	}
 
 	if (i < 8) {
-		if (i >= 5) {
-			free(result->utc_time);
-		}
+		// if (i >= 5) {
+		// 	free(result->utc_time);
+		// }
 		
-		if (i >= 4) {
-			free(result->ew_indicator);
-		}
+		// if (i >= 4) {
+		// 	free(result->ew_indicator);
+		// }
 
-		if (i >= 2) {
-			free(result->ns_indicator);
-		}
+		// if (i >= 2) {
+		// 	free(result->ns_indicator);
+		// }
 
 		return NULL;
 	}
@@ -388,21 +388,21 @@ static gps_rmc_struct* parseRMC(char *message) {
 	}
 
 	if (i < 14) {
-		if (i >= 9) {
-			free(result->date);
-		}
+		// if (i >= 9) {
+		// 	free(result->date);
+		// }
 		
-		if (i >= 6) {
-			free(result->ew_indicator);
-		}
+		// if (i >= 6) {
+		// 	free(result->ew_indicator);
+		// }
 
-		if (i >= 4) {
-			free(result->ns_indicator);
-		}
+		// if (i >= 4) {
+		// 	free(result->ns_indicator);
+		// }
 
-		if (i >= 1) {
-			free(result->utc_time);
-		}
+		// if (i >= 1) {
+		// 	free(result->utc_time);
+		// }
 
 		return NULL;
 	}
