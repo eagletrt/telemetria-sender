@@ -6,21 +6,5 @@
         "mongo_service.h": "c",
         "misc_utils.h": "c"
     },
-    "workbench.colorCustomizations": {
-        "activityBar.activeBackground": "#420080",
-        "activityBar.activeBorder": "#9f5200",
-        "activityBar.background": "#420080",
-        "activityBar.foreground": "#e7e7e7",
-        "activityBar.inactiveForeground": "#e7e7e799",
-        "activityBarBadge.background": "#9f5200",
-        "activityBarBadge.foreground": "#e7e7e7",
-        "statusBar.background": "#28004d",
-        "statusBar.foreground": "#e7e7e7",
-        "statusBarItem.hoverBackground": "#420080",
-        "titleBar.activeBackground": "#28004d",
-        "titleBar.activeForeground": "#e7e7e7",
-        "titleBar.inactiveBackground": "#28004d99",
-        "titleBar.inactiveForeground": "#e7e7e799"
-    },
     "peacock.color": "#28004d"
 }
