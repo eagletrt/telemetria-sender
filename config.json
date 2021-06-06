@@ -12,9 +12,9 @@
     "collection": "chimera"
   },
   "gps": {
-    "plugged": 0,
-    "simulated": 1,
-    "interface": "/dev/pts/4"
+    "plugged": 1,
+    "simulated": 0,
+    "interface": "/home/gps0"
   },
   "pilots": [
     "default",
