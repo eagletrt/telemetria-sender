@@ -304,21 +304,6 @@ Classes and Structs
 .. toctree::
    :maxdepth: 5
 
-   structlaps__data.rst
-
-.. toctree::
-   :maxdepth: 5
-
-   structlaps__laps__data.rst
-
-.. toctree::
-   :maxdepth: 5
-
-   structlaps__laps__value__data.rst
-
-.. toctree::
-   :maxdepth: 5
-
    structmongodb__config__t.rst
 
 .. toctree::

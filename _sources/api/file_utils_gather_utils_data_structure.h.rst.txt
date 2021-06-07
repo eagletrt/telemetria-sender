@@ -142,12 +142,6 @@ Classes
 
 - :ref:`exhale_struct_structinverters__right__torque__data`
 
-- :ref:`exhale_struct_structlaps__data`
-
-- :ref:`exhale_struct_structlaps__laps__data`
-
-- :ref:`exhale_struct_structlaps__laps__value__data`
-
 - :ref:`exhale_struct_structpedals__brake__data`
 
 - :ref:`exhale_struct_structpedals__brake__value__data`
