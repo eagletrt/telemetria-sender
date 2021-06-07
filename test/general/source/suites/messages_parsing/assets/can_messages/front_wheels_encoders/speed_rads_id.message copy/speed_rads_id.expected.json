@@ -1,0 +1,162 @@
+{
+    "front_wheels_encoders": {
+        "rotation_and_km": [
+            {
+                "timestamp": 16229065562611260,
+                "value": {
+                    "rotations": 98,
+                    "km": 121
+                }
+            },
+            {
+                "timestamp": 16229065562811570,
+                "value": {
+                    "rotations": 98,
+                    "km": 121
+                }
+            },
+            {
+                "timestamp": 16229065563011600,
+                "value": {
+                    "rotations": 98,
+                    "km": 121
+                }
+            },
+            {
+                "timestamp": 16229065563211730,
+                "value": {
+                    "rotations": 98,
+                    "km": 121
+                }
+            },
+            {
+                "timestamp": 16229065563411460,
+                "value": {
+                    "rotations": 98,
+                    "km": 121
+                }
+            },
+            {
+                "timestamp": 16229065563611030,
+                "value": {
+                    "rotations": 98,
+                    "km": 121
+                }
+            },
+            {
+                "timestamp": 16229065563811760,
+                "value": {
+                    "rotations": 98,
+                    "km": 121
+                }
+            },
+            {
+                "timestamp": 16229065564011790,
+                "value": {
+                    "rotations": 98,
+                    "km": 121
+                }
+            },
+            {
+                "timestamp": 16229065564212580,
+                "value": {
+                    "rotations": 98,
+                    "km": 121
+                }
+            },
+            {
+                "timestamp": 16229065564413740,
+                "value": {
+                    "rotations": 98,
+                    "km": 121
+                }
+            },
+            {
+                "timestamp": 16229065564611500,
+                "value": {
+                    "rotations": 98,
+                    "km": 121
+                }
+            },
+            {
+                "timestamp": 16229065564811550,
+                "value": {
+                    "rotations": 98,
+                    "km": 121
+                }
+            }
+        ],
+        "speed_rads": [
+            {
+                "timestamp": 16229065562621100,
+                "value": {
+                    "left": -1,
+                    "right": -1
+                }
+            },
+            {
+                "timestamp": 16229065562821550,
+                "value": {
+                    "left": -1,
+                    "right": -1
+                }
+            },
+            {
+                "timestamp": 16229065563021670,
+                "value": {
+                    "left": -1,
+                    "right": -1
+                }
+            },
+            {
+                "timestamp": 16229065563221670,
+                "value": {
+                    "left": -1,
+                    "right": -1
+                }
+            },
+            {
+                "timestamp": 16229065563421510,
+                "value": {
+                    "left": -1,
+                    "right": -1
+                }
+            },
+            {
+                "timestamp": 16229065563621110,
+                "value": {
+                    "left": -1,
+                    "right": -1
+                }
+            },
+            {
+                "timestamp": 16229065563822790,
+                "value": {
+                    "left": -1,
+                    "right": -1
+                }
+            },
+            {
+                "timestamp": 16229065564021650,
+                "value": {
+                    "left": -1,
+                    "right": -1
+                }
+            },
+            {
+                "timestamp": 16229065564222150,
+                "value": {
+                    "left": -1,
+                    "right": -1
+                }
+            },
+            {
+                "timestamp": 16229065564421970,
+                "value": {
+                    "left": -1,
+                    "right": -1
+                }
+            }
+        ]
+    }
+}

@@ -13,9 +13,9 @@
         "database": "telemetry_test"
     },
     "gps": {
-        "plugged": 0,
-        "simulated": 0,
-        "interface": "/dev/pts/2"
+        "plugged": 1,
+        "simulated": 1,
+        "interface": "/dev/pts/8"
     },
     "pilots": [
         "default",
