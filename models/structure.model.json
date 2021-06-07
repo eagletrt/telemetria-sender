@@ -255,79 +255,27 @@
         ]
     },
     "front_wheels_encoders": {
-        "right": {
-            "speed": [
-                {
-                    "timestamp": "long",
-                    "value": {
-                        "speed": "double",
-                        "error_flag": "int"
-                    },
-                    "maxLength": 500
-                }
-            ],
-            "speed_rads": [
-                {
-                    "timestamp": "long",
-                    "value": "double",
-                    "maxLength": 500
-                }
-            ],
-            "angle": [
-                {
-                    "timestamp": "long",
-                    "value": {
-                        "angle_0": "double",
-                        "angle_1": "double",
-                        "angle_delta": "double"
-                    },
-                    "maxLength": 500
-                }
-            ]
-        },
-        "left": {
-            "speed": [
-                {
-                    "timestamp": "long",
-                    "value": {
-                        "speed": "double",
-                        "error_flag": "int"
-                    },
-                    "maxLength": 500
-                }
-            ],
-            "speed_rads": [
-                {
-                    "timestamp": "long",
-                    "value": "double",
-                    "maxLength": 500
-                }
-            ],
-            "angle": [
-                {
-                    "timestamp": "long",
-                    "value": {
-                        "angle_0": "double",
-                        "angle_1": "double",
-                        "angle_delta": "double"
-                    },
-                    "maxLength": 500
-                }
-            ]
-        }
+        "speed_rads": [
+            {
+                "timestamp": "long",
+                "value": {
+                    "left": "double",
+                    "right": "double"
+                },
+                "maxLength": 500
+            }
+        ],
+        "rotation_and_km": [
+            {
+                "timestamp": "long",
+                "value": {
+                    "rotations": "double",
+                    "km": "double"
+                },
+                "maxLength": 500
+            }
+        ]
     },
-    "distance": [
-        {
-            "timestamp": "long",
-            "value": {
-                "meters": "double",
-                "rotations": "double",
-                "angle": "double",
-                "clock_period": "double"
-            },
-            "maxLength": 500
-        }
-    ],
     "pedals": {
         "throttle": [
             {

@@ -7,7 +7,7 @@ pthread_attr_t gather_can_thread_attr;
 
 /* INTERNAL FUNCTIONS SIGNATURES */
 
-static void* parseCanMessages(void *args);
+static void* parseCanMessages(void* args);
 
 /* EXPORTED FUNCTIONS */
 
@@ -24,25 +24,25 @@ void gatherCanStopThread() {
 
 /* INTERNAL FUNCTIONS DEFINITIONS */
 
-static void* parseCanMessages(void *args) {
-    // Declare used variables
-    data_t* document;
-    int id = 0, data_left, data_right, first_byte;
-    int byte_left, byte_right, temp;
+static void* parseCanMessages(void* args) {
+	// Declare used variables
+	data_t* document;
+	int id = 0, data_left, data_right, first_byte;
+	int byte_left, byte_right, temp;
 
 	while (1) {
 		// Assign used variables
-        id = 0;
+		id = 0;
 
 		// Read can
 		canRead(&id, &data_left, &data_right);
 		first_byte = ((data_left >> 24) & 255);
 
-        // Lock document
-        pthread_mutex_lock(&condition.structure.threads.data_head_mutex);
+		// Lock document
+		pthread_mutex_lock(&condition.structure.threads.data_head_mutex);
 
-        // Create reference to data_head
-        document = condition.structure.data_head;
+		// Create reference to data_head
+		document = condition.structure.data_head;
 
 		// Parse message in base of the id
 		switch (id) {
@@ -216,7 +216,7 @@ static void* parseCanMessages(void *args) {
 							document->imu_old.gyro[document->imu_old.gyro_count].value.x = (double)((data_left >> 8) & 0x0000FFFF);
 							document->imu_old.gyro[document->imu_old.gyro_count].value.y = (double)(((data_left & 0x000000FF) << 8) + ((data_right >> 24) & 0x000000FF));
 							document->imu_old.gyro[document->imu_old.gyro_count].value.z = (double)((data_right >> 8) & 0x0000FFFF);
-							document->imu_old.gyro[document->imu_old.gyro_count].value.scale = ((data_right) & 0x000000FF) * 10.0;
+							document->imu_old.gyro[document->imu_old.gyro_count].value.scale = ((data_right)&0x000000FF) * 10.0;
 
 							document->imu_old.gyro[document->imu_old.gyro_count].value.x /= 10.0;
 							document->imu_old.gyro[document->imu_old.gyro_count].value.y /= 10.0;
@@ -236,7 +236,7 @@ static void* parseCanMessages(void *args) {
 							document->imu_old.accel[document->imu_old.accel_count].value.x = (double)((data_left >> 8) & 0x0000FFFF);
 							document->imu_old.accel[document->imu_old.accel_count].value.y = (double)(((data_left & 0x000000FF) << 8) + ((data_right >> 24) & 0x000000FF));
 							document->imu_old.accel[document->imu_old.accel_count].value.z = (double)((data_right >> 8) & 0x0000FFFF);
-							document->imu_old.accel[document->imu_old.accel_count].value.scale = (data_right) & 0x000000FF;
+							document->imu_old.accel[document->imu_old.accel_count].value.scale = (data_right)&0x000000FF;
 
 							document->imu_old.accel[document->imu_old.accel_count].value.x /= 100.0;
 							document->imu_old.accel[document->imu_old.accel_count].value.y /= 100.0;
@@ -302,82 +302,21 @@ static void* parseCanMessages(void *args) {
 				}
 				break;
 
-			case (FRONT_WHEELS_ENCODER_RIGHT_ID):
-				switch (first_byte) {
-					case FRONT_WHEELS_FB_SPEED_FB:
-						if (document->front_wheels_encoders.right.speed_count < document->front_wheels_encoders.right.speed_size) {
-							document->front_wheels_encoders.right.speed[document->front_wheels_encoders.right.speed_count].timestamp = getCurrentTimestamp();
-							//TODO: important check / 1
-							document->front_wheels_encoders.right.speed[document->front_wheels_encoders.right.speed_count].value.speed = ((data_left >> 8) & 0x0000FFFF) * ((data_left & 0x000000FF) == 0 ? 1.0 : -1.0);
-							document->front_wheels_encoders.right.speed[document->front_wheels_encoders.right.speed_count].value.error_flag = (data_right >> 8) & 0x000000FF;
-							++(document->front_wheels_encoders.right.speed_count);
-						}
-						break;
-
-					case FRONT_WHEELS_FB_SPEED_RADS_FB:
-						if (document->front_wheels_encoders.right.speed_rads_count < document->front_wheels_encoders.right.speed_rads_size) {
-							document->front_wheels_encoders.right.speed_rads[document->front_wheels_encoders.right.speed_rads_count].timestamp = getCurrentTimestamp();
-							//TODO: check / 1000.0 and not / 1000 and negative
-							document->front_wheels_encoders.right.speed_rads[document->front_wheels_encoders.right.speed_rads_count].value = (data_left & 0x00FFFFFF) / (((data_right & 0x000000FF) == 1) ? -10000.0 : 10000.0);
-							++(document->front_wheels_encoders.right.speed_rads_count);
-						}
-						break;
-
-					case FRONT_WHEELS_FB_SPEED_ANGLE_FB:
-						if (document->front_wheels_encoders.right.angle_count < document->front_wheels_encoders.right.angle_size) {
-							document->front_wheels_encoders.right.angle[document->front_wheels_encoders.right.angle_count].timestamp = getCurrentTimestamp();
-							//TODO: check / 100.0 and not / 100
-							document->front_wheels_encoders.right.angle[document->front_wheels_encoders.right.angle_count].value.angle_0 = ((data_left >> 8) & 0x0000FFFF) / 100.0;
-							document->front_wheels_encoders.right.angle[document->front_wheels_encoders.right.angle_count].value.angle_1 = (((data_left & 0x000000FF) << 8) + ((data_right >> 24) & 0x000000FF)) / 100.0;
-							document->front_wheels_encoders.right.angle[document->front_wheels_encoders.right.angle_count].value.angle_delta = ((data_right >> 8) & 0x0000FFFF) / 100.0;
-							++(document->front_wheels_encoders.right.angle_count);
-						}
-						break;
-
-					case DISTANCE_FB:
-						if (document->distance_count < document->distance_size) {
-							document->distance[document->distance_count].timestamp = getCurrentTimestamp();
-							document->distance[document->distance_count].value.meters = (data_left >> 8) & 0x0000FFFF;
-							document->distance[document->distance_count].value.rotations = ((data_left & 0x000000FF) << 8) + ((data_right >> 24) & 0x000000FF);
-							document->distance[document->distance_count].value.angle = (data_right >> 16) & 0x000000F;
-							document->distance[document->distance_count].value.clock_period = (data_right >> 8) & 0x000000F;
-							++(document->distance_count);
-						}
-						break;
+			case (FRONT_WHEELS_ENCODERS_ROTATION_AND_KM_ID):
+				if (document->front_wheels_encoders.rotation_and_km_count < document->front_wheels_encoders.speed_rads_size) {
+					document->front_wheels_encoders.rotation_and_km[document->front_wheels_encoders.rotation_and_km_count].timestamp = getCurrentTimestamp();
+					document->front_wheels_encoders.rotation_and_km[document->front_wheels_encoders.rotation_and_km_count].value.rotations = ((data_left >> 8) & 0x00FFFFFF) * (((data_right >> 8) & 0x000000FF) == 0 ? 1.0 : -1.0);
+					document->front_wheels_encoders.rotation_and_km[document->front_wheels_encoders.rotation_and_km_count].value.km = (((data_left & 0x000000FF) >> 16) + ((data_left >> 16) & 0x0000FFFF)) * ((data_right & 0x000000FF) == 0 ? 1.0 : -1.0);
+					++(document->front_wheels_encoders.rotation_and_km_count);
 				}
 				break;
-
-			case (FRONT_WHEELS_ENCODER_LEFT_ID):
-				switch (first_byte) {
-					case FRONT_WHEELS_FB_SPEED_FB:
-						if (document->front_wheels_encoders.left.speed_count < document->front_wheels_encoders.left.speed_size) {
-							document->front_wheels_encoders.left.speed[document->front_wheels_encoders.left.speed_count].timestamp = getCurrentTimestamp();
-							//TODO: IMPORTANT check double
-							document->front_wheels_encoders.left.speed[document->front_wheels_encoders.left.speed_count].value.speed = ((data_left >> 8) & 0x0000FFFF) * ((data_left & 0x000000FF) == 0 ? 1 : -1);
-							document->front_wheels_encoders.left.speed[document->front_wheels_encoders.left.speed_count].value.error_flag = (data_right >> 8) & 0x000000FF;
-							++(document->front_wheels_encoders.left.speed_count);
-						}
-						break;
-
-					case FRONT_WHEELS_FB_SPEED_RADS_FB:
-						if (document->front_wheels_encoders.left.speed_rads_count < document->front_wheels_encoders.left.speed_rads_size) {
-							document->front_wheels_encoders.left.speed_rads[document->front_wheels_encoders.left.speed_rads_count].timestamp = getCurrentTimestamp();
-							//TODO: check / 1000.0 and not / 1000 and negative
-							document->front_wheels_encoders.left.speed_rads[document->front_wheels_encoders.left.speed_rads_count].value = (data_left & 0x00FFFFFF) / (((data_right & 0x000000FF) == 1) ? -10000.0 : 10000.0);
-							++(document->front_wheels_encoders.left.speed_rads_count);
-						}
-						break;
-
-					case FRONT_WHEELS_FB_SPEED_ANGLE_FB:
-						if (document->front_wheels_encoders.left.angle_count < document->front_wheels_encoders.left.angle_size) {
-							document->front_wheels_encoders.left.angle[document->front_wheels_encoders.left.angle_count].timestamp = getCurrentTimestamp();
-							//TODO: check / 100.0 and not / 100
-							document->front_wheels_encoders.left.angle[document->front_wheels_encoders.left.angle_count].value.angle_0 = ((data_left >> 8) & 0x0000FFFF) / 100.0;
-							document->front_wheels_encoders.left.angle[document->front_wheels_encoders.left.angle_count].value.angle_1 = (((data_left & 0x000000FF) << 8) + ((data_right >> 24) & 0x000000FF)) / 100.0;
-							document->front_wheels_encoders.left.angle[document->front_wheels_encoders.left.angle_count].value.angle_delta = ((data_right >> 8) & 0x0000FFFF) / 100.0;
-							++(document->front_wheels_encoders.left.angle_count);
-						}
-						break;
+				
+			case (FRONT_WHEELS_ENCODERS_SPEED_RADS_ID):
+				if (document->front_wheels_encoders.speed_rads_count < document->front_wheels_encoders.speed_rads_size) {
+					document->front_wheels_encoders.speed_rads[document->front_wheels_encoders.speed_rads_count].timestamp = getCurrentTimestamp();
+					document->front_wheels_encoders.speed_rads[document->front_wheels_encoders.speed_rads_count].value.left = ((data_left >> 8) & 0x00FFFFFF);
+					document->front_wheels_encoders.speed_rads[document->front_wheels_encoders.speed_rads_count].value.right = (((data_left & 0x000000FF) >> 16) + ((data_left >> 16) & 0x0000FFFF));
+					++(document->front_wheels_encoders.speed_rads_count);
 				}
 				break;
 
@@ -396,7 +335,7 @@ static void* parseCanMessages(void *args) {
 						document->steering_wheel.gears[document->steering_wheel.gears_count].timestamp = getCurrentTimestamp();
 						document->steering_wheel.gears[document->steering_wheel.gears_count].value.control = (data_left >> 16) & 0xFF;
 						document->steering_wheel.gears[document->steering_wheel.gears_count].value.cooling = (data_left >> 8) & 0xFF;
-						document->steering_wheel.gears[document->steering_wheel.gears_count].value.map = (data_left) & 0xFF;
+						document->steering_wheel.gears[document->steering_wheel.gears_count].value.map = (data_left)&0xFF;
 					}
 				} else if (first_byte == MARKER_FB) {
 					document->steering_wheel.marker = 1;
@@ -408,44 +347,40 @@ static void* parseCanMessages(void *args) {
 					if (status == 0) {
 						if (condition.structure.enabled == 0) {
 							logWarning("Error in structure: telemetry already disabled");
-						}
-						else {
+						} else {
 							pthread_mutex_lock(&condition.structure.threads.toggle_state_mutex);
 							condition.structure.toggle_state = 1;
 							pthread_mutex_unlock(&condition.structure.threads.toggle_state_mutex);
 						}
-					}
-					else if (status == 1) {
+					} else if (status == 1) {
 						if (condition.structure.enabled == 1) {
 							logWarning("Error in structure: telemetry already enabled");
-						}
-						else {
+						} else {
 							if (pilot_index >= condition.session.pilots_count) {
 								logWarning("Error in structure: invalid pilot from wheel. Using default pilot.");
 								pilot_index = 0;
-							} 
+							}
 							if (race_index >= condition.session.races_count) {
 								logWarning("Error in structure: invalid race from wheel. Using default race.");
 								race_index = 0;
-							} 
+							}
 
 							condition.session.selected_pilot = pilot_index;
 							condition.session.selected_race = race_index;
-							
+
 							pthread_mutex_lock(&condition.structure.threads.toggle_state_mutex);
 							condition.structure.toggle_state = 1;
 							pthread_mutex_unlock(&condition.structure.threads.toggle_state_mutex);
 						}
-					}
-					else {
+					} else {
 						logWarning("Error in structure: invalid status from wheel");
 					}
 				}
 				break;
 		}
 
-        // Unlock document
-        pthread_mutex_unlock(&condition.structure.threads.data_head_mutex);
+		// Unlock document
+		pthread_mutex_unlock(&condition.structure.threads.data_head_mutex);
 	}
 
 	return NULL;

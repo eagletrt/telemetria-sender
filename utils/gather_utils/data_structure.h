@@ -319,97 +319,33 @@ typedef struct {
 } imu_data;
 
 typedef struct {
-	double speed;
-	int error_flag;
-} front_wheels_encoders_right_speed_value_data;
+	double left;
+	double right;
+} front_wheels_encoders_speed_rads_value_data;
 
 typedef struct {
 	long timestamp;
-	front_wheels_encoders_right_speed_value_data value;
-} front_wheels_encoders_right_speed_data;
+	front_wheels_encoders_speed_rads_value_data value;
+} front_wheels_encoders_speed_rads_data;
 
 typedef struct {
-	long timestamp;
-	double value;
-} front_wheels_encoders_right_speed_rads_data;
-
-typedef struct {
-	double angle_0;
-	double angle_1;
-	double angle_delta;
-} front_wheels_encoders_right_angle_value_data;
-
-typedef struct {
-	long timestamp;
-	front_wheels_encoders_right_angle_value_data value;
-} front_wheels_encoders_right_angle_data;
-
-typedef struct {
-	front_wheels_encoders_right_speed_data *speed;
-	int speed_count;
-	int speed_size;
-	front_wheels_encoders_right_speed_rads_data *speed_rads;
-	int speed_rads_count;
-	int speed_rads_size;
-	front_wheels_encoders_right_angle_data *angle;
-	int angle_count;
-	int angle_size;
-} front_wheels_encoders_right_data;
-
-typedef struct {
-	double speed;
-	int error_flag;
-} front_wheels_encoders_left_speed_value_data;
-
-typedef struct {
-	long timestamp;
-	front_wheels_encoders_left_speed_value_data value;
-} front_wheels_encoders_left_speed_data;
-
-typedef struct {
-	long timestamp;
-	double value;
-} front_wheels_encoders_left_speed_rads_data;
-
-typedef struct {
-	double angle_0;
-	double angle_1;
-	double angle_delta;
-} front_wheels_encoders_left_angle_value_data;
-
-typedef struct {
-	long timestamp;
-	front_wheels_encoders_left_angle_value_data value;
-} front_wheels_encoders_left_angle_data;
-
-typedef struct {
-	front_wheels_encoders_left_speed_data *speed;
-	int speed_count;
-	int speed_size;
-	front_wheels_encoders_left_speed_rads_data *speed_rads;
-	int speed_rads_count;
-	int speed_rads_size;
-	front_wheels_encoders_left_angle_data *angle;
-	int angle_count;
-	int angle_size;
-} front_wheels_encoders_left_data;
-
-typedef struct {
-	front_wheels_encoders_right_data right;
-	front_wheels_encoders_left_data left;
-} front_wheels_encoders_data;
-
-typedef struct {
-	double meters;
 	double rotations;
-	double angle;
-	double clock_period;
-} distance_value_data;
+	double km;
+} front_wheels_encoders_rotation_and_km_value_data;
 
 typedef struct {
 	long timestamp;
-	distance_value_data value;
-} distance_data;
+	front_wheels_encoders_rotation_and_km_value_data value;
+} front_wheels_encoders_rotation_and_km_data;
+
+typedef struct {
+	front_wheels_encoders_speed_rads_data *speed_rads;
+	int speed_rads_count;
+	int speed_rads_size;
+	front_wheels_encoders_rotation_and_km_data *rotation_and_km;
+	int rotation_and_km_count;
+	int rotation_and_km_size;
+} front_wheels_encoders_data;
 
 typedef struct {
 	long timestamp;
@@ -474,9 +410,6 @@ typedef struct {
 	imu_old_data imu_old;
 	imu_data imu;
 	front_wheels_encoders_data front_wheels_encoders;
-	distance_data *distance;
-	int distance_count;
-	int distance_size;
 	pedals_data pedals;
 	steering_wheel_data steering_wheel;
 } data_t;
