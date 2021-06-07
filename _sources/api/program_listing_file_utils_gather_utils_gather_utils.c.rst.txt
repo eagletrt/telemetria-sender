@@ -87,27 +87,12 @@ Program Listing for File gather_utils.c
        data->imu.accel_size = 500;
        data->imu.accel = (imu_accel_data*) malloc(sizeof(imu_accel_data) * data->imu.accel_size);
        data->imu.accel_count = 0;
-       data->front_wheels_encoders.right.speed_size = 500;
-       data->front_wheels_encoders.right.speed = (front_wheels_encoders_right_speed_data*) malloc(sizeof(front_wheels_encoders_right_speed_data) * data->front_wheels_encoders.right.speed_size);
-       data->front_wheels_encoders.right.speed_count = 0;
-       data->front_wheels_encoders.right.speed_rads_size = 500;
-       data->front_wheels_encoders.right.speed_rads = (front_wheels_encoders_right_speed_rads_data*) malloc(sizeof(front_wheels_encoders_right_speed_rads_data) * data->front_wheels_encoders.right.speed_rads_size);
-       data->front_wheels_encoders.right.speed_rads_count = 0;
-       data->front_wheels_encoders.right.angle_size = 500;
-       data->front_wheels_encoders.right.angle = (front_wheels_encoders_right_angle_data*) malloc(sizeof(front_wheels_encoders_right_angle_data) * data->front_wheels_encoders.right.angle_size);
-       data->front_wheels_encoders.right.angle_count = 0;
-       data->front_wheels_encoders.left.speed_size = 500;
-       data->front_wheels_encoders.left.speed = (front_wheels_encoders_left_speed_data*) malloc(sizeof(front_wheels_encoders_left_speed_data) * data->front_wheels_encoders.left.speed_size);
-       data->front_wheels_encoders.left.speed_count = 0;
-       data->front_wheels_encoders.left.speed_rads_size = 500;
-       data->front_wheels_encoders.left.speed_rads = (front_wheels_encoders_left_speed_rads_data*) malloc(sizeof(front_wheels_encoders_left_speed_rads_data) * data->front_wheels_encoders.left.speed_rads_size);
-       data->front_wheels_encoders.left.speed_rads_count = 0;
-       data->front_wheels_encoders.left.angle_size = 500;
-       data->front_wheels_encoders.left.angle = (front_wheels_encoders_left_angle_data*) malloc(sizeof(front_wheels_encoders_left_angle_data) * data->front_wheels_encoders.left.angle_size);
-       data->front_wheels_encoders.left.angle_count = 0;
-       data->distance_size = 500;
-       data->distance = (distance_data*) malloc(sizeof(distance_data) * data->distance_size);
-       data->distance_count = 0;
+       data->front_wheels_encoders.speed_rads_size = 500;
+       data->front_wheels_encoders.speed_rads = (front_wheels_encoders_speed_rads_data*) malloc(sizeof(front_wheels_encoders_speed_rads_data) * data->front_wheels_encoders.speed_rads_size);
+       data->front_wheels_encoders.speed_rads_count = 0;
+       data->front_wheels_encoders.rotation_and_km_size = 500;
+       data->front_wheels_encoders.rotation_and_km = (front_wheels_encoders_rotation_and_km_data*) malloc(sizeof(front_wheels_encoders_rotation_and_km_data) * data->front_wheels_encoders.rotation_and_km_size);
+       data->front_wheels_encoders.rotation_and_km_count = 0;
        data->pedals.throttle_size = 500;
        data->pedals.throttle = (pedals_throttle_data*) malloc(sizeof(pedals_throttle_data) * data->pedals.throttle_size);
        data->pedals.throttle_count = 0;
@@ -149,13 +134,8 @@ Program Listing for File gather_utils.c
        free(data->imu_old.accel);
        free(data->imu.gyro);
        free(data->imu.accel);
-       free(data->front_wheels_encoders.right.speed);
-       free(data->front_wheels_encoders.right.speed_rads);
-       free(data->front_wheels_encoders.right.angle);
-       free(data->front_wheels_encoders.left.speed);
-       free(data->front_wheels_encoders.left.speed_rads);
-       free(data->front_wheels_encoders.left.angle);
-       free(data->distance);
+       free(data->front_wheels_encoders.speed_rads);
+       free(data->front_wheels_encoders.rotation_and_km);
        free(data->pedals.throttle);
        free(data->pedals.brake);
        free(data->steering_wheel.encoder);
@@ -166,7 +146,7 @@ Program Listing for File gather_utils.c
    
    void gatherDataToBson(data_t *data, bson_t** bson_document) {
        *bson_document = bson_new();
-       bson_t *children = (bson_t*)malloc(sizeof(bson_t) * 5);
+       bson_t *children = (bson_t*)malloc(sizeof(bson_t) * 4);
        BSON_APPEND_INT32(*bson_document, "id", data->id);
        BSON_APPEND_INT64(*bson_document, "timestamp", data->timestamp);
        BSON_APPEND_UTF8(*bson_document, "sessionName", data->sessionName);
@@ -543,114 +523,37 @@ Program Listing for File gather_utils.c
        bson_append_document_end(*bson_document, &children[0]);
        bson_destroy(&children[0]);
        BSON_APPEND_DOCUMENT_BEGIN(*bson_document, "front_wheels_encoders", &children[0]);
-       BSON_APPEND_DOCUMENT_BEGIN(&children[0], "right", &children[1]);
-       BSON_APPEND_ARRAY_BEGIN(&children[1], "speed", &children[2]);
-       for (int i = 0; i < (data->front_wheels_encoders.right.speed_count); i++)
+       BSON_APPEND_ARRAY_BEGIN(&children[0], "speed_rads", &children[1]);
+       for (int i = 0; i < (data->front_wheels_encoders.speed_rads_count); i++)
        {
-           BSON_APPEND_DOCUMENT_BEGIN(&children[2], "0", &children[3]);
-           BSON_APPEND_INT64(&children[3], "timestamp", data->front_wheels_encoders.right.speed[i].timestamp);
-           BSON_APPEND_DOCUMENT_BEGIN(&children[3], "value", &children[4]);
-           BSON_APPEND_DOUBLE(&children[4], "speed", data->front_wheels_encoders.right.speed[i].value.speed);
-           BSON_APPEND_INT32(&children[4], "error_flag", data->front_wheels_encoders.right.speed[i].value.error_flag);
-           bson_append_document_end(&children[3], &children[4]);
-           bson_destroy(&children[4]);
+           BSON_APPEND_DOCUMENT_BEGIN(&children[1], "0", &children[2]);
+           BSON_APPEND_INT64(&children[2], "timestamp", data->front_wheels_encoders.speed_rads[i].timestamp);
+           BSON_APPEND_DOCUMENT_BEGIN(&children[2], "value", &children[3]);
+           BSON_APPEND_DOUBLE(&children[3], "left", data->front_wheels_encoders.speed_rads[i].value.left);
+           BSON_APPEND_DOUBLE(&children[3], "right", data->front_wheels_encoders.speed_rads[i].value.right);
            bson_append_document_end(&children[2], &children[3]);
            bson_destroy(&children[3]);
-       }
-       bson_append_array_end(&children[1], &children[2]);
-       bson_destroy(&children[2]);
-       BSON_APPEND_ARRAY_BEGIN(&children[1], "speed_rads", &children[2]);
-       for (int i = 0; i < (data->front_wheels_encoders.right.speed_rads_count); i++)
-       {
-           BSON_APPEND_DOCUMENT_BEGIN(&children[2], "0", &children[3]);
-           BSON_APPEND_INT64(&children[3], "timestamp", data->front_wheels_encoders.right.speed_rads[i].timestamp);
-           BSON_APPEND_DOUBLE(&children[3], "value", data->front_wheels_encoders.right.speed_rads[i].value);
-           bson_append_document_end(&children[2], &children[3]);
-           bson_destroy(&children[3]);
-       }
-       bson_append_array_end(&children[1], &children[2]);
-       bson_destroy(&children[2]);
-       BSON_APPEND_ARRAY_BEGIN(&children[1], "angle", &children[2]);
-       for (int i = 0; i < (data->front_wheels_encoders.right.angle_count); i++)
-       {
-           BSON_APPEND_DOCUMENT_BEGIN(&children[2], "0", &children[3]);
-           BSON_APPEND_INT64(&children[3], "timestamp", data->front_wheels_encoders.right.angle[i].timestamp);
-           BSON_APPEND_DOCUMENT_BEGIN(&children[3], "value", &children[4]);
-           BSON_APPEND_DOUBLE(&children[4], "angle_0", data->front_wheels_encoders.right.angle[i].value.angle_0);
-           BSON_APPEND_DOUBLE(&children[4], "angle_1", data->front_wheels_encoders.right.angle[i].value.angle_1);
-           BSON_APPEND_DOUBLE(&children[4], "angle_delta", data->front_wheels_encoders.right.angle[i].value.angle_delta);
-           bson_append_document_end(&children[3], &children[4]);
-           bson_destroy(&children[4]);
-           bson_append_document_end(&children[2], &children[3]);
-           bson_destroy(&children[3]);
-       }
-       bson_append_array_end(&children[1], &children[2]);
-       bson_destroy(&children[2]);
-       bson_append_document_end(&children[0], &children[1]);
-       bson_destroy(&children[1]);
-       BSON_APPEND_DOCUMENT_BEGIN(&children[0], "left", &children[1]);
-       BSON_APPEND_ARRAY_BEGIN(&children[1], "speed", &children[2]);
-       for (int i = 0; i < (data->front_wheels_encoders.left.speed_count); i++)
-       {
-           BSON_APPEND_DOCUMENT_BEGIN(&children[2], "0", &children[3]);
-           BSON_APPEND_INT64(&children[3], "timestamp", data->front_wheels_encoders.left.speed[i].timestamp);
-           BSON_APPEND_DOCUMENT_BEGIN(&children[3], "value", &children[4]);
-           BSON_APPEND_DOUBLE(&children[4], "speed", data->front_wheels_encoders.left.speed[i].value.speed);
-           BSON_APPEND_INT32(&children[4], "error_flag", data->front_wheels_encoders.left.speed[i].value.error_flag);
-           bson_append_document_end(&children[3], &children[4]);
-           bson_destroy(&children[4]);
-           bson_append_document_end(&children[2], &children[3]);
-           bson_destroy(&children[3]);
-       }
-       bson_append_array_end(&children[1], &children[2]);
-       bson_destroy(&children[2]);
-       BSON_APPEND_ARRAY_BEGIN(&children[1], "speed_rads", &children[2]);
-       for (int i = 0; i < (data->front_wheels_encoders.left.speed_rads_count); i++)
-       {
-           BSON_APPEND_DOCUMENT_BEGIN(&children[2], "0", &children[3]);
-           BSON_APPEND_INT64(&children[3], "timestamp", data->front_wheels_encoders.left.speed_rads[i].timestamp);
-           BSON_APPEND_DOUBLE(&children[3], "value", data->front_wheels_encoders.left.speed_rads[i].value);
-           bson_append_document_end(&children[2], &children[3]);
-           bson_destroy(&children[3]);
-       }
-       bson_append_array_end(&children[1], &children[2]);
-       bson_destroy(&children[2]);
-       BSON_APPEND_ARRAY_BEGIN(&children[1], "angle", &children[2]);
-       for (int i = 0; i < (data->front_wheels_encoders.left.angle_count); i++)
-       {
-           BSON_APPEND_DOCUMENT_BEGIN(&children[2], "0", &children[3]);
-           BSON_APPEND_INT64(&children[3], "timestamp", data->front_wheels_encoders.left.angle[i].timestamp);
-           BSON_APPEND_DOCUMENT_BEGIN(&children[3], "value", &children[4]);
-           BSON_APPEND_DOUBLE(&children[4], "angle_0", data->front_wheels_encoders.left.angle[i].value.angle_0);
-           BSON_APPEND_DOUBLE(&children[4], "angle_1", data->front_wheels_encoders.left.angle[i].value.angle_1);
-           BSON_APPEND_DOUBLE(&children[4], "angle_delta", data->front_wheels_encoders.left.angle[i].value.angle_delta);
-           bson_append_document_end(&children[3], &children[4]);
-           bson_destroy(&children[4]);
-           bson_append_document_end(&children[2], &children[3]);
-           bson_destroy(&children[3]);
-       }
-       bson_append_array_end(&children[1], &children[2]);
-       bson_destroy(&children[2]);
-       bson_append_document_end(&children[0], &children[1]);
-       bson_destroy(&children[1]);
-       bson_append_document_end(*bson_document, &children[0]);
-       bson_destroy(&children[0]);
-       BSON_APPEND_ARRAY_BEGIN(*bson_document, "distance", &children[0]);
-       for (int i = 0; i < (data->distance_count); i++)
-       {
-           BSON_APPEND_DOCUMENT_BEGIN(&children[0], "0", &children[1]);
-           BSON_APPEND_INT64(&children[1], "timestamp", data->distance[i].timestamp);
-           BSON_APPEND_DOCUMENT_BEGIN(&children[1], "value", &children[2]);
-           BSON_APPEND_DOUBLE(&children[2], "meters", data->distance[i].value.meters);
-           BSON_APPEND_DOUBLE(&children[2], "rotations", data->distance[i].value.rotations);
-           BSON_APPEND_DOUBLE(&children[2], "angle", data->distance[i].value.angle);
-           BSON_APPEND_DOUBLE(&children[2], "clock_period", data->distance[i].value.clock_period);
            bson_append_document_end(&children[1], &children[2]);
            bson_destroy(&children[2]);
-           bson_append_document_end(&children[0], &children[1]);
-           bson_destroy(&children[1]);
        }
-       bson_append_array_end(*bson_document, &children[0]);
+       bson_append_array_end(&children[0], &children[1]);
+       bson_destroy(&children[1]);
+       BSON_APPEND_ARRAY_BEGIN(&children[0], "rotation_and_km", &children[1]);
+       for (int i = 0; i < (data->front_wheels_encoders.rotation_and_km_count); i++)
+       {
+           BSON_APPEND_DOCUMENT_BEGIN(&children[1], "0", &children[2]);
+           BSON_APPEND_INT64(&children[2], "timestamp", data->front_wheels_encoders.rotation_and_km[i].timestamp);
+           BSON_APPEND_DOCUMENT_BEGIN(&children[2], "value", &children[3]);
+           BSON_APPEND_DOUBLE(&children[3], "rotations", data->front_wheels_encoders.rotation_and_km[i].value.rotations);
+           BSON_APPEND_DOUBLE(&children[3], "km", data->front_wheels_encoders.rotation_and_km[i].value.km);
+           bson_append_document_end(&children[2], &children[3]);
+           bson_destroy(&children[3]);
+           bson_append_document_end(&children[1], &children[2]);
+           bson_destroy(&children[2]);
+       }
+       bson_append_array_end(&children[0], &children[1]);
+       bson_destroy(&children[1]);
+       bson_append_document_end(*bson_document, &children[0]);
        bson_destroy(&children[0]);
        BSON_APPEND_DOCUMENT_BEGIN(*bson_document, "pedals", &children[0]);
        BSON_APPEND_ARRAY_BEGIN(&children[0], "throttle", &children[1]);

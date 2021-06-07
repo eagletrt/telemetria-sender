@@ -483,97 +483,33 @@
 <span class="p">}</span> <span class="n">imu_data</span><span class="p">;</span>
 
 <span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
-    <span class="kt">double</span> <span class="n">speed</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">error_flag</span><span class="p">;</span>
-<span class="p">}</span> <span class="n">front_wheels_encoders_right_speed_value_data</span><span class="p">;</span>
+    <span class="kt">double</span> <span class="n">left</span><span class="p">;</span>
+    <span class="kt">double</span> <span class="n">right</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">front_wheels_encoders_speed_rads_value_data</span><span class="p">;</span>
 
 <span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
     <span class="kt">long</span> <span class="n">timestamp</span><span class="p">;</span>
-    <span class="n">front_wheels_encoders_right_speed_value_data</span> <span class="n">value</span><span class="p">;</span>
-<span class="p">}</span> <span class="n">front_wheels_encoders_right_speed_data</span><span class="p">;</span>
+    <span class="n">front_wheels_encoders_speed_rads_value_data</span> <span class="n">value</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">front_wheels_encoders_speed_rads_data</span><span class="p">;</span>
 
 <span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
-    <span class="kt">long</span> <span class="n">timestamp</span><span class="p">;</span>
-    <span class="kt">double</span> <span class="n">value</span><span class="p">;</span>
-<span class="p">}</span> <span class="n">front_wheels_encoders_right_speed_rads_data</span><span class="p">;</span>
-
-<span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
-    <span class="kt">double</span> <span class="n">angle_0</span><span class="p">;</span>
-    <span class="kt">double</span> <span class="n">angle_1</span><span class="p">;</span>
-    <span class="kt">double</span> <span class="n">angle_delta</span><span class="p">;</span>
-<span class="p">}</span> <span class="n">front_wheels_encoders_right_angle_value_data</span><span class="p">;</span>
-
-<span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
-    <span class="kt">long</span> <span class="n">timestamp</span><span class="p">;</span>
-    <span class="n">front_wheels_encoders_right_angle_value_data</span> <span class="n">value</span><span class="p">;</span>
-<span class="p">}</span> <span class="n">front_wheels_encoders_right_angle_data</span><span class="p">;</span>
-
-<span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
-    <span class="n">front_wheels_encoders_right_speed_data</span> <span class="o">*</span><span class="n">speed</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">speed_count</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">speed_size</span><span class="p">;</span>
-    <span class="n">front_wheels_encoders_right_speed_rads_data</span> <span class="o">*</span><span class="n">speed_rads</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">speed_rads_count</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">speed_rads_size</span><span class="p">;</span>
-    <span class="n">front_wheels_encoders_right_angle_data</span> <span class="o">*</span><span class="n">angle</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">angle_count</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">angle_size</span><span class="p">;</span>
-<span class="p">}</span> <span class="n">front_wheels_encoders_right_data</span><span class="p">;</span>
-
-<span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
-    <span class="kt">double</span> <span class="n">speed</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">error_flag</span><span class="p">;</span>
-<span class="p">}</span> <span class="n">front_wheels_encoders_left_speed_value_data</span><span class="p">;</span>
-
-<span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
-    <span class="kt">long</span> <span class="n">timestamp</span><span class="p">;</span>
-    <span class="n">front_wheels_encoders_left_speed_value_data</span> <span class="n">value</span><span class="p">;</span>
-<span class="p">}</span> <span class="n">front_wheels_encoders_left_speed_data</span><span class="p">;</span>
-
-<span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
-    <span class="kt">long</span> <span class="n">timestamp</span><span class="p">;</span>
-    <span class="kt">double</span> <span class="n">value</span><span class="p">;</span>
-<span class="p">}</span> <span class="n">front_wheels_encoders_left_speed_rads_data</span><span class="p">;</span>
-
-<span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
-    <span class="kt">double</span> <span class="n">angle_0</span><span class="p">;</span>
-    <span class="kt">double</span> <span class="n">angle_1</span><span class="p">;</span>
-    <span class="kt">double</span> <span class="n">angle_delta</span><span class="p">;</span>
-<span class="p">}</span> <span class="n">front_wheels_encoders_left_angle_value_data</span><span class="p">;</span>
-
-<span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
-    <span class="kt">long</span> <span class="n">timestamp</span><span class="p">;</span>
-    <span class="n">front_wheels_encoders_left_angle_value_data</span> <span class="n">value</span><span class="p">;</span>
-<span class="p">}</span> <span class="n">front_wheels_encoders_left_angle_data</span><span class="p">;</span>
-
-<span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
-    <span class="n">front_wheels_encoders_left_speed_data</span> <span class="o">*</span><span class="n">speed</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">speed_count</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">speed_size</span><span class="p">;</span>
-    <span class="n">front_wheels_encoders_left_speed_rads_data</span> <span class="o">*</span><span class="n">speed_rads</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">speed_rads_count</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">speed_rads_size</span><span class="p">;</span>
-    <span class="n">front_wheels_encoders_left_angle_data</span> <span class="o">*</span><span class="n">angle</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">angle_count</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">angle_size</span><span class="p">;</span>
-<span class="p">}</span> <span class="n">front_wheels_encoders_left_data</span><span class="p">;</span>
-
-<span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
-    <span class="n">front_wheels_encoders_right_data</span> <span class="n">right</span><span class="p">;</span>
-    <span class="n">front_wheels_encoders_left_data</span> <span class="n">left</span><span class="p">;</span>
-<span class="p">}</span> <span class="n">front_wheels_encoders_data</span><span class="p">;</span>
-
-<span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
-    <span class="kt">double</span> <span class="n">meters</span><span class="p">;</span>
     <span class="kt">double</span> <span class="n">rotations</span><span class="p">;</span>
-    <span class="kt">double</span> <span class="n">angle</span><span class="p">;</span>
-    <span class="kt">double</span> <span class="n">clock_period</span><span class="p">;</span>
-<span class="p">}</span> <span class="n">distance_value_data</span><span class="p">;</span>
+    <span class="kt">double</span> <span class="n">km</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">front_wheels_encoders_rotation_and_km_value_data</span><span class="p">;</span>
 
 <span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
     <span class="kt">long</span> <span class="n">timestamp</span><span class="p">;</span>
-    <span class="n">distance_value_data</span> <span class="n">value</span><span class="p">;</span>
-<span class="p">}</span> <span class="n">distance_data</span><span class="p">;</span>
+    <span class="n">front_wheels_encoders_rotation_and_km_value_data</span> <span class="n">value</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">front_wheels_encoders_rotation_and_km_data</span><span class="p">;</span>
+
+<span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
+    <span class="n">front_wheels_encoders_speed_rads_data</span> <span class="o">*</span><span class="n">speed_rads</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">speed_rads_count</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">speed_rads_size</span><span class="p">;</span>
+    <span class="n">front_wheels_encoders_rotation_and_km_data</span> <span class="o">*</span><span class="n">rotation_and_km</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">rotation_and_km_count</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">rotation_and_km_size</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">front_wheels_encoders_data</span><span class="p">;</span>
 
 <span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
     <span class="kt">long</span> <span class="n">timestamp</span><span class="p">;</span>
@@ -638,9 +574,6 @@
     <span class="n">imu_old_data</span> <span class="n">imu_old</span><span class="p">;</span>
     <span class="n">imu_data</span> <span class="n">imu</span><span class="p">;</span>
     <span class="n">front_wheels_encoders_data</span> <span class="n">front_wheels_encoders</span><span class="p">;</span>
-    <span class="n">distance_data</span> <span class="o">*</span><span class="n">distance</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">distance_count</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">distance_size</span><span class="p">;</span>
     <span class="n">pedals_data</span> <span class="n">pedals</span><span class="p">;</span>
     <span class="n">steering_wheel_data</span> <span class="n">steering_wheel</span><span class="p">;</span>
 <span class="p">}</span> <span class="n">data_t</span><span class="p">;</span>

@@ -72,35 +72,15 @@ Classes
 
 - :ref:`exhale_struct_structdata__t`
 
-- :ref:`exhale_struct_structdistance__data`
-
-- :ref:`exhale_struct_structdistance__value__data`
-
 - :ref:`exhale_struct_structfront__wheels__encoders__data`
 
-- :ref:`exhale_struct_structfront__wheels__encoders__left__angle__data`
+- :ref:`exhale_struct_structfront__wheels__encoders__rotation__and__km__data`
 
-- :ref:`exhale_struct_structfront__wheels__encoders__left__angle__value__data`
+- :ref:`exhale_struct_structfront__wheels__encoders__rotation__and__km__value__data`
 
-- :ref:`exhale_struct_structfront__wheels__encoders__left__data`
+- :ref:`exhale_struct_structfront__wheels__encoders__speed__rads__data`
 
-- :ref:`exhale_struct_structfront__wheels__encoders__left__speed__data`
-
-- :ref:`exhale_struct_structfront__wheels__encoders__left__speed__rads__data`
-
-- :ref:`exhale_struct_structfront__wheels__encoders__left__speed__value__data`
-
-- :ref:`exhale_struct_structfront__wheels__encoders__right__angle__data`
-
-- :ref:`exhale_struct_structfront__wheels__encoders__right__angle__value__data`
-
-- :ref:`exhale_struct_structfront__wheels__encoders__right__data`
-
-- :ref:`exhale_struct_structfront__wheels__encoders__right__speed__data`
-
-- :ref:`exhale_struct_structfront__wheels__encoders__right__speed__rads__data`
-
-- :ref:`exhale_struct_structfront__wheels__encoders__right__speed__value__data`
+- :ref:`exhale_struct_structfront__wheels__encoders__speed__rads__value__data`
 
 - :ref:`exhale_struct_structgps__data`
 

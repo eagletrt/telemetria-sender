@@ -1,6 +1,6 @@
-.. _exhale_struct_structfront__wheels__encoders__left__angle__value__data:
+.. _exhale_struct_structfront__wheels__encoders__speed__rads__value__data:
 
-Struct front_wheels_encoders_left_angle_value_data
+Struct front_wheels_encoders_speed_rads_value_data
 ==================================================
 
 - Defined in :ref:`file_utils_gather_utils_data_structure.h`
@@ -10,7 +10,7 @@ Struct Documentation
 --------------------
 
 
-.. doxygenstruct:: front_wheels_encoders_left_angle_value_data
+.. doxygenstruct:: front_wheels_encoders_speed_rads_value_data
    :members:
    :protected-members:
    :undoc-members:

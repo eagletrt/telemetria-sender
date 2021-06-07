@@ -1,6 +1,6 @@
-.. _exhale_struct_structfront__wheels__encoders__left__speed__rads__data:
+.. _exhale_struct_structfront__wheels__encoders__rotation__and__km__data:
 
-Struct front_wheels_encoders_left_speed_rads_data
+Struct front_wheels_encoders_rotation_and_km_data
 =================================================
 
 - Defined in :ref:`file_utils_gather_utils_data_structure.h`
@@ -10,7 +10,7 @@ Struct Documentation
 --------------------
 
 
-.. doxygenstruct:: front_wheels_encoders_left_speed_rads_data
+.. doxygenstruct:: front_wheels_encoders_rotation_and_km_data
    :members:
    :protected-members:
    :undoc-members:
