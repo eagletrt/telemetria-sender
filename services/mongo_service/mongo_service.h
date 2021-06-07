@@ -45,6 +45,11 @@ mongo_code mongoSetup();
 */
 mongo_code mongoStartSession();
 /**
+ * Insert a new lap document
+ * @return MONGO_INSERT_ERROR if there were an error, MONGO_OK otherwise
+*/
+mongo_code mongoNewLap();
+/**
  * Inserts a document to mongodb
  * @param data The bson document to insert
  * @return MONGO_INSERT_ERROR if there were an error, MONGO_OK otherwise

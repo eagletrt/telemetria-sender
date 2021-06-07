@@ -240,21 +240,6 @@ typedef struct {
 } gps_data;
 
 typedef struct {
-	int lap;
-} laps_laps_value_data;
-
-typedef struct {
-	long timestamp;
-	laps_laps_value_data value;
-} laps_laps_data;
-
-typedef struct {
-	laps_laps_data *laps;
-	int laps_count;
-	int laps_size;
-} laps_data;
-
-typedef struct {
 	double x;
 	double y;
 	double z;
@@ -402,11 +387,11 @@ typedef struct {
 	int id;
 	long timestamp;
 	char* sessionName;
+	int lap_index;
 	inverters_data inverters;
 	bms_hv_data bms_hv;
 	bms_lv_data bms_lv;
 	gps_data gps;
-	laps_data laps;
 	imu_old_data imu_old;
 	imu_data imu;
 	front_wheels_encoders_data front_wheels_encoders;

@@ -7,6 +7,7 @@
 #include <mosquitto.h>
 #include <mongoc.h>
 #include "../utils/gather_utils/data_structure.h"
+#include "../utils/lapcounter_utils/lapcounter_utils.h"
 
 /* STRUCTURES */
 
@@ -64,6 +65,7 @@ typedef struct {
     pthread_mutex_t flush_toilet_mutex;
     pthread_mutex_t toilet_flushed_mutex;
     pthread_mutex_t toggle_state_mutex;
+    pthread_mutex_t lap_index_mutex;
 
     pthread_cond_t flush_toilet_cond;
     pthread_cond_t toilet_flushed_cond;
@@ -73,6 +75,7 @@ typedef struct {
     char* model_version;
     int sending_rate;
     int id;
+    int lap_index;
     data_t* data_head;
     data_t* data_tail;
     int flush_toilet;
@@ -82,6 +85,10 @@ typedef struct {
 
     structure_threads_condition_t threads;
 } structure_condition_t;
+
+typedef struct {
+     lc_counter_t *lapcounter;
+} lapcounter_condition_t;
 
 /**
  * The struct of the condition, the only global variable of the project and that defines the status of the finite-state-machine. 
@@ -93,6 +100,7 @@ typedef struct {
     gps_condition_t gps;
     session_condition_t session;
     structure_condition_t structure;
+    lapcounter_condition_t lapcounter;
     char* config_path;
     int verbose;
 } condition_t;

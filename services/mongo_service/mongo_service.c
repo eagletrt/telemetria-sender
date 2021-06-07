@@ -99,6 +99,16 @@ static bson_t* sessionDocumentBson(const char* formatted_timestamp, const char* 
 	return document;
 }
 
+static bson_t* lapDocumentBson(const long long int timestamp, const char* session_name, const int lap_index) {
+	bson_t* document = bson_new();
+
+	BSON_APPEND_UTF8(document, "sessionName", session_name);
+	BSON_APPEND_INT64(document, "timestamp", timestamp);
+	BSON_APPEND_INT32(document, "lap_index", lap_index);
+
+	return document;
+}
+
 /* EXPORTED FUNCTIONS */
 
 mongo_code mongoSetup() {
@@ -139,6 +149,18 @@ mongo_code mongoInsert(bson_t* data) {
 	} else {
 		return MONGO_OK;
 	}
+}
+
+mongo_code mongoNewLap() {
+	long long int timestamp = getCurrentTimestamp();
+	const char* formatted_timestamp = getFormattedTimestamp(timestamp);
+	const char* pilot = condition.session.pilots[condition.session.selected_pilot];
+	const char* race = condition.session.races[condition.session.selected_race];
+	const char* model_version = condition.structure.model_version;
+	char* session_name = getSessionName(formatted_timestamp, pilot, race, model_version);
+
+	bson_t* lap_document = lapDocumentBson(timestamp, condition.mongodb.instance->session_name, condition.structure.lap_index);
+	return mongoInsert(lap_document);
 }
 
 void mongoQuit() {

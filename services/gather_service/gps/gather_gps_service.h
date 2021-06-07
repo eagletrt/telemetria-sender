@@ -11,7 +11,6 @@
 #include "../../../services/log_service/log_service.h"
 #include "../../../utils/gather_utils/gather_utils.h"
 #include "../../../utils/misc_utils/misc_utils.h"
-#include "../../../utils/lapcounter_utils/lapcounter_utils.h"
 #include "../../../state_machine/state_machine_condition.h"
 #include "../../gps_service/gps_service.h"
 

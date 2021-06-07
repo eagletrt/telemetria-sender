@@ -34,8 +34,12 @@ void gatherSetup();
 void gatherSetupRestart();
 
 /**
- * Resets the id of the data_head structure
+ * Resets the id of the data structure
 */
 void gatherResetDataId();
+/**
+ * Resets the lap of the data structure
+*/
+void gatherResetDataLapIndex();
 
 #endif

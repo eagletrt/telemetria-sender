@@ -2,6 +2,7 @@
     "id": "int",
     "timestamp": "long",
     "sessionName": "char*",
+    "lap_index": "int",
     "inverters": {
         "right": {
             "speed": [

@@ -60,9 +60,6 @@ data_t* gatherCreateData() {
 	data->gps.rmc_size = 500;
 	data->gps.rmc = (gps_rmc_data*) malloc(sizeof(gps_rmc_data) * data->gps.rmc_size);
 	data->gps.rmc_count = 0;
-	data->laps.laps_size = 500;
-	data->laps.laps = (laps_laps_data*) malloc(sizeof(laps_laps_data) * data->laps.laps_size);
-	data->laps.laps_count = 0;
 	data->imu_old.gyro_size = 500;
 	data->imu_old.gyro = (imu_old_gyro_data*) malloc(sizeof(imu_old_gyro_data) * data->imu_old.gyro_size);
 	data->imu_old.gyro_count = 0;
@@ -117,7 +114,6 @@ void gatherDeleteData(data_t *data) {
 	free(data->gps.gll);
 	free(data->gps.vtg);
 	free(data->gps.rmc);
-	free(data->laps.laps);
 	free(data->imu_old.gyro);
 	free(data->imu_old.accel);
 	free(data->imu.gyro);
@@ -138,6 +134,7 @@ void gatherDataToBson(data_t *data, bson_t** bson_document) {
 	BSON_APPEND_INT32(*bson_document, "id", data->id);
 	BSON_APPEND_INT64(*bson_document, "timestamp", data->timestamp);
 	BSON_APPEND_UTF8(*bson_document, "sessionName", data->sessionName);
+	BSON_APPEND_INT32(*bson_document, "lap_index", data->lap_index);
 	BSON_APPEND_DOCUMENT_BEGIN(*bson_document, "inverters", &children[0]);
 	BSON_APPEND_DOCUMENT_BEGIN(&children[0], "right", &children[1]);
 	BSON_APPEND_ARRAY_BEGIN(&children[1], "speed", &children[2]);
@@ -412,23 +409,6 @@ void gatherDataToBson(data_t *data, bson_t** bson_document) {
 		BSON_APPEND_UTF8(&children[3], "utc_time", data->gps.rmc[i].value.utc_time);
 		BSON_APPEND_UTF8(&children[3], "date", data->gps.rmc[i].value.date);
 		BSON_APPEND_DOUBLE(&children[3], "ground_speed_knots", data->gps.rmc[i].value.ground_speed_knots);
-		bson_append_document_end(&children[2], &children[3]);
-		bson_destroy(&children[3]);
-		bson_append_document_end(&children[1], &children[2]);
-		bson_destroy(&children[2]);
-	}
-	bson_append_array_end(&children[0], &children[1]);
-	bson_destroy(&children[1]);
-	bson_append_document_end(*bson_document, &children[0]);
-	bson_destroy(&children[0]);
-	BSON_APPEND_DOCUMENT_BEGIN(*bson_document, "laps", &children[0]);
-	BSON_APPEND_ARRAY_BEGIN(&children[0], "laps", &children[1]);
-	for (int i = 0; i < (data->laps.laps_count); i++)
-	{
-		BSON_APPEND_DOCUMENT_BEGIN(&children[1], "0", &children[2]);
-		BSON_APPEND_INT64(&children[2], "timestamp", data->laps.laps[i].timestamp);
-		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "value", &children[3]);
-		BSON_APPEND_INT32(&children[3], "lap", data->laps.laps[i].value.lap);
 		bson_append_document_end(&children[2], &children[3]);
 		bson_destroy(&children[3]);
 		bson_append_document_end(&children[1], &children[2]);

@@ -43,7 +43,6 @@ static void* parseGpsMessages(void *args) {
 	data_t* document;
     gps_struct* gps_data;
 	lc_point_t point;
-	lc_counter_t* lp = lc_init(NULL);
 
 	while (1) {
 		// Read gps serial port
@@ -104,8 +103,9 @@ static void* parseGpsMessages(void *args) {
 
 				point.x = document->gps.rmc[document->gps.rmc_count].value.latitude;
 				point.y = document->gps.rmc[document->gps.rmc_count].value.longitude;
-				lc_eval_point(lp, &point);
-				document->laps.laps[document->laps.laps_count].value.lap = lp->laps_count;
+				if (lc_eval_point(condition.lapcounter.lapcounter, &point)) {
+					condition.structure.lap_index += 1;
+				}
 
 				++(document->gps.rmc_count);
 			} 
@@ -116,9 +116,6 @@ static void* parseGpsMessages(void *args) {
 		// Unlock document
         pthread_mutex_unlock(&condition.structure.threads.data_head_mutex);
 	}
-
-	lc_reset(lp);
-	lc_destroy(lp);
 
 	return NULL;
 }

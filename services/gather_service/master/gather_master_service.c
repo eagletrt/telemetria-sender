@@ -28,6 +28,7 @@ void gatherMasterSwap() {
     condition.structure.data_head->timestamp = getCurrentTimestamp();
     condition.structure.data_head->sessionName = condition.mongodb.instance->session_name;
     condition.structure.data_head->id = condition.structure.id++;
+    condition.structure.data_head->lap_index = condition.structure.lap_index;
 
     swapPointers((void**) &condition.structure.data_head, (void**) &condition.structure.data_tail);
 
