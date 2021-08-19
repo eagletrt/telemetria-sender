@@ -4,7 +4,8 @@
     "files.associations": {
         "functional": "c",
         "mongo_service.h": "c",
-        "misc_utils.h": "c"
+        "misc_utils.h": "c",
+        "gather_gps_service.h": "c"
     },
     "workbench.colorCustomizations": {
         "activityBar.activeBackground": "#420080",

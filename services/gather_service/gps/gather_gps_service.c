@@ -105,6 +105,10 @@ static void* parseGpsMessages(void *args) {
 				point.y = document->gps.rmc[document->gps.rmc_count].value.longitude;
 				if (lc_eval_point(condition.lapcounter.lapcounter, &point)) {
 					condition.structure.lap_index += 1;
+
+					if (condition.structure.enabled == 1) {
+						mongoNewLap();
+					}
 				}
 
 				++(document->gps.rmc_count);
