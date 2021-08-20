@@ -8,8 +8,9 @@ static double getMillisecondsFromTimespec(struct timespec time);
 
 void gatherMasterWait() {
 	struct timespec tim, tim2;
-	tim.tv_sec = 0;
-	tim.tv_nsec = 500000000L;
+	
+	tim.tv_sec = condition.structure.sending_rate / 1000;
+	tim.tv_nsec = ((long) (condition.structure.sending_rate % 1000) * 1000000) ;
     nanosleep(&tim, &tim2);
 }
 
