@@ -15,6 +15,7 @@ void gatherCanStartThread() {
 	pthread_attr_init(&gather_can_thread_attr);
 	pthread_attr_setdetachstate(&gather_can_thread_attr, PTHREAD_CREATE_JOINABLE);
 	pthread_create(&gather_can_thread, &gather_can_thread_attr, &parseCanMessages, NULL);
+	pthread_setname_np(gather_can_thread, "tlm_can_gather");
 	pthread_attr_destroy(&gather_can_thread_attr);
 }
 

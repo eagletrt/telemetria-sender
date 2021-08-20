@@ -8,23 +8,24 @@ pthread_attr_t gather_gps_thread_attr;
 /* INTERNAL FUNCTIONS SIGNATURES */
 
 static double parseNmeaCoord(double coord);
-static void* parseGpsMessages(void *args);
+static void* parseGpsMessages(void* args);
 
 /* EXPORTED FUNCTIONS */
 
 void gatherGpsStartThread() {
 	// Execute only if GPS is plugged
-    if (condition.gps.plugged) {
+	if (condition.gps.plugged) {
 		pthread_attr_init(&gather_gps_thread_attr);
 		pthread_attr_setdetachstate(&gather_gps_thread_attr, PTHREAD_CREATE_JOINABLE);
 		pthread_create(&gather_gps_thread, &gather_gps_thread_attr, &parseGpsMessages, NULL);
+		pthread_setname_np(gather_gps_thread, "tlm_gps_gather");
 		pthread_attr_destroy(&gather_gps_thread_attr);
 	}
 }
 
 void gatherGpsStopThread() {
 	// Execute only if GPS is plugged
-    if (condition.gps.plugged) {
+	if (condition.gps.plugged) {
 		pthread_cancel(gather_gps_thread);
 	}
 }
@@ -32,16 +33,16 @@ void gatherGpsStopThread() {
 /* INTERNAL FUNCTIONS DEFINITIONS */
 
 static double parseNmeaCoord(double coord) {
-    double temp = coord / 100;
-    double left = floor(temp);
-    double right = (temp - left) * (5 / 3);
-    return (left + right);
+	double temp = coord / 100;
+	double left = floor(temp);
+	double right = (temp - left) * (5 / 3);
+	return (left + right);
 }
 
-static void* parseGpsMessages(void *args) {
+static void* parseGpsMessages(void* args) {
 	// Declare used variables
 	data_t* document;
-    gps_struct* gps_data;
+	gps_struct* gps_data;
 	lc_point_t point;
 
 	while (1) {
@@ -49,14 +50,13 @@ static void* parseGpsMessages(void *args) {
 		gps_data = readGPS();
 
 		// Lock document
-        pthread_mutex_lock(&condition.structure.threads.data_head_mutex);
+		pthread_mutex_lock(&condition.structure.threads.data_head_mutex);
 
 		// Create reference to data_head
-        document = condition.structure.data_head;
+		document = condition.structure.data_head;
 
 		// Parse gps message
 		if (gps_data != NULL) {
-
 			if (gps_data->gga && gps_data->gga->status && document->gps.gga_count < document->gps.gga_size) {
 				document->gps.gga[document->gps.gga_count].timestamp = getCurrentTimestamp();
 
@@ -70,8 +70,7 @@ static void* parseGpsMessages(void *args) {
 				document->gps.gga[document->gps.gga_count].value.utc_time = strdup(gps_data->gga->utc_time);
 
 				++(document->gps.gga_count);
-			}
-			else if (gps_data->gll && gps_data->gll->status && document->gps.gll_count < document->gps.gll_size) {
+			} else if (gps_data->gll && gps_data->gll->status && document->gps.gll_count < document->gps.gll_size) {
 				document->gps.gll[document->gps.gll_count].timestamp = getCurrentTimestamp();
 
 				document->gps.gll[document->gps.gll_count].value.latitude = parseNmeaCoord(gps_data->gll->latitude);
@@ -81,16 +80,14 @@ static void* parseGpsMessages(void *args) {
 				document->gps.gll[document->gps.gll_count].value.utc_time = strdup(gps_data->gll->utc_time);
 
 				++(document->gps.gll_count);
-			}
-			else if (gps_data->vtg && document->gps.vtg_count < document->gps.vtg_size) {
+			} else if (gps_data->vtg && document->gps.vtg_count < document->gps.vtg_size) {
 				document->gps.vtg[document->gps.vtg_count].timestamp = getCurrentTimestamp();
 
 				document->gps.vtg[document->gps.vtg_count].value.ground_speed_knots = gps_data->vtg->ground_speed_knots;
 				document->gps.vtg[document->gps.vtg_count].value.ground_speed_human = gps_data->vtg->ground_speed_human;
 
 				++(document->gps.vtg_count);
-			}
-			else if (gps_data->rmc && gps_data->rmc->status && document->gps.rmc_count < document->gps.rmc_size) {
+			} else if (gps_data->rmc && gps_data->rmc->status && document->gps.rmc_count < document->gps.rmc_size) {
 				document->gps.rmc[document->gps.rmc_count].timestamp = getCurrentTimestamp();
 
 				document->gps.rmc[document->gps.rmc_count].value.latitude = parseNmeaCoord(gps_data->rmc->latitude);
@@ -112,13 +109,13 @@ static void* parseGpsMessages(void *args) {
 				}
 
 				++(document->gps.rmc_count);
-			} 
-			
+			}
+
 			gpsFree(gps_data);
 		}
 
 		// Unlock document
-        pthread_mutex_unlock(&condition.structure.threads.data_head_mutex);
+		pthread_mutex_unlock(&condition.structure.threads.data_head_mutex);
 	}
 
 	return NULL;

@@ -5,7 +5,8 @@
         "functional": "c",
         "mongo_service.h": "c",
         "misc_utils.h": "c",
-        "gather_gps_service.h": "c"
+        "gather_gps_service.h": "c",
+        "gather_master_service.h": "c"
     },
     "workbench.colorCustomizations": {
         "activityBar.activeBackground": "#420080",

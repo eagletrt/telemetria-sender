@@ -7,7 +7,7 @@ pthread_attr_t gather_sender_thread_attr;
 
 /* INTERNAL FUNCTIONS SIGNATURES */
 
-static void* senderSend(void *args);
+static void* senderSend(void* args);
 
 /* EXPORTED FUNCTIONS */
 
@@ -15,6 +15,7 @@ void gatherSenderStartThread() {
 	pthread_attr_init(&gather_sender_thread_attr);
 	pthread_attr_setdetachstate(&gather_sender_thread_attr, PTHREAD_CREATE_JOINABLE);
 	pthread_create(&gather_sender_thread, &gather_sender_thread_attr, &senderSend, NULL);
+	pthread_setname_np(gather_sender_thread, "tlm_sender_gather");
 	pthread_attr_destroy(&gather_sender_thread_attr);
 }
 
@@ -24,64 +25,64 @@ void gatherSenderStopThread() {
 
 /* INTERNAL FUNCTIONS DEFINITIONS */
 
-static void* senderSend(void *args) {
-    while (1) {
-        // Waits until it must flush the toilet
-        debugGeneric("{SENDER} Waiting for flushing toilet");
-        pthread_mutex_lock(&condition.structure.threads.flush_toilet_mutex);
+static void* senderSend(void* args) {
+	while (1) {
+		// Waits until it must flush the toilet
+		debugGeneric("{SENDER} Waiting for flushing toilet");
+		pthread_mutex_lock(&condition.structure.threads.flush_toilet_mutex);
 
-        while (!condition.structure.flush_toilet) {
-            pthread_cond_wait(&condition.structure.threads.flush_toilet_cond, &condition.structure.threads.flush_toilet_mutex);
-        }
-        condition.structure.flush_toilet = 0;
+		while (!condition.structure.flush_toilet) {
+			pthread_cond_wait(&condition.structure.threads.flush_toilet_cond, &condition.structure.threads.flush_toilet_mutex);
+		}
+		condition.structure.flush_toilet = 0;
 
-        pthread_mutex_unlock(&condition.structure.threads.flush_toilet_mutex);
+		pthread_mutex_unlock(&condition.structure.threads.flush_toilet_mutex);
 
-        // Locks data_tail
-        debugGeneric("{SENDER} Locking data tail");
-        pthread_mutex_lock(&condition.structure.threads.data_tail_mutex);
+		// Locks data_tail
+		debugGeneric("{SENDER} Locking data tail");
+		pthread_mutex_lock(&condition.structure.threads.data_tail_mutex);
 
-        if (condition.structure.data_tail != NULL) {
-            // Get the bson document from data_tail
-            debugGeneric("{SENDER} Creating bson document");
-            bson_t* bson_document;  
-            gatherDataToBson(condition.structure.data_tail, &bson_document);
+		if (condition.structure.data_tail != NULL) {
+			// Get the bson document from data_tail
+			debugGeneric("{SENDER} Creating bson document");
+			bson_t* bson_document;
+			gatherDataToBson(condition.structure.data_tail, &bson_document);
 
-            // Sends the data over mosquitto
-            debugGeneric("{SENDER} Sending over mosquitto");
-            mosquittoSend(bson_document);
-            
-            if (condition.structure.enabled) {
-                debugGeneric("{SENDER} Inserting to mongo");
-                mongoInsert(bson_document);
-                size_t size; bson_as_relaxed_extended_json(bson_document, &size);
-                successInsertion(size);
-                mosquittoLogInsertion(size);
-            }
+			// Sends the data over mosquitto
+			debugGeneric("{SENDER} Sending over mosquitto");
+			mosquittoSend(bson_document);
 
-            // Destroys the bson document
-            debugGeneric("{SENDER} Destroying bson document");
-            bson_destroy(bson_document);
+			if (condition.structure.enabled) {
+				debugGeneric("{SENDER} Inserting to mongo");
+				mongoInsert(bson_document);
+				size_t size;
+				bson_as_relaxed_extended_json(bson_document, &size);
+				successInsertion(size);
+				mosquittoLogInsertion(size);
+			}
 
-            // Deletes the data_tail document and replaces it with a new one
-            debugGeneric("{SENDER} Deleting data tail");
-            gatherDeleteData(condition.structure.data_tail);
-        }
+			// Destroys the bson document
+			debugGeneric("{SENDER} Destroying bson document");
+			bson_destroy(bson_document);
 
-        // Resets the data_tail document and replaces it with a new one
-        debugGeneric("{SENDER} Resetting data tail");
-        condition.structure.data_tail = gatherCreateData();
+			// Deletes the data_tail document and replaces it with a new one
+			debugGeneric("{SENDER} Deleting data tail");
+			gatherDeleteData(condition.structure.data_tail);
+		}
 
-        // Unlocks data tail
-        debugGeneric("{SENDER} Unlocking data tail");
-        pthread_mutex_unlock(&condition.structure.threads.data_tail_mutex);
+		// Resets the data_tail document and replaces it with a new one
+		debugGeneric("{SENDER} Resetting data tail");
+		condition.structure.data_tail = gatherCreateData();
 
-        // Toilet is flushed
-        debugGeneric("{SENDER} Setting toilet flushed to true");
-        pthread_mutex_lock(&condition.structure.threads.toilet_flushed_mutex);
-        condition.structure.toilet_flushed = 1;
-        pthread_cond_signal(&condition.structure.threads.toilet_flushed_cond);
-        pthread_mutex_unlock(&condition.structure.threads.toilet_flushed_mutex);
-    }
+		// Unlocks data tail
+		debugGeneric("{SENDER} Unlocking data tail");
+		pthread_mutex_unlock(&condition.structure.threads.data_tail_mutex);
+
+		// Toilet is flushed
+		debugGeneric("{SENDER} Setting toilet flushed to true");
+		pthread_mutex_lock(&condition.structure.threads.toilet_flushed_mutex);
+		condition.structure.toilet_flushed = 1;
+		pthread_cond_signal(&condition.structure.threads.toilet_flushed_cond);
+		pthread_mutex_unlock(&condition.structure.threads.toilet_flushed_mutex);
+	}
 }
-
