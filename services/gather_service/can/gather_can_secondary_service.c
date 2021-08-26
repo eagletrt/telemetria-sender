@@ -41,62 +41,79 @@ static void* _parseCanMessages() {
 		document = condition.structure.data_head;
 
 		switch (id) {
-			case (ID_IMU_ANGULAR_RATE): {
-				int count = document->imu.angle_count;
-				if (count < document->imu.angle_size) {
-					Secondary_IMU_ANGULAR_RATE* message = (Secondary_IMU_ANGULAR_RATE*) malloc(sizeof(Secondary_IMU_ANGULAR_RATE));
-					deserialize_Secondary_IMU_ANGULAR_RATE(data, 8, message);
+			case (ID_BMS_HV_VOLTAGE): {
+				int count = document->bms_hv.voltage_count;
+				if (count < document->bms_hv.voltage_size) {
+					Secondary_BMS_HV_VOLTAGE* message = (Secondary_BMS_HV_VOLTAGE*) malloc(sizeof(Secondary_BMS_HV_VOLTAGE));
+					deserialize_Secondary_BMS_HV_VOLTAGE(data, message);
 					
 					
-					document->imu.angle[count].timestamp = getCurrentTimestamp();
-					document->imu.angle[count].value.x = message->ang_rate_x;
-					document->imu.angle[count].value.y = message->ang_rate_y;
-					document->imu.angle[count].value.z = message->ang_rate_z;
-					++document->imu.angle_count;
+					document->bms_hv.voltage[count].timestamp = getCurrentTimestamp();
+					document->bms_hv.voltage[count].value.total = message->total;
+					document->bms_hv.voltage[count].value.max = message->max;
+					document->bms_hv.voltage[count].value.min = message->min;
+					++document->bms_hv.voltage_count;
 				}
 				break;
 			}
 			
-			case (ID_IMU_ACCELERATION): {
-				int count = document->imu.acceleration_count;
-				if (count < document->imu.acceleration_size) {
-					Secondary_IMU_ACCELERATION* message = (Secondary_IMU_ACCELERATION*) malloc(sizeof(Secondary_IMU_ACCELERATION));
-					deserialize_Secondary_IMU_ACCELERATION(data, 8, message);
+			case (ID_BMS_HV_TEMPERATURE): {
+				int count = document->bms_hv.temperature_count;
+				if (count < document->bms_hv.temperature_size) {
+					Secondary_BMS_HV_TEMPERATURE* message = (Secondary_BMS_HV_TEMPERATURE*) malloc(sizeof(Secondary_BMS_HV_TEMPERATURE));
+					deserialize_Secondary_BMS_HV_TEMPERATURE(data, message);
 					
 					
-					document->imu.acceleration[count].timestamp = getCurrentTimestamp();
-					document->imu.acceleration[count].value.x = message->accel_x;
-					document->imu.acceleration[count].value.y = message->accel_y;
-					document->imu.acceleration[count].value.z = message->accel_z;
-					++document->imu.acceleration_count;
+					document->bms_hv.temperature[count].timestamp = getCurrentTimestamp();
+					document->bms_hv.temperature[count].value.average = message->average;
+					document->bms_hv.temperature[count].value.max = message->max;
+					document->bms_hv.temperature[count].value.min = message->min;
+					++document->bms_hv.temperature_count;
 				}
 				break;
 			}
 			
-			case (ID_BRAKE_PEDAL_VAL): {
-				int count = document->pedals.brake_count;
-				if (count < document->pedals.brake_size) {
-					Secondary_BRAKE_PEDAL_VAL* message = (Secondary_BRAKE_PEDAL_VAL*) malloc(sizeof(Secondary_BRAKE_PEDAL_VAL));
-					deserialize_Secondary_BRAKE_PEDAL_VAL(data, 8, message);
+			case (ID_BMS_HV_CURRENT): {
+				int count = document->bms_hv.current_count;
+				if (count < document->bms_hv.current_size) {
+					Secondary_BMS_HV_CURRENT* message = (Secondary_BMS_HV_CURRENT*) malloc(sizeof(Secondary_BMS_HV_CURRENT));
+					deserialize_Secondary_BMS_HV_CURRENT(data, message);
 					
 					
-					document->pedals.brake[count].timestamp = getCurrentTimestamp();
-					document->pedals.brake[count].value = message->level;
-					++document->pedals.brake_count;
+					document->bms_hv.current[count].timestamp = getCurrentTimestamp();
+					document->bms_hv.current[count].value.current = message->current;
+					document->bms_hv.current[count].value.pow = message->pow;
+					++document->bms_hv.current_count;
 				}
 				break;
 			}
 			
-			case (ID_ACCELERATOR_PEDAL_VAL): {
-				int count = document->pedals.throttle_count;
-				if (count < document->pedals.throttle_size) {
-					Secondary_ACCELERATOR_PEDAL_VAL* message = (Secondary_ACCELERATOR_PEDAL_VAL*) malloc(sizeof(Secondary_ACCELERATOR_PEDAL_VAL));
-					deserialize_Secondary_ACCELERATOR_PEDAL_VAL(data, 8, message);
+			case (ID_BMS_HV_ERRORS): {
+				int count = document->bms_hv.errors_count;
+				if (count < document->bms_hv.errors_size) {
+					Secondary_BMS_HV_ERRORS* message = (Secondary_BMS_HV_ERRORS*) malloc(sizeof(Secondary_BMS_HV_ERRORS));
+					deserialize_Secondary_BMS_HV_ERRORS(data, message);
 					
 					
-					document->pedals.throttle[count].timestamp = getCurrentTimestamp();
-					document->pedals.throttle[count].value = message->level;
-					++document->pedals.throttle_count;
+					document->bms_hv.errors[count].timestamp = getCurrentTimestamp();
+					document->bms_hv.errors[count].value.fault_id = message->fault_id;
+					document->bms_hv.errors[count].value.fault_index = message->fault_index;
+					++document->bms_hv.errors_count;
+				}
+				break;
+			}
+			
+			case (ID_BMS_HV_WARNINGS): {
+				int count = document->bms_hv.warnings_count;
+				if (count < document->bms_hv.warnings_size) {
+					Secondary_BMS_HV_WARNINGS* message = (Secondary_BMS_HV_WARNINGS*) malloc(sizeof(Secondary_BMS_HV_WARNINGS));
+					deserialize_Secondary_BMS_HV_WARNINGS(data, message);
+					
+					
+					document->bms_hv.warnings[count].timestamp = getCurrentTimestamp();
+					document->bms_hv.warnings[count].value.fault_id = message->fault_id;
+					document->bms_hv.warnings[count].value.fault_index = message->fault_index;
+					++document->bms_hv.warnings_count;
 				}
 				break;
 			}

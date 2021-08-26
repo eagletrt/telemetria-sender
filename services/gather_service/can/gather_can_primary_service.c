@@ -43,12 +43,12 @@ static void* _parseCanMessages() {
 		switch (id) {
 			case (ID_SET_TLM_STATUS): {
 				Primary_SET_TLM_STATUS* message = (Primary_SET_TLM_STATUS*)malloc(sizeof(Primary_SET_TLM_STATUS));
-				deserialize_Primary_SET_TLM_STATUS(data, 8, message);
+				deserialize_Primary_SET_TLM_STATUS(data, message);
 
 				Primary_Tlm_Status status = message->tlm_status;
 				int circuit = message->circuit;
-				int pilot_index = message->driver;
-				int race_index = message->race_type;
+				int pilot_index = message->pilot;
+				int race_index = message->race;
 
 				switch (status) {
 					case Primary_Tlm_Status_ON:
@@ -90,101 +90,6 @@ static void* _parseCanMessages() {
 
 				break;
 			}
-			case (ID_HV_VOLTAGE): {
-				int count = document->bms_hv.voltage_count;
-				if (count < document->bms_hv.voltage_size) {
-					Primary_HV_VOLTAGE* message = (Primary_HV_VOLTAGE*) malloc(sizeof(Primary_HV_VOLTAGE));
-					deserialize_Primary_HV_VOLTAGE(data, 8, message);
-					
-					
-					document->bms_hv.voltage[count].timestamp = getCurrentTimestamp();
-					document->bms_hv.voltage[count].value.pack = message->pack_voltage;
-					document->bms_hv.voltage[count].value.bus = message->bus_voltage;
-					document->bms_hv.voltage[count].value.max = message->max_cell_voltage;
-					document->bms_hv.voltage[count].value.min = message->min_cell_voltage;
-					++document->bms_hv.voltage_count;
-				}
-				break;
-			}
-			
-			case (ID_HV_CURRENT): {
-				int count = document->bms_hv.current_count;
-				if (count < document->bms_hv.current_size) {
-					Primary_HV_CURRENT* message = (Primary_HV_CURRENT*) malloc(sizeof(Primary_HV_CURRENT));
-					deserialize_Primary_HV_CURRENT(data, 8, message);
-					
-					
-					document->bms_hv.current[count].timestamp = getCurrentTimestamp();
-					document->bms_hv.current[count].value.current = message->current;
-					document->bms_hv.current[count].value.power = message->power;
-					++document->bms_hv.current_count;
-				}
-				break;
-			}
-			
-			case (ID_HV_TEMP): {
-				int count = document->bms_hv.temperature_count;
-				if (count < document->bms_hv.temperature_size) {
-					Primary_HV_TEMP* message = (Primary_HV_TEMP*) malloc(sizeof(Primary_HV_TEMP));
-					deserialize_Primary_HV_TEMP(data, 8, message);
-					
-					
-					document->bms_hv.temperature[count].timestamp = getCurrentTimestamp();
-					document->bms_hv.temperature[count].value.avg = message->average_temp;
-					document->bms_hv.temperature[count].value.max = message->max_temp;
-					document->bms_hv.temperature[count].value.min = message->min_temp;
-					++document->bms_hv.temperature_count;
-				}
-				break;
-			}
-			
-			case (ID_LV_CURRENT): {
-				int count = document->bms_lv.current_count;
-				if (count < document->bms_lv.current_size) {
-					Primary_LV_CURRENT* message = (Primary_LV_CURRENT*) malloc(sizeof(Primary_LV_CURRENT));
-					deserialize_Primary_LV_CURRENT(data, 8, message);
-					
-					
-					document->bms_lv.current[count].timestamp = getCurrentTimestamp();
-					document->bms_lv.current[count].value = message->current;
-					++document->bms_lv.current_count;
-				}
-				break;
-			}
-			
-			case (ID_LV_VOLTAGE): {
-				int count = document->bms_lv.voltage_count;
-				if (count < document->bms_lv.voltage_size) {
-					Primary_LV_VOLTAGE* message = (Primary_LV_VOLTAGE*) malloc(sizeof(Primary_LV_VOLTAGE));
-					deserialize_Primary_LV_VOLTAGE(data, 8, message);
-					
-					
-					document->bms_lv.voltage[count].timestamp = getCurrentTimestamp();
-					document->bms_lv.voltage[count].value.total_voltage = message->total_voltage;
-					document->bms_lv.voltage[count].value.voltage_1 = message->voltage_1;
-					document->bms_lv.voltage[count].value.voltage_2 = message->voltage_2;
-					document->bms_lv.voltage[count].value.voltage_3 = message->voltage_3;
-					document->bms_lv.voltage[count].value.voltage_4 = message->voltage_4;
-					++document->bms_lv.voltage_count;
-				}
-				break;
-			}
-			
-			case (ID_LV_TEMPERATURE): {
-				int count = document->bms_lv.temperature_count;
-				if (count < document->bms_lv.temperature_size) {
-					Primary_LV_TEMPERATURE* message = (Primary_LV_TEMPERATURE*) malloc(sizeof(Primary_LV_TEMPERATURE));
-					deserialize_Primary_LV_TEMPERATURE(data, 8, message);
-					
-					
-					document->bms_lv.temperature[count].timestamp = getCurrentTimestamp();
-					document->bms_lv.temperature[count].value.battery = message->battery_temperature;
-					document->bms_lv.temperature[count].value.dcdc = message->dcdc_temperature;
-					++document->bms_lv.temperature_count;
-				}
-				break;
-			}
-			
 			
 		}
 

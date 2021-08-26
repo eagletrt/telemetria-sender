@@ -59,7 +59,8 @@ can_code canAnswerWheel(int enabled) {
 
     // Create response
     uint8_t* buffer_message = (uint8_t*)malloc(8 * sizeof(uint8_t));
-	serialize_Primary_TLM_STATUS(buffer_message, 8, enabled, condition.session.selected_race, condition.session.selected_pilot, 0);
+    Primary_Tlm_Status payload = enabled ? Primary_Tlm_Status_ON : Primary_Tlm_Status_OFF;
+	serialize_Primary_TLM_STATUS(buffer_message, payload);
 
     // Send the message
 	int outcome = canSend(condition.can_primary.socket, ID_TLM_STATUS, 8, buffer_message);

@@ -43,12 +43,12 @@ static void* _parseCanMessages() {
 		switch (id) {
 			case (ID_SET_TLM_STATUS): {
 				Primary_SET_TLM_STATUS* message = (Primary_SET_TLM_STATUS*)malloc(sizeof(Primary_SET_TLM_STATUS));
-				deserialize_Primary_SET_TLM_STATUS(data, 8, message);
+				deserialize_Primary_SET_TLM_STATUS(data, message);
 
 				Primary_Tlm_Status status = message->tlm_status;
 				int circuit = message->circuit;
-				int pilot_index = message->driver;
-				int race_index = message->race_type;
+				int pilot_index = message->pilot;
+				int race_index = message->race;
 
 				switch (status) {
 					case Primary_Tlm_Status_ON:

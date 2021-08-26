@@ -7,178 +7,97 @@
             {
                 "timestamp": "long",
                 "value": {
-                    "pack": {
-                        "type": "int",
-                        "value": "#pack_voltage"
-                    },
-                    "bus": {
-                        "type": "int",
-                        "value": "#bus_voltage"
+                    "total": {
+                        "type": "long",
+                        "value": "#total"
                     },
                     "max": {
                         "type": "int",
-                        "value": "#max_cell_voltage"
+                        "value": "#max"
                     },
                     "min": {
                         "type": "int",
-                        "value": "#min_cell_voltage"
+                        "value": "#min"
                     }
                 },
                 "maxLength": 500,
-                "name": "HV_VOLTAGE",
-                "network": "Primary"
-            }
-        ],
-        "current": [
-            {
-                "timestamp": "long",
-                "value": {
-                    "current": "int",
-                    "power": "int"
-                },
-                "maxLength": 500,
-                "name": "HV_CURRENT",
-                "network": "Primary"
+                "name": "BMS_HV_VOLTAGE",
+                "network": "Secondary"
             }
         ],
         "temperature": [
             {
                 "timestamp": "long",
                 "value": {
-                    "avg": {
+                    "average": {
                         "type": "int",
-                        "value": "#average_temp"
+                        "value": "#average"
                     },
                     "max": {
                         "type": "int",
-                        "value": "#max_temp"
+                        "value": "#max"
                     },
                     "min": {
                         "type": "int",
-                        "value": "#min_temp"
+                        "value": "#min"
                     }
                 },
                 "maxLength": 500,
-                "name": "HV_TEMP",
-                "network": "Primary"
+                "name": "BMS_HV_TEMPERATURE",
+                "network": "Secondary"
             }
-        ]
-    },
-    "bms_lv": {
+        ],
         "current": [
             {
                 "timestamp": "long",
-                "value": { 
-                    "type": "int",
-                    "value": "#current"
-                 },
-                "maxLength": 500,
-                "name": "LV_CURRENT",
-                "network": "Primary"
-            }
-        ],
-        "voltage": [
-            {
-                "timestamp": "long",
                 "value": {
-                    "total_voltage": "int",
-                    "voltage_1": "int",
-                    "voltage_2": "int",
-                    "voltage_3": "int",
-                    "voltage_4": "int"
-                },
-                "maxLength": 500,
-                "name": "LV_VOLTAGE",
-                "network": "Primary"
-            }
-        ],
-        "temperature": [
-            {
-                "timestamp": "long",
-                "value": {
-                    "battery": {
+                    "current": {
                         "type": "int",
-                        "value": "#battery_temperature"
+                        "value": "#current"
                     },
-                    "dcdc": {
+                    "pow": {
                         "type": "int",
-                        "value": "#dcdc_temperature"
+                        "value": "#pow"
                     }
                 },
                 "maxLength": 500,
-                "name": "LV_TEMPERATURE",
-                "network": "Primary"
-            }
-        ]
-    },
-    "imu": {
-        "angle": [
-            {
-                "timestamp": "long",
-                "value": {
-                    "x": {
-                        "type": "int",
-                        "value": "#ang_rate_x"
-                    },
-                    "y": {
-                        "type": "int",
-                        "value": "#ang_rate_y"
-                    },
-                    "z": {
-                        "type": "int",
-                        "value": "#ang_rate_z"
-                    }
-                },
-                "maxLength": 500,
-                "name": "IMU_ANGULAR_RATE",
+                "name": "BMS_HV_CURRENT",
                 "network": "Secondary"
             }
         ],
-        "acceleration": [
+        "errors": [
             {
                 "timestamp": "long",
                 "value": {
-                    "x": {
+                    "fault_id": {
                         "type": "int",
-                        "value": "#accel_x"
+                        "value": "#fault_id"
                     },
-                    "y": {
+                    "fault_index": {
                         "type": "int",
-                        "value": "#accel_y"
-                    },
-                    "z": {
-                        "type": "int",
-                        "value": "#accel_z"
+                        "value": "#fault_index"
                     }
                 },
                 "maxLength": 500,
-                "name": "IMU_ACCELERATION",
-                "network": "Secondary"
-            }
-        ]
-    },
-    "pedals": {
-        "brake": [
-            {
-                "timestamp": "long",
-                "value": {
-                    "type": "int",
-                    "value": "#level"
-                },
-                "maxLength": 500,
-                "name": "BRAKE_PEDAL_VAL",
+                "name": "BMS_HV_ERRORS",
                 "network": "Secondary"
             }
         ],
-        "throttle": [
+        "warnings": [
             {
                 "timestamp": "long",
                 "value": {
-                    "type": "int",
-                    "value": "#level"
+                    "fault_id": {
+                        "type": "int",
+                        "value": "#fault_id"
+                    },
+                    "fault_index": {
+                        "type": "int",
+                        "value": "#fault_index"
+                    }
                 },
                 "maxLength": 500,
-                "name": "ACCELERATOR_PEDAL_VAL",
+                "name": "BMS_HV_WARNINGS",
                 "network": "Secondary"
             }
         ]

@@ -31,10 +31,12 @@
     }
   },
   "devDependencies": {
-    "@eagletrt/code-generator": "^4.2.0",
     "@types/chai": "^4.2.17",
     "ajv-cli": "^5.0.0",
     "commitizen": "^4.2.3",
     "cz-conventional-changelog": "^3.3.0"
+  },
+  "dependencies": {
+    "@eagletrt/code-generator": "^4.2.1"
   }
 }
