@@ -65,6 +65,13 @@ int canReadSecondary(int *id, char** data);
 can_code canAnswerWheel(int enabled);
 
 /**
+ * Sends a can message to broadcast the current timestamp
+ * @param timestamp The current timestamp
+ * @return The outcome of the function as a can_code
+*/
+can_code canSendTimestamp(long timestamp);
+
+/**
  * Given a can_code, it returns the message corrisponding that error code
  * @param code The error code as a can_code
  * @return The message corrisponding the given code 

@@ -31,5 +31,6 @@ void gatherMasterEnableFlushToilet();
 void gatherMasterWaitToiletFlushed();
 void gatherStartNewSession();
 void gatherAnswerWheel();
+void gatherSendTimestamp();
 
 #endif

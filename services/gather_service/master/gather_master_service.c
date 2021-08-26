@@ -57,8 +57,13 @@ void gatherStartNewSession() {
 }
 
 void gatherAnswerWheel(int enabled) {
-	debugGeneric("Answering to the wheel");
+	debugGeneric("Answering to the wheel / Sending status");
 	canAnswerWheel(enabled);
+}
+
+void gatherSendTimestamp() {
+	debugGeneric("Sending timestamp");
+	canSendTimestamp(getCurrentTimestamp());
 }
 
 /* INTERNAL FUNCTIONS DEFINITIONS */
