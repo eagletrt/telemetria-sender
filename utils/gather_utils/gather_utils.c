@@ -47,6 +47,15 @@ data_t* gatherCreateData() {
 	data->inverters.left.torque_size = 500;
 	data->inverters.left.torque = (inverters_left_torque_data*) malloc(sizeof(inverters_left_torque_data) * data->inverters.left.torque_size);
 	data->inverters.left.torque_count = 0;
+	data->pedals.brake_size = 500;
+	data->pedals.brake = (pedals_brake_data*) malloc(sizeof(pedals_brake_data) * data->pedals.brake_size);
+	data->pedals.brake_count = 0;
+	data->pedals.throttle_size = 500;
+	data->pedals.throttle = (pedals_throttle_data*) malloc(sizeof(pedals_throttle_data) * data->pedals.throttle_size);
+	data->pedals.throttle_count = 0;
+	data->steering_wheel.encoder_size = 500;
+	data->steering_wheel.encoder = (steering_wheel_encoder_data*) malloc(sizeof(steering_wheel_encoder_data) * data->steering_wheel.encoder_size);
+	data->steering_wheel.encoder_count = 0;
 	data->gps.gga_size = 500;
 	data->gps.gga = (gps_gga_data*) malloc(sizeof(gps_gga_data) * data->gps.gga_size);
 	data->gps.gga_count = 0;
@@ -79,6 +88,9 @@ void gatherDeleteData(data_t *data) {
 	free(data->inverters.left.temperature_igbt);
 	free(data->inverters.left.temperature_motors);
 	free(data->inverters.left.torque);
+	free(data->pedals.brake);
+	free(data->pedals.throttle);
+	free(data->steering_wheel.encoder);
 	free(data->gps.gga);
 	free(data->gps.gll);
 	free(data->gps.vtg);
@@ -302,6 +314,50 @@ void gatherDataToBson(data_t *data, bson_t** bson_document) {
 	bson_append_array_end(&children[1], &children[2]);
 	bson_destroy(&children[2]);
 	bson_append_document_end(&children[0], &children[1]);
+	bson_destroy(&children[1]);
+	bson_append_document_end(*bson_document, &children[0]);
+	bson_destroy(&children[0]);
+	BSON_APPEND_DOCUMENT_BEGIN(*bson_document, "pedals", &children[0]);
+	BSON_APPEND_ARRAY_BEGIN(&children[0], "brake", &children[1]);
+	for (int i = 0; i < (data->pedals.brake_count); i++)
+	{
+		BSON_APPEND_DOCUMENT_BEGIN(&children[1], "0", &children[2]);
+		BSON_APPEND_INT64(&children[2], "timestamp", data->pedals.brake[i].timestamp);
+		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "value", &children[3]);
+		BSON_APPEND_INT32(&children[3], "is_breaking", data->pedals.brake[i].value.is_breaking);
+		BSON_APPEND_DOUBLE(&children[3], "pressure_front", data->pedals.brake[i].value.pressure_front);
+		BSON_APPEND_DOUBLE(&children[3], "pressure_back", data->pedals.brake[i].value.pressure_back);
+		bson_append_document_end(&children[2], &children[3]);
+		bson_destroy(&children[3]);
+		bson_append_document_end(&children[1], &children[2]);
+		bson_destroy(&children[2]);
+	}
+	bson_append_array_end(&children[0], &children[1]);
+	bson_destroy(&children[1]);
+	BSON_APPEND_ARRAY_BEGIN(&children[0], "throttle", &children[1]);
+	for (int i = 0; i < (data->pedals.throttle_count); i++)
+	{
+		BSON_APPEND_DOCUMENT_BEGIN(&children[1], "0", &children[2]);
+		BSON_APPEND_INT64(&children[2], "timestamp", data->pedals.throttle[i].timestamp);
+		BSON_APPEND_DOUBLE(&children[2], "value", data->pedals.throttle[i].value);
+		bson_append_document_end(&children[1], &children[2]);
+		bson_destroy(&children[2]);
+	}
+	bson_append_array_end(&children[0], &children[1]);
+	bson_destroy(&children[1]);
+	bson_append_document_end(*bson_document, &children[0]);
+	bson_destroy(&children[0]);
+	BSON_APPEND_DOCUMENT_BEGIN(*bson_document, "steering_wheel", &children[0]);
+	BSON_APPEND_ARRAY_BEGIN(&children[0], "encoder", &children[1]);
+	for (int i = 0; i < (data->steering_wheel.encoder_count); i++)
+	{
+		BSON_APPEND_DOCUMENT_BEGIN(&children[1], "0", &children[2]);
+		BSON_APPEND_INT64(&children[2], "timestamp", data->steering_wheel.encoder[i].timestamp);
+		BSON_APPEND_DOUBLE(&children[2], "value", data->steering_wheel.encoder[i].value);
+		bson_append_document_end(&children[1], &children[2]);
+		bson_destroy(&children[2]);
+	}
+	bson_append_array_end(&children[0], &children[1]);
 	bson_destroy(&children[1]);
 	bson_append_document_end(*bson_document, &children[0]);
 	bson_destroy(&children[0]);

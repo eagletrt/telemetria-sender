@@ -234,6 +234,50 @@ static void* _parseCanMessages() {
 				break;
 			}
 			
+			case (ID_PEDALS_BRAKE): {
+				int count = document->pedals.brake_count;
+				if (count < document->pedals.brake_size) {
+					Primary_PEDALS_BRAKE* message = (Primary_PEDALS_BRAKE*) malloc(sizeof(Primary_PEDALS_BRAKE));
+					deserialize_Primary_PEDALS_BRAKE(data, message);
+					
+					
+					document->pedals.brake[count].timestamp = getCurrentTimestamp();
+					document->pedals.brake[count].value.is_breaking = message->is_breaking;
+					document->pedals.brake[count].value.pressure_front = message->pressure_front;
+					document->pedals.brake[count].value.pressure_back = message->pressure_back;
+					++document->pedals.brake_count;
+				}
+				break;
+			}
+			
+			case (ID_PEDALS_THROTTLE): {
+				int count = document->pedals.throttle_count;
+				if (count < document->pedals.throttle_size) {
+					Primary_PEDALS_THROTTLE* message = (Primary_PEDALS_THROTTLE*) malloc(sizeof(Primary_PEDALS_THROTTLE));
+					deserialize_Primary_PEDALS_THROTTLE(data, message);
+					
+					
+					document->pedals.throttle[count].timestamp = getCurrentTimestamp();
+					document->pedals.throttle[count].value = message->value;
+					++document->pedals.throttle_count;
+				}
+				break;
+			}
+			
+			case (ID_STEERING_WHEEL_ENCODER): {
+				int count = document->steering_wheel.encoder_count;
+				if (count < document->steering_wheel.encoder_size) {
+					Primary_STEERING_WHEEL_ENCODER* message = (Primary_STEERING_WHEEL_ENCODER*) malloc(sizeof(Primary_STEERING_WHEEL_ENCODER));
+					deserialize_Primary_STEERING_WHEEL_ENCODER(data, message);
+					
+					
+					document->steering_wheel.encoder[count].timestamp = getCurrentTimestamp();
+					document->steering_wheel.encoder[count].value = message->value;
+					++document->steering_wheel.encoder_count;
+				}
+				break;
+			}
+			
 			
 		}
 

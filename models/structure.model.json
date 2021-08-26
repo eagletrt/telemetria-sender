@@ -250,6 +250,56 @@
             ]
         }
     },
+    "pedals": {
+        "brake": [
+            {
+                "timestamp": "long",
+                "value": {
+                    "is_breaking": {
+                        "type": "int",
+                        "value": "#is_breaking"
+                    },
+                    "pressure_front": {
+                        "type": "double",
+                        "value": "#pressure_front"
+                    },
+                    "pressure_back": {
+                        "type": "double",
+                        "value": "#pressure_back"
+                    }
+                },
+                "maxLength": 500,
+                "name": "PEDALS_BRAKE",
+                "network": "Primary"
+            }
+        ],
+        "throttle": [
+            {
+                "timestamp": "long",
+                "value": {
+                    "type": "double",
+                    "value": "#value"
+                },
+                "maxLength": 500,
+                "name": "PEDALS_THROTTLE",
+                "network": "Primary"
+            }
+        ]
+    },
+    "steering_wheel": {
+        "encoder": [
+            {
+                "timestamp": "long",
+                "value": {
+                    "type": "double",
+                    "value": "#value"
+                },
+                "maxLength": 500,
+                "name": "STEERING_WHEEL_ENCODER",
+                "network": "Primary"
+            }
+        ]
+    },
     "gps": {
         "gga": [
             {

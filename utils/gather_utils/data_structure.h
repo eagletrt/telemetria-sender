@@ -178,6 +178,42 @@ typedef struct {
 } inverters_data;
 
 typedef struct {
+	int is_breaking;
+	double pressure_front;
+	double pressure_back;
+} pedals_brake_value_data;
+
+typedef struct {
+	long timestamp;
+	pedals_brake_value_data value;
+} pedals_brake_data;
+
+typedef struct {
+	long timestamp;
+	double value;
+} pedals_throttle_data;
+
+typedef struct {
+	pedals_brake_data *brake;
+	int brake_count;
+	int brake_size;
+	pedals_throttle_data *throttle;
+	int throttle_count;
+	int throttle_size;
+} pedals_data;
+
+typedef struct {
+	long timestamp;
+	double value;
+} steering_wheel_encoder_data;
+
+typedef struct {
+	steering_wheel_encoder_data *encoder;
+	int encoder_count;
+	int encoder_size;
+} steering_wheel_data;
+
+typedef struct {
 	double latitude_safe;
 	double longitude_safe;
 	double latitude;
@@ -253,6 +289,8 @@ typedef struct {
 	bms_hv_data bms_hv;
 	imu_data imu;
 	inverters_data inverters;
+	pedals_data pedals;
+	steering_wheel_data steering_wheel;
 	gps_data gps;
 } data_t;
 
