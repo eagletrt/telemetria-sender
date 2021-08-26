@@ -1,1 +1,1 @@
-cansend can0 102#00000000
+cansend can0 602#00000000
