@@ -17,6 +17,36 @@ data_t* gatherCreateData() {
 	data->bms_hv.warnings_size = 500;
 	data->bms_hv.warnings = (bms_hv_warnings_data*) malloc(sizeof(bms_hv_warnings_data) * data->bms_hv.warnings_size);
 	data->bms_hv.warnings_count = 0;
+	data->imu.gyro_size = 500;
+	data->imu.gyro = (imu_gyro_data*) malloc(sizeof(imu_gyro_data) * data->imu.gyro_size);
+	data->imu.gyro_count = 0;
+	data->imu.accel_size = 500;
+	data->imu.accel = (imu_accel_data*) malloc(sizeof(imu_accel_data) * data->imu.accel_size);
+	data->imu.accel_count = 0;
+	data->inverters.right.speed_size = 500;
+	data->inverters.right.speed = (inverters_right_speed_data*) malloc(sizeof(inverters_right_speed_data) * data->inverters.right.speed_size);
+	data->inverters.right.speed_count = 0;
+	data->inverters.right.temperature_igbt_size = 500;
+	data->inverters.right.temperature_igbt = (inverters_right_temperature_igbt_data*) malloc(sizeof(inverters_right_temperature_igbt_data) * data->inverters.right.temperature_igbt_size);
+	data->inverters.right.temperature_igbt_count = 0;
+	data->inverters.right.temperature_motors_size = 500;
+	data->inverters.right.temperature_motors = (inverters_right_temperature_motors_data*) malloc(sizeof(inverters_right_temperature_motors_data) * data->inverters.right.temperature_motors_size);
+	data->inverters.right.temperature_motors_count = 0;
+	data->inverters.right.torque_size = 500;
+	data->inverters.right.torque = (inverters_right_torque_data*) malloc(sizeof(inverters_right_torque_data) * data->inverters.right.torque_size);
+	data->inverters.right.torque_count = 0;
+	data->inverters.left.speed_size = 500;
+	data->inverters.left.speed = (inverters_left_speed_data*) malloc(sizeof(inverters_left_speed_data) * data->inverters.left.speed_size);
+	data->inverters.left.speed_count = 0;
+	data->inverters.left.temperature_igbt_size = 500;
+	data->inverters.left.temperature_igbt = (inverters_left_temperature_igbt_data*) malloc(sizeof(inverters_left_temperature_igbt_data) * data->inverters.left.temperature_igbt_size);
+	data->inverters.left.temperature_igbt_count = 0;
+	data->inverters.left.temperature_motors_size = 500;
+	data->inverters.left.temperature_motors = (inverters_left_temperature_motors_data*) malloc(sizeof(inverters_left_temperature_motors_data) * data->inverters.left.temperature_motors_size);
+	data->inverters.left.temperature_motors_count = 0;
+	data->inverters.left.torque_size = 500;
+	data->inverters.left.torque = (inverters_left_torque_data*) malloc(sizeof(inverters_left_torque_data) * data->inverters.left.torque_size);
+	data->inverters.left.torque_count = 0;
 	data->gps.gga_size = 500;
 	data->gps.gga = (gps_gga_data*) malloc(sizeof(gps_gga_data) * data->gps.gga_size);
 	data->gps.gga_count = 0;
@@ -39,6 +69,16 @@ void gatherDeleteData(data_t *data) {
 	free(data->bms_hv.current);
 	free(data->bms_hv.errors);
 	free(data->bms_hv.warnings);
+	free(data->imu.gyro);
+	free(data->imu.accel);
+	free(data->inverters.right.speed);
+	free(data->inverters.right.temperature_igbt);
+	free(data->inverters.right.temperature_motors);
+	free(data->inverters.right.torque);
+	free(data->inverters.left.speed);
+	free(data->inverters.left.temperature_igbt);
+	free(data->inverters.left.temperature_motors);
+	free(data->inverters.left.torque);
 	free(data->gps.gga);
 	free(data->gps.gll);
 	free(data->gps.vtg);
@@ -60,9 +100,9 @@ void gatherDataToBson(data_t *data, bson_t** bson_document) {
 		BSON_APPEND_DOCUMENT_BEGIN(&children[1], "0", &children[2]);
 		BSON_APPEND_INT64(&children[2], "timestamp", data->bms_hv.voltage[i].timestamp);
 		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "value", &children[3]);
-		BSON_APPEND_INT64(&children[3], "total", data->bms_hv.voltage[i].value.total);
-		BSON_APPEND_INT32(&children[3], "max", data->bms_hv.voltage[i].value.max);
-		BSON_APPEND_INT32(&children[3], "min", data->bms_hv.voltage[i].value.min);
+		BSON_APPEND_DOUBLE(&children[3], "total", data->bms_hv.voltage[i].value.total);
+		BSON_APPEND_DOUBLE(&children[3], "max", data->bms_hv.voltage[i].value.max);
+		BSON_APPEND_DOUBLE(&children[3], "min", data->bms_hv.voltage[i].value.min);
 		bson_append_document_end(&children[2], &children[3]);
 		bson_destroy(&children[3]);
 		bson_append_document_end(&children[1], &children[2]);
@@ -76,9 +116,9 @@ void gatherDataToBson(data_t *data, bson_t** bson_document) {
 		BSON_APPEND_DOCUMENT_BEGIN(&children[1], "0", &children[2]);
 		BSON_APPEND_INT64(&children[2], "timestamp", data->bms_hv.temperature[i].timestamp);
 		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "value", &children[3]);
-		BSON_APPEND_INT32(&children[3], "average", data->bms_hv.temperature[i].value.average);
-		BSON_APPEND_INT32(&children[3], "max", data->bms_hv.temperature[i].value.max);
-		BSON_APPEND_INT32(&children[3], "min", data->bms_hv.temperature[i].value.min);
+		BSON_APPEND_DOUBLE(&children[3], "average", data->bms_hv.temperature[i].value.average);
+		BSON_APPEND_DOUBLE(&children[3], "max", data->bms_hv.temperature[i].value.max);
+		BSON_APPEND_DOUBLE(&children[3], "min", data->bms_hv.temperature[i].value.min);
 		bson_append_document_end(&children[2], &children[3]);
 		bson_destroy(&children[3]);
 		bson_append_document_end(&children[1], &children[2]);
@@ -92,8 +132,8 @@ void gatherDataToBson(data_t *data, bson_t** bson_document) {
 		BSON_APPEND_DOCUMENT_BEGIN(&children[1], "0", &children[2]);
 		BSON_APPEND_INT64(&children[2], "timestamp", data->bms_hv.current[i].timestamp);
 		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "value", &children[3]);
-		BSON_APPEND_INT32(&children[3], "current", data->bms_hv.current[i].value.current);
-		BSON_APPEND_INT32(&children[3], "pow", data->bms_hv.current[i].value.pow);
+		BSON_APPEND_DOUBLE(&children[3], "current", data->bms_hv.current[i].value.current);
+		BSON_APPEND_DOUBLE(&children[3], "pow", data->bms_hv.current[i].value.pow);
 		bson_append_document_end(&children[2], &children[3]);
 		bson_destroy(&children[3]);
 		bson_append_document_end(&children[1], &children[2]);
@@ -130,6 +170,138 @@ void gatherDataToBson(data_t *data, bson_t** bson_document) {
 		bson_destroy(&children[2]);
 	}
 	bson_append_array_end(&children[0], &children[1]);
+	bson_destroy(&children[1]);
+	bson_append_document_end(*bson_document, &children[0]);
+	bson_destroy(&children[0]);
+	BSON_APPEND_DOCUMENT_BEGIN(*bson_document, "imu", &children[0]);
+	BSON_APPEND_ARRAY_BEGIN(&children[0], "gyro", &children[1]);
+	for (int i = 0; i < (data->imu.gyro_count); i++)
+	{
+		BSON_APPEND_DOCUMENT_BEGIN(&children[1], "0", &children[2]);
+		BSON_APPEND_INT64(&children[2], "timestamp", data->imu.gyro[i].timestamp);
+		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "value", &children[3]);
+		BSON_APPEND_DOUBLE(&children[3], "total", data->imu.gyro[i].value.total);
+		BSON_APPEND_DOUBLE(&children[3], "max", data->imu.gyro[i].value.max);
+		BSON_APPEND_DOUBLE(&children[3], "min", data->imu.gyro[i].value.min);
+		bson_append_document_end(&children[2], &children[3]);
+		bson_destroy(&children[3]);
+		bson_append_document_end(&children[1], &children[2]);
+		bson_destroy(&children[2]);
+	}
+	bson_append_array_end(&children[0], &children[1]);
+	bson_destroy(&children[1]);
+	BSON_APPEND_ARRAY_BEGIN(&children[0], "accel", &children[1]);
+	for (int i = 0; i < (data->imu.accel_count); i++)
+	{
+		BSON_APPEND_DOCUMENT_BEGIN(&children[1], "0", &children[2]);
+		BSON_APPEND_INT64(&children[2], "timestamp", data->imu.accel[i].timestamp);
+		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "value", &children[3]);
+		BSON_APPEND_DOUBLE(&children[3], "total", data->imu.accel[i].value.total);
+		BSON_APPEND_DOUBLE(&children[3], "max", data->imu.accel[i].value.max);
+		BSON_APPEND_DOUBLE(&children[3], "min", data->imu.accel[i].value.min);
+		bson_append_document_end(&children[2], &children[3]);
+		bson_destroy(&children[3]);
+		bson_append_document_end(&children[1], &children[2]);
+		bson_destroy(&children[2]);
+	}
+	bson_append_array_end(&children[0], &children[1]);
+	bson_destroy(&children[1]);
+	bson_append_document_end(*bson_document, &children[0]);
+	bson_destroy(&children[0]);
+	BSON_APPEND_DOCUMENT_BEGIN(*bson_document, "inverters", &children[0]);
+	BSON_APPEND_DOCUMENT_BEGIN(&children[0], "right", &children[1]);
+	BSON_APPEND_ARRAY_BEGIN(&children[1], "speed", &children[2]);
+	for (int i = 0; i < (data->inverters.right.speed_count); i++)
+	{
+		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "0", &children[3]);
+		BSON_APPEND_INT64(&children[3], "timestamp", data->inverters.right.speed[i].timestamp);
+		BSON_APPEND_DOUBLE(&children[3], "value", data->inverters.right.speed[i].value);
+		bson_append_document_end(&children[2], &children[3]);
+		bson_destroy(&children[3]);
+	}
+	bson_append_array_end(&children[1], &children[2]);
+	bson_destroy(&children[2]);
+	BSON_APPEND_ARRAY_BEGIN(&children[1], "temperature_igbt", &children[2]);
+	for (int i = 0; i < (data->inverters.right.temperature_igbt_count); i++)
+	{
+		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "0", &children[3]);
+		BSON_APPEND_INT64(&children[3], "timestamp", data->inverters.right.temperature_igbt[i].timestamp);
+		BSON_APPEND_DOUBLE(&children[3], "value", data->inverters.right.temperature_igbt[i].value);
+		bson_append_document_end(&children[2], &children[3]);
+		bson_destroy(&children[3]);
+	}
+	bson_append_array_end(&children[1], &children[2]);
+	bson_destroy(&children[2]);
+	BSON_APPEND_ARRAY_BEGIN(&children[1], "temperature_motors", &children[2]);
+	for (int i = 0; i < (data->inverters.right.temperature_motors_count); i++)
+	{
+		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "0", &children[3]);
+		BSON_APPEND_INT64(&children[3], "timestamp", data->inverters.right.temperature_motors[i].timestamp);
+		BSON_APPEND_DOUBLE(&children[3], "value", data->inverters.right.temperature_motors[i].value);
+		bson_append_document_end(&children[2], &children[3]);
+		bson_destroy(&children[3]);
+	}
+	bson_append_array_end(&children[1], &children[2]);
+	bson_destroy(&children[2]);
+	BSON_APPEND_ARRAY_BEGIN(&children[1], "torque", &children[2]);
+	for (int i = 0; i < (data->inverters.right.torque_count); i++)
+	{
+		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "0", &children[3]);
+		BSON_APPEND_INT64(&children[3], "timestamp", data->inverters.right.torque[i].timestamp);
+		BSON_APPEND_DOUBLE(&children[3], "value", data->inverters.right.torque[i].value);
+		bson_append_document_end(&children[2], &children[3]);
+		bson_destroy(&children[3]);
+	}
+	bson_append_array_end(&children[1], &children[2]);
+	bson_destroy(&children[2]);
+	bson_append_document_end(&children[0], &children[1]);
+	bson_destroy(&children[1]);
+	BSON_APPEND_DOCUMENT_BEGIN(&children[0], "left", &children[1]);
+	BSON_APPEND_ARRAY_BEGIN(&children[1], "speed", &children[2]);
+	for (int i = 0; i < (data->inverters.left.speed_count); i++)
+	{
+		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "0", &children[3]);
+		BSON_APPEND_INT64(&children[3], "timestamp", data->inverters.left.speed[i].timestamp);
+		BSON_APPEND_DOUBLE(&children[3], "value", data->inverters.left.speed[i].value);
+		bson_append_document_end(&children[2], &children[3]);
+		bson_destroy(&children[3]);
+	}
+	bson_append_array_end(&children[1], &children[2]);
+	bson_destroy(&children[2]);
+	BSON_APPEND_ARRAY_BEGIN(&children[1], "temperature_igbt", &children[2]);
+	for (int i = 0; i < (data->inverters.left.temperature_igbt_count); i++)
+	{
+		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "0", &children[3]);
+		BSON_APPEND_INT64(&children[3], "timestamp", data->inverters.left.temperature_igbt[i].timestamp);
+		BSON_APPEND_DOUBLE(&children[3], "value", data->inverters.left.temperature_igbt[i].value);
+		bson_append_document_end(&children[2], &children[3]);
+		bson_destroy(&children[3]);
+	}
+	bson_append_array_end(&children[1], &children[2]);
+	bson_destroy(&children[2]);
+	BSON_APPEND_ARRAY_BEGIN(&children[1], "temperature_motors", &children[2]);
+	for (int i = 0; i < (data->inverters.left.temperature_motors_count); i++)
+	{
+		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "0", &children[3]);
+		BSON_APPEND_INT64(&children[3], "timestamp", data->inverters.left.temperature_motors[i].timestamp);
+		BSON_APPEND_DOUBLE(&children[3], "value", data->inverters.left.temperature_motors[i].value);
+		bson_append_document_end(&children[2], &children[3]);
+		bson_destroy(&children[3]);
+	}
+	bson_append_array_end(&children[1], &children[2]);
+	bson_destroy(&children[2]);
+	BSON_APPEND_ARRAY_BEGIN(&children[1], "torque", &children[2]);
+	for (int i = 0; i < (data->inverters.left.torque_count); i++)
+	{
+		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "0", &children[3]);
+		BSON_APPEND_INT64(&children[3], "timestamp", data->inverters.left.torque[i].timestamp);
+		BSON_APPEND_DOUBLE(&children[3], "value", data->inverters.left.torque[i].value);
+		bson_append_document_end(&children[2], &children[3]);
+		bson_destroy(&children[3]);
+	}
+	bson_append_array_end(&children[1], &children[2]);
+	bson_destroy(&children[2]);
+	bson_append_document_end(&children[0], &children[1]);
 	bson_destroy(&children[1]);
 	bson_append_document_end(*bson_document, &children[0]);
 	bson_destroy(&children[0]);

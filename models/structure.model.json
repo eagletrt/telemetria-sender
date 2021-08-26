@@ -8,16 +8,16 @@
                 "timestamp": "long",
                 "value": {
                     "total": {
-                        "type": "long",
-                        "value": "#total"
+                        "type": "double",
+                        "value": "#total / 10000"
                     },
                     "max": {
-                        "type": "int",
-                        "value": "#max"
+                        "type": "double",
+                        "value": "#max / 10000"
                     },
                     "min": {
-                        "type": "int",
-                        "value": "#min"
+                        "type": "double",
+                        "value": "#min / 10000"
                     }
                 },
                 "maxLength": 500,
@@ -30,16 +30,16 @@
                 "timestamp": "long",
                 "value": {
                     "average": {
-                        "type": "int",
-                        "value": "#average"
+                        "type": "double",
+                        "value": "#average / 100"
                     },
                     "max": {
-                        "type": "int",
-                        "value": "#max"
+                        "type": "double",
+                        "value": "#max / 100"
                     },
                     "min": {
-                        "type": "int",
-                        "value": "#min"
+                        "type": "double",
+                        "value": "#min / 100"
                     }
                 },
                 "maxLength": 500,
@@ -52,12 +52,12 @@
                 "timestamp": "long",
                 "value": {
                     "current": {
-                        "type": "int",
+                        "type": "double",
                         "value": "#current"
                     },
                     "pow": {
-                        "type": "int",
-                        "value": "#pow"
+                        "type": "double",
+                        "value": "#pow / 10"
                     }
                 },
                 "maxLength": 500,
@@ -101,6 +101,154 @@
                 "network": "Secondary"
             }
         ]
+    },
+    "imu": {
+        "gyro": [
+            {
+                "timestamp": "long",
+                "value": {
+                    "total": {
+                        "type": "double",
+                        "value": "#x"
+                    },
+                    "max": {
+                        "type": "double",
+                        "value": "#y"
+                    },
+                    "min": {
+                        "type": "double",
+                        "value": "#z"
+                    }
+                },
+                "maxLength": 500,
+                "name": "IMU_GYRO",
+                "network": "Primary"
+            }
+        ],
+        "accel": [
+            {
+                "timestamp": "long",
+                "value": {
+                    "total": {
+                        "type": "double",
+                        "value": "#x"
+                    },
+                    "max": {
+                        "type": "double",
+                        "value": "#y"
+                    },
+                    "min": {
+                        "type": "double",
+                        "value": "#z"
+                    }
+                },
+                "maxLength": 500,
+                "name": "IMU_ACCEL",
+                "network": "Primary"
+            }
+        ]
+    },
+    "inverters": {
+        "right": {
+            "speed": [
+                {
+                    "timestamp": "long",
+                    "value": {
+                        "type": "double",
+                        "value": "#value"
+                    },
+                    "maxLength": 500,
+                    "name": "INVERTER_RIGHT_SPEED",
+                    "network": "Primary"
+                }
+            ],
+            "temperature_igbt": [
+                {
+                    "timestamp": "long",
+                    "value": {
+                        "type": "double",
+                        "value": "#value"
+                    },
+                    "maxLength": 500,
+                    "name": "INVERTER_RIGHT_TEMPERATURE_IGBT",
+                    "network": "Primary"
+                }
+            ],
+            "temperature_motors": [
+                {
+                    "timestamp": "long",
+                    "value": {
+                        "type": "double",
+                        "value": "#value"
+                    },
+                    "maxLength": 500,
+                    "name": "INVERTER_RIGHT_TEMPERATURE_MOTORS",
+                    "network": "Primary"
+                }
+            ],
+            "torque": [
+                {
+                    "timestamp": "long",
+                    "value": {
+                        "type": "double",
+                        "value": "#value"
+                    },
+                    "maxLength": 500,
+                    "name": "INVERTER_RIGHT_TORQUE",
+                    "network": "Primary"
+                }
+            ]
+        },
+        "left": {
+            "speed": [
+                {
+                    "timestamp": "long",
+                    "value": {
+                        "type": "double",
+                        "value": "#value"
+                    },
+                    "maxLength": 500,
+                    "name": "INVERTER_LEFT_SPEED",
+                    "network": "Primary"
+                }
+            ],
+            "temperature_igbt": [
+                {
+                    "timestamp": "long",
+                    "value": {
+                        "type": "double",
+                        "value": "#value"
+                    },
+                    "maxLength": 500,
+                    "name": "INVERTER_LEFT_TEMPERATURE_IGBT",
+                    "network": "Primary"
+                }
+            ],
+            "temperature_motors": [
+                {
+                    "timestamp": "long",
+                    "value": {
+                        "type": "double",
+                        "value": "#value"
+                    },
+                    "maxLength": 500,
+                    "name": "INVERTER_LEFT_TEMPERATURE_MOTORS",
+                    "network": "Primary"
+                }
+            ],
+            "torque": [
+                {
+                    "timestamp": "long",
+                    "value": {
+                        "type": "double",
+                        "value": "#value"
+                    },
+                    "maxLength": 500,
+                    "name": "INVERTER_LEFT_TORQUE",
+                    "network": "Primary"
+                }
+            ]
+        }
     },
     "gps": {
         "gga": [

@@ -90,6 +90,150 @@ static void* _parseCanMessages() {
 
 				break;
 			}
+			case (ID_IMU_GYRO): {
+				int count = document->imu.gyro_count;
+				if (count < document->imu.gyro_size) {
+					Primary_IMU_GYRO* message = (Primary_IMU_GYRO*) malloc(sizeof(Primary_IMU_GYRO));
+					deserialize_Primary_IMU_GYRO(data, message);
+					
+					
+					document->imu.gyro[count].timestamp = getCurrentTimestamp();
+					document->imu.gyro[count].value.total = message->x;
+					document->imu.gyro[count].value.max = message->y;
+					document->imu.gyro[count].value.min = message->z;
+					++document->imu.gyro_count;
+				}
+				break;
+			}
+			
+			case (ID_IMU_ACCEL): {
+				int count = document->imu.accel_count;
+				if (count < document->imu.accel_size) {
+					Primary_IMU_ACCEL* message = (Primary_IMU_ACCEL*) malloc(sizeof(Primary_IMU_ACCEL));
+					deserialize_Primary_IMU_ACCEL(data, message);
+					
+					
+					document->imu.accel[count].timestamp = getCurrentTimestamp();
+					document->imu.accel[count].value.total = message->x;
+					document->imu.accel[count].value.max = message->y;
+					document->imu.accel[count].value.min = message->z;
+					++document->imu.accel_count;
+				}
+				break;
+			}
+			
+			case (ID_INVERTER_RIGHT_SPEED): {
+				int count = document->inverters.right.speed_count;
+				if (count < document->inverters.right.speed_size) {
+					Primary_INVERTER_RIGHT_SPEED* message = (Primary_INVERTER_RIGHT_SPEED*) malloc(sizeof(Primary_INVERTER_RIGHT_SPEED));
+					deserialize_Primary_INVERTER_RIGHT_SPEED(data, message);
+					
+					
+					document->inverters.right.speed[count].timestamp = getCurrentTimestamp();
+					document->inverters.right.speed[count].value = message->value;
+					++document->inverters.right.speed_count;
+				}
+				break;
+			}
+			
+			case (ID_INVERTER_RIGHT_TEMPERATURE_IGBT): {
+				int count = document->inverters.right.temperature_igbt_count;
+				if (count < document->inverters.right.temperature_igbt_size) {
+					Primary_INVERTER_RIGHT_TEMPERATURE_IGBT* message = (Primary_INVERTER_RIGHT_TEMPERATURE_IGBT*) malloc(sizeof(Primary_INVERTER_RIGHT_TEMPERATURE_IGBT));
+					deserialize_Primary_INVERTER_RIGHT_TEMPERATURE_IGBT(data, message);
+					
+					
+					document->inverters.right.temperature_igbt[count].timestamp = getCurrentTimestamp();
+					document->inverters.right.temperature_igbt[count].value = message->value;
+					++document->inverters.right.temperature_igbt_count;
+				}
+				break;
+			}
+			
+			case (ID_INVERTER_RIGHT_TEMPERATURE_MOTORS): {
+				int count = document->inverters.right.temperature_motors_count;
+				if (count < document->inverters.right.temperature_motors_size) {
+					Primary_INVERTER_RIGHT_TEMPERATURE_MOTORS* message = (Primary_INVERTER_RIGHT_TEMPERATURE_MOTORS*) malloc(sizeof(Primary_INVERTER_RIGHT_TEMPERATURE_MOTORS));
+					deserialize_Primary_INVERTER_RIGHT_TEMPERATURE_MOTORS(data, message);
+					
+					
+					document->inverters.right.temperature_motors[count].timestamp = getCurrentTimestamp();
+					document->inverters.right.temperature_motors[count].value = message->value;
+					++document->inverters.right.temperature_motors_count;
+				}
+				break;
+			}
+			
+			case (ID_INVERTER_RIGHT_TORQUE): {
+				int count = document->inverters.right.torque_count;
+				if (count < document->inverters.right.torque_size) {
+					Primary_INVERTER_RIGHT_TORQUE* message = (Primary_INVERTER_RIGHT_TORQUE*) malloc(sizeof(Primary_INVERTER_RIGHT_TORQUE));
+					deserialize_Primary_INVERTER_RIGHT_TORQUE(data, message);
+					
+					
+					document->inverters.right.torque[count].timestamp = getCurrentTimestamp();
+					document->inverters.right.torque[count].value = message->value;
+					++document->inverters.right.torque_count;
+				}
+				break;
+			}
+			
+			case (ID_INVERTER_LEFT_SPEED): {
+				int count = document->inverters.left.speed_count;
+				if (count < document->inverters.left.speed_size) {
+					Primary_INVERTER_LEFT_SPEED* message = (Primary_INVERTER_LEFT_SPEED*) malloc(sizeof(Primary_INVERTER_LEFT_SPEED));
+					deserialize_Primary_INVERTER_LEFT_SPEED(data, message);
+					
+					
+					document->inverters.left.speed[count].timestamp = getCurrentTimestamp();
+					document->inverters.left.speed[count].value = message->value;
+					++document->inverters.left.speed_count;
+				}
+				break;
+			}
+			
+			case (ID_INVERTER_LEFT_TEMPERATURE_IGBT): {
+				int count = document->inverters.left.temperature_igbt_count;
+				if (count < document->inverters.left.temperature_igbt_size) {
+					Primary_INVERTER_LEFT_TEMPERATURE_IGBT* message = (Primary_INVERTER_LEFT_TEMPERATURE_IGBT*) malloc(sizeof(Primary_INVERTER_LEFT_TEMPERATURE_IGBT));
+					deserialize_Primary_INVERTER_LEFT_TEMPERATURE_IGBT(data, message);
+					
+					
+					document->inverters.left.temperature_igbt[count].timestamp = getCurrentTimestamp();
+					document->inverters.left.temperature_igbt[count].value = message->value;
+					++document->inverters.left.temperature_igbt_count;
+				}
+				break;
+			}
+			
+			case (ID_INVERTER_LEFT_TEMPERATURE_MOTORS): {
+				int count = document->inverters.left.temperature_motors_count;
+				if (count < document->inverters.left.temperature_motors_size) {
+					Primary_INVERTER_LEFT_TEMPERATURE_MOTORS* message = (Primary_INVERTER_LEFT_TEMPERATURE_MOTORS*) malloc(sizeof(Primary_INVERTER_LEFT_TEMPERATURE_MOTORS));
+					deserialize_Primary_INVERTER_LEFT_TEMPERATURE_MOTORS(data, message);
+					
+					
+					document->inverters.left.temperature_motors[count].timestamp = getCurrentTimestamp();
+					document->inverters.left.temperature_motors[count].value = message->value;
+					++document->inverters.left.temperature_motors_count;
+				}
+				break;
+			}
+			
+			case (ID_INVERTER_LEFT_TORQUE): {
+				int count = document->inverters.left.torque_count;
+				if (count < document->inverters.left.torque_size) {
+					Primary_INVERTER_LEFT_TORQUE* message = (Primary_INVERTER_LEFT_TORQUE*) malloc(sizeof(Primary_INVERTER_LEFT_TORQUE));
+					deserialize_Primary_INVERTER_LEFT_TORQUE(data, message);
+					
+					
+					document->inverters.left.torque[count].timestamp = getCurrentTimestamp();
+					document->inverters.left.torque[count].value = message->value;
+					++document->inverters.left.torque_count;
+				}
+				break;
+			}
+			
 			
 		}
 

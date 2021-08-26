@@ -2,9 +2,9 @@
 #define TELEMETRY_DATA_STRUCTURE
 
 typedef struct {
-	long total;
-	int max;
-	int min;
+	double total;
+	double max;
+	double min;
 } bms_hv_voltage_value_data;
 
 typedef struct {
@@ -13,9 +13,9 @@ typedef struct {
 } bms_hv_voltage_data;
 
 typedef struct {
-	int average;
-	int max;
-	int min;
+	double average;
+	double max;
+	double min;
 } bms_hv_temperature_value_data;
 
 typedef struct {
@@ -24,8 +24,8 @@ typedef struct {
 } bms_hv_temperature_data;
 
 typedef struct {
-	int current;
-	int pow;
+	double current;
+	double pow;
 } bms_hv_current_value_data;
 
 typedef struct {
@@ -70,6 +70,112 @@ typedef struct {
 	int warnings_count;
 	int warnings_size;
 } bms_hv_data;
+
+typedef struct {
+	double total;
+	double max;
+	double min;
+} imu_gyro_value_data;
+
+typedef struct {
+	long timestamp;
+	imu_gyro_value_data value;
+} imu_gyro_data;
+
+typedef struct {
+	double total;
+	double max;
+	double min;
+} imu_accel_value_data;
+
+typedef struct {
+	long timestamp;
+	imu_accel_value_data value;
+} imu_accel_data;
+
+typedef struct {
+	imu_gyro_data *gyro;
+	int gyro_count;
+	int gyro_size;
+	imu_accel_data *accel;
+	int accel_count;
+	int accel_size;
+} imu_data;
+
+typedef struct {
+	long timestamp;
+	double value;
+} inverters_right_speed_data;
+
+typedef struct {
+	long timestamp;
+	double value;
+} inverters_right_temperature_igbt_data;
+
+typedef struct {
+	long timestamp;
+	double value;
+} inverters_right_temperature_motors_data;
+
+typedef struct {
+	long timestamp;
+	double value;
+} inverters_right_torque_data;
+
+typedef struct {
+	inverters_right_speed_data *speed;
+	int speed_count;
+	int speed_size;
+	inverters_right_temperature_igbt_data *temperature_igbt;
+	int temperature_igbt_count;
+	int temperature_igbt_size;
+	inverters_right_temperature_motors_data *temperature_motors;
+	int temperature_motors_count;
+	int temperature_motors_size;
+	inverters_right_torque_data *torque;
+	int torque_count;
+	int torque_size;
+} inverters_right_data;
+
+typedef struct {
+	long timestamp;
+	double value;
+} inverters_left_speed_data;
+
+typedef struct {
+	long timestamp;
+	double value;
+} inverters_left_temperature_igbt_data;
+
+typedef struct {
+	long timestamp;
+	double value;
+} inverters_left_temperature_motors_data;
+
+typedef struct {
+	long timestamp;
+	double value;
+} inverters_left_torque_data;
+
+typedef struct {
+	inverters_left_speed_data *speed;
+	int speed_count;
+	int speed_size;
+	inverters_left_temperature_igbt_data *temperature_igbt;
+	int temperature_igbt_count;
+	int temperature_igbt_size;
+	inverters_left_temperature_motors_data *temperature_motors;
+	int temperature_motors_count;
+	int temperature_motors_size;
+	inverters_left_torque_data *torque;
+	int torque_count;
+	int torque_size;
+} inverters_left_data;
+
+typedef struct {
+	inverters_right_data right;
+	inverters_left_data left;
+} inverters_data;
 
 typedef struct {
 	double latitude_safe;
@@ -145,6 +251,8 @@ typedef struct {
 	long timestamp;
 	char* sessionName;
 	bms_hv_data bms_hv;
+	imu_data imu;
+	inverters_data inverters;
 	gps_data gps;
 } data_t;
 
