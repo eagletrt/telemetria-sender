@@ -214,6 +214,35 @@ typedef struct {
 } steering_wheel_data;
 
 typedef struct {
+	double left;
+	double right;
+} front_wheel_encoders_speed_rads_value_data;
+
+typedef struct {
+	long timestamp;
+	front_wheel_encoders_speed_rads_value_data value;
+} front_wheel_encoders_speed_rads_data;
+
+typedef struct {
+	double rotations;
+	double km;
+} front_wheel_encoders_rotations_and_km_value_data;
+
+typedef struct {
+	long timestamp;
+	front_wheel_encoders_rotations_and_km_value_data value;
+} front_wheel_encoders_rotations_and_km_data;
+
+typedef struct {
+	front_wheel_encoders_speed_rads_data *speed_rads;
+	int speed_rads_count;
+	int speed_rads_size;
+	front_wheel_encoders_rotations_and_km_data *rotations_and_km;
+	int rotations_and_km_count;
+	int rotations_and_km_size;
+} front_wheel_encoders_data;
+
+typedef struct {
 	double latitude_safe;
 	double longitude_safe;
 	double latitude;
@@ -291,6 +320,7 @@ typedef struct {
 	inverters_data inverters;
 	pedals_data pedals;
 	steering_wheel_data steering_wheel;
+	front_wheel_encoders_data front_wheel_encoders;
 	gps_data gps;
 } data_t;
 

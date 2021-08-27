@@ -278,6 +278,36 @@ static void* _parseCanMessages() {
 				break;
 			}
 			
+			case (ID_FRONT_WHEELS_ENCODERS_SPEED_RADS): {
+				int count = document->front_wheel_encoders.speed_rads_count;
+				if (count < document->front_wheel_encoders.speed_rads_size) {
+					Primary_FRONT_WHEELS_ENCODERS_SPEED_RADS* message = (Primary_FRONT_WHEELS_ENCODERS_SPEED_RADS*) malloc(sizeof(Primary_FRONT_WHEELS_ENCODERS_SPEED_RADS));
+					deserialize_Primary_FRONT_WHEELS_ENCODERS_SPEED_RADS(data, message);
+					
+					
+					document->front_wheel_encoders.speed_rads[count].timestamp = getCurrentTimestamp();
+					document->front_wheel_encoders.speed_rads[count].value.left = message->left / 10000.0;
+					document->front_wheel_encoders.speed_rads[count].value.right = message->right / 10000.0;
+					++document->front_wheel_encoders.speed_rads_count;
+				}
+				break;
+			}
+			
+			case (ID_FRONT_WHEELS_ENCODERS_ROTATION_AND_KM): {
+				int count = document->front_wheel_encoders.rotations_and_km_count;
+				if (count < document->front_wheel_encoders.rotations_and_km_size) {
+					Primary_FRONT_WHEELS_ENCODERS_ROTATION_AND_KM* message = (Primary_FRONT_WHEELS_ENCODERS_ROTATION_AND_KM*) malloc(sizeof(Primary_FRONT_WHEELS_ENCODERS_ROTATION_AND_KM));
+					deserialize_Primary_FRONT_WHEELS_ENCODERS_ROTATION_AND_KM(data, message);
+					
+					
+					document->front_wheel_encoders.rotations_and_km[count].timestamp = getCurrentTimestamp();
+					document->front_wheel_encoders.rotations_and_km[count].value.rotations = message->rotations;
+					document->front_wheel_encoders.rotations_and_km[count].value.km = message->km;
+					++document->front_wheel_encoders.rotations_and_km_count;
+				}
+				break;
+			}
+			
 			
 		}
 

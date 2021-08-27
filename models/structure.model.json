@@ -307,11 +307,11 @@
                 "value": {
                     "left": {
                         "type": "double",
-                        "value": "#left"
+                        "value": "#left / 10000.0"
                     },
                     "right": {
                         "type": "double",
-                        "value": "#right"
+                        "value": "#right / 10000.0"
                     }
                 },
                 "maxLength": 500,
