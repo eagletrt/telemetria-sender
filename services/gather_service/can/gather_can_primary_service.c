@@ -130,7 +130,7 @@ static void* _parseCanMessages() {
 					
 					
 					document->inverters.right.speed[count].timestamp = getCurrentTimestamp();
-					document->inverters.right.speed[count].value = message->value;
+					document->inverters.right.speed[count].value = ((message->value > 32767 ? message->value - 65535 : message->value) / 32767.0) * 7000.0;
 					++document->inverters.right.speed_count;
 				}
 				break;
@@ -144,7 +144,7 @@ static void* _parseCanMessages() {
 					
 					
 					document->inverters.right.temperature_igbt[count].timestamp = getCurrentTimestamp();
-					document->inverters.right.temperature_igbt[count].value = message->value;
+					document->inverters.right.temperature_igbt[count].value = (message->value - 15797) / 112.1182;
 					++document->inverters.right.temperature_igbt_count;
 				}
 				break;
@@ -158,7 +158,7 @@ static void* _parseCanMessages() {
 					
 					
 					document->inverters.right.temperature_motors[count].timestamp = getCurrentTimestamp();
-					document->inverters.right.temperature_motors[count].value = message->value;
+					document->inverters.right.temperature_motors[count].value = (message->value - 9393.9) / 55.1;
 					++document->inverters.right.temperature_motors_count;
 				}
 				break;
@@ -172,7 +172,7 @@ static void* _parseCanMessages() {
 					
 					
 					document->inverters.right.torque[count].timestamp = getCurrentTimestamp();
-					document->inverters.right.torque[count].value = message->value;
+					document->inverters.right.torque[count].value = message->value / 32767.0;
 					++document->inverters.right.torque_count;
 				}
 				break;

@@ -155,7 +155,7 @@
                     "timestamp": "long",
                     "value": {
                         "type": "double",
-                        "value": "#value"
+                        "value": "((#value > 32767 ? #value - 65535 : #value) / 32767.0) * 7000.0"
                     },
                     "maxLength": 500,
                     "name": "INVERTER_RIGHT_SPEED",
@@ -167,7 +167,7 @@
                     "timestamp": "long",
                     "value": {
                         "type": "double",
-                        "value": "#value"
+                        "value": "(#value - 15797) / 112.1182"
                     },
                     "maxLength": 500,
                     "name": "INVERTER_RIGHT_TEMPERATURE_IGBT",
@@ -179,7 +179,7 @@
                     "timestamp": "long",
                     "value": {
                         "type": "double",
-                        "value": "#value"
+                        "value": "(#value - 9393.9) / 55.1"
                     },
                     "maxLength": 500,
                     "name": "INVERTER_RIGHT_TEMPERATURE_MOTORS",
@@ -191,7 +191,7 @@
                     "timestamp": "long",
                     "value": {
                         "type": "double",
-                        "value": "#value"
+                        "value": "#value / 32767.0"
                     },
                     "maxLength": 500,
                     "name": "INVERTER_RIGHT_TORQUE",
