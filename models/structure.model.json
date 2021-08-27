@@ -300,6 +300,44 @@
             }
         ]
     },
+    "front_wheel_encoders": {
+        "speed_rads": [
+            {
+                "timestamp": "long",
+                "value": {
+                    "left": {
+                        "type": "double",
+                        "value": "#left"
+                    },
+                    "right": {
+                        "type": "double",
+                        "value": "#right"
+                    }
+                },
+                "maxLength": 500,
+                "name": "FRONT_WHEELS_ENCODERS_SPEED_RADS",
+                "network": "Primary"
+            }
+        ],
+        "rotations_and_km": [
+            {
+                "timestamp": "long",
+                "value": {
+                    "rotations": {
+                        "type": "double",
+                        "value": "#rotations"
+                    },
+                    "km": {
+                        "type": "double",
+                        "value": "#km"
+                    }
+                },
+                "maxLength": 500,
+                "name": "FRONT_WHEELS_ENCODERS_ROTATION_AND_KM",
+                "network": "Primary"
+            }
+        ]
+    },
     "gps": {
         "gga": [
             {
