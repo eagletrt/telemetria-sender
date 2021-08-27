@@ -243,8 +243,8 @@ static void* _parseCanMessages() {
 					
 					document->pedals.brake[count].timestamp = getCurrentTimestamp();
 					document->pedals.brake[count].value.is_breaking = message->is_breaking;
-					document->pedals.brake[count].value.pressure_front = message->pressure_front;
-					document->pedals.brake[count].value.pressure_back = message->pressure_back;
+					document->pedals.brake[count].value.pressure_front = message->pressure_front / 500.0;
+					document->pedals.brake[count].value.pressure_back = message->pressure_back / 500.0;
 					++document->pedals.brake_count;
 				}
 				break;

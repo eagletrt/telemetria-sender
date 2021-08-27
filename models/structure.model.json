@@ -261,11 +261,11 @@
                     },
                     "pressure_front": {
                         "type": "double",
-                        "value": "#pressure_front"
+                        "value": "#pressure_front / 500.0"
                     },
                     "pressure_back": {
                         "type": "double",
-                        "value": "#pressure_back"
+                        "value": "#pressure_back / 500.0"
                     }
                 },
                 "maxLength": 500,
