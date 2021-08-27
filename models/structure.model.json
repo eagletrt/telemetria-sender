@@ -9,15 +9,15 @@
                 "value": {
                     "total": {
                         "type": "double",
-                        "value": "#total / 10000"
+                        "value": "#total / 10000.0"
                     },
                     "max": {
                         "type": "double",
-                        "value": "#max / 10000"
+                        "value": "#max / 10000.0"
                     },
                     "min": {
                         "type": "double",
-                        "value": "#min / 10000"
+                        "value": "#min / 10000.0"
                     }
                 },
                 "maxLength": 500,
@@ -31,15 +31,15 @@
                 "value": {
                     "average": {
                         "type": "double",
-                        "value": "#average / 100"
+                        "value": "#average / 100.0"
                     },
                     "max": {
                         "type": "double",
-                        "value": "#max / 100"
+                        "value": "#max / 100.0"
                     },
                     "min": {
                         "type": "double",
-                        "value": "#min / 100"
+                        "value": "#min / 100.0"
                     }
                 },
                 "maxLength": 500,
@@ -57,7 +57,7 @@
                     },
                     "pow": {
                         "type": "double",
-                        "value": "#pow / 10"
+                        "value": "#pow / 10.0"
                     }
                 },
                 "maxLength": 500,

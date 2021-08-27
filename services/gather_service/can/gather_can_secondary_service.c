@@ -49,9 +49,9 @@ static void* _parseCanMessages() {
 					
 					
 					document->bms_hv.voltage[count].timestamp = getCurrentTimestamp();
-					document->bms_hv.voltage[count].value.total = message->total / 10000;
-					document->bms_hv.voltage[count].value.max = message->max / 10000;
-					document->bms_hv.voltage[count].value.min = message->min / 10000;
+					document->bms_hv.voltage[count].value.total = message->total / 10000.0;
+					document->bms_hv.voltage[count].value.max = message->max / 10000.0;
+					document->bms_hv.voltage[count].value.min = message->min / 10000.0;
 					++document->bms_hv.voltage_count;
 				}
 				break;
@@ -65,9 +65,9 @@ static void* _parseCanMessages() {
 					
 					
 					document->bms_hv.temperature[count].timestamp = getCurrentTimestamp();
-					document->bms_hv.temperature[count].value.average = message->average / 100;
-					document->bms_hv.temperature[count].value.max = message->max / 100;
-					document->bms_hv.temperature[count].value.min = message->min / 100;
+					document->bms_hv.temperature[count].value.average = message->average / 100.0;
+					document->bms_hv.temperature[count].value.max = message->max / 100.0;
+					document->bms_hv.temperature[count].value.min = message->min / 100.0;
 					++document->bms_hv.temperature_count;
 				}
 				break;
@@ -82,7 +82,7 @@ static void* _parseCanMessages() {
 					
 					document->bms_hv.current[count].timestamp = getCurrentTimestamp();
 					document->bms_hv.current[count].value.current = message->current;
-					document->bms_hv.current[count].value.pow = message->pow / 10;
+					document->bms_hv.current[count].value.pow = message->pow / 10.0;
 					++document->bms_hv.current_count;
 				}
 				break;
