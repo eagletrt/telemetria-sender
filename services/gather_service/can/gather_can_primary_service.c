@@ -98,9 +98,9 @@ static void* _parseCanMessages() {
 					
 					
 					document->imu.gyro[count].timestamp = getCurrentTimestamp();
-					document->imu.gyro[count].value.total = message->x;
-					document->imu.gyro[count].value.max = message->y;
-					document->imu.gyro[count].value.min = message->z;
+					document->imu.gyro[count].value.x = (message->x > 32767 ? message->x - 65535 : message->x) / 100.0;
+					document->imu.gyro[count].value.y = (message->y > 32767 ? message->y - 65535 : message->y) / 100.0;
+					document->imu.gyro[count].value.z = (message->z > 32767 ? message->z - 65535 : message->z) / 100.0;
 					++document->imu.gyro_count;
 				}
 				break;
@@ -114,9 +114,9 @@ static void* _parseCanMessages() {
 					
 					
 					document->imu.accel[count].timestamp = getCurrentTimestamp();
-					document->imu.accel[count].value.total = message->x;
-					document->imu.accel[count].value.max = message->y;
-					document->imu.accel[count].value.min = message->z;
+					document->imu.accel[count].value.x = (message->x > 32767 ? message->x - 65535 : message->x) / 100.0;
+					document->imu.accel[count].value.y = (message->y > 32767 ? message->y - 65535 : message->y) / 100.0;
+					document->imu.accel[count].value.z = (message->z > 32767 ? message->z - 65535 : message->z) / 100.0;
 					++document->imu.accel_count;
 				}
 				break;

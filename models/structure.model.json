@@ -107,17 +107,17 @@
             {
                 "timestamp": "long",
                 "value": {
-                    "total": {
+                    "x": {
                         "type": "double",
-                        "value": "#x"
+                        "value": "(#x > 32767 ? #x - 65535 : #x) / 100.0"
                     },
-                    "max": {
+                    "y": {
                         "type": "double",
-                        "value": "#y"
+                        "value": "(#y > 32767 ? #y - 65535 : #y) / 100.0"
                     },
-                    "min": {
+                    "z": {
                         "type": "double",
-                        "value": "#z"
+                        "value": "(#z > 32767 ? #z - 65535 : #z) / 100.0"
                     }
                 },
                 "maxLength": 500,
@@ -129,17 +129,17 @@
             {
                 "timestamp": "long",
                 "value": {
-                    "total": {
+                    "x": {
                         "type": "double",
-                        "value": "#x"
+                        "value": "(#x > 32767 ? #x - 65535 : #x) / 100.0"
                     },
-                    "max": {
+                    "y": {
                         "type": "double",
-                        "value": "#y"
+                        "value": "(#y > 32767 ? #y - 65535 : #y) / 100.0"
                     },
-                    "min": {
+                    "z": {
                         "type": "double",
-                        "value": "#z"
+                        "value": "(#z > 32767 ? #z - 65535 : #z) / 100.0"
                     }
                 },
                 "maxLength": 500,

@@ -72,9 +72,9 @@ typedef struct {
 } bms_hv_data;
 
 typedef struct {
-	double total;
-	double max;
-	double min;
+	double x;
+	double y;
+	double z;
 } imu_gyro_value_data;
 
 typedef struct {
@@ -83,9 +83,9 @@ typedef struct {
 } imu_gyro_data;
 
 typedef struct {
-	double total;
-	double max;
-	double min;
+	double x;
+	double y;
+	double z;
 } imu_accel_value_data;
 
 typedef struct {

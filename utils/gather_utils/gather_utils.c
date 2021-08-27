@@ -192,9 +192,9 @@ void gatherDataToBson(data_t *data, bson_t** bson_document) {
 		BSON_APPEND_DOCUMENT_BEGIN(&children[1], "0", &children[2]);
 		BSON_APPEND_INT64(&children[2], "timestamp", data->imu.gyro[i].timestamp);
 		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "value", &children[3]);
-		BSON_APPEND_DOUBLE(&children[3], "total", data->imu.gyro[i].value.total);
-		BSON_APPEND_DOUBLE(&children[3], "max", data->imu.gyro[i].value.max);
-		BSON_APPEND_DOUBLE(&children[3], "min", data->imu.gyro[i].value.min);
+		BSON_APPEND_DOUBLE(&children[3], "x", data->imu.gyro[i].value.x);
+		BSON_APPEND_DOUBLE(&children[3], "y", data->imu.gyro[i].value.y);
+		BSON_APPEND_DOUBLE(&children[3], "z", data->imu.gyro[i].value.z);
 		bson_append_document_end(&children[2], &children[3]);
 		bson_destroy(&children[3]);
 		bson_append_document_end(&children[1], &children[2]);
@@ -208,9 +208,9 @@ void gatherDataToBson(data_t *data, bson_t** bson_document) {
 		BSON_APPEND_DOCUMENT_BEGIN(&children[1], "0", &children[2]);
 		BSON_APPEND_INT64(&children[2], "timestamp", data->imu.accel[i].timestamp);
 		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "value", &children[3]);
-		BSON_APPEND_DOUBLE(&children[3], "total", data->imu.accel[i].value.total);
-		BSON_APPEND_DOUBLE(&children[3], "max", data->imu.accel[i].value.max);
-		BSON_APPEND_DOUBLE(&children[3], "min", data->imu.accel[i].value.min);
+		BSON_APPEND_DOUBLE(&children[3], "x", data->imu.accel[i].value.x);
+		BSON_APPEND_DOUBLE(&children[3], "y", data->imu.accel[i].value.y);
+		BSON_APPEND_DOUBLE(&children[3], "z", data->imu.accel[i].value.z);
 		bson_append_document_end(&children[2], &children[3]);
 		bson_destroy(&children[3]);
 		bson_append_document_end(&children[1], &children[2]);
