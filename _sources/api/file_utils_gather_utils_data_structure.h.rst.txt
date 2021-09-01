@@ -124,6 +124,8 @@ Classes
 
 - :ref:`exhale_struct_structinverters__left__data`
 
+- :ref:`exhale_struct_structinverters__left__filtered__actual__current__data`
+
 - :ref:`exhale_struct_structinverters__left__speed__data`
 
 - :ref:`exhale_struct_structinverters__left__temperature__igbt__data`
@@ -133,6 +135,8 @@ Classes
 - :ref:`exhale_struct_structinverters__left__torque__data`
 
 - :ref:`exhale_struct_structinverters__right__data`
+
+- :ref:`exhale_struct_structinverters__right__filtered__actual__current__data`
 
 - :ref:`exhale_struct_structinverters__right__speed__data`
 

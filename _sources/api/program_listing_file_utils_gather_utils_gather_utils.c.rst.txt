@@ -27,6 +27,9 @@ Program Listing for File gather_utils.c
        data->inverters.right.torque_size = 500;
        data->inverters.right.torque = (inverters_right_torque_data*) malloc(sizeof(inverters_right_torque_data) * data->inverters.right.torque_size);
        data->inverters.right.torque_count = 0;
+       data->inverters.right.filtered_actual_current_size = 500;
+       data->inverters.right.filtered_actual_current = (inverters_right_filtered_actual_current_data*) malloc(sizeof(inverters_right_filtered_actual_current_data) * data->inverters.right.filtered_actual_current_size);
+       data->inverters.right.filtered_actual_current_count = 0;
        data->inverters.left.speed_size = 500;
        data->inverters.left.speed = (inverters_left_speed_data*) malloc(sizeof(inverters_left_speed_data) * data->inverters.left.speed_size);
        data->inverters.left.speed_count = 0;
@@ -39,6 +42,9 @@ Program Listing for File gather_utils.c
        data->inverters.left.torque_size = 500;
        data->inverters.left.torque = (inverters_left_torque_data*) malloc(sizeof(inverters_left_torque_data) * data->inverters.left.torque_size);
        data->inverters.left.torque_count = 0;
+       data->inverters.left.filtered_actual_current_size = 500;
+       data->inverters.left.filtered_actual_current = (inverters_left_filtered_actual_current_data*) malloc(sizeof(inverters_left_filtered_actual_current_data) * data->inverters.left.filtered_actual_current_size);
+       data->inverters.left.filtered_actual_current_count = 0;
        data->bms_hv.temperature_size = 500;
        data->bms_hv.temperature = (bms_hv_temperature_data*) malloc(sizeof(bms_hv_temperature_data) * data->bms_hv.temperature_size);
        data->bms_hv.temperature_count = 0;
@@ -111,10 +117,12 @@ Program Listing for File gather_utils.c
        free(data->inverters.right.temperature_igbt);
        free(data->inverters.right.temperature_motors);
        free(data->inverters.right.torque);
+       free(data->inverters.right.filtered_actual_current);
        free(data->inverters.left.speed);
        free(data->inverters.left.temperature_igbt);
        free(data->inverters.left.temperature_motors);
        free(data->inverters.left.torque);
+       free(data->inverters.left.filtered_actual_current);
        free(data->bms_hv.temperature);
        free(data->bms_hv.voltage);
        free(data->bms_hv.current);
@@ -193,6 +201,17 @@ Program Listing for File gather_utils.c
        }
        bson_append_array_end(&children[1], &children[2]);
        bson_destroy(&children[2]);
+       BSON_APPEND_ARRAY_BEGIN(&children[1], "filtered_actual_current", &children[2]);
+       for (int i = 0; i < (data->inverters.right.filtered_actual_current_count); i++)
+       {
+           BSON_APPEND_DOCUMENT_BEGIN(&children[2], "0", &children[3]);
+           BSON_APPEND_INT64(&children[3], "timestamp", data->inverters.right.filtered_actual_current[i].timestamp);
+           BSON_APPEND_DOUBLE(&children[3], "value", data->inverters.right.filtered_actual_current[i].value);
+           bson_append_document_end(&children[2], &children[3]);
+           bson_destroy(&children[3]);
+       }
+       bson_append_array_end(&children[1], &children[2]);
+       bson_destroy(&children[2]);
        bson_append_document_end(&children[0], &children[1]);
        bson_destroy(&children[1]);
        BSON_APPEND_DOCUMENT_BEGIN(&children[0], "left", &children[1]);
@@ -235,6 +254,17 @@ Program Listing for File gather_utils.c
            BSON_APPEND_DOCUMENT_BEGIN(&children[2], "0", &children[3]);
            BSON_APPEND_INT64(&children[3], "timestamp", data->inverters.left.torque[i].timestamp);
            BSON_APPEND_DOUBLE(&children[3], "value", data->inverters.left.torque[i].value);
+           bson_append_document_end(&children[2], &children[3]);
+           bson_destroy(&children[3]);
+       }
+       bson_append_array_end(&children[1], &children[2]);
+       bson_destroy(&children[2]);
+       BSON_APPEND_ARRAY_BEGIN(&children[1], "filtered_actual_current", &children[2]);
+       for (int i = 0; i < (data->inverters.left.filtered_actual_current_count); i++)
+       {
+           BSON_APPEND_DOCUMENT_BEGIN(&children[2], "0", &children[3]);
+           BSON_APPEND_INT64(&children[3], "timestamp", data->inverters.left.filtered_actual_current[i].timestamp);
+           BSON_APPEND_DOUBLE(&children[3], "value", data->inverters.left.filtered_actual_current[i].value);
            bson_append_document_end(&children[2], &children[3]);
            bson_destroy(&children[3]);
        }

@@ -186,6 +186,11 @@
 <span class="p">}</span> <span class="n">inverters_right_torque_data</span><span class="p">;</span>
 
 <span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
+    <span class="kt">long</span> <span class="n">timestamp</span><span class="p">;</span>
+    <span class="kt">double</span> <span class="n">value</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">inverters_right_filtered_actual_current_data</span><span class="p">;</span>
+
+<span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
     <span class="n">inverters_right_speed_data</span> <span class="o">*</span><span class="n">speed</span><span class="p">;</span>
     <span class="kt">int</span> <span class="n">speed_count</span><span class="p">;</span>
     <span class="kt">int</span> <span class="n">speed_size</span><span class="p">;</span>
@@ -198,6 +203,9 @@
     <span class="n">inverters_right_torque_data</span> <span class="o">*</span><span class="n">torque</span><span class="p">;</span>
     <span class="kt">int</span> <span class="n">torque_count</span><span class="p">;</span>
     <span class="kt">int</span> <span class="n">torque_size</span><span class="p">;</span>
+    <span class="n">inverters_right_filtered_actual_current_data</span> <span class="o">*</span><span class="n">filtered_actual_current</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">filtered_actual_current_count</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">filtered_actual_current_size</span><span class="p">;</span>
 <span class="p">}</span> <span class="n">inverters_right_data</span><span class="p">;</span>
 
 <span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
@@ -221,6 +229,11 @@
 <span class="p">}</span> <span class="n">inverters_left_torque_data</span><span class="p">;</span>
 
 <span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
+    <span class="kt">long</span> <span class="n">timestamp</span><span class="p">;</span>
+    <span class="kt">double</span> <span class="n">value</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">inverters_left_filtered_actual_current_data</span><span class="p">;</span>
+
+<span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
     <span class="n">inverters_left_speed_data</span> <span class="o">*</span><span class="n">speed</span><span class="p">;</span>
     <span class="kt">int</span> <span class="n">speed_count</span><span class="p">;</span>
     <span class="kt">int</span> <span class="n">speed_size</span><span class="p">;</span>
@@ -233,6 +246,9 @@
     <span class="n">inverters_left_torque_data</span> <span class="o">*</span><span class="n">torque</span><span class="p">;</span>
     <span class="kt">int</span> <span class="n">torque_count</span><span class="p">;</span>
     <span class="kt">int</span> <span class="n">torque_size</span><span class="p">;</span>
+    <span class="n">inverters_left_filtered_actual_current_data</span> <span class="o">*</span><span class="n">filtered_actual_current</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">filtered_actual_current_count</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">filtered_actual_current_size</span><span class="p">;</span>
 <span class="p">}</span> <span class="n">inverters_left_data</span><span class="p">;</span>
 
 <span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>

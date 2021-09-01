@@ -249,6 +249,11 @@ Classes and Structs
 .. toctree::
    :maxdepth: 5
 
+   structinverters__left__filtered__actual__current__data.rst
+
+.. toctree::
+   :maxdepth: 5
+
    structinverters__left__speed__data.rst
 
 .. toctree::
@@ -270,6 +275,11 @@ Classes and Structs
    :maxdepth: 5
 
    structinverters__right__data.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   structinverters__right__filtered__actual__current__data.rst
 
 .. toctree::
    :maxdepth: 5

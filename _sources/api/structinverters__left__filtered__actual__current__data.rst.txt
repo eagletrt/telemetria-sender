@@ -1,0 +1,16 @@
+.. _exhale_struct_structinverters__left__filtered__actual__current__data:
+
+Struct inverters_left_filtered_actual_current_data
+==================================================
+
+- Defined in :ref:`file_utils_gather_utils_data_structure.h`
+
+
+Struct Documentation
+--------------------
+
+
+.. doxygenstruct:: inverters_left_filtered_actual_current_data
+   :members:
+   :protected-members:
+   :undoc-members:
