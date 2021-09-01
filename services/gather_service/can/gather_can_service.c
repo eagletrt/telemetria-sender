@@ -91,6 +91,18 @@ static void* parseCanMessages(void* args) {
 							++(document->inverters.right.torque_count);
 						}
 						break;
+					case INVERTER_FILTERED_ACTUAL_CURRENT_FB:
+						if (document->inverters.right.filtered_actual_current_count < document->inverters.right.filtered_actual_current_size) {
+							byte_left = data_left & 0x0000FF00;
+							byte_right = (data_left >> 16) & 0x000000FF;
+							temp = byte_left + byte_right;
+							document->inverters.right.filtered_actual_current[document->inverters.right.filtered_actual_current_count].timestamp = getCurrentTimestamp();
+							document->inverters.right.filtered_actual_current[document->inverters.right.filtered_actual_current_count].value = temp;
+							++(document->inverters.right.filtered_actual_current_count);
+							//printf("%.7lf\n",document->inverters.right.filtered_actual_current[0].value);
+							//printf("%.7lf\n",document->inverters.right.filtered_actual_current[1].value);
+						}
+						break;
 				}
 				break;
 
@@ -136,6 +148,16 @@ static void* parseCanMessages(void* args) {
 							document->inverters.left.torque[document->inverters.left.torque_count].timestamp = getCurrentTimestamp();
 							document->inverters.left.torque[document->inverters.left.torque_count].value = (temp - 9393.9) / 55.1;
 							++(document->inverters.left.torque_count);
+						}
+						break;
+					case INVERTER_FILTERED_ACTUAL_CURRENT_FB:
+						if (document->inverters.left.filtered_actual_current_count < document->inverters.left.filtered_actual_current_size) {
+							byte_left = data_left & 0x0000FF00;
+							byte_right = (data_left >> 16) & 0x000000FF;
+							temp = byte_left + byte_right;
+							document->inverters.left.filtered_actual_current[document->inverters.left.filtered_actual_current_count].timestamp = getCurrentTimestamp();
+							document->inverters.left.filtered_actual_current[document->inverters.left.filtered_actual_current_count].value = temp;
+							++(document->inverters.left.filtered_actual_current_count);
 						}
 						break;
 				}
