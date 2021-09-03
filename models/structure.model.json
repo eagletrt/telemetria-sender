@@ -32,6 +32,20 @@
                     "value": "double",
                     "maxLength": 500
                 }
+            ],
+            "filtered_actual_current": [
+                {
+                    "timestamp": "long",
+                    "value": "double",
+                    "maxLength": 500
+                }
+            ],
+            "input_current": [
+                {
+                    "timestamp": "long",
+                    "value": "double",
+                    "maxLength": 500
+                }
             ]
         },
         "left": {
@@ -57,6 +71,20 @@
                 }
             ],
             "torque": [
+                {
+                    "timestamp": "long",
+                    "value": "double",
+                    "maxLength": 500
+                }
+            ],
+            "filtered_actual_current": [
+                {
+                    "timestamp": "long",
+                    "value": "double",
+                    "maxLength": 500
+                }
+            ],
+            "input_current": [
                 {
                     "timestamp": "long",
                     "value": "double",

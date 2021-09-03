@@ -22,6 +22,11 @@ typedef struct {
 } inverters_right_torque_data;
 
 typedef struct {
+	long timestamp;
+	double value;
+} inverters_right_filtered_actual_current_data;
+
+typedef struct {
 	inverters_right_speed_data *speed;
 	int speed_count;
 	int speed_size;
@@ -34,6 +39,9 @@ typedef struct {
 	inverters_right_torque_data *torque;
 	int torque_count;
 	int torque_size;
+	inverters_right_filtered_actual_current_data *filtered_actual_current;
+	int filtered_actual_current_count;
+	int filtered_actual_current_size;
 } inverters_right_data;
 
 typedef struct {
@@ -57,6 +65,11 @@ typedef struct {
 } inverters_left_torque_data;
 
 typedef struct {
+	long timestamp;
+	double value;
+} inverters_left_filtered_actual_current_data;
+
+typedef struct {
 	inverters_left_speed_data *speed;
 	int speed_count;
 	int speed_size;
@@ -69,6 +82,9 @@ typedef struct {
 	inverters_left_torque_data *torque;
 	int torque_count;
 	int torque_size;
+	inverters_left_filtered_actual_current_data *filtered_actual_current;
+	int filtered_actual_current_count;
+	int filtered_actual_current_size;
 } inverters_left_data;
 
 typedef struct {
