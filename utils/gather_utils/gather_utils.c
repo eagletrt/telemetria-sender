@@ -18,6 +18,9 @@ data_t* gatherCreateData() {
 	data->inverters.right.filtered_actual_current_size = 500;
 	data->inverters.right.filtered_actual_current = (inverters_right_filtered_actual_current_data*) malloc(sizeof(inverters_right_filtered_actual_current_data) * data->inverters.right.filtered_actual_current_size);
 	data->inverters.right.filtered_actual_current_count = 0;
+	data->inverters.right.input_current_size = 500;
+	data->inverters.right.input_current = (inverters_right_input_current_data*) malloc(sizeof(inverters_right_input_current_data) * data->inverters.right.input_current_size);
+	data->inverters.right.input_current_count = 0;
 	data->inverters.left.speed_size = 500;
 	data->inverters.left.speed = (inverters_left_speed_data*) malloc(sizeof(inverters_left_speed_data) * data->inverters.left.speed_size);
 	data->inverters.left.speed_count = 0;
@@ -33,6 +36,9 @@ data_t* gatherCreateData() {
 	data->inverters.left.filtered_actual_current_size = 500;
 	data->inverters.left.filtered_actual_current = (inverters_left_filtered_actual_current_data*) malloc(sizeof(inverters_left_filtered_actual_current_data) * data->inverters.left.filtered_actual_current_size);
 	data->inverters.left.filtered_actual_current_count = 0;
+	data->inverters.left.input_current_size = 500;
+	data->inverters.left.input_current = (inverters_left_input_current_data*) malloc(sizeof(inverters_left_input_current_data) * data->inverters.left.input_current_size);
+	data->inverters.left.input_current_count = 0;
 	data->bms_hv.temperature_size = 500;
 	data->bms_hv.temperature = (bms_hv_temperature_data*) malloc(sizeof(bms_hv_temperature_data) * data->bms_hv.temperature_size);
 	data->bms_hv.temperature_count = 0;
@@ -106,11 +112,13 @@ void gatherDeleteData(data_t *data) {
 	free(data->inverters.right.temperature_motors);
 	free(data->inverters.right.torque);
 	free(data->inverters.right.filtered_actual_current);
+	free(data->inverters.right.input_current);
 	free(data->inverters.left.speed);
 	free(data->inverters.left.temperature_igbt);
 	free(data->inverters.left.temperature_motors);
 	free(data->inverters.left.torque);
 	free(data->inverters.left.filtered_actual_current);
+	free(data->inverters.left.input_current);
 	free(data->bms_hv.temperature);
 	free(data->bms_hv.voltage);
 	free(data->bms_hv.current);
@@ -200,6 +208,17 @@ void gatherDataToBson(data_t *data, bson_t** bson_document) {
 	}
 	bson_append_array_end(&children[1], &children[2]);
 	bson_destroy(&children[2]);
+	BSON_APPEND_ARRAY_BEGIN(&children[1], "input_current", &children[2]);
+	for (int i = 0; i < (data->inverters.right.input_current_count); i++)
+	{
+		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "0", &children[3]);
+		BSON_APPEND_INT64(&children[3], "timestamp", data->inverters.right.input_current[i].timestamp);
+		BSON_APPEND_DOUBLE(&children[3], "value", data->inverters.right.input_current[i].value);
+		bson_append_document_end(&children[2], &children[3]);
+		bson_destroy(&children[3]);
+	}
+	bson_append_array_end(&children[1], &children[2]);
+	bson_destroy(&children[2]);
 	bson_append_document_end(&children[0], &children[1]);
 	bson_destroy(&children[1]);
 	BSON_APPEND_DOCUMENT_BEGIN(&children[0], "left", &children[1]);
@@ -253,6 +272,17 @@ void gatherDataToBson(data_t *data, bson_t** bson_document) {
 		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "0", &children[3]);
 		BSON_APPEND_INT64(&children[3], "timestamp", data->inverters.left.filtered_actual_current[i].timestamp);
 		BSON_APPEND_DOUBLE(&children[3], "value", data->inverters.left.filtered_actual_current[i].value);
+		bson_append_document_end(&children[2], &children[3]);
+		bson_destroy(&children[3]);
+	}
+	bson_append_array_end(&children[1], &children[2]);
+	bson_destroy(&children[2]);
+	BSON_APPEND_ARRAY_BEGIN(&children[1], "input_current", &children[2]);
+	for (int i = 0; i < (data->inverters.left.input_current_count); i++)
+	{
+		BSON_APPEND_DOCUMENT_BEGIN(&children[2], "0", &children[3]);
+		BSON_APPEND_INT64(&children[3], "timestamp", data->inverters.left.input_current[i].timestamp);
+		BSON_APPEND_DOUBLE(&children[3], "value", data->inverters.left.input_current[i].value);
 		bson_append_document_end(&children[2], &children[3]);
 		bson_destroy(&children[3]);
 	}
