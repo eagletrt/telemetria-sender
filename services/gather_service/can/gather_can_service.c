@@ -55,7 +55,7 @@ static void* parseCanMessages(void* args) {
 							byte_right = (data_left >> 16) & 0x000000FF;
 							temp = byte_left + byte_right;
 							document->inverters.right.speed[document->inverters.right.speed_count].timestamp = getCurrentTimestamp();
-							document->inverters.right.speed[document->inverters.right.speed_count].value = (temp >= 32768 ? temp - 65536 : temp);
+							document->inverters.right.speed[document->inverters.right.speed_count].value = ((temp >= 32768 ? temp - 65536 : temp)/32767)*7000;;
 							++(document->inverters.right.speed_count);
 						}
 						break;
@@ -87,7 +87,7 @@ static void* parseCanMessages(void* args) {
 							byte_right = (data_left >> 16) & 0x000000FF;
 							temp = byte_left + byte_right;
 							document->inverters.right.torque[document->inverters.right.torque_count].timestamp = getCurrentTimestamp();
-							document->inverters.right.torque[document->inverters.right.torque_count].value = (temp - 9393.9) / 55.1;
+							document->inverters.right.torque[document->inverters.right.torque_count].value = temp / 32676;
 							++(document->inverters.right.torque_count);
 						}
 						break;
@@ -103,6 +103,16 @@ static void* parseCanMessages(void* args) {
 							//printf("%.7lf\n",document->inverters.right.filtered_actual_current[1].value);
 						}
 						break;
+					case INVERTER_INPUT_CURRENT_FB:
+						if (document->inverters.right.filtered_actual_current_count < document->inverters.right.filtered_actual_current_size) {
+							byte_left = data_left & 0x0000FF00;
+							byte_right = (data_left >> 16) & 0x000000FF;
+							temp = byte_left + byte_right;
+							document->inverters.right.filtered_actual_current[document->inverters.right.filtered_actual_current_count].timestamp = getCurrentTimestamp();
+							document->inverters.right.filtered_actual_current[document->inverters.right.filtered_actual_current_count].value = temp;
+							++(document->inverters.right.filtered_actual_current_count);
+						}
+						break;
 				}
 				break;
 
@@ -114,7 +124,7 @@ static void* parseCanMessages(void* args) {
 							byte_right = (data_left >> 16) & 0x000000FF;
 							temp = byte_left + byte_right;
 							document->inverters.left.speed[document->inverters.left.speed_count].timestamp = getCurrentTimestamp();
-							document->inverters.left.speed[document->inverters.left.speed_count].value = (temp >= 32768 ? temp - 65536 : temp);
+							document->inverters.left.speed[document->inverters.left.speed_count].value = ((temp >= 32768 ? temp - 65536 : temp)/32767)*7000;
 							++(document->inverters.left.speed_count);
 						}
 						break;
@@ -146,7 +156,7 @@ static void* parseCanMessages(void* args) {
 							byte_right = (data_left >> 16) & 0x000000FF;
 							temp = byte_left + byte_right;
 							document->inverters.left.torque[document->inverters.left.torque_count].timestamp = getCurrentTimestamp();
-							document->inverters.left.torque[document->inverters.left.torque_count].value = (temp - 9393.9) / 55.1;
+							document->inverters.left.torque[document->inverters.left.torque_count].value = temp / 32767;
 							++(document->inverters.left.torque_count);
 						}
 						break;
@@ -158,6 +168,16 @@ static void* parseCanMessages(void* args) {
 							document->inverters.left.filtered_actual_current[document->inverters.left.filtered_actual_current_count].timestamp = getCurrentTimestamp();
 							document->inverters.left.filtered_actual_current[document->inverters.left.filtered_actual_current_count].value = temp;
 							++(document->inverters.left.filtered_actual_current_count);
+						}
+						break;
+					case INVERTER_INPUT_CURRENT_FB:
+						if (document->inverters.right.filtered_actual_current_count < document->inverters.right.filtered_actual_current_size) {
+							byte_left = data_left & 0x0000FF00;
+							byte_right = (data_left >> 16) & 0x000000FF;
+							temp = byte_left + byte_right;
+							document->inverters.right.filtered_actual_current[document->inverters.right.filtered_actual_current_count].timestamp = getCurrentTimestamp();
+							document->inverters.right.filtered_actual_current[document->inverters.right.filtered_actual_current_count].value = temp;
+							++(document->inverters.right.filtered_actual_current_count);
 						}
 						break;
 				}
@@ -337,8 +357,8 @@ static void* parseCanMessages(void* args) {
 			case (FRONT_WHEELS_ENCODERS_SPEED_RADS_ID):
 				if (document->front_wheels_encoders.speed_rads_count < document->front_wheels_encoders.speed_rads_size) {
 					document->front_wheels_encoders.speed_rads[document->front_wheels_encoders.speed_rads_count].timestamp = getCurrentTimestamp();
-					document->front_wheels_encoders.speed_rads[document->front_wheels_encoders.speed_rads_count].value.left = ((data_left >> 8) & 0x00FFFFFF);
-					document->front_wheels_encoders.speed_rads[document->front_wheels_encoders.speed_rads_count].value.right = (((data_left & 0x000000FF) >> 16) + ((data_left >> 16) & 0x0000FFFF));
+					document->front_wheels_encoders.speed_rads[document->front_wheels_encoders.speed_rads_count].value.left = ((data_left >> 8) & 0x00FFFFFF)/10000;
+					document->front_wheels_encoders.speed_rads[document->front_wheels_encoders.speed_rads_count].value.right = (((data_left & 0x000000FF) >> 16) + ((data_left >> 16) & 0x0000FFFF))/10000;
 					++(document->front_wheels_encoders.speed_rads_count);
 				}
 				break;
