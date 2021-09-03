@@ -55,7 +55,7 @@ static void* parseCanMessages(void* args) {
 							byte_right = (data_left >> 16) & 0x000000FF;
 							temp = byte_left + byte_right;
 							document->inverters.right.speed[document->inverters.right.speed_count].timestamp = getCurrentTimestamp();
-							document->inverters.right.speed[document->inverters.right.speed_count].value = ((temp >= 32768 ? temp - 65536 : temp)/32767)*7000;;
+							document->inverters.right.speed[document->inverters.right.speed_count].value = ((temp >= 32768 ? temp - 65536 : temp)/32767.0)*7000;;
 							++(document->inverters.right.speed_count);
 						}
 						break;
@@ -87,7 +87,7 @@ static void* parseCanMessages(void* args) {
 							byte_right = (data_left >> 16) & 0x000000FF;
 							temp = byte_left + byte_right;
 							document->inverters.right.torque[document->inverters.right.torque_count].timestamp = getCurrentTimestamp();
-							document->inverters.right.torque[document->inverters.right.torque_count].value = temp / 32676;
+							document->inverters.right.torque[document->inverters.right.torque_count].value = temp / 32676.0;
 							++(document->inverters.right.torque_count);
 						}
 						break;
@@ -124,7 +124,7 @@ static void* parseCanMessages(void* args) {
 							byte_right = (data_left >> 16) & 0x000000FF;
 							temp = byte_left + byte_right;
 							document->inverters.left.speed[document->inverters.left.speed_count].timestamp = getCurrentTimestamp();
-							document->inverters.left.speed[document->inverters.left.speed_count].value = ((temp >= 32768 ? temp - 65536 : temp)/32767)*7000;
+							document->inverters.left.speed[document->inverters.left.speed_count].value = ((temp >= 32768 ? temp - 65536 : temp)/32767.0)*7000;
 							++(document->inverters.left.speed_count);
 						}
 						break;
@@ -156,7 +156,7 @@ static void* parseCanMessages(void* args) {
 							byte_right = (data_left >> 16) & 0x000000FF;
 							temp = byte_left + byte_right;
 							document->inverters.left.torque[document->inverters.left.torque_count].timestamp = getCurrentTimestamp();
-							document->inverters.left.torque[document->inverters.left.torque_count].value = temp / 32767;
+							document->inverters.left.torque[document->inverters.left.torque_count].value = temp / 32767.0;
 							++(document->inverters.left.torque_count);
 						}
 						break;
