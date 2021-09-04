@@ -13,8 +13,8 @@
   },
   "gps": {
     "plugged": 1,
-    "simulated": 1,
-    "interface": "/dev/pts/2"
+    "simulated": 0,
+    "interface": "/home/gps0"
   },
   "pilots": [
     "default",
