@@ -173,16 +173,16 @@ On the raspeberry of the telemetry there is the **Ubuntu** for ARM operative sys
 ### The prerequisites to run the telemetry are:
 * Use a **Linux** operative system
 * Install **gcc** to compile c programs, on ubuntu `sudo apt install build-essential`
-* Install **nodejs** to execute js scripts, on ubuntu I suggest reading [this](https://tecadmin.net/install-latest-nodejs-npm-on-ubuntu)
+* Install **nodejs** to execute js scripts, it is suggested to use [nvm manager](https://github.com/nvm-sh/nvm#installing-and-updating) and install node with `nvm install node`
 * Install **mosquitto** to host an mqtt broker, `sudo apt install mosquitto && sudo apt install mosquitto-clients`
 * Install **canutils** to connect to canbus, `sudo apt install can-utils`
-* Install **mongodb** to have the local database, on ubuntu I suggest reading [this](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/)
+* Install **mongodb** to have the local database, on ubuntu I suggest reading [this](https://www.mongodb.com/developer/how-to/mongodb-on-raspberry-pi/)
 * Install **mongodriver for c** to use mongodb from c, on ubuntu `sudo apt install libmongoc-dev && sudo apt install libbson-dev`
 * Install **mqttdriver for c** to use mqtt from c, on ubuntu `sudo apt install libmosquitto-dev`
 
 ### Before running the telemetry:
 * Make sure mongod service is active (check `mongo` works)
-* Simulate the canbus and the gps serial port (check [this repo](https://github.com/FilippoGas/eagletrt-telemetry-simulator))
+* Simulate the canbus and the gps serial port (check [this repo](https://github.com/eagletrt/eagle-cli))
 This is needed when debugging the telemetry in a local pc
 
 ### To run the telemetry:
