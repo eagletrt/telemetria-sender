@@ -41,7 +41,7 @@
     "mongo-cleaner": "^3.3.4",
     "mongodb": "^3.6.6",
     "mqtt": "^4.2.6",
-    "shelljs": "^0.8.4",
+    "shelljs": "^0.8.5",
     "shx": "^0.3.3",
     "tree-kill": "^1.2.2",
     "typescript": "^4.2.4"
